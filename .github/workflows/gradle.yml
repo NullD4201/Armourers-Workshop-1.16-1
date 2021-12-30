@@ -25,7 +25,12 @@ jobs:
       with:
         java-version: '8'
         distribution: 'adopt'
+# Imported from WorldEdit's script
     - name: Build with Gradle
-      uses: gradle/gradle-build-action@4137be6a8bf7d7133955359dbd952c0ca73b1021
+      run: ./gradlew build -s
+    - uses: actions/upload-artifact@v2.2.4
+      name: Archive Reports
+      if: always()
       with:
-        arguments: build
+        name: reports for ${{ matrix.os }}
+        path: '**/build/reports/**'
