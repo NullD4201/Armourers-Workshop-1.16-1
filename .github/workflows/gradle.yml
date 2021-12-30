@@ -46,9 +46,14 @@ jobs:
         JAVA_HOME_8_0_312_X64: /opt/hostedtoolcache/jdk/8.0.312/x64
     - name: Grant permission
       run: chmod -x ./gradlew
-# Imported from WorldEdit's script
     - name: Build with Gradle
-      run: ./gradlew build -s
+      uses: gradle/gradle-build-action@4137be6a8bf7d7133955359dbd952c0ca73b1021
+      with:
+        arguments: build --no-daemon -i --stacktrace
+        cache-disabled: false
+        cache-read-only: false
+        gradle-home-cache-includes: caches
+# Imported from WorldEdit's script
     - uses: actions/upload-artifact@v2.2.4
       name: Archive Reports
       if: always()
