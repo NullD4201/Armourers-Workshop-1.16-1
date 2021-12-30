@@ -25,6 +25,8 @@ jobs:
       with:
         java-version: '8'
         distribution: 'adopt'
+    - name: Grant permission
+      run: chmod -x ./gradlew
 # Imported from WorldEdit's script
     - name: Build with Gradle
       run: ./gradlew build -s
