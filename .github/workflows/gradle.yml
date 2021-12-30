@@ -27,6 +27,7 @@ jobs:
         distribution: 'adopt'
 # Imported from Arclight
     - name: Cache gradle user files
+      uses: actions/cache@v1
       with:
         path: ~/.gradle
         key: Linux-gradle-user-home
@@ -35,6 +36,7 @@ jobs:
         JAVA_HOME: /opt/hostedtoolcache/jdk/8.0.312/x64
         JAVA_HOME_8_0_312_X64: /opt/hostedtoolcache/jdk/8.0.312/x64
     - name: Cache gradle files
+      uses: actions/cache@v1
       with:
         path: ./.gradle
         key: Linux-gradle-file
