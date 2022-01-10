@@ -2,6 +2,8 @@
 
 This is the project of porting [Armourer's Workshop by RiskyKen](https://github.com/RiskyKen/Armourers-Workshop)(*[Fork](https://github.com/JeonDohyeon/Armourers-Workshop)*) into **Minecraft 1.16.5**, the latest huge Minecraft version until 1.17.
 
+Join our Discord server over [here](https://discord.gg/jZfacdAzT3)! You can get **git updates** and **project workflows** easily over here.
+
 ## Why 1.16.5?
 
 You can wonder why I decided to port this old code into 1.16.5, not 1.17/1.18 or 1.14~1.16.4. The answer's simple: **Most of the mods has ported to this wonderful and stable version of Minecraft**. Even the CustomNPC mod has ported into here, but I don't know where is it lol
