@@ -66,9 +66,11 @@ You can write a wiki of AW, but it'll be approved when the API code is completed
 
 You can write a tip of creating armours, how to publish it, how to use the model in other 3D-supported programs, etc.
 
-## Cross-Copatiblity
+## Cross-Copatiblity and File Format
 
 The most important point of porting is the cross-copatiblity with the source. If the file extension changes from `.armour`, the code should still support to import/export as `.armour`.
+
+You can see the total breakdown of the `armour` format [here](https://github.com/JeonDohyeon/Armourers-Workshop-1.16/blob/main/armour%20file%20format.md).
 
 *Tip: If the file extension changes it'll be one of these: `.armourx`, `.json`, `.xml`, or `.txt`. None of these are supported in AW 1.12.2.*
 
