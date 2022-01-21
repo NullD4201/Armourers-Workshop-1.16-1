@@ -1,4 +1,4 @@
-## Armourer's Workshop 1.16.5 Port Project
+# Armourer's Workshop 1.16.5 Port Project
 
 This is the project of porting [Armourer's Workshop by RiskyKen](https://github.com/RiskyKen/Armourers-Workshop)(*[Fork](https://github.com/JeonDohyeon/Armourers-Workshop)*) into **Minecraft 1.16.5**, the latest huge Minecraft version until 1.17.
 
@@ -12,33 +12,19 @@ You can wonder why I decided to port this old code into 1.16.5, not 1.17/1.18 or
 
 The port will have every features out from AW 1.12.2, the latest version for the latest supportive version.
 
+## Branches
+
+![image](https://user-images.githubusercontent.com/34373595/150487191-4f4b534f-0d4d-481b-8c88-2b738b2b7e8b.png)
+
+There'll not be so many branches: There'll be **Experiment**, **Dangerous**, **Preview**, and **Release** for each coding languages.
+
+Every release tags will have `/language` to initate which language is used on the release.
+
+`main` will get updates when the latest successful build is successfully applied to server, with no conflicts.
+
 ## Current Workflow
 
-Currently I'm studying Java 8 for porting this: Maybe the child repos will be created since the multi-export seems to be unavaliable.
-
-Workflow is under the code block:
-
-```markdown
-First is the one if I port it using the old code:
-1. Firstly it should be ported to the latest update of Forge 1.12.2, to make it easy to port it into later versions.
-   It should be ported to some reason, like the code copablity across the later version of Forge.
-   May need to rewrite the code entirely.
-2. Porting into Forge 1.13: Maybe the direct port will be unavaliable so porting into 1.13.x will be required.
-3. Porting into Forge 1.15: 1.14 and 1.15's API changes are similar, so maybe the both will be worked at once.
-   1.15 is the later version so maybe direct port into 1.15 will save a bit of time.
-4. Porting into Forge 1.16.1: This step is necessary because between 1.16.1 and 1.16.5 has a lot of code gaps.
-5. Porting into Forge 1.16.5: This is the last step.
-```
-```markdown
-Second is the one if I just rewrite the requirements:
-1. Firstly I should documentise the code to make sure which is required to code.
-2. Find the copablity of the functions: If the external-file loading is disabled without the API
-   the API branch will be created.
-   If the NetGet is disabled I will add you should use versions for older Minecraft to get armour files from Net.
-3. Code with Forge 1.16.5 Mode DevKit: I wish it will work properly, similar to 1.12.2 ones.
-```
-
-Both will use GitHub's compile system: I'm afraid my PC will correctly compile it.
+TBD
 
 ## Contributing
 
@@ -51,6 +37,8 @@ You can contribute about the code with pull request.
 **Every pull request will be recorded to Actions > Build, even which you've forked.**
 
 Also, **the pull requests will be recorded to [project document](https://github.com/users/JeonDohyeon/projects/2)**, as `To-Do`(Issues), `In-Progress`(Pull Requests), `Review In Progress`(Review Required), `Reviewer Approved`(Review Done: Approved), `Done/Denied`(Merged/Denied).
+
+*Tip: If you created an PR to `main`, the PR will be declined. However, we'll merge the code into proper place with cloning and pushing.*
 
 ### Contribute into Localizations
 
@@ -71,6 +59,7 @@ You can write a tip of creating armours, how to publish it, how to use the model
 The most important point of porting is the cross-copatiblity with the source. If the file extension changes from `.armour`, the code should still support to import/export as `.armour`.
 
 You can see the total breakdown of the `armour` format [here](https://github.com/JeonDohyeon/Armourers-Workshop-1.16/blob/main/armour%20file%20format.md).
+It has the JSON too, but only for the test.
 
 *Tip: If the file extension changes it'll be one of these: `.armourx`, `.json`, `.xml`, or `.txt`. None of these are supported in AW 1.12.2.*
 
