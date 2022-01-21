@@ -27,3 +27,6 @@ hs_err_pid*
 
 # Gradle Cache
 /.gradle/
+
+# build folder
+build/
