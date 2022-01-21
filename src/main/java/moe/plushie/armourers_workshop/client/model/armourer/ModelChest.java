@@ -1,7 +1,7 @@
 package moe.plushie.armourers_workshop.client.model.armourer;
 
 import net.minecraft.client.renderer.entity.model.AgeableModel;
-import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.entity.model.ModelRenderer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 

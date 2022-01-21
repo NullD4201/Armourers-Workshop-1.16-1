@@ -10,13 +10,13 @@ import moe.plushie.armourers_workshop.common.painting.PaintTypeRegistry;
 import moe.plushie.armourers_workshop.common.skin.data.Skin;
 import moe.plushie.armourers_workshop.common.skin.data.SkinTexture;
 import moe.plushie.armourers_workshop.utils.BitwiseUtils;
-// TODO: 2022-01-22 OpenGL 관련 Minecraft 클라이언트 매니저 변경 필요 
+// TODO: 2022-01-22 OpenGL-related Minecraft Client Manager replace
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.Texture;
 import net.minecraft.client.renderer.texture.TextureUtil;
-// TODO: 2022-01-22 리소스 매니저도 그렇네 뭐지? 
+// TODO: 2022-01-22 Resource Manager? Why too much
 import net.minecraft.client.resources.IResourceManager;
-// TODO: 2022-01-22 Side 왜 이리 많냐고 
+// TODO: 2022-01-22 Holy frickin' sides
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 

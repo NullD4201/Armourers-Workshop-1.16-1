@@ -8,7 +8,7 @@ import moe.plushie.armourers_workshop.common.lib.LibModInfo;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
-// TODO: 2022-01-22 side 어떻게 수정했던 거 같은ㄷ 
+// TODO: 2022-01-22 side
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 

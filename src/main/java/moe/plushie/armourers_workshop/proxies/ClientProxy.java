@@ -16,6 +16,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.SpectralArrowEntity;
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.Level;
+// TODO: 2022-01-22 Find why it's loaded here 
 import org.lwjgl.Sys;
 
 import com.mojang.authlib.GameProfile;
@@ -110,6 +111,8 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
+// TODO: 2022-01-22 replacing those FML thing 
+// TODO: 2022-01-22 Handler, Loader, Event, EventHandler, Side 
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.ICrashCallable;
 import net.minecraftforge.fml.common.Loader;

@@ -14,8 +14,8 @@ import moe.plushie.armourers_workshop.client.render.SkinRenderData;
 import moe.plushie.armourers_workshop.common.skin.data.Skin;
 import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
 import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.client.model.ModelPlayer;
-import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.entity.model.PlayerModel;
+import net.minecraft.client.renderer.entity.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -141,9 +141,9 @@ public abstract class ModelTypeHelper extends BipedModel implements IEquipmentMo
             setRotation(bipedRightLeg, 0F, 0F, 0F);
             isChild = false;
         } else {
-            if (BipedModel instanceof ModelPlayer) {
-                ModelPlayer modelPlayer = (ModelPlayer) BipedModel;
-                this.slim = modelPlayer.bipedLeftArm.rotationPointY == 2.5F;
+            if (BipedModel instanceof PlayerModel) {
+                PlayerModel PlayerModel = (PlayerModel) BipedModel;
+                this.slim = PlayerModel.bipedLeftArm.rotationPointY == 2.5F;
             }
             setRotation(bipedHead, BipedModel.bipedHead);
             setRotation(bipedBody, BipedModel.bipedBody);

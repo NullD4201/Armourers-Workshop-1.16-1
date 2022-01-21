@@ -24,6 +24,7 @@ import moe.plushie.armourers_workshop.common.skin.data.SkinTexture;
 import moe.plushie.armourers_workshop.proxies.ClientProxy;
 import moe.plushie.armourers_workshop.proxies.ClientProxy.TexturePaintType;
 import moe.plushie.armourers_workshop.utils.ModLogger;
+// TODO: 2022-01-22 FML Handler, Event Handler, Side 
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;

@@ -16,7 +16,7 @@ import moe.plushie.armourers_workshop.common.skin.advanced.AdvancedPart;
 import moe.plushie.armourers_workshop.common.skin.cubes.CubeRegistry;
 import moe.plushie.armourers_workshop.common.skin.cubes.ICube;
 import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
-// TODO: 2022-01-22 relauncher.Side 겁나많네 
+// TODO: 2022-01-22 relauncher.Side
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 

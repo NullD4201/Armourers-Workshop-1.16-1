@@ -5,7 +5,7 @@ import org.lwjgl.opengl.GL11;
 import moe.plushie.armourers_workshop.common.lib.LibModInfo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.model.AgeableModel;
-import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.entity.model.ModelRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 

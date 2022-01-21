@@ -5,7 +5,7 @@ import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.api.common.skin.type.ISkinType;
 import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
-import net.minecraft.client.model.ModelZombieVillager;
+import net.minecraft.client.renderer.entity.model.ModelZombieVillager;
 import net.minecraft.entity.LivingEntity;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;

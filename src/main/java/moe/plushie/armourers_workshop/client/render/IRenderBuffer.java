@@ -1,6 +1,7 @@
 package moe.plushie.armourers_workshop.client.render;
 
 import net.minecraft.client.renderer.vertex.VertexFormat;
+// TODO: 2022-01-22 The SIDE thing
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 

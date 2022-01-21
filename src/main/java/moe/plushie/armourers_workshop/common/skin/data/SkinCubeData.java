@@ -11,6 +11,7 @@ import moe.plushie.armourers_workshop.common.exception.InvalidCubeTypeException;
 import moe.plushie.armourers_workshop.common.skin.cubes.CubeRegistry;
 import moe.plushie.armourers_workshop.common.skin.cubes.ICube;
 import moe.plushie.armourers_workshop.common.skin.data.serialize.LegacyCubeHelper;
+// TODO: 2022-01-22 side 
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 

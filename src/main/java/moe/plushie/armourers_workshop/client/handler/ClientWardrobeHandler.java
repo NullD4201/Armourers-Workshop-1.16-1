@@ -18,7 +18,8 @@ import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
 import moe.plushie.armourers_workshop.utils.SkinNBTHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
-import net.minecraft.client.model.ModelPlayer;
+import net.minecraft.client.renderer.entity.model.PlayerModel;
+// TODO: 2022-01-22 OPENGL 
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager.CullFace;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;
@@ -33,9 +34,11 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.client.event.RenderHandEvent;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
+// TODO: 2022-01-22 RENDERER 
 import net.minecraftforge.client.event.RenderSpecificHandEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.FakePlayer;
+// TODO: 2022-01-22 EVENTHANDLER 
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -283,54 +286,54 @@ public final class ClientWardrobeHandler {
         }
         // Hide parts of the player model.
         for (PlayerRenderer playerRender : Minecraft.getMinecraft().getRenderManager().getSkinMap().values()) {
-            ModelPlayer modelPlayer = playerRender.getMainModel();
+            PlayerModel PlayerModel = playerRender.getMainModel();
             // Head
             if (skinCapability.hideHead) {
-                modelPlayer.bipedHead.isHidden = true;
+                PlayerModel.bipedHead.isHidden = true;
             }
             if (skinCapability.hideHead | skinCapability.hideHeadOverlay) {
-                modelPlayer.bipedHeadwear.isHidden = true;
+                PlayerModel.bipedHeadwear.isHidden = true;
             }
 
             // Chest
             if (skinCapability.hideChest) {
-                modelPlayer.bipedBody.isHidden = true;
+                PlayerModel.bipedBody.isHidden = true;
 
             }
             if (skinCapability.hideChest | skinCapability.hideChestOverlay) {
-                modelPlayer.bipedBodyWear.isHidden = true;
+                PlayerModel.bipedBodyWear.isHidden = true;
             }
 
             // Left arm
             if (skinCapability.hideArmLeft) {
-                modelPlayer.bipedLeftArm.isHidden = true;
+                PlayerModel.bipedLeftArm.isHidden = true;
             }
             if (skinCapability.hideArmLeft | skinCapability.hideArmLeftOverlay) {
-                modelPlayer.bipedLeftArmwear.isHidden = true;
+                PlayerModel.bipedLeftArmwear.isHidden = true;
             }
 
             // Right arm
             if (skinCapability.hideArmRight) {
-                modelPlayer.bipedRightArm.isHidden = true;
+                PlayerModel.bipedRightArm.isHidden = true;
             }
             if (skinCapability.hideArmRight | skinCapability.hideArmRightOverlay) {
-                modelPlayer.bipedRightArmwear.isHidden = true;
+                PlayerModel.bipedRightArmwear.isHidden = true;
             }
 
             // Left leg
             if (skinCapability.hideLegLeft) {
-                modelPlayer.bipedLeftLeg.isHidden = true;
+                PlayerModel.bipedLeftLeg.isHidden = true;
             }
             if (skinCapability.hideLegLeft | skinCapability.hideLegLeftOverlay) {
-                modelPlayer.bipedLeftLegwear.isHidden = true;
+                PlayerModel.bipedLeftLegwear.isHidden = true;
             }
 
             // Right leg
             if (skinCapability.hideLegRight) {
-                modelPlayer.bipedRightLeg.isHidden = true;
+                PlayerModel.bipedRightLeg.isHidden = true;
             }
             if (skinCapability.hideLegRight | skinCapability.hideLegRightOverlay) {
-                modelPlayer.bipedRightLegwear.isHidden = true;
+                PlayerModel.bipedRightLegwear.isHidden = true;
             }
         }
     }
@@ -339,24 +342,24 @@ public final class ClientWardrobeHandler {
     public void onRenderLivingPost(RenderLivingEvent.Post<PlayerEntity> event) {
         // Restore the player model.
         for (PlayerRenderer playerRender : Minecraft.getMinecraft().getRenderManager().getSkinMap().values()) {
-            ModelPlayer modelPlayer = playerRender.getMainModel();
-            modelPlayer.bipedHead.isHidden = false;
-            modelPlayer.bipedHeadwear.isHidden = false;
+            PlayerModel PlayerModel = playerRender.getMainModel();
+            PlayerModel.bipedHead.isHidden = false;
+            PlayerModel.bipedHeadwear.isHidden = false;
             
-            modelPlayer.bipedBody.isHidden = false;
-            modelPlayer.bipedBodyWear.isHidden = false;
+            PlayerModel.bipedBody.isHidden = false;
+            PlayerModel.bipedBodyWear.isHidden = false;
             
-            modelPlayer.bipedLeftArm.isHidden = false;
-            modelPlayer.bipedLeftArmwear.isHidden = false;
+            PlayerModel.bipedLeftArm.isHidden = false;
+            PlayerModel.bipedLeftArmwear.isHidden = false;
             
-            modelPlayer.bipedRightArm.isHidden = false;
-            modelPlayer.bipedRightArmwear.isHidden = false;
+            PlayerModel.bipedRightArm.isHidden = false;
+            PlayerModel.bipedRightArmwear.isHidden = false;
 
-            modelPlayer.bipedLeftLeg.isHidden = false;
-            modelPlayer.bipedLeftLegwear.isHidden = false;
+            PlayerModel.bipedLeftLeg.isHidden = false;
+            PlayerModel.bipedLeftLegwear.isHidden = false;
             
-            modelPlayer.bipedRightLeg.isHidden = false;
-            modelPlayer.bipedRightLegwear.isHidden = false;
+            PlayerModel.bipedRightLeg.isHidden = false;
+            PlayerModel.bipedRightLegwear.isHidden = false;
         }
     }
 }

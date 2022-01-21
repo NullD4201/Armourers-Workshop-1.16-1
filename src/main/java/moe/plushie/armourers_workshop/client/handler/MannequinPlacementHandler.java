@@ -13,7 +13,7 @@ import moe.plushie.armourers_workshop.common.init.items.ModItems;
 import moe.plushie.armourers_workshop.proxies.ClientProxy;
 import moe.plushie.armourers_workshop.utils.TrigUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.ModelPlayer;
+import net.minecraft.client.renderer.entity.model.PlayerModel;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;
 import net.minecraft.client.renderer.GlStateManager.SourceFactor;
@@ -33,8 +33,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class MannequinPlacementHandler {
 
-    private final ModelPlayer modelPlayerSmall = new ModelPlayer(0F, true);
-    private final ModelPlayer modelPlayerNormal = new ModelPlayer(0F, false);
+    private final PlayerModel PlayerModelSmall = new PlayerModel(0F, true);
+    private final PlayerModel PlayerModelNormal = new PlayerModel(0F, false);
     
     public MannequinPlacementHandler() {
         MinecraftForge.EVENT_BUS.register(this);
@@ -108,7 +108,7 @@ public class MannequinPlacementHandler {
         TextureData textureData = ItemMannequin.getTextureData(stack);
         float size = ItemMannequin.getScale(stack);
         PlayerTexture playerTexture = ClientProxy.playerTextureDownloader.getPlayerTexture(textureData);
-        ModelPlayer targetModel = modelPlayerNormal;
+        PlayerModel targetModel = PlayerModelNormal;
         
         double angle = TrigUtils.getAngleDegrees(xOff, zOff, target.hitVec.x, target.hitVec.z) + 90D;
         if (player.isSneaking()) {
@@ -117,7 +117,7 @@ public class MannequinPlacementHandler {
         }
         
         if (playerTexture.isSlimModel()) {
-            targetModel = modelPlayerSmall;
+            targetModel = PlayerModelSmall;
         }
         float scale = 0.0625F;
         GlStateManager.pushMatrix();

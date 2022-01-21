@@ -6,7 +6,7 @@ import moe.plushie.armourers_workshop.client.render.ModRenderHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.entity.model.AgeableModel;
-import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.entity.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
 @SideOnly(Side.CLIENT)

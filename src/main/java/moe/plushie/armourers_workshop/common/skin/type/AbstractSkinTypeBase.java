@@ -8,7 +8,7 @@ import moe.plushie.armourers_workshop.api.common.skin.type.ISkinType;
 import moe.plushie.armourers_workshop.common.lib.LibModInfo;
 import moe.plushie.armourers_workshop.common.skin.data.SkinProperties;
 import net.minecraft.util.ResourceLocation;
-// TODO: 2022-01-22  
+// TODO: 2022-01-22 side
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 

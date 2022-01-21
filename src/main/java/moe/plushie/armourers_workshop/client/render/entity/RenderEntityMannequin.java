@@ -43,7 +43,7 @@ import moe.plushie.armourers_workshop.proxies.ClientProxy;
 import moe.plushie.armourers_workshop.proxies.ClientProxy.TexturePaintType;
 import moe.plushie.armourers_workshop.utils.SkinNBTHelper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.ModelPlayer;
+import net.minecraft.client.renderer.entity.model.PlayerModel;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager.CullFace;
 import net.minecraft.client.renderer.RenderHelper;
@@ -60,8 +60,8 @@ public class RenderEntityMannequin extends EntityRenderer<EntityMannequin> {
     private boolean isHalloweenSeason;
     private boolean isHalloween;
 
-    private final ModelPlayer modelPlayerSmall = new ModelPlayer(0F, true);
-    private final ModelPlayer modelPlayerNormal = new ModelPlayer(0F, false);
+    private final PlayerModel PlayerModelSmall = new PlayerModel(0F, true);
+    private final PlayerModel PlayerModelNormal = new PlayerModel(0F, false);
 
     public RenderEntityMannequin(EntityRendererManager renderManager) {
         super(renderManager);
@@ -137,9 +137,9 @@ public class RenderEntityMannequin extends EntityRenderer<EntityMannequin> {
 
         PlayerTexture playerTexture = ClientProxy.playerTextureDownloader.getPlayerTexture(entity.getTextureData());
 
-        ModelPlayer targetModel = modelPlayerNormal;
+        PlayerModel targetModel = PlayerModelNormal;
         if (playerTexture.isSlimModel()) {
-            targetModel = modelPlayerSmall;
+            targetModel = PlayerModelSmall;
         }
 
         targetModel.setRotationAngles(0F, 0F, 0F, 0F, 0F, scale, entity);
@@ -387,7 +387,7 @@ public class RenderEntityMannequin extends EntityRenderer<EntityMannequin> {
         GlStateManager.popAttrib();
     }
 
-    private void renderSkin(EntityMannequin entity, ISkinDescriptor skinDescriptor, EntitySkinCapability skinCap, IWardrobeCap wardrobe, IExtraColours extraColours, double distance, boolean doLodLoading, ModelPlayer targetModel) {
+    private void renderSkin(EntityMannequin entity, ISkinDescriptor skinDescriptor, EntitySkinCapability skinCap, IWardrobeCap wardrobe, IExtraColours extraColours, double distance, boolean doLodLoading, PlayerModel targetModel) {
         SkinModelRenderHelper modelRenderer = SkinModelRenderHelper.INSTANCE;
         Skin skin = ClientSkinCache.INSTANCE.getSkin(skinDescriptor);
 

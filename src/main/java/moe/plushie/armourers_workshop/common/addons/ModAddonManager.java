@@ -6,6 +6,7 @@ import java.util.HashSet;
 import moe.plushie.armourers_workshop.common.config.ConfigHandlerOverrides;
 import moe.plushie.armourers_workshop.utils.ModLogger;
 import net.minecraft.item.Item;
+// TODO: 2022-01-22 the SIDE thing 
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 

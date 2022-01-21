@@ -6,6 +6,7 @@ import moe.plushie.armourers_workshop.client.config.ConfigHandlerClient;
 import moe.plushie.armourers_workshop.client.model.bake.ColouredFace;
 import moe.plushie.armourers_workshop.client.render.DisplayList;
 import net.minecraft.util.math.MathHelper;
+// TODO: 2022-01-22 side 
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 

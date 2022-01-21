@@ -6,7 +6,7 @@ import moe.plushie.armourers_workshop.common.lib.LibModInfo;
 import moe.plushie.armourers_workshop.common.tileentities.TileEntitySkinnable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.model.AgeableModel;
-import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.entity.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 

@@ -18,6 +18,7 @@ import moe.plushie.armourers_workshop.client.render.SkinPartRenderData;
 import moe.plushie.armourers_workshop.client.skin.ClientSkinPartData.ModelKey;
 import moe.plushie.armourers_workshop.common.skin.data.SkinDye;
 import net.minecraft.util.ResourceLocation;
+// TODO: 2022-01-22 side 
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 

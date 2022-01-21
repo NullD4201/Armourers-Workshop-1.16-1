@@ -6,15 +6,15 @@ import moe.plushie.armourers_workshop.common.init.entities.EntityMannequin.Textu
 import moe.plushie.armourers_workshop.common.init.items.ItemMannequin;
 import moe.plushie.armourers_workshop.proxies.ClientProxy;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.ModelPlayer;
+import net.minecraft.client.renderer.entity.model.PlayerModel;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
 import net.minecraft.item.ItemStack;
 
 public class RenderItemMannequin extends ItemStackTileEntityRenderer {
     
-    private final ModelPlayer modelPlayerSmall = new ModelPlayer(0F, true);
-    private final ModelPlayer modelPlayerNormal = new ModelPlayer(0F, false);
+    private final PlayerModel PlayerModelSmall = new PlayerModel(0F, true);
+    private final PlayerModel PlayerModelNormal = new PlayerModel(0F, false);
 
     @Override
     public void renderByItem(ItemStack itemStackIn, float partialTicks) {
@@ -22,9 +22,9 @@ public class RenderItemMannequin extends ItemStackTileEntityRenderer {
         PlayerTexture playerTexture = ClientProxy.playerTextureDownloader.getPlayerTexture(textureData);
         Minecraft.getMinecraft().renderEngine.bindTexture(playerTexture.getResourceLocation());
         
-        ModelPlayer targetModel = modelPlayerNormal;
+        PlayerModel targetModel = PlayerModelNormal;
         if (playerTexture.isSlimModel()) {
-            targetModel = modelPlayerSmall;
+            targetModel = PlayerModelSmall;
         }
         
         float scale = 0.0625F;

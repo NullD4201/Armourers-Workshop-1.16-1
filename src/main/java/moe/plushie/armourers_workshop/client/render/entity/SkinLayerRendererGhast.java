@@ -12,8 +12,8 @@ import moe.plushie.armourers_workshop.common.capability.entityskin.EntitySkinCap
 import moe.plushie.armourers_workshop.common.skin.data.Skin;
 import moe.plushie.armourers_workshop.common.skin.data.SkinProperties;
 import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
-import net.minecraft.client.model.ModelGhast;
-import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.entity.model.ModelGhast;
+import net.minecraft.client.renderer.entity.model.ModelRenderer;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;

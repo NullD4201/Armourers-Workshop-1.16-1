@@ -4,8 +4,8 @@ import java.util.Arrays;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.client.model.ModelPlayer;
-import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.entity.model.PlayerModel;
+import net.minecraft.client.renderer.entity.model.ModelRenderer;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.FloatNBT;
 import net.minecraft.nbt.ListNBT;
@@ -56,7 +56,7 @@ public class BipedRotations {
         return rotationData[bipedPart.ordinal()];
     }
 
-    public void applyRotationsToBiped(ModelPlayer BipedModel) {
+    public void applyRotationsToBiped(PlayerModel BipedModel) {
         BipedModel.isChild = child;
         applyRotationsToBipedPart(BipedModel.bipedHead, getPartRotations(BipedPart.HEAD));
         applyRotationsToBipedPart(BipedModel.bipedHeadwear, getPartRotations(BipedPart.HEAD));

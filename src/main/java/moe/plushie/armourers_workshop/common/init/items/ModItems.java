@@ -16,7 +16,7 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
-// TODO: 2022-01-22 신기하네 얜 하나밖에 오류가 없어 
+// TODO: 2022-01-22 Event Handler
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 
