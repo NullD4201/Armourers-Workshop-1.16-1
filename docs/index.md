@@ -16,9 +16,10 @@ The port will have every features out from AW 1.12.2, the latest version for the
 
 ![image](https://user-images.githubusercontent.com/34373595/150487191-4f4b534f-0d4d-481b-8c88-2b738b2b7e8b.png)
 
-There'll not be so many branches: There'll be **Experiment**, **Dangerous**, **Preview**, and **Release** for each coding languages.
+There'll not be so many branches: There'll be **Experiment**, **Dangerous**, **Preview**, and **Release**.
+(`Experiment/Kotlin` and `test` are removed lately)
 
-Every release tags will have `/language` to initate which language is used on the release.
+**Using other coding language is unavaliable at this moment. If you want it, create your own fork. Updates on those will not be merged into here.**
 
 `main` will get updates when the latest successful build is successfully applied to server, with no conflicts.
 
