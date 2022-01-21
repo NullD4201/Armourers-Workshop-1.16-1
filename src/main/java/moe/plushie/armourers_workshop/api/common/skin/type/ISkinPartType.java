@@ -4,8 +4,8 @@ import moe.plushie.armourers_workshop.api.common.IPoint3D;
 import moe.plushie.armourers_workshop.api.common.IRectangle3D;
 import moe.plushie.armourers_workshop.api.common.skin.data.ISkinPart;
 import moe.plushie.armourers_workshop.api.common.skin.data.ISkinProperties;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+//import net.minecraftforge.fml.relauncher.Side;
+//import net.minecraftforge.fml.relauncher.SideOnly;
 
 public interface ISkinPartType {
 
@@ -55,10 +55,10 @@ public interface ISkinPartType {
     /**
      * 
      * @param scale           Normally 0.0625F.
-     * @param showSkinOverlay
+     * @param skinProps
      * @param showHelper
      */
-    @SideOnly(Side.CLIENT)
+    //@SideOnly(Side.CLIENT)
     public void renderBuildingGuide(float scale, ISkinProperties skinProps, boolean showHelper);
 
     /**
@@ -82,10 +82,10 @@ public interface ISkinPartType {
      */
     public boolean isPartRequired();
 
-    @SideOnly(Side.CLIENT)
+    //@SideOnly(Side.CLIENT)
     public IPoint3D getItemRenderOffset();
 
-    @SideOnly(Side.CLIENT)
+    //@SideOnly(Side.CLIENT)
     public IRectangle3D getItemRenderTextureBounds();
 
     public boolean isModelOverridden(ISkinProperties skinProps);

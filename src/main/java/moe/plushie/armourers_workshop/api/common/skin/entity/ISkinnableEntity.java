@@ -3,11 +3,11 @@ package moe.plushie.armourers_workshop.api.common.skin.entity;
 import java.util.ArrayList;
 
 import moe.plushie.armourers_workshop.api.common.skin.type.ISkinType;
-import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraft.entity.player.PlayerEntity;
+//import net.minecraftforge.fml.relauncher.Side;
+//import net.minecraftforge.fml.relauncher.SideOnly;
 
 public interface ISkinnableEntity {
     
@@ -15,11 +15,11 @@ public interface ISkinnableEntity {
     public Class<? extends Entity> getEntityClass();
     
     /** Return the render class for the entity. */
-    @SideOnly(Side.CLIENT)
-    public void addRenderLayer(RenderManager renderManager);
+    //@SideOnly(Side.CLIENT)
+    public void addRenderLayer(EntityRendererManager renderManager);
     
     /** Should the wand of style be usable on this entity? */
-    public boolean canUseWandOfStyle(EntityPlayer user);
+    public boolean canUseWandOfStyle(PlayerEntity user);
     
     /** Should skins be right click-able on this entity? */
     public boolean canUseSkinsOnEntity();

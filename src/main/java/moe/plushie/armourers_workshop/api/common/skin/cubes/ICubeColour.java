@@ -1,6 +1,6 @@
 package moe.plushie.armourers_workshop.api.common.skin.cubes;
 
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 
 public interface ICubeColour {
     
@@ -33,7 +33,7 @@ public interface ICubeColour {
     
     public void setPaintType(byte type, int side);
     
-    public void readFromNBT(NBTTagCompound compound);
+    public void readFromNBT(CompoundNBT compound);
     
-    public void writeToNBT(NBTTagCompound compound);
+    public void writeToNBT(CompoundNBT compound);
 }

@@ -48,8 +48,8 @@ import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
 import moe.plushie.armourers_workshop.utils.ModLogger;
 import moe.plushie.armourers_workshop.utils.SkinIOUtils;
 import moe.plushie.armourers_workshop.utils.SkinNBTUtils;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
@@ -162,7 +162,7 @@ public class CommonProxy implements ILibraryCallback {
         return paintTypeRegistry;
     }
 
-    public void receivedAdminPanelCommand(EntityPlayer player, AdminPanelCommand command) {
+    public void receivedAdminPanelCommand(PlayerEntity player, AdminPanelCommand command) {
         if (!(player.openContainer instanceof ModContainer)) {
             ModLogger.log(Level.WARN, String.format("Player '%s' tried to run the admin command '%s' but don't have the admin panel open.", player.getName(), command.toString()));
             return;
@@ -187,7 +187,7 @@ public class CommonProxy implements ILibraryCallback {
 
     }
 
-    public void skinLibraryCommand(EntityPlayerMP player, SkinLibraryCommand command, LibraryFile file, boolean publicList) {
+    public void skinLibraryCommand(ServerPlayerEntity player, SkinLibraryCommand command, LibraryFile file, boolean publicList) {
         if (!(player.openContainer instanceof ContainerSkinLibrary)) {
             ModLogger.log(Level.WARN, String.format("Player '%s' tried to run the library command '%s' but don't have the library open.", player.getName(), command.toString()));
             return;
