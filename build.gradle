@@ -1,17 +1,119 @@
 buildscript {
     repositories {
-        jcenter()
-        maven {
-            name = "forge"
-            url = "http://files.minecraftforge.net/maven"
-        }
+        maven { url = 'https://maven.minecraftforge.net' }
+        mavenCentral()
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
     }
 }
 
-apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'net.minecraftforge.gradle'
+
+group = 'moe.plushie.armourers_workshop'
+
+java {
+    archivesBaseName = 'Armourers-Workshop'
+    toolchain.languageVersion = JavaLanguageVersion.of(11)
+}
+
+minecraft {
+    mappings channel: 'snapshot', version: '20210309-1.16.5'
+/*
+    version = "$project.minecraftVersion-$project.forgeVersion"
+    runDir = "run"
+
+    replaceIn "common/lib/LibModInfo.java"
+    replace "@VERSION@", project.version
+
+    if (!devBuild.toBoolean()) {
+        replaceIn "common/lib/LibModInfo.java"
+        replace "DEVELOPMENT_VERSION = true", "DEVELOPMENT_VERSION = false"
+    }
+
+    replaceIn "api/common/lib/LibApi.java"
+    replace "@API_VERSION@", apiVersion
+*/
+    runs {
+        client {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+
+            mods {
+                armoures_workshop {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        server {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+
+            mods {
+                armoures_workshop {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        data {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+
+            args '--mod', 'armourers_workshop', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+
+            mods {
+                armoures_workshop {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+repositories {
+
+}
+
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.16.5-36.2.20'
+}
+
+jar {
+    manifest {
+        attributes([
+                "Specification-Title"     : "title",
+                "Specification-Vendor": "authors",
+                "Specification-Version"   : "1",
+                "Implementation-Title"    : project.name,
+                "Implementation-Version"  : project.jar.archiveVersion,
+                "Implementation-Vendor": "authors",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+}
+
+jar.finalizedBy('reobfJar')
+
+/*
+buildscript {
+    repositories {
+        // These repositories are only for Gradle plugins, put any other repositories in the repository block further below
+        maven { url = 'https://maven.minecraftforge.net' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+    }
+}
+
+apply plugin: 'net.minecraftforge.gradle'
 
 if (System.env.BUILD_NUMBER != null) {
     version = "$minecraftVersion-$modVersion.$System.env.BUILD_NUMBER"
@@ -80,3 +182,4 @@ artifacts {
     archives sourcesJar
     archives deobfJar
 }
+*/
