@@ -1,12 +1,12 @@
 package moe.plushie.armourers_workshop.client.model.armourer;
 
-import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.renderer.entity.model.AgeableModel;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class ModelFeet extends ModelBase {
+public class ModelFeet extends AgeableModel {
     
     private ModelRenderer legLeft;
     private ModelRenderer legRight;

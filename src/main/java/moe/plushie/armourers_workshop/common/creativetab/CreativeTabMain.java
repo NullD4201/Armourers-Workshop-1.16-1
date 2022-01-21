@@ -6,10 +6,12 @@ import java.util.Comparator;
 import moe.plushie.armourers_workshop.common.init.items.ItemMannequin;
 import moe.plushie.armourers_workshop.common.lib.LibModInfo;
 import net.minecraft.client.Minecraft;
+// TODO: 2022-01-22 아이템 로드 관련 FML 코드(Deprecated) 갈아엎기 필요 
 //import net.minecraft.creativetab.CreativeTabs;
 //import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+// TODO: 2022-01-22 relauncher.Side는 제가 코드 찾아볼게요 -JeonDohyeon 
 //import net.minecraftforge.fml.relauncher.Side;
 //import net.minecraftforge.fml.relauncher.SideOnly;
 

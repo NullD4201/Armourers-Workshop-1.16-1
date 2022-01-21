@@ -17,7 +17,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.Direction;
-import net.minecraft.util.math.Vec3i;
+import net.minecraft.util.math.vector.Vector3i;
 
 public final class SkinBaker {
     
@@ -51,17 +51,17 @@ public final class SkinBaker {
             cubeArray[x][y][z] = i + 1;
         }
 
-        ArrayDeque<Vec3i> openList = new ArrayDeque<Vec3i>();
-        HashSet<Vec3i> closedSet = new HashSet<Vec3i>();
-        Vec3i startCube = new Vec3i(-1, -1, -1);
+        ArrayDeque<Vector3i> openList = new ArrayDeque<Vector3i>();
+        HashSet<Vector3i> closedSet = new HashSet<Vector3i>();
+        Vector3i startCube = new Vector3i(-1, -1, -1);
         openList.add(startCube);
         closedSet.add(startCube);
         
         while (openList.size() > 0) {
-            Vec3i cl = openList.poll();
-            ArrayList<Vec3i> foundLocations = checkCubesAroundLocation(cubeData, cl, pb, cubeArray);
+            Vector3i cl = openList.poll();
+            ArrayList<Vector3i> foundLocations = checkCubesAroundLocation(cubeData, cl, pb, cubeArray);
             for (int i = 0; i < foundLocations.size(); i++) {
-                Vec3i foundLocation = foundLocations.get(i);
+                Vector3i foundLocation = foundLocations.get(i);
                 if (!closedSet.contains(foundLocation)) {
                     closedSet.add(foundLocation);
                     if (isCubeInSearchArea(foundLocation, pb)) {
@@ -73,8 +73,8 @@ public final class SkinBaker {
         return cubeArray;
     }
     
-    private static ArrayList<Vec3i> checkCubesAroundLocation(SkinCubeData cubeData, Vec3i cubeLocation, Rectangle3D partBounds, int[][][] cubeArray) {
-        ArrayList<Vec3i> openList = new ArrayList<Vec3i>();
+    private static ArrayList<Vector3i> checkCubesAroundLocation(SkinCubeData cubeData, Vector3i cubeLocation, Rectangle3D partBounds, int[][][] cubeArray) {
+        ArrayList<Vector3i> openList = new ArrayList<Vector3i>();
         Direction[] dirs = {Direction.DOWN, Direction.UP,
                 Direction.SOUTH, Direction.NORTH,
                 Direction.WEST, Direction.EAST };
@@ -97,10 +97,10 @@ public final class SkinBaker {
             
             //Add new cubes to the open list.
             if (tarIndex < 1) {
-                openList.add(new Vec3i(x, y, z));
+                openList.add(new Vector3i(x, y, z));
             } else {
                 if (cubeData.getCube(tarIndex - 1).needsPostRender()) {
-                    openList.add(new Vec3i(x, y, z));
+                    openList.add(new Vector3i(x, y, z));
                 }
             }
             
@@ -112,7 +112,7 @@ public final class SkinBaker {
         return openList;
     }
     
-    private static int getIndexForLocation(Vec3i cubeLocation, Rectangle3D partBounds, int[][][] cubeArray) {
+    private static int getIndexForLocation(Vector3i cubeLocation, Rectangle3D partBounds, int[][][] cubeArray) {
         return getIndexForLocation(cubeLocation.getX(), cubeLocation.getY(), cubeLocation.getZ(), partBounds, cubeArray);
     }
     
@@ -137,7 +137,7 @@ public final class SkinBaker {
         }
     }
     
-    private static boolean isCubeInSearchArea(Vec3i cubeLocation, Rectangle3D partBounds) {
+    private static boolean isCubeInSearchArea(Vector3i cubeLocation, Rectangle3D partBounds) {
         if (cubeLocation.getX() > -2 & cubeLocation.getX() < partBounds.getWidth() + 1) {
             if (cubeLocation.getY() > -2 & cubeLocation.getY() < partBounds.getHeight() + 1) {
                 if (cubeLocation.getZ() > -2 & cubeLocation.getZ() < partBounds.getDepth() + 1) {

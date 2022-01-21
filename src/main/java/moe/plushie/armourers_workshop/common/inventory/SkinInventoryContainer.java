@@ -8,7 +8,7 @@ import moe.plushie.armourers_workshop.api.common.skin.entity.ISkinnableEntity;
 import moe.plushie.armourers_workshop.api.common.skin.type.ISkinType;
 import moe.plushie.armourers_workshop.common.inventory.ModInventory.IInventoryCallback;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
 public class SkinInventoryContainer implements ISkinInventoryContainer {
@@ -59,7 +59,7 @@ public class SkinInventoryContainer implements ISkinInventoryContainer {
     }
     
     @Override
-    public void dropItems(World world, Vec3d pos) {
+    public void dropItems(World world, Vector3d pos) {
         Set skinTypes = skinInventorys.keySet();
         for (int i = 0; i < skinInventorys.size(); i++) {
             ISkinType skinType = (ISkinType) skinInventorys.keySet().toArray()[i];

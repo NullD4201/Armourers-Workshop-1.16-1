@@ -4,7 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.common.lib.LibModInfo;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.renderer.entity.model.AgeableModel;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
@@ -13,7 +13,7 @@ import net.minecraft.util.ResourceLocation;
  * ModelBlockArmourer - RiskyKen
  * Created using Tabula 4.0.2
  */
-public class ModelBlockArmourer extends ModelBase {
+public class ModelBlockArmourer extends AgeableModel {
     
     private static final ResourceLocation modelImage = new ResourceLocation(LibModInfo.ID, "textures/models/mini-armourer.png");
     

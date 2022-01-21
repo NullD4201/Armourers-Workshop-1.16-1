@@ -3,21 +3,21 @@ package moe.plushie.armourers_workshop.api.client.render;
 import moe.plushie.armourers_workshop.api.common.skin.data.ISkin;
 import moe.plushie.armourers_workshop.api.common.skin.data.ISkinDescriptor;
 import moe.plushie.armourers_workshop.api.common.skin.type.ISkinPartType;
-import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.renderer.entity.model.AgeableModel;
+import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.item.ItemStack;
 
 public interface ISkinRenderHandler {
 
     public boolean renderSkinWithHelper(ItemStack stack);
     
-    public boolean renderSkinWithHelper(ItemStack stack, ModelBiped modelBiped);
+    public boolean renderSkinWithHelper(ItemStack stack, BipedModel BipedModel);
     
     public boolean renderSkinWithHelper(ItemStack stack, float limb1, float limb2, float limb3, float headY, float headX);
     
     public boolean renderSkinWithHelper(ISkinDescriptor skinPointer);
     
-    public boolean renderSkinWithHelper(ISkinDescriptor skinPointer, ModelBiped modelBiped);
+    public boolean renderSkinWithHelper(ISkinDescriptor skinPointer, BipedModel BipedModel);
     
     public boolean renderSkinWithHelper(ISkinDescriptor skinPointer, float limb1, float limb2, float limb3, float headY, float headX);
     
@@ -43,7 +43,7 @@ public interface ISkinRenderHandler {
     
     public void requestSkinModelFromSever(ISkinDescriptor skinPointer);
     
-    public ModelBase getArmourerHandModel();
+    public AgeableModel getArmourerHandModel();
     
     public ISkin getSkinFromModelCache(ISkinDescriptor skinPointer);
 }

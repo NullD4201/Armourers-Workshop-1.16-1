@@ -4,7 +4,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
 public final class UtilItems {
@@ -18,7 +18,7 @@ public final class UtilItems {
         entity.getEntityWorld().spawnEntity(entityitem);
     }
     
-    public static void spawnItemInWorld(World world, Vec3d pos, ItemStack stack) {
+    public static void spawnItemInWorld(World world, Vector3d pos, ItemStack stack) {
         spawnItemInWorld(world, pos.x, pos.y, pos.z, stack);
     }
     

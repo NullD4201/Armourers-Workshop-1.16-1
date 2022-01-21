@@ -6,7 +6,7 @@ import moe.plushie.armourers_workshop.common.init.entities.EntityMannequin;
 import moe.plushie.armourers_workshop.common.init.entities.EntityMannequin.TextureData;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -22,7 +22,7 @@ public class MessageClientGuiUpdateMannequin implements IMessage {
     private Boolean flying = null;
     private Boolean visible = null;
     private Boolean noClip = null;
-    private Vec3d offset = null;
+    private Vector3d offset = null;
 
     public MessageClientGuiUpdateMannequin() {
     }
@@ -61,7 +61,7 @@ public class MessageClientGuiUpdateMannequin implements IMessage {
         return this;
     }
 
-    public MessageClientGuiUpdateMannequin setOffset(Vec3d offset) {
+    public MessageClientGuiUpdateMannequin setOffset(Vector3d offset) {
         this.offset = offset;
         return this;
     }
@@ -152,7 +152,7 @@ public class MessageClientGuiUpdateMannequin implements IMessage {
         }
 
         if (buf.readBoolean()) {
-            offset = new Vec3d(buf.readDouble(), buf.readDouble(), buf.readDouble());
+            offset = new Vector3d(buf.readDouble(), buf.readDouble(), buf.readDouble());
         }
     }
 
@@ -196,7 +196,7 @@ public class MessageClientGuiUpdateMannequin implements IMessage {
                         }
 
                         if (message.offset != null) {
-                            Vec3d pos = entityMannequin.getPositionVector();
+                            Vector3d pos = entityMannequin.getPositionVector();
                             pos = pos.add(message.offset);
                             entityMannequin.setPosition(pos.x, pos.y, pos.z);
                         }

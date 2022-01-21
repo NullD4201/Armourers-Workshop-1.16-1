@@ -3,7 +3,7 @@ package moe.plushie.armourers_workshop.common.init.blocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.IBlockReader;
 
 public class BlockSkinCubeGlass extends BlockSkinCube {
 
@@ -26,7 +26,7 @@ public class BlockSkinCubeGlass extends BlockSkinCube {
     }
     
     @Override
-    public boolean isNormalCube(BlockState state, IBlockAccess world, BlockPos pos) {
+    public boolean isNormalCube(BlockState state, IBlockReader world, BlockPos pos) {
         return false;
     }
 }

@@ -104,7 +104,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StringUtils;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.IBlockReader;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -455,7 +455,7 @@ public class ClientProxy extends CommonProxy implements IBakedSkinReceiver {
     private static class BlockColour implements IBlockColor {
 
         @Override
-        public int colorMultiplier(BlockState state, IBlockAccess worldIn, BlockPos pos, int tintIndex) {
+        public int colorMultiplier(BlockState state, IBlockReader worldIn, BlockPos pos, int tintIndex) {
             TileEntity tileEntity = worldIn.getTileEntity(pos);
             if (tileEntity != null && tileEntity instanceof IPantable) {
                 return ((IPantable) tileEntity).getColour(tintIndex);

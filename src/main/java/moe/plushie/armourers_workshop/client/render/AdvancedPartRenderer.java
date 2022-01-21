@@ -6,7 +6,7 @@ import moe.plushie.armourers_workshop.common.skin.data.Skin;
 import moe.plushie.armourers_workshop.common.skin.data.SkinPart;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 
 public final class AdvancedPartRenderer {
 
@@ -36,8 +36,8 @@ public final class AdvancedPartRenderer {
                 x = 30;
             }
         }
-        part.rotationAngleOffset = new Vec3d(0, 0, 0);
-        part.rotationAngleOffset = new Vec3d(x, fullAngle, fullAngle);
+        part.rotationAngleOffset = new Vector3d(0, 0, 0);
+        part.rotationAngleOffset = new Vector3d(x, fullAngle, fullAngle);
         for (int i = 0; i < part.getChildren().size(); i++) {
             AdvancedPart advancedPart = part.getChildren().get(i);
             updateParts(skin, renderData, entity, data, advancedPart, depth + 1);
@@ -47,8 +47,8 @@ public final class AdvancedPartRenderer {
     private static void renderParts(Skin skin, SkinRenderData renderData, Entity entity, AdvancedPart part) {
         GlStateManager.pushMatrix();
         SkinPart skinPart = skin.getParts().get(0);
-        Vec3d pos = part.pos.add(part.posOffset);
-        Vec3d rot = part.rotationAngle.add(part.rotationAngleOffset);
+        Vector3d pos = part.pos.add(part.posOffset);
+        Vector3d rot = part.rotationAngle.add(part.rotationAngleOffset);
         float scale = renderData.getScale() * part.scale;
         GlStateManager.translate(pos.x * scale, pos.y * scale, pos.z * scale);
         GlStateManager.rotate((float) rot.x, 1, 0, 0);

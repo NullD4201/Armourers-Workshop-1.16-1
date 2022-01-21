@@ -15,7 +15,7 @@ import moe.plushie.armourers_workshop.common.capability.wardrobe.ExtraColours;
 import moe.plushie.armourers_workshop.common.skin.data.Skin;
 import moe.plushie.armourers_workshop.common.skin.data.SkinDye;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.entity.LivingRenderer;
 
 public class SkinLayerRendererBibed extends SkinLayerRenderer<LivingEntity, LivingRenderer> {
@@ -52,7 +52,7 @@ public class SkinLayerRendererBibed extends SkinLayerRenderer<LivingEntity, Livi
 
             SkinModelRenderHelper modelRenderer = SkinModelRenderHelper.INSTANCE;
             GL11.glEnable(GL11.GL_NORMALIZE);
-            modelRenderer.renderEquipmentPart(entity, (ModelBiped) renderer.getMainModel(), skin, dye, extraColours, distance, true);
+            modelRenderer.renderEquipmentPart(entity, (BipedModel) renderer.getMainModel(), skin, dye, extraColours, distance, true);
             GL11.glDisable(GL11.GL_NORMALIZE);
         }
     }

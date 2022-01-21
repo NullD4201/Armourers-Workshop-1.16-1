@@ -1,6 +1,6 @@
 package moe.plushie.armourers_workshop.client.model.armourer;
 
-import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.renderer.entity.model.AgeableModel;
 import net.minecraft.client.model.ModelRenderer;
 
 import org.lwjgl.opengl.GL11;
@@ -9,7 +9,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class ModelHead extends ModelBase {
+public class ModelHead extends AgeableModel {
     
     public static final ModelHead MODEL = new ModelHead();
 

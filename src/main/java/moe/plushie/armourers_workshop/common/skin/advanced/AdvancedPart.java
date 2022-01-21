@@ -2,7 +2,7 @@ package moe.plushie.armourers_workshop.common.skin.advanced;
 
 import java.util.ArrayList;
 
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 
 public class AdvancedPart {
 
@@ -14,14 +14,14 @@ public class AdvancedPart {
     public float scale = 1F;
     public boolean mirror = false;
 
-    public Vec3d pos = Vec3d.ZERO;
-    public Vec3d posOffset = Vec3d.ZERO;
+    public Vector3d pos = Vector3d.ZERO;
+    public Vector3d posOffset = Vector3d.ZERO;
 
-    public Vec3d rotationAngle = Vec3d.ZERO;
-    public Vec3d rotationAngleOffset = Vec3d.ZERO;
+    public Vector3d rotationAngle = Vector3d.ZERO;
+    public Vector3d rotationAngleOffset = Vector3d.ZERO;
 
-    public Vec3d rotationPos = Vec3d.ZERO;
-    public Vec3d rotationPosOffset = Vec3d.ZERO;
+    public Vector3d rotationPos = Vector3d.ZERO;
+    public Vector3d rotationPosOffset = Vector3d.ZERO;
 
     public AdvancedPart(int partIndex, String name) {
         this.partIndex = partIndex;
@@ -33,6 +33,6 @@ public class AdvancedPart {
     }
 
     public void setRotationAngleOffset(double x, double y, double z) {
-        this.rotationAngleOffset = new Vec3d(x, y, z);
+        this.rotationAngleOffset = new Vector3d(x, y, z);
     }
 }

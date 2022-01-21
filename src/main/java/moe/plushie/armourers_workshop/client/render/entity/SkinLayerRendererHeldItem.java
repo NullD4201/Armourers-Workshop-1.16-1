@@ -21,7 +21,7 @@ import moe.plushie.armourers_workshop.common.skin.data.Skin;
 import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
 import moe.plushie.armourers_workshop.utils.SkinNBTHelper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager.CullFace;
 import net.minecraft.client.renderer.entity.layers.HeldItemLayer;
@@ -89,7 +89,7 @@ public class SkinLayerRendererHeldItem extends HeldItemLayer {
 
             boolean slim = false;
             if (entityLivingBase instanceof PlayerEntity) {
-                slim = SkinModelRenderHelper.isPlayersArmSlim((ModelBiped) livingEntityRenderer.getMainModel(), (PlayerEntity) entityLivingBase, handSide);
+                slim = SkinModelRenderHelper.isPlayersArmSlim((BipedModel) livingEntityRenderer.getMainModel(), (PlayerEntity) entityLivingBase, handSide);
             }
 
             boolean didRender = false;
@@ -110,14 +110,14 @@ public class SkinLayerRendererHeldItem extends HeldItemLayer {
                             GlStateManager.cullFace(CullFace.FRONT);
                         }
                         if (overrideType != ItemOverrideType.BOW) {
-                            // ((ModelBiped)this.livingEntityRenderer.getMainModel()).
+                            // ((BipedModel)this.livingEntityRenderer.getMainModel()).
                             Skin skin = ClientSkinCache.INSTANCE.getSkin(descriptor);
                             if (skin != null) {
                                 if (slim) {
                                     GL11.glScaled(0.75F, 1F, 1F);
                                 }
                                 IEquipmentModel targetModel = SkinModelRenderHelper.INSTANCE.getTypeHelperForModel(ModelType.MODEL_BIPED, descriptor.getIdentifier().getSkinType());
-                                targetModel.render(entityLivingBase, skin, (ModelBiped) livingEntityRenderer.getMainModel(), false, descriptor.getSkinDye(), null, true, 0, true);
+                                targetModel.render(entityLivingBase, skin, (BipedModel) livingEntityRenderer.getMainModel(), false, descriptor.getSkinDye(), null, true, 0, true);
                                 // SkinItemRenderHelper.renderSkinWithHelper(skin, descriptor, false, true);
                             }
 

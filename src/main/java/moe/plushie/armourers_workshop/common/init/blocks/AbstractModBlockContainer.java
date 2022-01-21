@@ -21,7 +21,7 @@ import net.minecraft.block.BlockRenderType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.network.internal.FMLNetworkHandler;
@@ -99,7 +99,7 @@ public abstract class AbstractModBlockContainer extends ContainerBlock implement
         return this;
     }
 
-    public <T extends TileEntity> T getTileEntity(IBlockAccess blockAccess, BlockPos pos, Class<T> type) {
+    public <T extends TileEntity> T getTileEntity(IBlockReader blockAccess, BlockPos pos, Class<T> type) {
         TileEntity te = blockAccess.getTileEntity(pos);
         if (te != null && type.isAssignableFrom(te.getClass())) {
             return (T) te;

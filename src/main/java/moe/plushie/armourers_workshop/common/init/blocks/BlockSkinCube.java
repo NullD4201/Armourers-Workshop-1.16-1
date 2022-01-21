@@ -18,7 +18,7 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
 public class BlockSkinCube extends AbstractModBlockContainer implements IPantableBlock {
@@ -61,7 +61,7 @@ public class BlockSkinCube extends AbstractModBlockContainer implements IPantabl
     }
     
     @Override
-    public boolean shouldSideBeRendered(BlockState blockState, IBlockAccess blockAccess, BlockPos pos, Direction side) {
+    public boolean shouldSideBeRendered(BlockState blockState, IBlockReader blockAccess, BlockPos pos, Direction side) {
         if (blockAccess.getBlockState(pos.offset(side)).getBlock() == this) {
             return false;
         }
@@ -69,7 +69,7 @@ public class BlockSkinCube extends AbstractModBlockContainer implements IPantabl
     }
     
     @Override
-    public boolean setColour(IBlockAccess world, BlockPos pos, int colour, Direction facing) {
+    public boolean setColour(IBlockReader world, BlockPos pos, int colour, Direction facing) {
         TileEntity te = world.getTileEntity(pos);
         if (te != null & te instanceof IPantable) {
             ((IPantable)te).setColour(colour, facing.ordinal());
@@ -79,7 +79,7 @@ public class BlockSkinCube extends AbstractModBlockContainer implements IPantabl
     }
     
     @Override
-    public boolean setColour(IBlockAccess world, BlockPos pos, byte[] rgb, Direction facing) {
+    public boolean setColour(IBlockReader world, BlockPos pos, byte[] rgb, Direction facing) {
         TileEntity te = world.getTileEntity(pos);
         if (te != null & te instanceof IPantable) {
             ((IPantable)te).setColour(rgb, facing.ordinal());
@@ -89,7 +89,7 @@ public class BlockSkinCube extends AbstractModBlockContainer implements IPantabl
     }
 
     @Override
-    public int getColour(IBlockAccess world, BlockPos pos, Direction facing) {
+    public int getColour(IBlockReader world, BlockPos pos, Direction facing) {
         TileEntity te = world.getTileEntity(pos);
         if (te != null & te instanceof IPantable) {
             return ((IPantable)te).getColour(facing.ordinal());
@@ -98,7 +98,7 @@ public class BlockSkinCube extends AbstractModBlockContainer implements IPantabl
     }
     
     @Override
-    public ICubeColour getColour(IBlockAccess world, BlockPos pos) {
+    public ICubeColour getColour(IBlockReader world, BlockPos pos) {
         TileEntity te = world.getTileEntity(pos);
         if (te != null & te instanceof IPantable) {
             return ((IPantable)te).getColour();
@@ -107,7 +107,7 @@ public class BlockSkinCube extends AbstractModBlockContainer implements IPantabl
     }
     
     @Override
-    public void setPaintType(IBlockAccess world, BlockPos pos, IPaintType paintType, Direction facing) {
+    public void setPaintType(IBlockReader world, BlockPos pos, IPaintType paintType, Direction facing) {
         TileEntity te = world.getTileEntity(pos);
         if (te != null & te instanceof IPantable) {
             ((IPantable)te).setPaintType(paintType, facing.ordinal());
@@ -115,7 +115,7 @@ public class BlockSkinCube extends AbstractModBlockContainer implements IPantabl
     }
     
     @Override
-    public IPaintType getPaintType(IBlockAccess world, BlockPos pos, Direction facing) {
+    public IPaintType getPaintType(IBlockReader world, BlockPos pos, Direction facing) {
         TileEntity te = world.getTileEntity(pos);
         if (te != null & te instanceof IPantable) {
             return ((IPantable)te).getPaintType(facing.ordinal());
@@ -124,7 +124,7 @@ public class BlockSkinCube extends AbstractModBlockContainer implements IPantabl
     }
     
     @Override
-    public boolean isRemoteOnly(IBlockAccess world, BlockPos pos, Direction facing) {
+    public boolean isRemoteOnly(IBlockReader world, BlockPos pos, Direction facing) {
         return false;
     }
     

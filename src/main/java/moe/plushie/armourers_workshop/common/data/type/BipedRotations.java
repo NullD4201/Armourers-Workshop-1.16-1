@@ -3,7 +3,7 @@ package moe.plushie.armourers_workshop.common.data.type;
 import java.util.Arrays;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.model.ModelPlayer;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.nbt.CompoundNBT;
@@ -56,41 +56,41 @@ public class BipedRotations {
         return rotationData[bipedPart.ordinal()];
     }
 
-    public void applyRotationsToBiped(ModelPlayer modelBiped) {
-        modelBiped.isChild = child;
-        applyRotationsToBipedPart(modelBiped.bipedHead, getPartRotations(BipedPart.HEAD));
-        applyRotationsToBipedPart(modelBiped.bipedHeadwear, getPartRotations(BipedPart.HEAD));
+    public void applyRotationsToBiped(ModelPlayer BipedModel) {
+        BipedModel.isChild = child;
+        applyRotationsToBipedPart(BipedModel.bipedHead, getPartRotations(BipedPart.HEAD));
+        applyRotationsToBipedPart(BipedModel.bipedHeadwear, getPartRotations(BipedPart.HEAD));
 
-        applyRotationsToBipedPart(modelBiped.bipedBody, getPartRotations(BipedPart.CHEST));
-        applyRotationsToBipedPart(modelBiped.bipedBodyWear, getPartRotations(BipedPart.CHEST));
+        applyRotationsToBipedPart(BipedModel.bipedBody, getPartRotations(BipedPart.CHEST));
+        applyRotationsToBipedPart(BipedModel.bipedBodyWear, getPartRotations(BipedPart.CHEST));
 
-        applyRotationsToBipedPart(modelBiped.bipedLeftArm, getPartRotations(BipedPart.LEFT_ARM));
-        applyRotationsToBipedPart(modelBiped.bipedLeftArmwear, getPartRotations(BipedPart.LEFT_ARM));
+        applyRotationsToBipedPart(BipedModel.bipedLeftArm, getPartRotations(BipedPart.LEFT_ARM));
+        applyRotationsToBipedPart(BipedModel.bipedLeftArmwear, getPartRotations(BipedPart.LEFT_ARM));
 
-        applyRotationsToBipedPart(modelBiped.bipedRightArm, getPartRotations(BipedPart.RIGHT_ARM));
-        applyRotationsToBipedPart(modelBiped.bipedRightArmwear, getPartRotations(BipedPart.RIGHT_ARM));
+        applyRotationsToBipedPart(BipedModel.bipedRightArm, getPartRotations(BipedPart.RIGHT_ARM));
+        applyRotationsToBipedPart(BipedModel.bipedRightArmwear, getPartRotations(BipedPart.RIGHT_ARM));
 
-        applyRotationsToBipedPart(modelBiped.bipedLeftLeg, getPartRotations(BipedPart.LEFT_LEG));
-        applyRotationsToBipedPart(modelBiped.bipedLeftLegwear, getPartRotations(BipedPart.LEFT_LEG));
+        applyRotationsToBipedPart(BipedModel.bipedLeftLeg, getPartRotations(BipedPart.LEFT_LEG));
+        applyRotationsToBipedPart(BipedModel.bipedLeftLegwear, getPartRotations(BipedPart.LEFT_LEG));
 
-        applyRotationsToBipedPart(modelBiped.bipedRightLeg, getPartRotations(BipedPart.RIGHT_LEG));
-        applyRotationsToBipedPart(modelBiped.bipedRightLegwear, getPartRotations(BipedPart.RIGHT_LEG));
+        applyRotationsToBipedPart(BipedModel.bipedRightLeg, getPartRotations(BipedPart.RIGHT_LEG));
+        applyRotationsToBipedPart(BipedModel.bipedRightLegwear, getPartRotations(BipedPart.RIGHT_LEG));
     }
 
-    public void applyRotationsToBiped(ModelBiped modelBiped) {
-        modelBiped.isChild = child;
-        applyRotationsToBipedPart(modelBiped.bipedHead, getPartRotations(BipedPart.HEAD));
-        applyRotationsToBipedPart(modelBiped.bipedHeadwear, getPartRotations(BipedPart.HEAD));
+    public void applyRotationsToBiped(BipedModel BipedModel) {
+        BipedModel.isChild = child;
+        applyRotationsToBipedPart(BipedModel.bipedHead, getPartRotations(BipedPart.HEAD));
+        applyRotationsToBipedPart(BipedModel.bipedHeadwear, getPartRotations(BipedPart.HEAD));
 
-        applyRotationsToBipedPart(modelBiped.bipedBody, getPartRotations(BipedPart.CHEST));
+        applyRotationsToBipedPart(BipedModel.bipedBody, getPartRotations(BipedPart.CHEST));
 
-        applyRotationsToBipedPart(modelBiped.bipedLeftArm, getPartRotations(BipedPart.LEFT_ARM));
+        applyRotationsToBipedPart(BipedModel.bipedLeftArm, getPartRotations(BipedPart.LEFT_ARM));
 
-        applyRotationsToBipedPart(modelBiped.bipedRightArm, getPartRotations(BipedPart.RIGHT_ARM));
+        applyRotationsToBipedPart(BipedModel.bipedRightArm, getPartRotations(BipedPart.RIGHT_ARM));
 
-        applyRotationsToBipedPart(modelBiped.bipedLeftLeg, getPartRotations(BipedPart.LEFT_LEG));
+        applyRotationsToBipedPart(BipedModel.bipedLeftLeg, getPartRotations(BipedPart.LEFT_LEG));
 
-        applyRotationsToBipedPart(modelBiped.bipedRightLeg, getPartRotations(BipedPart.RIGHT_LEG));
+        applyRotationsToBipedPart(BipedModel.bipedRightLeg, getPartRotations(BipedPart.RIGHT_LEG));
     }
 
     public void applyRotationsToBipedPart(ModelRenderer modelRenderer, float[] partRotations) {
@@ -99,13 +99,13 @@ public class BipedRotations {
         modelRenderer.rotateAngleZ = partRotations[2];
     }
 
-    public void getRotationsFromBiped(ModelBiped modelBiped) {
-        setPartRotations(BipedPart.HEAD, getRotationsFromBipedPart(modelBiped.bipedHead));
-        setPartRotations(BipedPart.CHEST, getRotationsFromBipedPart(modelBiped.bipedBody));
-        setPartRotations(BipedPart.LEFT_ARM, getRotationsFromBipedPart(modelBiped.bipedLeftArm));
-        setPartRotations(BipedPart.RIGHT_ARM, getRotationsFromBipedPart(modelBiped.bipedRightArm));
-        setPartRotations(BipedPart.LEFT_LEG, getRotationsFromBipedPart(modelBiped.bipedLeftLeg));
-        setPartRotations(BipedPart.RIGHT_LEG, getRotationsFromBipedPart(modelBiped.bipedRightLeg));
+    public void getRotationsFromBiped(BipedModel BipedModel) {
+        setPartRotations(BipedPart.HEAD, getRotationsFromBipedPart(BipedModel.bipedHead));
+        setPartRotations(BipedPart.CHEST, getRotationsFromBipedPart(BipedModel.bipedBody));
+        setPartRotations(BipedPart.LEFT_ARM, getRotationsFromBipedPart(BipedModel.bipedLeftArm));
+        setPartRotations(BipedPart.RIGHT_ARM, getRotationsFromBipedPart(BipedModel.bipedRightArm));
+        setPartRotations(BipedPart.LEFT_LEG, getRotationsFromBipedPart(BipedModel.bipedLeftLeg));
+        setPartRotations(BipedPart.RIGHT_LEG, getRotationsFromBipedPart(BipedModel.bipedRightLeg));
     }
 
     public float[] getRotationsFromBipedPart(ModelRenderer modelRenderer) {

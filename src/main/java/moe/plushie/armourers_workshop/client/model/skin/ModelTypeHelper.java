@@ -13,7 +13,7 @@ import moe.plushie.armourers_workshop.client.render.SkinPartRenderer;
 import moe.plushie.armourers_workshop.client.render.SkinRenderData;
 import moe.plushie.armourers_workshop.common.skin.data.Skin;
 import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
-import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.model.ModelPlayer;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
@@ -21,7 +21,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public abstract class ModelTypeHelper extends ModelBiped implements IEquipmentModel {
+public abstract class ModelTypeHelper extends BipedModel implements IEquipmentModel {
 
     public Skin npcSkinData = null;
     public ISkinDye npcDyeData = null;
@@ -100,14 +100,14 @@ public abstract class ModelTypeHelper extends ModelBiped implements IEquipmentMo
     }
 
     @Override
-    public void render(Entity entity, Skin skin, ModelBiped modelBiped, boolean showSkinPaint, ISkinDye skinDye, IExtraColours extraColours, boolean itemRender, double distance, boolean doLodLoading) {
-        setRotationFromModelBiped(modelBiped);
+    public void render(Entity entity, Skin skin, BipedModel BipedModel, boolean showSkinPaint, ISkinDye skinDye, IExtraColours extraColours, boolean itemRender, double distance, boolean doLodLoading) {
+        setRotationFromBipedModel(BipedModel);
         render(entity, skin, showSkinPaint, skinDye, extraColours, itemRender, distance, doLodLoading);
     }
 
     @Override
-    public void render(Entity entity, Skin skin, ModelBiped modelBiped, SkinRenderData renderData) {
-        setRotationFromModelBiped(modelBiped);
+    public void render(Entity entity, Skin skin, BipedModel BipedModel, SkinRenderData renderData) {
+        setRotationFromBipedModel(BipedModel);
         render(entity, skin, renderData);
     }
 
@@ -126,13 +126,13 @@ public abstract class ModelTypeHelper extends ModelBiped implements IEquipmentMo
 
     public abstract void render(Entity entity, Skin skin, SkinRenderData renderData);
 
-    protected void setRotationFromModelBiped(ModelBiped modelBiped) {
+    protected void setRotationFromBipedModel(BipedModel BipedModel) {
         this.isRiding = false;
         this.isSneak = false;
         // this.aimedBow = false;
         // this.heldItemRight = 0;
         this.slim = false;
-        if (modelBiped == null) {
+        if (BipedModel == null) {
             setRotation(bipedHead, 0F, 0F, 0F);
             setRotation(bipedBody, 0F, 0F, 0F);
             setRotation(bipedLeftArm, 0F, (float) Math.toRadians(-1F), (float) Math.toRadians(-5F));
@@ -141,19 +141,19 @@ public abstract class ModelTypeHelper extends ModelBiped implements IEquipmentMo
             setRotation(bipedRightLeg, 0F, 0F, 0F);
             isChild = false;
         } else {
-            if (modelBiped instanceof ModelPlayer) {
-                ModelPlayer modelPlayer = (ModelPlayer) modelBiped;
+            if (BipedModel instanceof ModelPlayer) {
+                ModelPlayer modelPlayer = (ModelPlayer) BipedModel;
                 this.slim = modelPlayer.bipedLeftArm.rotationPointY == 2.5F;
             }
-            setRotation(bipedHead, modelBiped.bipedHead);
-            setRotation(bipedBody, modelBiped.bipedBody);
-            setRotation(bipedLeftArm, modelBiped.bipedLeftArm);
-            setRotation(bipedRightArm, modelBiped.bipedRightArm);
-            setRotation(bipedLeftLeg, modelBiped.bipedLeftLeg);
-            setRotation(bipedRightLeg, modelBiped.bipedRightLeg);
-            isChild = modelBiped.isChild;
-            if (modelBiped instanceof ModelMannequin) {
-                this.slim = ((ModelMannequin) modelBiped).isSlim();
+            setRotation(bipedHead, BipedModel.bipedHead);
+            setRotation(bipedBody, BipedModel.bipedBody);
+            setRotation(bipedLeftArm, BipedModel.bipedLeftArm);
+            setRotation(bipedRightArm, BipedModel.bipedRightArm);
+            setRotation(bipedLeftLeg, BipedModel.bipedLeftLeg);
+            setRotation(bipedRightLeg, BipedModel.bipedRightLeg);
+            isChild = BipedModel.isChild;
+            if (BipedModel instanceof ModelMannequin) {
+                this.slim = ((ModelMannequin) BipedModel).isSlim();
             }
         }
     }

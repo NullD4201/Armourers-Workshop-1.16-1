@@ -12,7 +12,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -60,8 +60,8 @@ public class TileEntityAdvancedSkinBuilder extends AbstractTileEntityInventory i
     public static class SkinPartSettings {
 
         public int parentIndex = -1;
-        public Vec3d posOffset = Vec3d.ZERO;
-        public Vec3d rotOffset = Vec3d.ZERO;
+        public Vector3d posOffset = Vector3d.ZERO;
+        public Vector3d rotOffset = Vector3d.ZERO;
         public boolean mirror = false;
         public float moveAngleMin = 0F;
         public float moveAngleMax = 0F;

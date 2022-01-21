@@ -17,7 +17,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
 public class BlockHologramProjector extends AbstractModBlockContainer {
@@ -82,7 +82,7 @@ public class BlockHologramProjector extends AbstractModBlockContainer {
     }
     
     @Override
-    public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbor) {
+    public void onNeighborChange(IBlockReader world, BlockPos pos, BlockPos neighbor) {
         super.onNeighborChange(world, pos, neighbor);
         updatePoweredState(world, pos);
     }
@@ -93,7 +93,7 @@ public class BlockHologramProjector extends AbstractModBlockContainer {
         updatePoweredState(worldIn, pos);
     }
     
-    private void updatePoweredState(IBlockAccess world, BlockPos pos) {
+    private void updatePoweredState(IBlockReader world, BlockPos pos) {
         TileEntity tileEntity = world.getTileEntity(pos);
         if (tileEntity != null && tileEntity instanceof TileEntityHologramProjector) {
             ((TileEntityHologramProjector)tileEntity).updatePoweredState();

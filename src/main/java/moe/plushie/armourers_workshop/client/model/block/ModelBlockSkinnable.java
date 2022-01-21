@@ -5,12 +5,12 @@ import org.lwjgl.opengl.GL11;
 import moe.plushie.armourers_workshop.common.lib.LibModInfo;
 import moe.plushie.armourers_workshop.common.tileentities.TileEntitySkinnable;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.renderer.entity.model.AgeableModel;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 
-public class ModelBlockSkinnable extends ModelBase {
+public class ModelBlockSkinnable extends AgeableModel {
     
     public static final ResourceLocation MODEL_IMAGE = new ResourceLocation(LibModInfo.ID.toLowerCase(), "textures/models/model-block-skinnable.png");
     

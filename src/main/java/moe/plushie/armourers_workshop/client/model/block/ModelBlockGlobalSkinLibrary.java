@@ -6,12 +6,12 @@ import moe.plushie.armourers_workshop.client.render.ModRenderHelper;
 import moe.plushie.armourers_workshop.common.lib.LibModInfo;
 import moe.plushie.armourers_workshop.common.tileentities.TileEntityGlobalSkinLibrary;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.renderer.entity.model.AgeableModel;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 
-public class ModelBlockGlobalSkinLibrary extends ModelBase {
+public class ModelBlockGlobalSkinLibrary extends AgeableModel {
     
     private static final ResourceLocation MODEL_TEXTURE = new ResourceLocation(LibModInfo.ID, "textures/tile-entities/global-skin-library.png");
     

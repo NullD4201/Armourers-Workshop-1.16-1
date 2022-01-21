@@ -39,7 +39,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.Explosion;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -126,12 +126,12 @@ public class BlockBoundingBox extends AbstractModBlockContainer implements IPant
     }
     
     @Override
-    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, BlockState state, BlockPos pos, Direction face) {
+    public BlockFaceShape getBlockFaceShape(IBlockReader worldIn, BlockState state, BlockPos pos, Direction face) {
         return BlockFaceShape.UNDEFINED;
     }
     
     @Override
-    public AxisAlignedBB getCollisionBoundingBox(BlockState blockState, IBlockAccess worldIn, BlockPos pos) {
+    public AxisAlignedBB getCollisionBoundingBox(BlockState blockState, IBlockReader worldIn, BlockPos pos) {
         return NULL_AABB;
     }
     
@@ -151,7 +151,7 @@ public class BlockBoundingBox extends AbstractModBlockContainer implements IPant
     }
     
     @Override
-    public boolean setColour(IBlockAccess world, BlockPos pos, int colour, Direction facing) {
+    public boolean setColour(IBlockReader world, BlockPos pos, int colour, Direction facing) {
         if (world.getBlockState(pos.offset(facing)).getBlock() == this) {
             return false;
         }
@@ -181,13 +181,13 @@ public class BlockBoundingBox extends AbstractModBlockContainer implements IPant
     public void registerModels() {}
     
     @Override
-    public boolean setColour(IBlockAccess world, BlockPos pos, byte[] rgb, Direction facing) {
+    public boolean setColour(IBlockReader world, BlockPos pos, byte[] rgb, Direction facing) {
         int colour = new Color(rgb[0] & 0xFF, rgb[1] & 0xFF, rgb[2] & 0xFF).getRGB();
         return setColour(world, pos, colour, facing);
     }
 
     @Override
-    public int getColour(IBlockAccess world, BlockPos pos, Direction facing) {
+    public int getColour(IBlockReader world, BlockPos pos, Direction facing) {
         if (world.getBlockState(pos.offset(facing)).getBlock() == this) {
             return 0x00FFFFFF;
         }
@@ -213,7 +213,7 @@ public class BlockBoundingBox extends AbstractModBlockContainer implements IPant
     }
     
     @SideOnly(Side.CLIENT)
-    private int getColourRemote(IBlockAccess world, BlockPos pos, Direction facing, TileEntityArmourer parent, Point texturePoint, int colour) {
+    private int getColourRemote(IBlockReader world, BlockPos pos, Direction facing, TileEntityArmourer parent, Point texturePoint, int colour) {
         PlayerTexture playerTexture = ClientProxy.playerTextureDownloader.getPlayerTexture(parent.getTexture());
         BufferedImage playerSkin = TextureHelper.getBufferedImageSkin(playerTexture.getResourceLocation());
         if (playerSkin != null) {
@@ -224,7 +224,7 @@ public class BlockBoundingBox extends AbstractModBlockContainer implements IPant
     }
     
     @Override
-    public boolean isRemoteOnly(IBlockAccess world, BlockPos pos, Direction facing) {
+    public boolean isRemoteOnly(IBlockReader world, BlockPos pos, Direction facing) {
         if (world.getBlockState(pos.offset(facing)).getBlock() == this) {
             return false;
         }
@@ -244,7 +244,7 @@ public class BlockBoundingBox extends AbstractModBlockContainer implements IPant
     }
     
     @Override
-    public void setPaintType(IBlockAccess world, BlockPos pos, IPaintType paintType, Direction facing) {
+    public void setPaintType(IBlockReader world, BlockPos pos, IPaintType paintType, Direction facing) {
         if (world.getBlockState(pos.offset(facing)).getBlock() == this) {
             return;
         }
@@ -264,7 +264,7 @@ public class BlockBoundingBox extends AbstractModBlockContainer implements IPant
     }
     
     @Override
-    public IPaintType getPaintType(IBlockAccess world, BlockPos pos, Direction facing) {
+    public IPaintType getPaintType(IBlockReader world, BlockPos pos, Direction facing) {
         if (world.getBlockState(pos.offset(facing)).getBlock() == this) {
             return PaintTypeRegistry.PAINT_TYPE_NORMAL;
         }
@@ -284,7 +284,7 @@ public class BlockBoundingBox extends AbstractModBlockContainer implements IPant
     }
 
     @Override
-    public ICubeColour getColour(IBlockAccess world, BlockPos pos) {
+    public ICubeColour getColour(IBlockReader world, BlockPos pos) {
         return null;
     }
     

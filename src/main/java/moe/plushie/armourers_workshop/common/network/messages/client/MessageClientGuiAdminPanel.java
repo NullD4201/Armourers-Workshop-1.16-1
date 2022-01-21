@@ -2,6 +2,7 @@ package moe.plushie.armourers_workshop.common.network.messages.client;
 
 import io.netty.buffer.ByteBuf;
 import moe.plushie.armourers_workshop.ArmourersWorkshop;
+// TODO: 2022-01-22 FML replace required 
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;

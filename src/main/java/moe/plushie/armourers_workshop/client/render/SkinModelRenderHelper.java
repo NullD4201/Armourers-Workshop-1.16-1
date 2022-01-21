@@ -24,7 +24,7 @@ import moe.plushie.armourers_workshop.common.skin.data.Skin;
 import moe.plushie.armourers_workshop.common.skin.data.SkinProperties;
 import moe.plushie.armourers_workshop.common.skin.data.SkinProperty;
 import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
-import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;
 import net.minecraft.client.renderer.GlStateManager.SourceFactor;
@@ -129,14 +129,14 @@ public final class SkinModelRenderHelper {
         return limitLimbs;
     }
     
-    public static boolean isPlayersArmSlim(ModelBiped modelBiped, PlayerEntity entityPlayer, HandSide handSide) {
+    public static boolean isPlayersArmSlim(BipedModel BipedModel, PlayerEntity entityPlayer, HandSide handSide) {
         boolean slim = false;
         SkinProperty<Boolean> targetProp = null;
         if (handSide == HandSide.LEFT) {
-            slim = modelBiped.bipedLeftArm.rotationPointY == 2.5F;
+            slim = BipedModel.bipedLeftArm.rotationPointY == 2.5F;
             targetProp = SkinProperties.PROP_MODEL_OVERRIDE_ARM_LEFT;
         } else {
-            slim = modelBiped.bipedRightArm.rotationPointY == 2.5F;
+            slim = BipedModel.bipedRightArm.rotationPointY == 2.5F;
             targetProp = SkinProperties.PROP_MODEL_OVERRIDE_ARM_RIGHT;
         }
         
@@ -206,7 +206,7 @@ public final class SkinModelRenderHelper {
         return helperModelsMap.get(skinType.getRegistryName() + ":" + modelType.name());
     }
     
-    public boolean renderEquipmentPart(Skin skin, SkinRenderData renderData, Entity entity, ModelBiped modelBiped) {
+    public boolean renderEquipmentPart(Skin skin, SkinRenderData renderData, Entity entity, BipedModel BipedModel) {
         if (skin == null) {
             return false;
         }
@@ -216,7 +216,7 @@ public final class SkinModelRenderHelper {
         GlStateManager.blendFunc(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA);
         GlStateManager.enableBlend();
         GlStateManager.enableRescaleNormal();
-        model.render(entity, skin, modelBiped, renderData);
+        model.render(entity, skin, BipedModel, renderData);
         GlStateManager.disableRescaleNormal();
         GlStateManager.disableBlend();
         GlStateManager.disableCull();
@@ -224,7 +224,7 @@ public final class SkinModelRenderHelper {
         return true;
     }
     
-    public boolean renderEquipmentPart(Entity entity, ModelBiped modelBiped, Skin skin, ISkinDye skinDye, IExtraColours extraColours, double distance, boolean doLodLoading) {
+    public boolean renderEquipmentPart(Entity entity, BipedModel BipedModel, Skin skin, ISkinDye skinDye, IExtraColours extraColours, double distance, boolean doLodLoading) {
         if (skin == null) {
             return false;
         }
@@ -234,7 +234,7 @@ public final class SkinModelRenderHelper {
         GlStateManager.blendFunc(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA);
         GlStateManager.enableBlend();
         GlStateManager.enableRescaleNormal();
-        model.render(entity, skin, modelBiped, false, skinDye, extraColours, false, distance, doLodLoading);
+        model.render(entity, skin, BipedModel, false, skinDye, extraColours, false, distance, doLodLoading);
         GlStateManager.disableRescaleNormal();
         GlStateManager.disableBlend();
         GlStateManager.disableCull();

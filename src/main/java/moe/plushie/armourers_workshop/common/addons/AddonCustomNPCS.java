@@ -27,7 +27,7 @@ import moe.plushie.armourers_workshop.common.skin.entity.SkinnableEntityRegisty;
 import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
 import moe.plushie.armourers_workshop.utils.ModLogger;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.LivingRenderer;
@@ -276,7 +276,7 @@ public class AddonCustomNPCS extends ModAddon {
                                 }
                             }
                             ResourceLocation texture = DefaultPlayerSkin.getDefaultSkinLegacy();
-                            modelRenderer.renderEquipmentPart(skin, new SkinRenderData(0.0625F, dye, extraColours, distance, true, true, false, texture), entitylivingbaseIn, (ModelBiped) renderLivingBase.getMainModel());
+                            modelRenderer.renderEquipmentPart(skin, new SkinRenderData(0.0625F, dye, extraColours, distance, true, true, false, texture), entitylivingbaseIn, (BipedModel) renderLivingBase.getMainModel());
                         }
                     }
                 }

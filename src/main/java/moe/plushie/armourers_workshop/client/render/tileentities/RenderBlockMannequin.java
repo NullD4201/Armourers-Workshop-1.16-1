@@ -28,7 +28,7 @@ import moe.plushie.armourers_workshop.common.skin.data.SkinProperties;
 import moe.plushie.armourers_workshop.common.tileentities.TileEntityMannequin;
 import moe.plushie.armourers_workshop.utils.SkinNBTHelper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;
 import net.minecraft.client.renderer.GlStateManager.SourceFactor;
@@ -382,7 +382,7 @@ public class RenderBlockMannequin extends TileEntityRenderer<TileEntityMannequin
         GlStateManager.popMatrix();
     }
     
-    private void renderModel(TileEntityMannequin te, ModelBiped targetBiped) {
+    private void renderModel(TileEntityMannequin te, BipedModel targetBiped) {
         if (!hasCustomHead(te)) {
             if (te.PROP_BIPED_ROTATIONS.get().isChild()) {
                 ModelHelper.enableChildModelScale(true, SCALE);

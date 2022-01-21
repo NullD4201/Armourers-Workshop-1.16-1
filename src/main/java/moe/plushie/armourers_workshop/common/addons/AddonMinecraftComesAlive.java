@@ -101,8 +101,8 @@ public class AddonMinecraftComesAlive extends ModAddon {
             }
 
             AbstractModelSkin model = SkinModelRenderer.INSTANCE.getModelForEquipmentType(skinType);
-            if (object != null && object instanceof ModelBiped) {
-                model.render(entity, (ModelBiped) object, skin, false, skinPointer.getSkinDye(), null, false, 0, false);
+            if (object != null && object instanceof BipedModel) {
+                model.render(entity, (BipedModel) object, skin, false, skinPointer.getSkinDye(), null, false, 0, false);
             } else {
                 model.render(entity, null, skin, false, skinPointer.getSkinDye(), null, false, 0, false);
             }

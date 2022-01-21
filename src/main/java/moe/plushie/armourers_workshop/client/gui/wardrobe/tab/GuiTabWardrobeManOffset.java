@@ -14,7 +14,7 @@ import moe.plushie.armourers_workshop.common.network.messages.client.MessageClie
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -106,7 +106,7 @@ public class GuiTabWardrobeManOffset extends GuiTabPanel {
             amount = 1;
         }
         
-        Vec3d offset = new Vec3d(0, 0, 0);
+        Vector3d offset = new Vector3d(0, 0, 0);
         for (int i = 0; i < 6; i++) {
             if (iconButtonsX[i] == button) {
                 offset = offset.add(amount, 0, 0);
@@ -122,7 +122,7 @@ public class GuiTabWardrobeManOffset extends GuiTabPanel {
         message.setOffset(offset);
         PacketHandler.networkWrapper.sendToServer(message);
 
-        Vec3d pos = entityMannequin.getPositionVector();
+        Vector3d pos = entityMannequin.getPositionVector();
         pos = pos.add(offset);
         entityMannequin.setPosition(pos.x, pos.y, pos.z);
     }

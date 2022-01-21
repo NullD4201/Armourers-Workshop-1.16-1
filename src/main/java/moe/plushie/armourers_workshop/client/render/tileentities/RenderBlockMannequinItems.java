@@ -13,7 +13,7 @@ public class RenderBlockMannequinItems {
         renderPlayer = (RenderPlayer) RenderManager.instance.entityRenderMap.get(EntityPlayer.class);
     }
     
-    public void renderHeadStack(MannequinFakePlayer fakePlayer, ItemStack stack, ModelBiped targetBiped, RenderManager rm, byte[] extraColours, double distance) {
+    public void renderHeadStack(MannequinFakePlayer fakePlayer, ItemStack stack, BipedModel targetBiped, RenderManager rm, byte[] extraColours, double distance) {
         Item targetItem = stack.getItem();
         
         if (SkinNBTHelper.stackHasSkinData(stack)) {
@@ -36,7 +36,7 @@ public class RenderBlockMannequinItems {
             if (targetItem instanceof ItemArmor) {
                 int passes = targetItem.getRenderPasses(stack.getItemDamage());
                 for (int i = 0; i < passes; i++) {
-                    ModelBiped armourBiped = ForgeHooksClient.getArmorModel(fakePlayer, stack, 0, renderPlayer.modelArmorChestplate);
+                    BipedModel armourBiped = ForgeHooksClient.getArmorModel(fakePlayer, stack, 0, renderPlayer.modelArmorChestplate);
                     if (i == 0) {
                         bindTexture(RenderBiped.getArmorResource(fakePlayer, stack, 0, null));
                     } else {
@@ -76,7 +76,7 @@ public class RenderBlockMannequinItems {
         if (targetItem instanceof ItemArmor) {
             int passes = targetItem.getRenderPasses(stack.getItemDamage());
             for (int i = 0; i < passes; i++) {
-                ModelBiped armourBiped = ForgeHooksClient.getArmorModel(fakePlayer, stack, 1, renderPlayer.modelArmorChestplate);
+                BipedModel armourBiped = ForgeHooksClient.getArmorModel(fakePlayer, stack, 1, renderPlayer.modelArmorChestplate);
                 if (i == 0) {
                     bindTexture(RenderBiped.getArmorResource(fakePlayer, stack, 1, null));
                 } else {
@@ -119,7 +119,7 @@ public class RenderBlockMannequinItems {
             }
         }
     }
-    public void renderLegsStack(MannequinFakePlayer fakePlayer, ItemStack stack, ModelBiped targetBiped, RenderManager rm, byte[] extraColours, double distance) {
+    public void renderLegsStack(MannequinFakePlayer fakePlayer, ItemStack stack, BipedModel targetBiped, RenderManager rm, byte[] extraColours, double distance) {
         Item targetItem = stack.getItem();
         if (SkinNBTHelper.stackHasSkinData(stack)) {
             SkinModelRenderer.INSTANCE.renderEquipmentPartFromStack(stack, targetBiped, extraColours, distance, true);
@@ -128,7 +128,7 @@ public class RenderBlockMannequinItems {
         if (targetItem instanceof ItemArmor) {
             int passes = targetItem.getRenderPasses(stack.getItemDamage());
             for (int i = 0; i < passes; i++) {
-                ModelBiped armourBiped = ForgeHooksClient.getArmorModel(fakePlayer, stack, 2, renderPlayer.modelArmor);
+                BipedModel armourBiped = ForgeHooksClient.getArmorModel(fakePlayer, stack, 2, renderPlayer.modelArmor);
                 if (i == 0) {
                     bindTexture(RenderBiped.getArmorResource(fakePlayer, stack, 2, null));
                 } else {
@@ -160,7 +160,7 @@ public class RenderBlockMannequinItems {
         }
     }
     
-    public void renderFeetStack(MannequinFakePlayer fakePlayer, ItemStack stack, ModelBiped targetBiped, RenderManager rm, byte[] extraColours, double distance) {
+    public void renderFeetStack(MannequinFakePlayer fakePlayer, ItemStack stack, BipedModel targetBiped, RenderManager rm, byte[] extraColours, double distance) {
         Item targetItem = stack.getItem();
         if (SkinNBTHelper.stackHasSkinData(stack)) {
             SkinModelRenderer.INSTANCE.renderEquipmentPartFromStack(stack, targetBiped, extraColours, distance, true);
@@ -169,7 +169,7 @@ public class RenderBlockMannequinItems {
         if (targetItem instanceof ItemArmor) {
             int passes = targetItem.getRenderPasses(stack.getItemDamage());
             for (int i = 0; i < passes; i++) {
-                ModelBiped armourBiped = ForgeHooksClient.getArmorModel(fakePlayer, stack, 3, renderPlayer.modelArmorChestplate);
+                BipedModel armourBiped = ForgeHooksClient.getArmorModel(fakePlayer, stack, 3, renderPlayer.modelArmorChestplate);
                 if (i == 0) {
                     bindTexture(RenderBiped.getArmorResource(fakePlayer, stack, 3, null));
                 } else {
@@ -199,7 +199,7 @@ public class RenderBlockMannequinItems {
         }
     }
     
-    public void renderRightArmStack(MannequinFakePlayer fakePlayer, ItemStack stack, ModelBiped targetBiped, RenderManager rm, byte[] extraColours, double distance) {
+    public void renderRightArmStack(MannequinFakePlayer fakePlayer, ItemStack stack, BipedModel targetBiped, RenderManager rm, byte[] extraColours, double distance) {
         Item targetItem = stack.getItem();
         float blockScale = 0.5F;
         float itemScale = 1 - (float)1 / 3;
@@ -267,7 +267,7 @@ public class RenderBlockMannequinItems {
         }
     }
     
-    public void renderLeftArmStack(MannequinFakePlayer fakePlayer, ItemStack stack, ModelBiped targetBiped, RenderManager rm, byte[] extraColours, double distance) {
+    public void renderLeftArmStack(MannequinFakePlayer fakePlayer, ItemStack stack, BipedModel targetBiped, RenderManager rm, byte[] extraColours, double distance) {
         Item targetItem = stack.getItem();
         float blockScale = 0.5F;
         float itemScale = 1 - (float)1 / 3;
@@ -338,7 +338,7 @@ public class RenderBlockMannequinItems {
         }
     }
     
-    public void renderWingsStack(MannequinFakePlayer fakePlayer, ItemStack stack, ModelBiped targetBiped, RenderManager rm, byte[] extraColours, double distance) {
+    public void renderWingsStack(MannequinFakePlayer fakePlayer, ItemStack stack, BipedModel targetBiped, RenderManager rm, byte[] extraColours, double distance) {
         Item targetItem = stack.getItem();
         if (SkinNBTHelper.stackHasSkinData(stack)) {
             SkinPointer sp = SkinNBTHelper.getSkinPointerFromStack(stack);

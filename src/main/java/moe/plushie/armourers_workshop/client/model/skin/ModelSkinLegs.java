@@ -21,7 +21,7 @@ import moe.plushie.armourers_workshop.proxies.ClientProxy.TexturePaintType;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -121,13 +121,13 @@ public class ModelSkinLegs extends ModelTypeHelper {
             
             for (int i = 0; i < partCount; i++) {
                 advParts1[i] = new AdvancedPart(0, String.valueOf(i));
-                advParts1[i].pos = new Vec3d(0D, 0D, 8D);
+                advParts1[i].pos = new Vector3d(0D, 0D, 8D);
                 
                 advParts2[i] = new AdvancedPart(0, String.valueOf(i));
-                advParts2[i].pos = new Vec3d(0D, 0D, 8D);
+                advParts2[i].pos = new Vector3d(0D, 0D, 8D);
                 
                 advParts3[i] = new AdvancedPart(0, String.valueOf(i));
-                advParts3[i].pos = new Vec3d(0D, 0D, 8D);
+                advParts3[i].pos = new Vector3d(0D, 0D, 8D);
             }
             
             for (int i = 0; i < partCount - 1; i++) {
@@ -142,19 +142,19 @@ public class ModelSkinLegs extends ModelTypeHelper {
             base.getChildren().add(advParts2[0]);
             base.getChildren().add(advParts3[0]);
             
-            base.rotationAngle = new Vec3d(-30, 0, 0);
+            base.rotationAngle = new Vector3d(-30, 0, 0);
             
-            advParts1[0].rotationAngle = new Vec3d(10, 0, 0);
-            advParts1[1].rotationAngle = new Vec3d(10, 0, 0);
-            advParts1[2].rotationAngle = new Vec3d(10, 0, 0);
+            advParts1[0].rotationAngle = new Vector3d(10, 0, 0);
+            advParts1[1].rotationAngle = new Vector3d(10, 0, 0);
+            advParts1[2].rotationAngle = new Vector3d(10, 0, 0);
             
-            advParts2[0].rotationAngle = new Vec3d(10, 10, 0);
-            advParts2[1].rotationAngle = new Vec3d(10, 0, 0);
-            advParts2[2].rotationAngle = new Vec3d(10, 0, 0);
+            advParts2[0].rotationAngle = new Vector3d(10, 10, 0);
+            advParts2[1].rotationAngle = new Vector3d(10, 0, 0);
+            advParts2[2].rotationAngle = new Vector3d(10, 0, 0);
             
-            advParts3[0].rotationAngle = new Vec3d(10, -10, 0);
-            advParts3[1].rotationAngle = new Vec3d(10, 0, 0);
-            advParts3[2].rotationAngle = new Vec3d(10, 0, 0);
+            advParts3[0].rotationAngle = new Vector3d(10, -10, 0);
+            advParts3[1].rotationAngle = new Vector3d(10, 0, 0);
+            advParts3[2].rotationAngle = new Vector3d(10, 0, 0);
             
             GlStateManager.pushMatrix();
             if (isChild) {

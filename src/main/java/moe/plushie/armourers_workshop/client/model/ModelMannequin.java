@@ -3,14 +3,14 @@ package moe.plushie.armourers_workshop.client.model;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.common.data.type.BipedRotations;
-import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class ModelMannequin extends ModelBiped {
+public class ModelMannequin extends BipedModel {
 
     private boolean slim = false;
     

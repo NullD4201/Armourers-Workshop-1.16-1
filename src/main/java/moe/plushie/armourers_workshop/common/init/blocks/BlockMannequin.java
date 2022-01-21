@@ -48,7 +48,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.util.Constants;
@@ -104,7 +104,7 @@ public class BlockMannequin extends AbstractModBlockContainer {
     }
 
     @Override
-    public BlockState getActualState(BlockState state, IBlockAccess worldIn, BlockPos pos) {
+    public BlockState getActualState(BlockState state, IBlockReader worldIn, BlockPos pos) {
         TileEntityMannequin te = getTileEntity(worldIn, pos, TileEntityMannequin.class);
         if (te != null) {
             state = state.withProperty(STATE_ROTATION, te.PROP_ROTATION.get());
@@ -138,7 +138,7 @@ public class BlockMannequin extends AbstractModBlockContainer {
     }
 
     @Override
-    public AxisAlignedBB getBoundingBox(BlockState state, IBlockAccess source, BlockPos pos) {
+    public AxisAlignedBB getBoundingBox(BlockState state, IBlockReader source, BlockPos pos) {
         if (state.getValue(STATE_PART) == EnumPartType.BOTTOM) {
             return new AxisAlignedBB(0.1F, 0, 0.1F, 0.9F, 1.9F, 0.9F);
         }
@@ -273,7 +273,7 @@ public class BlockMannequin extends AbstractModBlockContainer {
 //    }
 
     @Override
-    public AxisAlignedBB getCollisionBoundingBox(BlockState blockState, IBlockAccess worldIn, BlockPos pos) {
+    public AxisAlignedBB getCollisionBoundingBox(BlockState blockState, IBlockReader worldIn, BlockPos pos) {
         TileEntityMannequin te = getTileEntity(worldIn, pos, TileEntityMannequin.class);
         if (te != null && te instanceof TileEntityMannequin) {
             if (te.PROP_NOCLIP.get()) {
@@ -283,7 +283,7 @@ public class BlockMannequin extends AbstractModBlockContainer {
         return blockState.getBoundingBox(worldIn, pos);
     }
 
-    public boolean isTopOfMannequin(IBlockAccess blockAccess, BlockPos pos) {
+    public boolean isTopOfMannequin(IBlockReader blockAccess, BlockPos pos) {
         BlockState state = blockAccess.getBlockState(pos);
         if ((state.getBlock() != this)) {
             return false;
@@ -432,7 +432,7 @@ public class BlockMannequin extends AbstractModBlockContainer {
     }
 
     @Override
-    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, BlockState state, BlockPos pos, Direction face) {
+    public BlockFaceShape getBlockFaceShape(IBlockReader worldIn, BlockState state, BlockPos pos, Direction face) {
         return BlockFaceShape.UNDEFINED;
     }
 
@@ -442,7 +442,7 @@ public class BlockMannequin extends AbstractModBlockContainer {
     }
 
     @Override
-    public <T extends TileEntity> T getTileEntity(IBlockAccess blockAccess, BlockPos pos, Class<T> type) {
+    public <T extends TileEntity> T getTileEntity(IBlockReader blockAccess, BlockPos pos, Class<T> type) {
         if (isTopOfMannequin(blockAccess, pos)) {
             pos = pos.offset(Direction.DOWN);
         }

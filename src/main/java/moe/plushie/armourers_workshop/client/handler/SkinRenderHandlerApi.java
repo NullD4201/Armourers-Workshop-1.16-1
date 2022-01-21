@@ -12,8 +12,8 @@ import moe.plushie.armourers_workshop.client.skin.cache.ClientSkinCache;
 import moe.plushie.armourers_workshop.common.capability.wardrobe.ExtraColours;
 import moe.plushie.armourers_workshop.common.skin.data.Skin;
 import moe.plushie.armourers_workshop.utils.SkinNBTHelper;
-import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.renderer.entity.model.AgeableModel;
+import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.item.ItemStack;
 
 public class SkinRenderHandlerApi implements ISkinRenderHandler {
@@ -28,7 +28,7 @@ public class SkinRenderHandlerApi implements ISkinRenderHandler {
     }
 
     @Override
-    public boolean renderSkinWithHelper(ItemStack stack, ModelBiped modelBiped) {
+    public boolean renderSkinWithHelper(ItemStack stack, BipedModel BipedModel) {
         if (stack.isEmpty()) {
             return false;
         }
@@ -41,7 +41,7 @@ public class SkinRenderHandlerApi implements ISkinRenderHandler {
         if (skin == null) {
             return false;
         }
-        modelTypeHelper.render(null, skin, modelBiped, true, descriptor.getSkinDye(), ExtraColours.EMPTY_COLOUR, false, 0, true);
+        modelTypeHelper.render(null, skin, BipedModel, true, descriptor.getSkinDye(), ExtraColours.EMPTY_COLOUR, false, 0, true);
         return true;
     }
 
@@ -66,7 +66,7 @@ public class SkinRenderHandlerApi implements ISkinRenderHandler {
     }
 
     @Override
-    public boolean renderSkinWithHelper(ISkinDescriptor skinPointer, ModelBiped modelBiped) {
+    public boolean renderSkinWithHelper(ISkinDescriptor skinPointer, BipedModel BipedModel) {
         // TODO Auto-generated method stub
         return false;
     }
@@ -131,7 +131,7 @@ public class SkinRenderHandlerApi implements ISkinRenderHandler {
     }
 
     @Override
-    public ModelBase getArmourerHandModel() {
+    public AgeableModel getArmourerHandModel() {
         return ModelHand.MODEL;
     }
 

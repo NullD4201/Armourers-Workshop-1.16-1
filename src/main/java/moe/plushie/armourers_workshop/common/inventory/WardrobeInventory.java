@@ -5,7 +5,7 @@ import moe.plushie.armourers_workshop.utils.NBTHelper;
 import moe.plushie.armourers_workshop.utils.UtilItems;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
 public class WardrobeInventory extends ModInventory {
@@ -35,7 +35,7 @@ public class WardrobeInventory extends ModInventory {
         return 1;
     }
     
-    public void dropItems(World world, Vec3d pos) {
+    public void dropItems(World world, Vector3d pos) {
         for (int i = 0; i < getSizeInventory(); i++) {
             ItemStack stack = getStackInSlot(i);
             if (!stack.isEmpty()) {

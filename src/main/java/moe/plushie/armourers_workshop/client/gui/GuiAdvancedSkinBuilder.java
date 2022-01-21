@@ -16,7 +16,7 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 import net.minecraftforge.fml.client.config.GuiSlider;
 import net.minecraftforge.fml.client.config.GuiSlider.ISlider;
@@ -140,8 +140,8 @@ public class GuiAdvancedSkinBuilder extends ModGuiContainer<ContainerAdvancedSki
     
     private void setValuesForIndex(int index) {
         SkinPartSettings ps = tileEntity.getPartSettings(index);
-        ps.posOffset = new Vec3d(posOffsetXSlider.getValueInt(), posOffsetYSlider.getValueInt(), posOffsetZSlider.getValueInt());
-        ps.rotOffset = new Vec3d(rotOffsetXSlider.getValueInt(), rotOffsetYSlider.getValueInt(), rotOffsetZSlider.getValueInt());
+        ps.posOffset = new Vector3d(posOffsetXSlider.getValueInt(), posOffsetYSlider.getValueInt(), posOffsetZSlider.getValueInt());
+        ps.rotOffset = new Vector3d(rotOffsetXSlider.getValueInt(), rotOffsetYSlider.getValueInt(), rotOffsetZSlider.getValueInt());
     }
     
     @Override

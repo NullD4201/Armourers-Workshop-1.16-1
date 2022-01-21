@@ -45,7 +45,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.Explosion;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
@@ -225,7 +225,7 @@ public class BlockSkinnable extends AbstractModBlockContainer {
      */
 
     @Override
-    public AxisAlignedBB getCollisionBoundingBox(BlockState blockState, IBlockAccess worldIn, BlockPos pos) {
+    public AxisAlignedBB getCollisionBoundingBox(BlockState blockState, IBlockReader worldIn, BlockPos pos) {
         Skin skin = getSkin(worldIn, pos);
         if (skin != null) {
             if (SkinProperties.PROP_BLOCK_NO_COLLISION.getValue(skin.getProperties())) {
@@ -236,7 +236,7 @@ public class BlockSkinnable extends AbstractModBlockContainer {
     }
 
     @Override
-    public AxisAlignedBB getBoundingBox(BlockState state, IBlockAccess source, BlockPos pos) {
+    public AxisAlignedBB getBoundingBox(BlockState state, IBlockReader source, BlockPos pos) {
         TileEntitySkinnable te = getTileEntity(source, pos);
         if (te != null) {
             Direction dir = state.getValue(STATE_FACING);
@@ -286,7 +286,7 @@ public class BlockSkinnable extends AbstractModBlockContainer {
         return false;
     }
 
-    private TileEntitySkinnable getTileEntity(IBlockAccess world, BlockPos pos) {
+    private TileEntitySkinnable getTileEntity(IBlockReader world, BlockPos pos) {
         TileEntity te = world.getTileEntity(pos);
         if (te != null && te instanceof TileEntitySkinnable) {
             return (TileEntitySkinnable) te;
@@ -296,7 +296,7 @@ public class BlockSkinnable extends AbstractModBlockContainer {
         return null;
     }
 
-    private SkinDescriptor getSkinPointer(IBlockAccess world, BlockPos pos) {
+    private SkinDescriptor getSkinPointer(IBlockReader world, BlockPos pos) {
         TileEntitySkinnable te = getTileEntity(world, pos);
         if (te != null) {
             return (SkinDescriptor) te.getSkinPointer();
@@ -306,7 +306,7 @@ public class BlockSkinnable extends AbstractModBlockContainer {
         return null;
     }
 
-    private Skin getSkin(IBlockAccess world, BlockPos pos) {
+    private Skin getSkin(IBlockReader world, BlockPos pos) {
         SkinDescriptor skinPointer = getSkinPointer(world, pos);
         if (skinPointer != null) {
             return SkinUtils.getSkinDetectSide(skinPointer, true, true);
@@ -315,7 +315,7 @@ public class BlockSkinnable extends AbstractModBlockContainer {
     }
 
     @Override
-    public boolean isLadder(BlockState state, IBlockAccess world, BlockPos pos, LivingEntity entity) {
+    public boolean isLadder(BlockState state, IBlockReader world, BlockPos pos, LivingEntity entity) {
         Skin skin = getSkin(world, pos);
         if (skin != null) {
             return SkinProperties.PROP_BLOCK_LADDER.getValue(skin.getProperties());
@@ -335,7 +335,7 @@ public class BlockSkinnable extends AbstractModBlockContainer {
     }
 
     @Override
-    public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, BlockState state, int fortune) {
+    public void getDrops(NonNullList<ItemStack> drops, IBlockReader world, BlockPos pos, BlockState state, int fortune) {
     }
 
     @Override
