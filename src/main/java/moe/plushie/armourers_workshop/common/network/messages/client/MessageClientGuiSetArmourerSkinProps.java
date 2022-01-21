@@ -4,9 +4,9 @@ import io.netty.buffer.ByteBuf;
 import moe.plushie.armourers_workshop.common.inventory.ContainerArmourer;
 import moe.plushie.armourers_workshop.common.skin.data.SkinProperties;
 import moe.plushie.armourers_workshop.common.tileentities.TileEntityArmourer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.inventory.Container;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -25,21 +25,21 @@ public class MessageClientGuiSetArmourerSkinProps implements IMessage, IMessageH
     
     @Override
     public void fromBytes(ByteBuf buf) {
-        NBTTagCompound compound = ByteBufUtils.readTag(buf);
+        CompoundNBT compound = ByteBufUtils.readTag(buf);
         skinProps = new SkinProperties();
         skinProps.readFromNBT(compound);
     }
 
     @Override
     public void toBytes(ByteBuf buf) {
-        NBTTagCompound compound = new NBTTagCompound();
+        CompoundNBT compound = new CompoundNBT();
         skinProps.writeToNBT(compound);
         ByteBufUtils.writeTag(buf, compound);
     }
     
     @Override
     public IMessage onMessage(MessageClientGuiSetArmourerSkinProps message, MessageContext ctx) {
-        EntityPlayerMP player = ctx.getServerHandler().player;
+        ServerPlayerEntity player = ctx.getServerHandler().player;
         if (player == null) { return null; }
         Container container = player.openContainer;
         

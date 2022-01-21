@@ -5,13 +5,13 @@ import moe.plushie.armourers_workshop.common.inventory.ContainerHologramProjecto
 import moe.plushie.armourers_workshop.common.inventory.IGuiFactory;
 import moe.plushie.armourers_workshop.common.lib.LibBlockNames;
 import moe.plushie.armourers_workshop.common.tileentities.property.TileProperty;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.network.play.server.SUpdateTileEntityPacket;
+import net.minecraft.util.Direction;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -115,17 +115,17 @@ public class TileEntityHologramProjector extends AbstractTileEntityInventory imp
     }
 
     @Override
-    public NBTTagCompound getUpdateTag() {
-        return writeToNBT(new NBTTagCompound());
+    public CompoundNBT getUpdateTag() {
+        return writeToNBT(new CompoundNBT());
     }
 
     @Override
-    public SPacketUpdateTileEntity getUpdatePacket() {
-        return new SPacketUpdateTileEntity(getPos(), 0, getUpdateTag());
+    public SUpdateTileEntityPacket getUpdatePacket() {
+        return new SUpdateTileEntityPacket(getPos(), 0, getUpdateTag());
     }
 
     @Override
-    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
+    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
         readFromNBT(pkt.getNbtCompound());
     }
 
@@ -154,7 +154,7 @@ public class TileEntityHologramProjector extends AbstractTileEntityInventory imp
     @Override
     public AxisAlignedBB getRenderBoundingBox() {
         AxisAlignedBB bb = new AxisAlignedBB(-2, -2, -2, 3, 3, 3);
-        EnumFacing dir = EnumFacing.byIndex(getBlockMetadata());
+        Direction dir = Direction.byIndex(getBlockMetadata());
         bb = bb.offset(getPos());
 
         float scale = 0.0625F;
@@ -195,13 +195,13 @@ public class TileEntityHologramProjector extends AbstractTileEntityInventory imp
     }
 
     @Override
-    public Container getServerGuiElement(EntityPlayer player, World world, BlockPos pos) {
+    public Container getServerGuiElement(PlayerEntity player, World world, BlockPos pos) {
         return new ContainerHologramProjector(player.inventory, this);
     }
     
     @SideOnly(Side.CLIENT)
     @Override
-    public GuiScreen getClientGuiElement(EntityPlayer player, World world, BlockPos pos) {
+    public Screen getClientGuiElement(PlayerEntity player, World world, BlockPos pos) {
         return new GuiHologramProjector(player.inventory, this);
     }
 }

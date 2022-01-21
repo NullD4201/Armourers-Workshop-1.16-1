@@ -4,7 +4,7 @@ import moe.plushie.armourers_workshop.ArmourersWorkshop;
 import moe.plushie.armourers_workshop.common.lib.EnumGuiId;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.fml.common.network.internal.FMLNetworkHandler;
 
@@ -16,7 +16,7 @@ public class CommandAdminPanel extends ModCommand {
     
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-        EntityPlayerMP player = getCommandSenderAsPlayer(sender);
+        ServerPlayerEntity player = getCommandSenderAsPlayer(sender);
         if (player == null) {
             return;
         }

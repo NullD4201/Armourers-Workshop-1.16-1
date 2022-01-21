@@ -13,21 +13,21 @@ import moe.plushie.armourers_workshop.common.tileentities.TileEntityDyeTable;
 import moe.plushie.armourers_workshop.utils.SkinNBTHelper;
 import moe.plushie.armourers_workshop.utils.UtilItems;
 import moe.plushie.armourers_workshop.utils.PlayerUtils;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 
 public class ContainerDyeTable extends Container {
 
-    private final InventoryPlayer invPlayer;
+    private final PlayerInventory invPlayer;
     private final TileEntityDyeTable tileEntity;
     private boolean instanced;
     private IInventory inventory;
 
-    public ContainerDyeTable(InventoryPlayer invPlayer, TileEntityDyeTable tileEntity) {
+    public ContainerDyeTable(PlayerInventory invPlayer, TileEntityDyeTable tileEntity) {
         this.invPlayer = invPlayer;
         this.tileEntity = tileEntity;
 
@@ -98,7 +98,7 @@ public class ContainerDyeTable extends Container {
     }
 
     @Override
-    public void onContainerClosed(EntityPlayer entityPlayer) {
+    public void onContainerClosed(PlayerEntity entityPlayer) {
         super.onContainerClosed(entityPlayer);
         if (!tileEntity.getWorld().isRemote & instanced) {
             // Drop dye bottles.
@@ -225,12 +225,12 @@ public class ContainerDyeTable extends Container {
     }
 
     @Override
-    public boolean canInteractWith(EntityPlayer player) {
+    public boolean canInteractWith(PlayerEntity player) {
         return tileEntity.isUsableByPlayer(player);
     }
 
     @Override
-    public ItemStack transferStackInSlot(EntityPlayer player, int slotId) {
+    public ItemStack transferStackInSlot(PlayerEntity player, int slotId) {
         Slot slot = getSlot(slotId);
         if (slot.getHasStack()) {
             ItemStack stack = slot.getStack();

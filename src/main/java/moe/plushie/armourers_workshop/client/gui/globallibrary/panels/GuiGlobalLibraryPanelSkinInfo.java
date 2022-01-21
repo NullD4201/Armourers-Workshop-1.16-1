@@ -2,6 +2,7 @@ package moe.plushie.armourers_workshop.client.gui.globallibrary.panels;
 
 import java.io.File;
 
+import net.minecraft.client.gui.widget.button.Button;
 import org.apache.logging.log4j.Level;
 import org.lwjgl.opengl.GL11;
 
@@ -42,8 +43,6 @@ import moe.plushie.armourers_workshop.common.skin.data.SkinIdentifier;
 import moe.plushie.armourers_workshop.utils.ModLogger;
 import moe.plushie.armourers_workshop.utils.SkinIOUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
@@ -73,7 +72,7 @@ public class GuiGlobalLibraryPanelSkinInfo extends GuiPanel implements IDialogCa
     private boolean doneRatingCheck = false;
     private int rating = 0;
 
-    public GuiGlobalLibraryPanelSkinInfo(GuiScreen parent, int x, int y, int width, int height) {
+    public GuiGlobalLibraryPanelSkinInfo(net.minecraft.client.gui.screen.Screen parent, int x, int y, int width, int height) {
         super(parent, x, y, width, height);
         guiName = ((GuiGlobalLibrary) parent).getGuiName() + ".skinInfo";
     }
@@ -127,7 +126,7 @@ public class GuiGlobalLibraryPanelSkinInfo extends GuiPanel implements IDialogCa
     }
 
     @Override
-    protected void actionPerformed(GuiButton button) {
+    protected void actionPerformed(Button button) {
         if (button == buttonBack) {
             ((GuiGlobalLibrary) parent).switchScreen(returnScreen);
         }

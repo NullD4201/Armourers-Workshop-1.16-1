@@ -12,10 +12,10 @@ import moe.plushie.armourers_workshop.common.config.ConfigHandler;
 import moe.plushie.armourers_workshop.common.network.PacketHandler;
 import moe.plushie.armourers_workshop.common.network.messages.client.MessageClientUpdatePlayerWardrobeCap;
 import moe.plushie.armourers_workshop.common.network.messages.server.MessageServerSyncPlayerWardrobeCap;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.inventory.EntityEquipmentSlot.Type;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.inventory.EquipmentSlotType.Group;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
@@ -32,7 +32,7 @@ public class PlayerWardrobeCap extends WardrobeCap implements IPlayerWardrobeCap
     /** Number of slots the player has unlocked in the wardrobe */
     private HashMap<String, Integer> slotsUnlocked;
     
-    public PlayerWardrobeCap(EntityPlayer entity, ISkinnableEntity skinnableEntity) {
+    public PlayerWardrobeCap(PlayerEntity entity, ISkinnableEntity skinnableEntity) {
         super(entity, skinnableEntity);
         armourOverride = new BitSet(4);
         ArrayList<ISkinType> validSkinTypes = new ArrayList<ISkinType>();
@@ -45,16 +45,16 @@ public class PlayerWardrobeCap extends WardrobeCap implements IPlayerWardrobeCap
     }
 
     @Override
-    public boolean getArmourOverride(EntityEquipmentSlot equipmentSlot) {
-        if (equipmentSlot.getSlotType() == Type.ARMOR) {
+    public boolean getArmourOverride(EquipmentSlotType equipmentSlot) {
+        if (equipmentSlot.getSlotType() == Group.ARMOR) {
             return armourOverride.get(equipmentSlot.getSlotIndex());
         }
         return false;
     }
     
     @Override
-    public void setArmourOverride(EntityEquipmentSlot equipmentSlot, boolean override) {
-        if (equipmentSlot.getSlotType() == Type.ARMOR) {
+    public void setArmourOverride(EquipmentSlotType equipmentSlot, boolean override) {
+        if (equipmentSlot.getSlotType() == Group.ARMOR) {
             armourOverride.set(equipmentSlot.getSlotIndex(), override);
         }
     }
@@ -78,19 +78,19 @@ public class PlayerWardrobeCap extends WardrobeCap implements IPlayerWardrobeCap
         return getSkinnableEntity().getSlotsForSkinType(skinType);
     }
     
-    public static IPlayerWardrobeCap get(EntityPlayer entity) {
+    public static IPlayerWardrobeCap get(PlayerEntity entity) {
         return entity.getCapability(PLAYER_WARDROBE_CAP, null);
     }
     
     @Override
     protected IMessage getUpdateMessage() {
-        NBTTagCompound compound = (NBTTagCompound)PLAYER_WARDROBE_CAP.getStorage().writeNBT(PLAYER_WARDROBE_CAP, this, null);
+        CompoundNBT compound = (CompoundNBT)PLAYER_WARDROBE_CAP.getStorage().writeNBT(PLAYER_WARDROBE_CAP, this, null);
         return new MessageServerSyncPlayerWardrobeCap(entity.getEntityId(), compound);
     }
     
     @Override
     public void sendUpdateToServer() {
-        NBTTagCompound compound = (NBTTagCompound)PLAYER_WARDROBE_CAP.getStorage().writeNBT(PLAYER_WARDROBE_CAP, this, null);
+        CompoundNBT compound = (CompoundNBT)PLAYER_WARDROBE_CAP.getStorage().writeNBT(PLAYER_WARDROBE_CAP, this, null);
         MessageClientUpdatePlayerWardrobeCap message = new MessageClientUpdatePlayerWardrobeCap(compound);
         PacketHandler.networkWrapper.sendToServer(message);
     }

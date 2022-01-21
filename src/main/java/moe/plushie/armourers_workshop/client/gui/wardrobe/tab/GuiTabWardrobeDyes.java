@@ -1,5 +1,8 @@
 package moe.plushie.armourers_workshop.client.gui.wardrobe.tab;
 
+import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.container.Slot;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.api.common.capability.IEntitySkinCapability;
@@ -10,11 +13,8 @@ import moe.plushie.armourers_workshop.client.gui.style.GuiStyle;
 import moe.plushie.armourers_workshop.client.gui.wardrobe.GuiWardrobe;
 import moe.plushie.armourers_workshop.client.lib.LibGuiResources;
 import moe.plushie.armourers_workshop.common.inventory.ContainerSkinWardrobe;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Slot;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -25,11 +25,11 @@ public class GuiTabWardrobeDyes extends GuiTabPanel {
     private static final ResourceLocation GUI_JSON = new ResourceLocation(LibGuiResources.JSON_WARDROBE);
     
     private final GuiStyle guiStyle;
-    private EntityPlayer entityPlayer;
+    private PlayerEntity entityPlayer;
     private IEntitySkinCapability skinCapability;
     private IWardrobeCap wardrobeCapability;
     
-    public GuiTabWardrobeDyes(int tabId, GuiScreen parent, EntityPlayer entityPlayer, IEntitySkinCapability skinCapability, IWardrobeCap wardrobeCapability) {
+    public GuiTabWardrobeDyes(int tabId, Screen parent, PlayerEntity entityPlayer, IEntitySkinCapability skinCapability, IWardrobeCap wardrobeCapability) {
         super(tabId, parent, false);
         this.guiStyle = GuiResourceManager.getGuiJsonInfo(GUI_JSON);
         this.entityPlayer = entityPlayer;
@@ -51,7 +51,7 @@ public class GuiTabWardrobeDyes extends GuiTabPanel {
         int sloImageSize = 18;
         int sloSize = 16;
         int slotCount = 0;
-        GuiContainer guiContainer = (GuiContainer) parent;
+        ContainerScreen guiContainer = (ContainerScreen) parent;
         ContainerSkinWardrobe skinWardrobe = (ContainerSkinWardrobe) guiContainer.inventorySlots;
         for (int i = skinWardrobe.getIndexDyeStart(); i <  skinWardrobe.getIndexDyeEnd(); i++) {
             Slot slot = skinWardrobe.inventorySlots.get(i);

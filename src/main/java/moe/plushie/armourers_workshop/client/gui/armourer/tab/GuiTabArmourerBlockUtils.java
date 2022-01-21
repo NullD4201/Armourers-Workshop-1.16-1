@@ -14,8 +14,8 @@ import moe.plushie.armourers_workshop.common.network.messages.client.MessageClie
 import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
 import moe.plushie.armourers_workshop.common.tileentities.TileEntityArmourer;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StringUtils;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
@@ -32,7 +32,7 @@ public class GuiTabArmourerBlockUtils extends GuiTabPanel implements IDialogCall
     private GuiButtonExt buttonClear;
     private GuiButtonExt buttonCopy;
     
-    public GuiTabArmourerBlockUtils(int tabId, GuiScreen parent) {
+    public GuiTabArmourerBlockUtils(int tabId, Screen parent) {
         super(tabId, parent, false);
         tileEntity = ((GuiArmourer)parent).tileEntity;
     }
@@ -49,7 +49,7 @@ public class GuiTabArmourerBlockUtils extends GuiTabPanel implements IDialogCall
     }
     
     @Override
-    protected void actionPerformed(GuiButton button) {
+    protected void actionPerformed(Button button) {
         String guiName = tileEntity.getName();
         if (button == buttonClear) {
             ((GuiArmourer)parent).openDialog(new GuiDialogClear(parent, guiName + ".dialog.clear", (IDialogCallback) parent, 190, 140, tileEntity.getSkinType(), tileEntity.getSkinProps()));

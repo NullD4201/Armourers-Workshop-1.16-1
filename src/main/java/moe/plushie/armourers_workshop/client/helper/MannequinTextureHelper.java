@@ -7,7 +7,7 @@ import moe.plushie.armourers_workshop.common.data.type.TextureType;
 import moe.plushie.armourers_workshop.common.tileentities.TileEntityMannequin;
 import moe.plushie.armourers_workshop.proxies.ClientProxy;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.StringUtils;
 import net.minecraftforge.common.util.Constants;
@@ -30,7 +30,7 @@ public final class MannequinTextureHelper {
         String imageUrl = null;
 
         if (itemStack.hasTagCompound()) {
-            NBTTagCompound compound = itemStack.getTagCompound();
+            CompoundNBT compound = itemStack.getTagCompound();
             if (compound.hasKey(TAG_OWNER, Constants.NBT.TAG_COMPOUND)) {
                 gameProfile = NBTUtil.readGameProfileFromNBT(compound.getCompoundTag(TAG_OWNER));
             }

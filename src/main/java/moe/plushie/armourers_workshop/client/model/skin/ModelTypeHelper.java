@@ -1,5 +1,6 @@
 package moe.plushie.armourers_workshop.client.model.skin;
 
+import net.minecraft.entity.LivingEntity;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.api.common.IExtraColours;
@@ -16,7 +17,6 @@ import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelPlayer;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -65,18 +65,18 @@ public abstract class ModelTypeHelper extends ModelBiped implements IEquipmentMo
             this.isChild = false;
             this.slim = false;
             // this.heldItemRight = 0;
-            if (entity instanceof EntityLivingBase) {
+            if (entity instanceof LivingEntity) {
                 /*
                  * if (((EntityLivingBase)entity).getHeldItem() != null) { this.heldItemRight =
                  * 1; }
                  */
-                if (((EntityLivingBase) entity).isRiding()) {
+                if (((LivingEntity) entity).isRiding()) {
                     this.isRiding = true;
                 }
-                if (((EntityLivingBase) entity).isSneaking()) {
+                if (((LivingEntity) entity).isSneaking()) {
                     this.isSneak = true;
                 }
-                if (((EntityLivingBase) entity).isChild()) {
+                if (((LivingEntity) entity).isChild()) {
                     this.isChild = true;
                 }
             }

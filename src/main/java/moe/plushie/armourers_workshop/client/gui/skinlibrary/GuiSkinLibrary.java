@@ -5,6 +5,10 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
 
+import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.container.Slot;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.Level;
 import org.lwjgl.Sys;
@@ -49,13 +53,9 @@ import moe.plushie.armourers_workshop.common.tileentities.TileEntitySkinLibrary;
 import moe.plushie.armourers_workshop.utils.ModLogger;
 import moe.plushie.armourers_workshop.utils.SkinIOUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.ScreenShotHelper;
@@ -83,7 +83,7 @@ public class GuiSkinLibrary extends ModGuiContainer<ContainerSkinLibrary> implem
     private static boolean trackFile = false;
 
     private TileEntitySkinLibrary armourLibrary;
-    private final EntityPlayer player;
+    private final PlayerEntity player;
     private GuiIconButton fileSwitchlocal;
     private GuiIconButton fileSwitchRemotePublic;
     private GuiIconButton fileSwitchRemotePrivate;
@@ -107,7 +107,7 @@ public class GuiSkinLibrary extends ModGuiContainer<ContainerSkinLibrary> implem
 
     private int neiBump = 18;
 
-    public GuiSkinLibrary(InventoryPlayer invPlayer, TileEntitySkinLibrary armourLibrary) {
+    public GuiSkinLibrary(PlayerInventory invPlayer, TileEntitySkinLibrary armourLibrary) {
         super(new ContainerSkinLibrary(invPlayer, armourLibrary));
         player = invPlayer.player;
         this.armourLibrary = armourLibrary;
@@ -337,7 +337,7 @@ public class GuiSkinLibrary extends ModGuiContainer<ContainerSkinLibrary> implem
     }
 
     @Override
-    protected void actionPerformed(GuiButton button) {
+    protected void actionPerformed(Button button) {
         String filename = filenameTextbox.getText().trim();
 
         if (button == fileSwitchlocal | button == fileSwitchRemotePublic | button == fileSwitchRemotePrivate) {
@@ -777,7 +777,7 @@ public class GuiSkinLibrary extends ModGuiContainer<ContainerSkinLibrary> implem
         dropDownList.drawForeground(mc, mouseX, mouseY, partialTickTime);
         if (!isDialogOpen()) {
             for (int i = 0; i < buttonList.size(); i++) {
-                GuiButton button = buttonList.get(i);
+                Button button = buttonList.get(i);
                 if (button instanceof GuiIconButton) {
                     ((GuiIconButton) button).drawRollover(mc, mouseX, mouseY);
                 }
@@ -785,7 +785,7 @@ public class GuiSkinLibrary extends ModGuiContainer<ContainerSkinLibrary> implem
         }
     }
 
-    private String getPrivateRoot(EntityPlayer player) {
+    private String getPrivateRoot(PlayerEntity player) {
         String privateRoot = "/private/";
         if (ConfigHandler.remotePlayerId != null) {
             privateRoot += ConfigHandler.remotePlayerId.toString() + "/";

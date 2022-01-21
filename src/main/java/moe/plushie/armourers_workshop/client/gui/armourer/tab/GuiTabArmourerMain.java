@@ -2,6 +2,7 @@ package moe.plushie.armourers_workshop.client.gui.armourer.tab;
 
 import java.util.ArrayList;
 
+import net.minecraft.client.gui.widget.button.Button;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.api.common.skin.type.ISkinType;
@@ -24,9 +25,8 @@ import moe.plushie.armourers_workshop.common.skin.data.SkinProperties;
 import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
 import moe.plushie.armourers_workshop.common.tileentities.TileEntityArmourer;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiTextField;
+import net.minecraft.client.gui.AbstractGui;
+import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
@@ -43,8 +43,8 @@ public class GuiTabArmourerMain extends GuiTabPanel<GuiArmourer> implements IDro
     private final TileEntityArmourer tileEntity;
 
     private GuiDropDownList dropDownSkinType;
-    private GuiTextField textItemName;
-    private GuiTextField textFlavour;
+    private TextFieldWidget textItemName;
+    private TextFieldWidget textFlavour;
     private boolean resetting;
 
     public GuiTabArmourerMain(int tabId, GuiArmourer parent) {
@@ -87,11 +87,11 @@ public class GuiTabArmourerMain extends GuiTabPanel<GuiArmourer> implements IDro
         buttonList.add(new GuiButtonExt(13, 88, 16, 50, 12, GuiHelper.getLocalizedControlName(guiName, "save")));
         buttonList.add(new GuiButtonExt(14, 88, 16 + 13, 50, 12, GuiHelper.getLocalizedControlName(guiName, "load")));
 
-        textItemName = new GuiTextField(-1, fontRenderer, x + 8, y + 58, 158, 16);
+        textItemName = new TextFieldWidget(-1, fontRenderer, x + 8, y + 58, 158, 16);
         textItemName.setMaxStringLength(40);
         textItemName.setText(SkinProperties.PROP_ALL_CUSTOM_NAME.getValue(tileEntity.getSkinProps()));
 
-        textFlavour = new GuiTextField(-1, fontRenderer, x + 8, y + 90, 158, 16);
+        textFlavour = new TextFieldWidget(-1, fontRenderer, x + 8, y + 90, 158, 16);
         textFlavour.setMaxStringLength(40);
         textFlavour.setText(SkinProperties.PROP_ALL_FLAVOUR_TEXT.getValue(tileEntity.getSkinProps()));
 
@@ -132,7 +132,7 @@ public class GuiTabArmourerMain extends GuiTabPanel<GuiArmourer> implements IDro
                 }
                 mc.renderEngine.bindTexture(skinType.getIcon());
                 GlStateManager.color(1, 1, 1);
-                Gui.drawScaledCustomSizeModalRect(x - 2, y, 0, 0, 16, 16, 8, 8, 16, 16);
+                AbstractGui.drawScaledCustomSizeModalRect(x - 2, y, 0, 0, 16, 16, 8, 8, 16, 16);
                 mc.fontRenderer.drawString(displayText, x + 7, y, textColour);
             }
         }
@@ -196,7 +196,7 @@ public class GuiTabArmourerMain extends GuiTabPanel<GuiArmourer> implements IDro
     }
 
     @Override
-    protected void actionPerformed(GuiButton button) {
+    protected void actionPerformed(Button button) {
         switch (button.id) {
         case 13:
             PacketHandler.networkWrapper.sendToServer(new MessageClientLoadArmour(textItemName.getText().trim(), ""));
@@ -269,7 +269,7 @@ public class GuiTabArmourerMain extends GuiTabPanel<GuiArmourer> implements IDro
         GL11.glPushMatrix();
         GL11.glTranslatef(-x, -y, 0F);
         for (int i = 0; i < buttonList.size(); i++) {
-            GuiButton button = buttonList.get(i);
+            Button button = buttonList.get(i);
             if (button instanceof GuiHelp) {
                 ((GuiHelp) button).drawRollover(mc, mouseX - x, mouseY - y);
             }

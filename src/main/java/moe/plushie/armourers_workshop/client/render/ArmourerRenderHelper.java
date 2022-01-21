@@ -1,5 +1,6 @@
 package moe.plushie.armourers_workshop.client.render;
 
+import net.minecraft.util.Direction;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.api.common.IPoint3D;
@@ -18,7 +19,6 @@ import net.minecraft.client.renderer.GlStateManager.DestFactor;
 import net.minecraft.client.renderer.GlStateManager.SourceFactor;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -110,15 +110,15 @@ public final class ArmourerRenderHelper {
     }
 
     private static void renderGuideBox(double x, double y, double z, int width, int height, int depth, float scale, float r, float g, float b, float a) {
-        renderGuideFace(EnumFacing.DOWN, x, y, z, width, depth, scale, r, g, b, a);
-        renderGuideFace(EnumFacing.UP, x, y + height, z, width, depth, scale, r, g, b, a);
-        renderGuideFace(EnumFacing.EAST, x + width, y, z, depth, height, scale, r, g, b, a);
-        renderGuideFace(EnumFacing.WEST, x, y, z, depth, height, scale, r, g, b, a);
-        renderGuideFace(EnumFacing.NORTH, x, y, z, width, height, scale, r, g, b, a);
-        renderGuideFace(EnumFacing.SOUTH, x, y, z + depth, width, height, scale, r, g, b, a);
+        renderGuideFace(Direction.DOWN, x, y, z, width, depth, scale, r, g, b, a);
+        renderGuideFace(Direction.UP, x, y + height, z, width, depth, scale, r, g, b, a);
+        renderGuideFace(Direction.EAST, x + width, y, z, depth, height, scale, r, g, b, a);
+        renderGuideFace(Direction.WEST, x, y, z, depth, height, scale, r, g, b, a);
+        renderGuideFace(Direction.NORTH, x, y, z, width, height, scale, r, g, b, a);
+        renderGuideFace(Direction.SOUTH, x, y, z + depth, width, height, scale, r, g, b, a);
     }
 
-    private static void renderGuideFace(EnumFacing dir, double x, double y, double z, double sizeX, double sizeY, float scale, float r, float g, float b, float a) {
+    private static void renderGuideFace(Direction dir, double x, double y, double z, double sizeX, double sizeY, float scale, float r, float g, float b, float a) {
         Tessellator tessellator = Tessellator.getInstance();
 
         GlStateManager.pushMatrix();

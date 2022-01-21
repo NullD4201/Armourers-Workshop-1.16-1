@@ -5,7 +5,7 @@ import java.util.Calendar;
 import moe.plushie.armourers_workshop.common.config.ConfigHandler;
 import moe.plushie.armourers_workshop.common.lib.LibModInfo;
 import moe.plushie.armourers_workshop.utils.TranslateUtils;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -66,7 +66,7 @@ public class Holiday {
         return ItemStack.EMPTY;
     }
     
-    public ItemStack getGift(EntityPlayer player) {
+    public ItemStack getGift(PlayerEntity player) {
         return ItemStack.EMPTY;
     }
     

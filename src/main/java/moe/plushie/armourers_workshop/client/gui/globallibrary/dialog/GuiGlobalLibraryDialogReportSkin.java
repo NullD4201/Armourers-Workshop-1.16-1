@@ -8,8 +8,8 @@ import moe.plushie.armourers_workshop.client.gui.controls.IDialogCallback;
 import moe.plushie.armourers_workshop.client.lib.LibGuiResources;
 import moe.plushie.armourers_workshop.common.library.global.task.user.GlobalTaskSkinReport.SkinReport;
 import moe.plushie.armourers_workshop.common.library.global.task.user.GlobalTaskSkinReport.SkinReport.SkinReportType;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
@@ -23,7 +23,7 @@ public class GuiGlobalLibraryDialogReportSkin extends AbstractGuiDialog {
     private GuiDropDownList dropDownReportType;
     private GuiTextFieldCustom textReportMessage;
 
-    public GuiGlobalLibraryDialogReportSkin(GuiScreen parent, String name, IDialogCallback callback, int width, int height, int skinId) {
+    public GuiGlobalLibraryDialogReportSkin(Screen parent, String name, IDialogCallback callback, int width, int height, int skinId) {
         super(parent, name, callback, width, height);
         this.skinId = skinId;
         slotHandler = null;
@@ -79,7 +79,7 @@ public class GuiGlobalLibraryDialogReportSkin extends AbstractGuiDialog {
     }
 
     @Override
-    protected void actionPerformed(GuiButton button) {
+    protected void actionPerformed(Button button) {
         if (button == buttonCancel) {
             returnDialogResult(DialogResult.CANCEL);
         }

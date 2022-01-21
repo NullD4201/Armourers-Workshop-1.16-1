@@ -7,14 +7,14 @@ import moe.plushie.armourers_workshop.common.network.messages.client.MessageClie
 import moe.plushie.armourers_workshop.common.tileentities.property.IPropertyHolder;
 import moe.plushie.armourers_workshop.common.tileentities.property.TileProperty;
 import moe.plushie.armourers_workshop.common.tileentities.property.TilePropertyManager;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.block.BlockState;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.server.management.PlayerChunkMapEntry;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
+import net.minecraft.world.ServerWorld;
 
 public abstract class ModTileEntity extends TileEntity implements IPropertyHolder {
 
@@ -38,13 +38,13 @@ public abstract class ModTileEntity extends TileEntity implements IPropertyHolde
         }
     }
     
-    public void readPropsFromCompound(NBTTagCompound compound) {
+    public void readPropsFromCompound(CompoundNBT compound) {
         for (TileProperty<?> property : tileProperties) {
             TilePropertyManager.INSTANCE.readPropFromCompound(property, compound);
         }
     }
     
-    public NBTTagCompound writePropsToCompound(NBTTagCompound compound) {
+    public CompoundNBT writePropsToCompound(CompoundNBT compound) {
         for (TileProperty<?> property : tileProperties) {
             TilePropertyManager.INSTANCE.writePropToCompound(property, compound);
         }
@@ -52,13 +52,13 @@ public abstract class ModTileEntity extends TileEntity implements IPropertyHolde
     }
     
     @Override
-    public void readFromNBT(NBTTagCompound compound) {
+    public void readFromNBT(CompoundNBT compound) {
         readPropsFromCompound(compound);
         super.readFromNBT(compound);
     }
     
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+    public CompoundNBT writeToNBT(CompoundNBT compound) {
         writePropsToCompound(compound);
         return super.writeToNBT(compound);
     }
@@ -100,12 +100,12 @@ public abstract class ModTileEntity extends TileEntity implements IPropertyHolde
         if (tileEntity.getWorld() == null) {
             return;
         }
-        if (!(tileEntity.getWorld() instanceof WorldServer)) {
+        if (!(tileEntity.getWorld() instanceof ServerWorld)) {
             return;
         }
-        WorldServer worldServer = (WorldServer) tileEntity.getWorld();
+        ServerWorld worldServer = (ServerWorld) tileEntity.getWorld();
         PlayerChunkMapEntry chunk = worldServer.getPlayerChunkMap().getEntry(tileEntity.getPos().getX() >> 4, tileEntity.getPos().getZ() >> 4);
-        SPacketUpdateTileEntity packet = tileEntity.getUpdatePacket();
+        SUpdateTileEntityPacket packet = tileEntity.getUpdatePacket();
         if (chunk != null & packet != null) {
             chunk.sendPacket(packet);
         }
@@ -117,7 +117,7 @@ public abstract class ModTileEntity extends TileEntity implements IPropertyHolde
     }
 
     @Override
-    public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newSate) {
+    public boolean shouldRefresh(World world, BlockPos pos, BlockState oldState, BlockState newSate) {
         return oldState.getBlock() != newSate.getBlock();
     }
 }

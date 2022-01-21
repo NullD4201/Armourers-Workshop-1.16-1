@@ -21,8 +21,8 @@ import moe.plushie.armourers_workshop.common.config.ConfigHandler;
 import moe.plushie.armourers_workshop.common.lib.LibModInfo;
 import moe.plushie.armourers_workshop.common.skin.entity.SkinnableEntityRegisty;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
@@ -88,8 +88,8 @@ public final class ModCapabilityManager {
             return;
         }
         event.addCapability(KEY_ENTITY_SKIN_PROVIDER, new EntitySkinProvider(entity, skinnableEntity));
-        if (entity instanceof EntityPlayer) {
-            EntityPlayer player = (EntityPlayer) entity;
+        if (entity instanceof PlayerEntity) {
+            PlayerEntity player = (PlayerEntity) entity;
             event.addCapability(KEY_PLAYER_WARDROBE_PROVIDER, new PlayerWardrobeProvider(player, skinnableEntity));
             event.addCapability(KEY_HOLIDAY_TRACKER, new HolidayTrackCap.Provider());
         } else {
@@ -101,17 +101,17 @@ public final class ModCapabilityManager {
     public static void onStartTracking(PlayerEvent.StartTracking event) {
         IEntitySkinCapability skinCapability = EntitySkinCapability.get(event.getTarget());
         if (skinCapability != null) {
-            skinCapability.syncToPlayer((EntityPlayerMP) event.getEntityPlayer());
+            skinCapability.syncToPlayer((ServerPlayerEntity) event.getEntityPlayer());
         }
-        if (event.getTarget() instanceof EntityPlayer) {
-            IPlayerWardrobeCap wardrobeCapability = PlayerWardrobeCap.get((EntityPlayer) event.getTarget());
+        if (event.getTarget() instanceof PlayerEntity) {
+            IPlayerWardrobeCap wardrobeCapability = PlayerWardrobeCap.get((PlayerEntity) event.getTarget());
             if (wardrobeCapability != null) {
-                wardrobeCapability.syncToPlayer((EntityPlayerMP) event.getEntityPlayer());
+                wardrobeCapability.syncToPlayer((ServerPlayerEntity) event.getEntityPlayer());
             }
         } else {
             IWardrobeCap wardrobeCapability = WardrobeCap.get(event.getTarget());
             if (wardrobeCapability != null) {
-                wardrobeCapability.syncToPlayer((EntityPlayerMP) event.getEntityPlayer());
+                wardrobeCapability.syncToPlayer((ServerPlayerEntity) event.getEntityPlayer());
             }
         }
     }
@@ -120,18 +120,18 @@ public final class ModCapabilityManager {
     public static void onPlayerLoggedIn(PlayerLoggedInEvent event) {
         IEntitySkinCapability skinCapability = EntitySkinCapability.get(event.player);
         if (skinCapability != null) {
-            skinCapability.syncToPlayer((EntityPlayerMP) event.player);
+            skinCapability.syncToPlayer((ServerPlayerEntity) event.player);
         }
 
         IPlayerWardrobeCap wardrobeCapability = PlayerWardrobeCap.get(event.player);
         if (wardrobeCapability != null) {
-            wardrobeCapability.syncToPlayer((EntityPlayerMP) event.player);
+            wardrobeCapability.syncToPlayer((ServerPlayerEntity) event.player);
         }
     }
 
     @SubscribeEvent
     public static void onLivingDeathEvent(LivingDeathEvent event) {
-        if (!event.getEntity().getEntityWorld().isRemote & event.getEntityLiving() instanceof EntityPlayer) {
+        if (!event.getEntity().getEntityWorld().isRemote & event.getEntityLiving() instanceof PlayerEntity) {
             IEntitySkinCapability skinCapability = EntitySkinCapability.get(event.getEntityLiving());
             if (skinCapability == null) {
                 return;
@@ -190,19 +190,19 @@ public final class ModCapabilityManager {
         // Called after onPlayerClone. Used to sync after death.
         IPlayerWardrobeCap wardrobeCap = PlayerWardrobeCap.get(event.player);
         wardrobeCap.syncToAllTracking();
-        wardrobeCap.syncToPlayer((EntityPlayerMP) event.player);
+        wardrobeCap.syncToPlayer((ServerPlayerEntity) event.player);
 
         IEntitySkinCapability skinCap = EntitySkinCapability.get(event.player);
         skinCap.syncToAllTracking();
-        skinCap.syncToPlayer((EntityPlayerMP) event.player);
+        skinCap.syncToPlayer((ServerPlayerEntity) event.player);
     }
 
     @SubscribeEvent
     public static void onChangedDimension(PlayerChangedDimensionEvent event) {
         IPlayerWardrobeCap wardrobeCap = PlayerWardrobeCap.get(event.player);
-        wardrobeCap.syncToPlayer((EntityPlayerMP) event.player);
+        wardrobeCap.syncToPlayer((ServerPlayerEntity) event.player);
 
         IEntitySkinCapability skinCap = EntitySkinCapability.get(event.player);
-        skinCap.syncToPlayer((EntityPlayerMP) event.player);
+        skinCap.syncToPlayer((ServerPlayerEntity) event.player);
     }
 }

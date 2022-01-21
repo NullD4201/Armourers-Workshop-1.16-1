@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.io.IOException;
 import java.nio.FloatBuffer;
 
+import net.minecraft.client.gui.screen.inventory.InventoryScreen;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
@@ -37,14 +40,11 @@ import moe.plushie.armourers_workshop.common.inventory.ContainerSkinWardrobe;
 import moe.plushie.armourers_workshop.common.inventory.slot.SlotHidable;
 import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -74,7 +74,7 @@ public class GuiWardrobe extends GuiTabbed<ContainerSkinWardrobe> {
     private final GuiTabWardrobeManOffset tabManOffset;
 
     private EntitySkinCapability skinCapability;
-    private EntityPlayer player;
+    private PlayerEntity player;
 
     private boolean rotatingPlayer = false;
     private float playerRotation = 45F;
@@ -84,7 +84,7 @@ public class GuiWardrobe extends GuiTabbed<ContainerSkinWardrobe> {
     private int lastMouseX;
     private int lastMouseY;
 
-    public GuiWardrobe(InventoryPlayer inventory, EntitySkinCapability skinCapability, IWardrobeCap wardrobeCapability) {
+    public GuiWardrobe(PlayerInventory inventory, EntitySkinCapability skinCapability, IWardrobeCap wardrobeCapability) {
         super(new ContainerSkinWardrobe(inventory, skinCapability, wardrobeCapability), false, TEXTURE_TAB_ICONS);
 
         this.guiStyle = GuiResourceManager.getGuiJsonInfo(GUI_JSON);
@@ -385,7 +385,7 @@ public class GuiWardrobe extends GuiTabbed<ContainerSkinWardrobe> {
             ModRenderHelper.enableScissor(x + 8, y + 27, 71, 111, true);
         }
         
-        if (skinCapability.getEntity() instanceof EntityLivingBase) {
+        if (skinCapability.getEntity() instanceof LivingEntity) {
 
             GlStateManager.pushMatrix();
             GlStateManager.pushAttrib();
@@ -395,10 +395,10 @@ public class GuiWardrobe extends GuiTabbed<ContainerSkinWardrobe> {
             GL11.glRotatef(playerRotation, 0, 1, 0);
             GL11.glTranslatef(0, 0, -50);
             if (selectingColour) {
-                renderEntityWithoutLighting(0, 0, 45, 0, 0, (EntityLivingBase) skinCapability.getEntity());
+                renderEntityWithoutLighting(0, 0, 45, 0, 0, (LivingEntity) skinCapability.getEntity());
                 colour = getColourAtPos(Mouse.getX(), Mouse.getY());
             }
-            GuiInventory.drawEntityOnScreen(0, 0, 45, 0, 0, (EntityLivingBase) skinCapability.getEntity());
+            InventoryScreen.drawEntityOnScreen(0, 0, 45, 0, 0, (LivingEntity) skinCapability.getEntity());
 
             GlStateManager.popAttrib();
             GlStateManager.popMatrix();
@@ -425,7 +425,7 @@ public class GuiWardrobe extends GuiTabbed<ContainerSkinWardrobe> {
             GlStateManager.translate(0, 0, 50.0F);
             GlStateManager.scale((-45), 45, 45);
             GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
-            RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
+            EntityRendererManager rendermanager = Minecraft.getMinecraft().getRenderManager();
             rendermanager.setPlayerViewY(180.0F);
             rendermanager.setRenderShadow(false);
             rendermanager.renderEntity(skinCapability.getEntity(), 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, false);
@@ -450,7 +450,7 @@ public class GuiWardrobe extends GuiTabbed<ContainerSkinWardrobe> {
         return colour;
     }
 
-    private void renderEntityWithoutLighting(int posX, int posY, int scale, float mouseX, float mouseY, EntityLivingBase ent) {
+    private void renderEntityWithoutLighting(int posX, int posY, int scale, float mouseX, float mouseY, LivingEntity ent) {
         GlStateManager.enableColorMaterial();
         GlStateManager.pushMatrix();
         GlStateManager.translate(posX, posY, 50.0F);
@@ -471,7 +471,7 @@ public class GuiWardrobe extends GuiTabbed<ContainerSkinWardrobe> {
         ent.rotationYawHead = ent.rotationYaw;
         ent.prevRotationYawHead = ent.rotationYaw;
         GlStateManager.translate(0.0F, 0.0F, 0.0F);
-        RenderManager rendermanager = Minecraft.getMinecraft().getRenderManager();
+        EntityRendererManager rendermanager = Minecraft.getMinecraft().getRenderManager();
         rendermanager.setPlayerViewY(180.0F);
         rendermanager.setRenderShadow(false);
         rendermanager.renderEntity(ent, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, false);

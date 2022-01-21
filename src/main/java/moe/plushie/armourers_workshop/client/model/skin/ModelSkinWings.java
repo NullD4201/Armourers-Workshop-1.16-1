@@ -2,6 +2,8 @@ package moe.plushie.armourers_workshop.client.model.skin;
 
 import java.util.ArrayList;
 
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.Direction;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.api.common.IExtraColours;
@@ -15,8 +17,6 @@ import moe.plushie.armourers_workshop.utils.SkinUtils;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.EnumFacing;
 
 public class ModelSkinWings extends ModelTypeHelper  {
 
@@ -33,8 +33,8 @@ public class ModelSkinWings extends ModelTypeHelper  {
         
         ArrayList<SkinPart> parts = skin.getParts();
         
-        if (entity != null && entity instanceof EntityPlayer) {
-            EntityPlayer player = (EntityPlayer) entity;
+        if (entity != null && entity instanceof PlayerEntity) {
+            PlayerEntity player = (PlayerEntity) entity;
             this.isSneak = player.isSneaking();
             this.isRiding = player.isRiding();
             /*this.heldItemRight = 0;
@@ -81,7 +81,7 @@ public class ModelSkinWings extends ModelTypeHelper  {
         GL11.glPushMatrix();
         
         Point3D point = new Point3D(0, 0, 0);
-        EnumFacing axis = EnumFacing.DOWN;
+        Direction axis = Direction.DOWN;
         
         if (partRenderData.getSkinPart().getMarkerCount() > 0) {
             point = partRenderData.getSkinPart().getMarker(0);
@@ -126,7 +126,7 @@ public class ModelSkinWings extends ModelTypeHelper  {
     private void renderRightWing(SkinPartRenderData partRenderData, double angle) {
         GL11.glPushMatrix();
         Point3D point = new Point3D(0, 0, 0);
-        EnumFacing axis = EnumFacing.DOWN;
+        Direction axis = Direction.DOWN;
         
         if (partRenderData.getSkinPart().getMarkerCount() > 0) {
             point = partRenderData.getSkinPart().getMarker(0);

@@ -11,8 +11,8 @@ import moe.plushie.armourers_workshop.common.network.messages.client.MessageClie
 import moe.plushie.armourers_workshop.common.network.messages.client.MessageClientGuiUpdateTileProperties;
 import moe.plushie.armourers_workshop.common.tileentities.TileEntityMannequin;
 import moe.plushie.armourers_workshop.common.tileentities.property.TileProperty;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 import net.minecraftforge.fml.client.config.GuiUtils;
@@ -27,7 +27,7 @@ public class GuiMannequin extends ModGuiContainer<ContainerMannequin> {
     public final TileEntityMannequin tileEntity;
     private final String inventoryName;
 
-    public GuiMannequin(InventoryPlayer invPlayer, TileEntityMannequin tileEntity) {
+    public GuiMannequin(PlayerInventory invPlayer, TileEntityMannequin tileEntity) {
         super(new ContainerMannequin(invPlayer, tileEntity));
         this.tileEntity = tileEntity;
         this.inventoryName = tileEntity.getName();
@@ -49,7 +49,7 @@ public class GuiMannequin extends ModGuiContainer<ContainerMannequin> {
     }
     
     @Override
-    protected void actionPerformed(GuiButton button) throws IOException {
+    protected void actionPerformed(Button button) throws IOException {
         if (button.id == 0) {
             MessageClientGuiButton message = new MessageClientGuiButton((byte) 0);
             PacketHandler.networkWrapper.sendToServer(message);

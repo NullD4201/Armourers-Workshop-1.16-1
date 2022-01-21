@@ -12,18 +12,17 @@ import moe.plushie.armourers_workshop.common.lib.LibModInfo;
 import moe.plushie.armourers_workshop.common.painting.PaintTypeRegistry;
 import moe.plushie.armourers_workshop.common.painting.PaintingHelper;
 import moe.plushie.armourers_workshop.utils.TranslateUtils;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.ItemMeshDefinition;
-import net.minecraft.client.renderer.block.model.ModelBakery;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.model.ModelBakery;
+import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.*;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
@@ -38,8 +37,8 @@ public class ItemDyeBottle extends AbstractModItem implements IPaintingTool {
     }
     
     @Override
-    public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        IBlockState state = worldIn.getBlockState(pos);
+    public ActionResultType onItemUse(PlayerEntity player, World worldIn, BlockPos pos, Hand hand, Direction facing, float hitX, float hitY, float hitZ) {
+        BlockState state = worldIn.getBlockState(pos);
         if (player.isSneaking() & state.getBlock() == ModBlocks.COLOUR_MIXER) {
             TileEntity te = worldIn.getTileEntity(pos);
             if (te != null && te instanceof IPantable) {
@@ -51,7 +50,7 @@ public class ItemDyeBottle extends AbstractModItem implements IPaintingTool {
                     setToolPaintType(stack, paintType);
                 }
             }
-            return EnumActionResult.SUCCESS;
+            return ActionResultType.SUCCESS;
         }
         return super.onItemUse(player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
     }

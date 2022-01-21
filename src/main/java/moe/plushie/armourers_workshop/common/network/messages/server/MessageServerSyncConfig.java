@@ -6,7 +6,7 @@ import io.netty.buffer.ByteBuf;
 import moe.plushie.armourers_workshop.common.addons.ModAddonManager;
 import moe.plushie.armourers_workshop.common.config.ConfigHandler;
 import moe.plushie.armourers_workshop.common.network.ByteBufHelper;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
@@ -38,7 +38,7 @@ public class MessageServerSyncConfig implements IMessage, IMessageHandler<Messag
     private boolean enableRecoveringSkins;
     private UUID playerId;
     
-    public MessageServerSyncConfig(EntityPlayer player) {
+    public MessageServerSyncConfig(PlayerEntity player) {
         this();
         playerId = player.getUniqueID();
     }

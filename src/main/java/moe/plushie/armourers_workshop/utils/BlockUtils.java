@@ -6,12 +6,12 @@ import moe.plushie.armourers_workshop.api.common.painting.IPantable;
 import moe.plushie.armourers_workshop.api.common.painting.IPantableBlock;
 import moe.plushie.armourers_workshop.api.common.skin.cubes.ICubeColour;
 import moe.plushie.armourers_workshop.common.skin.cubes.CubeColour;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -20,11 +20,11 @@ public final class BlockUtils {
     
     private BlockUtils() {}
     
-    public static int determineOrientation(BlockPos pos, EntityLivingBase entity) {
+    public static int determineOrientation(BlockPos pos, LivingEntity entity) {
         return determineOrientation(pos.getX(), pos.getY(), pos.getZ(), entity);
     }
     
-    public static int determineOrientation(int x, int y, int z, EntityLivingBase entity) {
+    public static int determineOrientation(int x, int y, int z, LivingEntity entity) {
         if (MathHelper.abs((float) entity.posX - x) < 2.0F && MathHelper.abs((float) entity.posZ - z) < 2.0F) {
             double d0 = entity.posY + entity.getEyeHeight() - entity.getYOffset();
 
@@ -36,7 +36,7 @@ public final class BlockUtils {
         return l == 0 ? 2 : (l == 1 ? 5 : (l == 2 ? 3 : (l == 3 ? 4 : 0)));
     }
     
-    public static int determineOrientationSide(EntityLivingBase entity) {
+    public static int determineOrientationSide(LivingEntity entity) {
         int rotation = MathHelper.floor(entity.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
         rotation = determineOrientationSideMeta(rotation);
         return rotation;
@@ -52,12 +52,12 @@ public final class BlockUtils {
         return metadata == 0 ? 3 : (metadata == 3 ? 5 : (metadata == 1 ? 4 : 2));
     }
     
-    public static EnumFacing determineDirectionSideMeta(int metadata) {
-        return EnumFacing.byIndex(determineOrientationSideMeta(metadata));
+    public static Direction determineDirectionSideMeta(int metadata) {
+        return Direction.byIndex(determineOrientationSideMeta(metadata));
     }
     
-    public static EnumFacing determineDirectionSide(EntityLivingBase entity) {
-        return EnumFacing.byIndex(determineOrientationSide(entity));
+    public static Direction determineDirectionSide(LivingEntity entity) {
+        return Direction.byIndex(determineOrientationSide(entity));
     }
     
     public static ICubeColour getColourFromTileEntity(World world, BlockPos pos) {
@@ -84,7 +84,7 @@ public final class BlockUtils {
         }
     }
     
-    public static ArrayList<BlockPos> findTouchingBlockFaces(World world, BlockPos pos, EnumFacing facing, int radius, boolean restrictPlane) {
+    public static ArrayList<BlockPos> findTouchingBlockFaces(World world, BlockPos pos, Direction facing, int radius, boolean restrictPlane) {
         ArrayList<BlockPos> blockFaces = new ArrayList<BlockPos>();
         ArrayList<BlockPos> openList = new ArrayList<BlockPos>();
         ArrayList<BlockPos> closedList = new ArrayList<BlockPos>();
@@ -92,14 +92,14 @@ public final class BlockUtils {
         BlockPos startPos = pos.offset(facing);
         
         openList.add(pos.offset(facing));
-        EnumFacing[] sides = EnumFacing.VALUES;
+        Direction[] sides = Direction.VALUES;
         
         boolean first = true;
         
         while (!openList.isEmpty()) {
             BlockPos loc = openList.get(0);
             openList.remove(0);
-            IBlockState state = world.getBlockState(loc);
+            BlockState state = world.getBlockState(loc);
             if (state.getBlock() instanceof IPantableBlock) {
                 if (restrictPlane) {
                     if (loc.getX() * facing.getXOffset() == pos.getX() * facing.getXOffset()) {
@@ -116,8 +116,8 @@ public final class BlockUtils {
             
             if (world.isAirBlock(loc)) {
                 for (int i = 0; i < sides.length; i++) {
-                    BlockPos sideLoc = loc.offset(EnumFacing.values()[i]);
-                    IBlockState stateSide = world.getBlockState(sideLoc);
+                    BlockPos sideLoc = loc.offset(Direction.values()[i]);
+                    BlockState stateSide = world.getBlockState(sideLoc);
                     if (!closedList.contains(sideLoc)) {
                         closedList.add(sideLoc);
                         boolean validCube = false;
@@ -125,7 +125,7 @@ public final class BlockUtils {
                         for (int ix = 0; ix < 3; ix++) {
                             for (int iy = 0; iy < 3; iy++) {
                                 for (int iz = 0; iz < 3; iz++) {
-                                    IBlockState stateValid = world.getBlockState(sideLoc.add(ix - 1, iy - 1, iz - 1));
+                                    BlockState stateValid = world.getBlockState(sideLoc.add(ix - 1, iy - 1, iz - 1));
                                     if (stateValid.getBlock() instanceof IPantableBlock) {
                                         validCube = true;
 

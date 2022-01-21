@@ -2,6 +2,7 @@ package moe.plushie.armourers_workshop.client.render.entity;
 
 import java.util.concurrent.TimeUnit;
 
+import net.minecraft.client.renderer.entity.EntityRenderer;
 import org.lwjgl.opengl.GL11;
 
 import com.google.common.cache.CacheBuilder;
@@ -46,14 +47,13 @@ import net.minecraft.client.model.ModelPlayer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager.CullFace;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class RenderEntityMannequin extends Render<EntityMannequin> {
+public class RenderEntityMannequin extends EntityRenderer<EntityMannequin> {
 
     private static LoadingCache<EntityMannequin, EntityTextureInfo> textureCache;
 
@@ -63,7 +63,7 @@ public class RenderEntityMannequin extends Render<EntityMannequin> {
     private final ModelPlayer modelPlayerSmall = new ModelPlayer(0F, true);
     private final ModelPlayer modelPlayerNormal = new ModelPlayer(0F, false);
 
-    public RenderEntityMannequin(RenderManager renderManager) {
+    public RenderEntityMannequin(EntityRendererManager renderManager) {
         super(renderManager);
         if (textureCache == null) {
             CacheBuilder builder = CacheBuilder.newBuilder();

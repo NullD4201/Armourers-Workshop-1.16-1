@@ -3,20 +3,20 @@ package moe.plushie.armourers_workshop.client.render.entity;
 import moe.plushie.armourers_workshop.api.common.skin.type.ISkinType;
 import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.entity.RenderChicken;
-import net.minecraft.entity.passive.EntityChicken;
+import net.minecraft.client.renderer.entity.ChickenRenderer;
+import net.minecraft.entity.passive.ChickenEntity;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class SkinLayerRendererChicken extends SkinLayerRenderer<EntityChicken, RenderChicken> {
+public class SkinLayerRendererChicken extends SkinLayerRenderer<ChickenEntity, ChickenRenderer> {
     
-    public SkinLayerRendererChicken(RenderChicken renderChicken) {
+    public SkinLayerRendererChicken(ChickenRenderer renderChicken) {
         super(renderChicken);
     }
     
     @Override
-    protected void setRotTranForPartType(EntityChicken entityLivingBase, ISkinType skinType, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+    protected void setRotTranForPartType(ChickenEntity entityLivingBase, ISkinType skinType, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
         if (skinType == SkinTypeRegistry.skinHead) {
             GlStateManager.translate(0, 15F * scale, 0);
             GlStateManager.translate(0, 0, -4F * scale);

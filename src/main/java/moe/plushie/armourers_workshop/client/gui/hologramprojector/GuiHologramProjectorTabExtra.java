@@ -8,8 +8,8 @@ import moe.plushie.armourers_workshop.client.gui.controls.GuiDropDownList.IDropD
 import moe.plushie.armourers_workshop.common.data.type.Rectangle_I_2D;
 import moe.plushie.armourers_workshop.common.tileentities.TileEntityHologramProjector;
 import moe.plushie.armourers_workshop.common.tileentities.TileEntityHologramProjector.PowerMode;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraftforge.fml.client.config.GuiUtils;
 
 public class GuiHologramProjectorTabExtra extends GuiTabPanel implements IDropDownListCallback {
@@ -20,7 +20,7 @@ public class GuiHologramProjectorTabExtra extends GuiTabPanel implements IDropDo
     private GuiCheckBox checkGlowing;
     private GuiDropDownList dropDownPowerMode;
     
-    public GuiHologramProjectorTabExtra(int tabId, GuiScreen parent, String inventoryName, TileEntityHologramProjector tileEntity) {
+    public GuiHologramProjectorTabExtra(int tabId, Screen parent, String inventoryName, TileEntityHologramProjector tileEntity) {
         super(tabId, parent, true);
         this.inventoryName = inventoryName;
         this.tileEntity = tileEntity;
@@ -43,7 +43,7 @@ public class GuiHologramProjectorTabExtra extends GuiTabPanel implements IDropDo
     }
     
     @Override
-    protected void actionPerformed(GuiButton button) {
+    protected void actionPerformed(Button button) {
         if (button == checkGlowing) {
             tileEntity.getGlowing().set(checkGlowing.isChecked());
             tileEntity.updateProperty(tileEntity.getGlowing());

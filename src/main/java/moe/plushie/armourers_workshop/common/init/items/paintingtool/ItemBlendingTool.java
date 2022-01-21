@@ -21,20 +21,19 @@ import moe.plushie.armourers_workshop.common.world.undo.UndoManager;
 import moe.plushie.armourers_workshop.utils.BlockUtils;
 import moe.plushie.armourers_workshop.utils.TranslateUtils;
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;
 import net.minecraft.client.renderer.GlStateManager.SourceFactor;
-import net.minecraft.client.renderer.RenderGlobal;
+import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.util.*;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -58,7 +57,7 @@ public class ItemBlendingTool extends AbstractModItem implements IConfigurableTo
     @SubscribeEvent
     @SideOnly(Side.CLIENT)
     public void onDrawBlockHighlightEvent(DrawBlockHighlightEvent event) {
-        EntityPlayer player = event.getPlayer();
+        PlayerEntity player = event.getPlayer();
         World world = event.getPlayer().getEntityWorld();
         RayTraceResult target = event.getTarget();
         
@@ -69,8 +68,8 @@ public class ItemBlendingTool extends AbstractModItem implements IConfigurableTo
 
         
         BlockPos pos = target.getBlockPos();
-        EnumFacing facing = target.sideHit;
-        IBlockState stateTarget = world.getBlockState(pos);
+        Direction facing = target.sideHit;
+        BlockState stateTarget = world.getBlockState(pos);
         ItemStack stack = player.getHeldItemMainhand();
         
         if (stack.getItem() != this) {
@@ -101,7 +100,7 @@ public class ItemBlendingTool extends AbstractModItem implements IConfigurableTo
             GlStateManager.disableDepth();
             GlStateManager.disableTexture2D();
             GlStateManager.disableAlpha();
-            RenderGlobal.drawSelectionBoundingBox(aabb.expand(f1, f1, f1), 1F, 0F, 0F, 0.5F);
+            WorldRenderer.drawSelectionBoundingBox(aabb.expand(f1, f1, f1), 1F, 0F, 0F, 0.5F);
             GlStateManager.enableAlpha();
             GlStateManager.enableTexture2D();
             GlStateManager.enableDepth();
@@ -118,7 +117,7 @@ public class ItemBlendingTool extends AbstractModItem implements IConfigurableTo
             GlStateManager.disableDepth();
             GlStateManager.disableTexture2D();
             GlStateManager.disableAlpha();
-            RenderGlobal.drawSelectionBoundingBox(aabb.expand(f1, f1, f1), 0F, 1F, 0F, 0.5F);
+            WorldRenderer.drawSelectionBoundingBox(aabb.expand(f1, f1, f1), 0F, 1F, 0F, 0.5F);
             GlStateManager.enableAlpha();
             GlStateManager.enableTexture2D();
             GlStateManager.enableDepth();
@@ -129,8 +128,8 @@ public class ItemBlendingTool extends AbstractModItem implements IConfigurableTo
     }
     
     @Override
-    public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        IBlockState state = worldIn.getBlockState(pos);
+    public ActionResultType onItemUse(PlayerEntity player, World worldIn, BlockPos pos, Hand hand, Direction facing, float hitX, float hitY, float hitZ) {
+        BlockState state = worldIn.getBlockState(pos);
         ItemStack stack = player.getHeldItem(hand);
 
         if (state.getBlock() instanceof IPantableBlock) {
@@ -140,7 +139,7 @@ public class ItemBlendingTool extends AbstractModItem implements IConfigurableTo
                 UndoManager.end(player);
                 worldIn.playSound(null, pos, ModSounds.PAINT, SoundCategory.BLOCKS, 1.0F, worldIn.rand.nextFloat() * 0.2F + 0.9F);
             }
-            return EnumActionResult.SUCCESS;
+            return ActionResultType.SUCCESS;
         }
         
         if (state.getBlock() == ModBlocks.ARMOURER & player.isSneaking()) {
@@ -150,13 +149,13 @@ public class ItemBlendingTool extends AbstractModItem implements IConfigurableTo
                     ((TileEntityArmourer)te).toolUsedOnArmourer(this, worldIn, stack, player);
                 }
             }
-            return EnumActionResult.SUCCESS;
+            return ActionResultType.SUCCESS;
         }
-        return EnumActionResult.PASS;
+        return ActionResultType.PASS;
     }
     
     @Override
-    public void usedOnBlockSide(ItemStack stack, EntityPlayer player, World world, BlockPos pos, Block block, EnumFacing face, boolean spawnParticles) {
+    public void usedOnBlockSide(ItemStack stack, PlayerEntity player, World world, BlockPos pos, Block block, Direction face, boolean spawnParticles) {
         int intensity = ToolOptions.INTENSITY.getValue(stack);
         int radiusSample = ToolOptions.RADIUS_SAMPLE.getValue(stack);
         int radiusEffect = ToolOptions.RADIUS_EFFECT.getValue(stack);
@@ -176,7 +175,7 @@ public class ItemBlendingTool extends AbstractModItem implements IConfigurableTo
         int validSamples = 0;
         
         for (BlockPos posSample : blockSamples) {
-            IBlockState stateTarget = world.getBlockState(posSample);
+            BlockState stateTarget = world.getBlockState(posSample);
             if (stateTarget.getBlock() instanceof IPantableBlock) {
                 IPantableBlock pBlock = (IPantableBlock) stateTarget.getBlock();
                 ICubeColour c = pBlock.getColour(world, posSample);
@@ -198,7 +197,7 @@ public class ItemBlendingTool extends AbstractModItem implements IConfigurableTo
         b = b / validSamples;
         
         for (BlockPos posEffect : blockEffects) {
-            IBlockState stateTarget = world.getBlockState(posEffect);
+            BlockState stateTarget = world.getBlockState(posEffect);
             if (stateTarget.getBlock() instanceof IPantableBlock) {
                 IPantableBlock pBlock = (IPantableBlock) stateTarget.getBlock();
                 int oldColour = pBlock.getColour(world, posEffect, face);
@@ -246,7 +245,7 @@ public class ItemBlendingTool extends AbstractModItem implements IConfigurableTo
     }
     
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         if (worldIn.isRemote & playerIn.isSneaking()) {
             playerIn.openGui(ArmourersWorkshop.getInstance(), EnumGuiId.TOOL_OPTIONS.ordinal(), worldIn, 0, 0, 0);
         }

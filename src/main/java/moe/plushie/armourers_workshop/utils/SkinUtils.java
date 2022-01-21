@@ -15,7 +15,7 @@ import moe.plushie.armourers_workshop.common.skin.data.SkinProperties;
 import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
 import moe.plushie.armourers_workshop.common.skin.type.wings.SkinWings.MovementType;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
@@ -118,8 +118,8 @@ public final class SkinUtils {
 
         if (entity != null) {
             if (entity.isAirBorne) {
-                if (entity instanceof EntityPlayer) {
-                    if (((EntityPlayer) entity).capabilities.isFlying) {
+                if (entity instanceof PlayerEntity) {
+                    if (((PlayerEntity) entity).capabilities.isFlying) {
                         flapTime = flyingSpeed;
                     }
                 } else {

@@ -15,7 +15,7 @@ import moe.plushie.armourers_workshop.client.gui.globallibrary.GuiGlobalLibrary.
 import moe.plushie.armourers_workshop.common.library.global.task.GlobalTaskSkinSearch.SearchColumnType;
 import moe.plushie.armourers_workshop.common.library.global.task.GlobalTaskSkinSearch.SearchOrderType;
 import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
-import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.resources.I18n;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 import net.minecraftforge.fml.relauncher.Side;
@@ -153,7 +153,7 @@ public class GuiGlobalLibraryPanelSearchBox extends GuiPanel implements IDropDow
     }
 
     @Override
-    protected void actionPerformed(GuiButton button) {
+    protected void actionPerformed(Button button) {
         if (button.id == 0) {
             doSearch();
         }

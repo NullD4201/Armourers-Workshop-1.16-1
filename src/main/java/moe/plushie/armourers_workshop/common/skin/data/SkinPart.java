@@ -9,7 +9,7 @@ import moe.plushie.armourers_workshop.api.common.skin.type.ISkinPartType;
 import moe.plushie.armourers_workshop.client.skin.ClientSkinPartData;
 import moe.plushie.armourers_workshop.common.skin.cubes.CubeMarkerData;
 import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
@@ -173,10 +173,10 @@ public class SkinPart implements ISkinPart {
     }
 
     @Override
-    public EnumFacing getMarkerSide(int index) {
+    public Direction getMarkerSide(int index) {
         if (index >= 0 & index < markerBlocks.size()) {
             CubeMarkerData cmd = markerBlocks.get(index);
-            return EnumFacing.byIndex(cmd.meta - 1);
+            return Direction.byIndex(cmd.meta - 1);
         }
         return null;
     }

@@ -24,15 +24,15 @@ import moe.plushie.armourers_workshop.common.tileentities.TileEntityArmourer;
 import moe.plushie.armourers_workshop.common.world.undo.UndoManager;
 import moe.plushie.armourers_workshop.utils.TranslateUtils;
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.*;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -56,12 +56,12 @@ public abstract class AbstractPaintingTool extends AbstractModItem implements IP
     }
     
     @Override
-    public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        IBlockState state = worldIn.getBlockState(pos);
+    public ActionResultType onItemUse(PlayerEntity player, World worldIn, BlockPos pos, Hand hand, Direction facing, float hitX, float hitY, float hitZ) {
+        BlockState state = worldIn.getBlockState(pos);
         ItemStack stack = player.getHeldItem(hand);
         
         if (useOnColourMixer(player, worldIn, pos, stack)) {
-            return EnumActionResult.SUCCESS;
+            return ActionResultType.SUCCESS;
         }
         
         if (state.getBlock() instanceof IPantableBlock) {
@@ -78,18 +78,18 @@ public abstract class AbstractPaintingTool extends AbstractModItem implements IP
                 playToolSound(player, worldIn, pos, stack);
             }
             
-            return EnumActionResult.SUCCESS;
+            return ActionResultType.SUCCESS;
         }
         
         if (useOnArmourer(player, worldIn, pos, stack)) {
-            return EnumActionResult.SUCCESS;
+            return ActionResultType.SUCCESS;
         }
         
-        return EnumActionResult.PASS;
+        return ActionResultType.PASS;
     }
     
-    public boolean useOnColourMixer(EntityPlayer player, World worldIn, BlockPos pos, ItemStack stack) {
-        IBlockState state = worldIn.getBlockState(pos);
+    public boolean useOnColourMixer(PlayerEntity player, World worldIn, BlockPos pos, ItemStack stack) {
+        BlockState state = worldIn.getBlockState(pos);
         if (player.isSneaking() & state.getBlock() == ModBlocks.COLOUR_MIXER) {
             TileEntity te = worldIn.getTileEntity(pos);
             if (te != null && te instanceof IPantable) {
@@ -105,8 +105,8 @@ public abstract class AbstractPaintingTool extends AbstractModItem implements IP
         return false;
     }
     
-    public boolean useOnArmourer(EntityPlayer player, World worldIn, BlockPos pos, ItemStack stack) {
-        IBlockState state = worldIn.getBlockState(pos);
+    public boolean useOnArmourer(PlayerEntity player, World worldIn, BlockPos pos, ItemStack stack) {
+        BlockState state = worldIn.getBlockState(pos);
         if (state.getBlock() == ModBlocks.ARMOURER & player.isSneaking()) {
             if (!worldIn.isRemote) {
                 TileEntity te = worldIn.getTileEntity(pos);
@@ -119,7 +119,7 @@ public abstract class AbstractPaintingTool extends AbstractModItem implements IP
         return false;
     }
     
-    public void onPaint(ItemStack stack, EntityPlayer player, World world, BlockPos pos, Block block, EnumFacing usedFace) {
+    public void onPaint(ItemStack stack, PlayerEntity player, World world, BlockPos pos, Block block, Direction usedFace) {
         boolean fullBlock = false;
         if (this instanceof IConfigurableTool) {
             ArrayList<ToolOption<?>> toolOptionList = new ArrayList<ToolOption<?>>();
@@ -131,18 +131,18 @@ public abstract class AbstractPaintingTool extends AbstractModItem implements IP
         
         if (fullBlock) {
             for (int i = 0; i < 6; i++) {
-                usedOnBlockSide(stack, player, world, pos, block, EnumFacing.VALUES[i], usedFace == EnumFacing.VALUES[i]);
+                usedOnBlockSide(stack, player, world, pos, block, Direction.VALUES[i], usedFace == Direction.VALUES[i]);
             }
         } else {
             usedOnBlockSide(stack, player, world, pos, block, usedFace, true);
         }
     }
     
-    public void playToolSound(EntityPlayer player, World world, BlockPos pos, ItemStack stack) {
+    public void playToolSound(PlayerEntity player, World world, BlockPos pos, ItemStack stack) {
     }
     
     @SideOnly(Side.CLIENT)
-    protected void spawnPaintParticles (World world, BlockPos pos, EnumFacing facing, int colour) {
+    protected void spawnPaintParticles (World world, BlockPos pos, Direction facing, int colour) {
         byte[] rtbt = PaintingHelper.intToBytes(colour);
         for (int i = 0; i < 3; i++) {
             ParticlePaintSplash particle = new ParticlePaintSplash(world, pos, rtbt[0], rtbt[1], rtbt[2], facing);
@@ -172,13 +172,13 @@ public abstract class AbstractPaintingTool extends AbstractModItem implements IP
     }
     
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         if (this instanceof IConfigurableTool) {
             if (playerIn.isSneaking()) {
                 if (worldIn.isRemote) {
                     playerIn.openGui(ArmourersWorkshop.getInstance(), EnumGuiId.TOOL_OPTIONS.ordinal(), worldIn, 0, 0, 0);
                 }
-                return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
+                return new ActionResult<ItemStack>(ActionResultType.SUCCESS, playerIn.getHeldItem(handIn));
             }
         }
         return super.onItemRightClick(worldIn, playerIn, handIn);

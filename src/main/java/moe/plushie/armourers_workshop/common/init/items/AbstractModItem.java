@@ -7,7 +7,7 @@ import moe.plushie.armourers_workshop.client.config.ConfigHandlerClient;
 import moe.plushie.armourers_workshop.client.model.ICustomModel;
 import moe.plushie.armourers_workshop.common.creativetab.ISortOrder;
 import moe.plushie.armourers_workshop.common.lib.LibModInfo;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;

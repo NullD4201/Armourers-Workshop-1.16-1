@@ -1,10 +1,10 @@
 package moe.plushie.armourers_workshop.common.painting.tool;
 
 import moe.plushie.armourers_workshop.common.lib.LibModInfo;
-import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -52,23 +52,23 @@ public abstract class ToolOption<T> {
     public abstract int getDisplayHeight();
     
     @SideOnly(Side.CLIENT)
-    public abstract GuiButton getGuiControl(int id, int x, int y, NBTTagCompound compound);
+    public abstract Button getGuiControl(int id, int x, int y, CompoundNBT compound);
     
     @SideOnly(Side.CLIENT)
-    public abstract void writeGuiControlToNBT(GuiButton button, NBTTagCompound compound);
+    public abstract void writeGuiControlToNBT(Button button, CompoundNBT compound);
     
     public void writeToNBT(ItemStack stack, T value) {
         if (!stack.hasTagCompound()) {
-            stack.setTagCompound(new NBTTagCompound());
+            stack.setTagCompound(new CompoundNBT());
         }
         writeToNBT(stack.getTagCompound(), value);
     }
     
-    protected void writeToNBT(NBTTagCompound compound, T value) {
+    protected void writeToNBT(CompoundNBT compound, T value) {
         if (!compound.hasKey(TAG_TOOL_OPTIONS, NBT.TAG_COMPOUND)) {
-            compound.setTag(TAG_TOOL_OPTIONS, new NBTTagCompound());
+            compound.setTag(TAG_TOOL_OPTIONS, new CompoundNBT());
         }
-        NBTTagCompound optionsCompund = compound.getCompoundTag(TAG_TOOL_OPTIONS);
+        CompoundNBT optionsCompund = compound.getCompoundTag(TAG_TOOL_OPTIONS);
         
         if (value instanceof String) {
             optionsCompund.setString(key, (String) value);
@@ -88,14 +88,14 @@ public abstract class ToolOption<T> {
         return readFromNBT(stack.getTagCompound(), defaultValue);
     }
     
-    protected Object readFromNBT(NBTTagCompound compound, T defaultValue) {
+    protected Object readFromNBT(CompoundNBT compound, T defaultValue) {
         if (compound == null) {
             return defaultValue;
         }
         if (!compound.hasKey(TAG_TOOL_OPTIONS, NBT.TAG_COMPOUND)) {
             return defaultValue;
         }
-        NBTTagCompound optionsCompund = compound.getCompoundTag(TAG_TOOL_OPTIONS);
+        CompoundNBT optionsCompund = compound.getCompoundTag(TAG_TOOL_OPTIONS);
         if (defaultValue instanceof String) {
             return optionsCompund.getString(key);
         }

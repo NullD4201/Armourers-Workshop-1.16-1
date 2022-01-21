@@ -8,10 +8,10 @@ import moe.plushie.armourers_workshop.proxies.ClientProxy;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelPlayer;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.tileentity.TileEntityItemStackRenderer;
+import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
 import net.minecraft.item.ItemStack;
 
-public class RenderItemMannequin extends TileEntityItemStackRenderer {
+public class RenderItemMannequin extends ItemStackTileEntityRenderer {
     
     private final ModelPlayer modelPlayerSmall = new ModelPlayer(0F, true);
     private final ModelPlayer modelPlayerNormal = new ModelPlayer(0F, false);

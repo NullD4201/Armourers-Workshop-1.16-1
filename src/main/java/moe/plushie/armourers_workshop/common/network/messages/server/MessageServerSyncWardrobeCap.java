@@ -10,7 +10,7 @@ import moe.plushie.armourers_workshop.common.network.messages.client.DelayedMess
 import moe.plushie.armourers_workshop.utils.ModLogger;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -25,9 +25,9 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 public class MessageServerSyncWardrobeCap implements IMessage, IMessageHandler<MessageServerSyncWardrobeCap, IMessage>, IDelayedMessage {
 
     private int entityId;
-    private NBTTagCompound compound;
+    private CompoundNBT compound;
     
-    public MessageServerSyncWardrobeCap(int entityId, NBTTagCompound compound) {
+    public MessageServerSyncWardrobeCap(int entityId, CompoundNBT compound) {
         this.entityId = entityId;
         this.compound = compound;
     }

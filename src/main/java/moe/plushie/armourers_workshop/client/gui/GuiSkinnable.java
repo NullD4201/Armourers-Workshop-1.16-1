@@ -8,13 +8,13 @@ import moe.plushie.armourers_workshop.common.lib.LibBlockNames;
 import moe.plushie.armourers_workshop.common.skin.data.Skin;
 import moe.plushie.armourers_workshop.common.skin.data.SkinProperties;
 import moe.plushie.armourers_workshop.common.tileentities.TileEntitySkinnable;
-import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.config.GuiUtils;
 
-public class GuiSkinnable extends GuiContainer {
+public class GuiSkinnable extends ContainerScreen {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(LibGuiResources.COMMON);
     
@@ -23,7 +23,7 @@ public class GuiSkinnable extends GuiContainer {
     private int invWidth;
     private int invHeight;
     
-    public GuiSkinnable(InventoryPlayer invPlayer, TileEntitySkinnable tileEntity, Skin skin) {
+    public GuiSkinnable(PlayerInventory invPlayer, TileEntitySkinnable tileEntity, Skin skin) {
         super(new ContainerSkinnable(invPlayer, tileEntity, skin));
         this.tileEntity = tileEntity;
         ender = SkinProperties.PROP_BLOCK_ENDER_INVENTORY.getValue(skin.getProperties());

@@ -23,8 +23,7 @@ import moe.plushie.armourers_workshop.common.library.global.task.GlobalTaskSkinS
 import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
 import moe.plushie.armourers_workshop.utils.TranslateUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
@@ -56,7 +55,7 @@ public class GuiGlobalLibraryPanelSearchResults extends GuiPanel {
     protected int totalPages = -1;
     protected int totalResults = 0;
 
-    public GuiGlobalLibraryPanelSearchResults(GuiScreen parent, int x, int y, int width, int height) {
+    public GuiGlobalLibraryPanelSearchResults(net.minecraft.client.gui.screen.Screen parent, int x, int y, int width, int height) {
         super(parent, x, y, width, height);
         skinPanelResults = new GuiControlSkinPanel();
         pageList = null;
@@ -221,7 +220,7 @@ public class GuiGlobalLibraryPanelSearchResults extends GuiPanel {
     }
 
     @Override
-    protected void actionPerformed(GuiButton button) {
+    protected void actionPerformed(Button button) {
         if (button.id == 1) {
             changePage(currentPageIndex - 1);
         }

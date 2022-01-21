@@ -5,7 +5,7 @@ import java.awt.Point;
 import moe.plushie.armourers_workshop.api.common.IPoint3D;
 import moe.plushie.armourers_workshop.api.common.skin.type.ISkinPartTypeTextured;
 import moe.plushie.armourers_workshop.common.tileentities.TileEntityBoundingBox;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 
 /**
  * Helps convert a block in the world into
@@ -16,14 +16,14 @@ import net.minecraft.util.EnumFacing;
  */
 public class SkinTextureHelper {
     
-    public static Point getTextureLocationFromWorldBlock(TileEntityBoundingBox te, EnumFacing side) {
+    public static Point getTextureLocationFromWorldBlock(TileEntityBoundingBox te, Direction side) {
         return getTextureLocationFromBlock(te.getGuideX(), te.getGuideY(), te.getGuideZ(), (ISkinPartTypeTextured) te.getSkinPart(), side);
     }
     
-    public static Point getTextureLocationFromBlock(byte blockX, byte blockY, byte blockZ, ISkinPartTypeTextured skinPart, EnumFacing side) {
+    public static Point getTextureLocationFromBlock(byte blockX, byte blockY, byte blockZ, ISkinPartTypeTextured skinPart, Direction side) {
         Point textureLocation = skinPart.getTextureSkinPos();
         IPoint3D textureModelSize = skinPart.getTextureModelSize();
-        EnumFacing blockFace = side;
+        Direction blockFace = side;
         
         int textureX = textureLocation.x;
         int textureY = textureLocation.y;
@@ -32,7 +32,7 @@ public class SkinTextureHelper {
         int shiftY = 0;
         
         if (skinPart.isTextureMirrored()) {
-            if (blockFace == EnumFacing.EAST | blockFace == EnumFacing.WEST) {
+            if (blockFace == Direction.EAST | blockFace == Direction.WEST) {
                 blockFace = blockFace.getOpposite();
             }
         }

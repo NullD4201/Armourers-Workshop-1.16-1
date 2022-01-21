@@ -7,7 +7,7 @@ import moe.plushie.armourers_workshop.common.init.items.ItemMannequin;
 import moe.plushie.armourers_workshop.common.lib.LibModInfo;
 import net.minecraft.client.Minecraft;
 //import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.ItemGroup
+//import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 //import net.minecraftforge.fml.relauncher.Side;

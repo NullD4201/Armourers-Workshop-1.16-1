@@ -3,12 +3,12 @@ package moe.plushie.armourers_workshop.client.handler;
 import java.io.File;
 import java.nio.charset.CharsetEncoder;
 
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.text.TranslationTextComponent;
 import org.apache.commons.io.Charsets;
 
 import moe.plushie.armourers_workshop.common.lib.LibModInfo;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.event.ClickEvent;
 import net.minecraft.util.text.event.HoverEvent;
@@ -75,21 +75,21 @@ public final class RehostedJarHandler {
             return;
         }
         lastMessagePost = System.currentTimeMillis();
-        EntityPlayer player = Minecraft.getMinecraft().player;
+        PlayerEntity player = Minecraft.getMinecraft().player;
         
-        TextComponentTranslation downloadLink = new TextComponentTranslation("chat.armourers_workshop:invalidJarDownload", (Object)null);
+        TranslationTextComponent downloadLink = new TranslationTextComponent("chat.armourers_workshop:invalidJarDownload", (Object)null);
         downloadLink.getStyle().setUnderlined(true);
         downloadLink.getStyle().setColor(TextFormatting.BLUE);
-        downloadLink.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentTranslation("chat.armourers_workshop:invalidJarDownloadTooltip", (Object)null)));
+        downloadLink.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TranslationTextComponent("chat.armourers_workshop:invalidJarDownloadTooltip", (Object)null)));
         downloadLink.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, LibModInfo.DOWNLOAD_URL));
         
-        TextComponentTranslation stopModRepostsLink = new TextComponentTranslation("chat.armourers_workshop:invalidJarStopModReposts", (Object)null);
+        TranslationTextComponent stopModRepostsLink = new TranslationTextComponent("chat.armourers_workshop:invalidJarStopModReposts", (Object)null);
         stopModRepostsLink.getStyle().setUnderlined(true);
         stopModRepostsLink.getStyle().setColor(TextFormatting.BLUE);
-        stopModRepostsLink.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentTranslation("chat.armourers_workshop:invalidJarStopModRepostsTooltip", (Object)null)));
+        stopModRepostsLink.getStyle().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TranslationTextComponent("chat.armourers_workshop:invalidJarStopModRepostsTooltip", (Object)null)));
         stopModRepostsLink.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, STOP_MOD_REPOSTS_URL));
         
-        TextComponentTranslation updateMessage = new TextComponentTranslation("chat.armourers_workshop:invalidJar", downloadLink, stopModRepostsLink);
+        TranslationTextComponent updateMessage = new TranslationTextComponent("chat.armourers_workshop:invalidJar", downloadLink, stopModRepostsLink);
         updateMessage.getStyle().setColor(TextFormatting.RED);
         player.sendMessage(updateMessage);
     }

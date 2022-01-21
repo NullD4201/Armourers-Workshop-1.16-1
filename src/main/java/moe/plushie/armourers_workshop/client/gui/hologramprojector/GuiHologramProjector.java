@@ -9,7 +9,7 @@ import moe.plushie.armourers_workshop.client.gui.controls.GuiTabbed;
 import moe.plushie.armourers_workshop.client.lib.LibGuiResources;
 import moe.plushie.armourers_workshop.common.inventory.ContainerHologramProjector;
 import moe.plushie.armourers_workshop.common.tileentities.TileEntityHologramProjector;
-import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -35,7 +35,7 @@ public class GuiHologramProjector extends GuiTabbed<ContainerHologramProjector> 
 
     private boolean loadingGui;
 
-    public GuiHologramProjector(InventoryPlayer invPlayer, TileEntityHologramProjector tileEntity) {
+    public GuiHologramProjector(PlayerInventory invPlayer, TileEntityHologramProjector tileEntity) {
         super(new ContainerHologramProjector(invPlayer, tileEntity), true, TEXTURE_TAB_ICONS);
         this.tileEntity = tileEntity;
         this.inventoryName = tileEntity.getName();

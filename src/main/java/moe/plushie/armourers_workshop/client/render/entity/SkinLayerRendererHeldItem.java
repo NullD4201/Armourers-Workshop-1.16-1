@@ -1,5 +1,9 @@
 package moe.plushie.armourers_workshop.client.render.entity;
 
+import net.minecraft.client.renderer.entity.LivingRenderer;
+import net.minecraft.client.renderer.model.ItemCameraTransforms;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.util.HandSide;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.api.common.capability.IEntitySkinCapability;
@@ -20,27 +24,23 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager.CullFace;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.entity.RenderLivingBase;
-import net.minecraft.client.renderer.entity.layers.LayerHeldItem;
+import net.minecraft.client.renderer.entity.layers.HeldItemLayer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumHandSide;
 
-public class SkinLayerRendererHeldItem extends LayerHeldItem {
+public class SkinLayerRendererHeldItem extends HeldItemLayer {
 
     private final LayerRenderer<?> oldLayerRenderer;
 
-    public SkinLayerRendererHeldItem(RenderLivingBase<?> livingEntityRendererIn, LayerRenderer<?> oldLayerRenderer) {
+    public SkinLayerRendererHeldItem(LivingRenderer<?> livingEntityRendererIn, LayerRenderer<?> oldLayerRenderer) {
         super(livingEntityRendererIn);
         this.oldLayerRenderer = oldLayerRenderer;
     }
 
     @Override
-    public void doRenderLayer(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-        boolean flag = entitylivingbaseIn.getPrimaryHand() == EnumHandSide.RIGHT;
+    public void doRenderLayer(LivingEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+        boolean flag = entitylivingbaseIn.getPrimaryHand() == HandSide.RIGHT;
         ItemStack itemstack = flag ? entitylivingbaseIn.getHeldItemOffhand() : entitylivingbaseIn.getHeldItemMainhand();
         ItemStack itemstack1 = flag ? entitylivingbaseIn.getHeldItemMainhand() : entitylivingbaseIn.getHeldItemOffhand();
 
@@ -54,13 +54,13 @@ public class SkinLayerRendererHeldItem extends LayerHeldItem {
                 GlStateManager.scale(0.5F, 0.5F, 0.5F);
             }
 
-            this.renderHeldItem(entitylivingbaseIn, itemstack1, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, EnumHandSide.RIGHT, skinCapability);
-            this.renderHeldItem(entitylivingbaseIn, itemstack, ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND, EnumHandSide.LEFT, skinCapability);
+            this.renderHeldItem(entitylivingbaseIn, itemstack1, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, HandSide.RIGHT, skinCapability);
+            this.renderHeldItem(entitylivingbaseIn, itemstack, ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND, HandSide.LEFT, skinCapability);
             GlStateManager.popMatrix();
         }
     }
 
-    private void renderHeldItem(EntityLivingBase entityLivingBase, ItemStack itemStack, ItemCameraTransforms.TransformType transformType, EnumHandSide handSide, IEntitySkinCapability skinCapability) {
+    private void renderHeldItem(LivingEntity entityLivingBase, ItemStack itemStack, ItemCameraTransforms.TransformType transformType, HandSide handSide, IEntitySkinCapability skinCapability) {
         if (!itemStack.isEmpty()) {
             GlStateManager.pushMatrix();
 
@@ -71,7 +71,7 @@ public class SkinLayerRendererHeldItem extends LayerHeldItem {
             this.translateToHand(handSide);
             GlStateManager.rotate(-90.0F, 1.0F, 0.0F, 0.0F);
             GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
-            boolean flag = handSide == EnumHandSide.LEFT;
+            boolean flag = handSide == HandSide.LEFT;
             GlStateManager.translate((float) (flag ? -1 : 1) / 16.0F, 0.125F, -0.625F);
 
             ISkinType[] skinTypes = new ISkinType[] {
@@ -88,8 +88,8 @@ public class SkinLayerRendererHeldItem extends LayerHeldItem {
             };
 
             boolean slim = false;
-            if (entityLivingBase instanceof EntityPlayer) {
-                slim = SkinModelRenderHelper.isPlayersArmSlim((ModelBiped) livingEntityRenderer.getMainModel(), (EntityPlayer) entityLivingBase, handSide);
+            if (entityLivingBase instanceof PlayerEntity) {
+                slim = SkinModelRenderHelper.isPlayersArmSlim((ModelBiped) livingEntityRenderer.getMainModel(), (PlayerEntity) entityLivingBase, handSide);
             }
 
             boolean didRender = false;

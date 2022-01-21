@@ -5,12 +5,12 @@ import moe.plushie.armourers_workshop.common.inventory.ContainerOutfitMaker;
 import moe.plushie.armourers_workshop.common.inventory.IGuiFactory;
 import moe.plushie.armourers_workshop.common.lib.LibBlockNames;
 import moe.plushie.armourers_workshop.common.tileentities.property.TileProperty;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -35,32 +35,32 @@ public class TileEntityOutfitMaker extends AbstractTileEntityInventory implement
     }
     
     @Override
-    public NBTTagCompound getUpdateTag() {
-        NBTTagCompound compound = new NBTTagCompound();
+    public CompoundNBT getUpdateTag() {
+        CompoundNBT compound = new CompoundNBT();
         writeToNBT(compound);
         return compound;
     }
 
     @Override
-    public SPacketUpdateTileEntity getUpdatePacket() {
-        return new SPacketUpdateTileEntity(getPos(), 5, getUpdateTag());
+    public SUpdateTileEntityPacket getUpdatePacket() {
+        return new SUpdateTileEntityPacket(getPos(), 5, getUpdateTag());
     }
 
     @Override
-    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
-        NBTTagCompound compound = packet.getNbtCompound();
+    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket packet) {
+        CompoundNBT compound = packet.getNbtCompound();
         readFromNBT(compound);
         dirtySync();
     }
     
     @Override
-    public Container getServerGuiElement(EntityPlayer player, World world, BlockPos pos) {
+    public Container getServerGuiElement(PlayerEntity player, World world, BlockPos pos) {
         return new ContainerOutfitMaker(player, this);
     }
     
     @SideOnly(Side.CLIENT)
     @Override
-    public GuiScreen getClientGuiElement(EntityPlayer player, World world, BlockPos pos) {
+    public Screen getClientGuiElement(PlayerEntity player, World world, BlockPos pos) {
         return new GuiOutfitMaker(player, this);
     }
 }

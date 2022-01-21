@@ -9,8 +9,8 @@ import moe.plushie.armourers_workshop.utils.NBTHelper;
 import moe.plushie.armourers_workshop.utils.TranslateUtils;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumActionResult;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.Constants.NBT;
@@ -34,7 +34,7 @@ public class ItemMannequinTool extends AbstractModItem {
         ItemStack itemStack = event.getItemStack();
         if (itemStack.getItem() == this & event.getTarget() instanceof EntityMannequin) {
             EntityMannequin mannequin;
-            event.setCancellationResult(EnumActionResult.SUCCESS);
+            event.setCancellationResult(ActionResultType.SUCCESS);
         }
     }
 
@@ -42,19 +42,19 @@ public class ItemMannequinTool extends AbstractModItem {
         if (!stack.hasTagCompound()) {
             return null;
         }
-        NBTTagCompound compound = stack.getTagCompound();
+        CompoundNBT compound = stack.getTagCompound();
         if (!compound.hasKey(TAG_ROTATION_DATA)) {
             return null;
         }
-        NBTTagCompound rotationCompound = compound.getCompoundTag(TAG_ROTATION_DATA);
+        CompoundNBT rotationCompound = compound.getCompoundTag(TAG_ROTATION_DATA);
         BipedRotations bipedRotations = new BipedRotations();
         bipedRotations.loadNBTData(rotationCompound);
         return bipedRotations;
     }
 
     private void setRotationDataOnStack(ItemStack stack, BipedRotations bipedRotations) {
-        NBTTagCompound compound = NBTHelper.getNBTForStack(stack);
-        NBTTagCompound rotationCompound = new NBTTagCompound();
+        CompoundNBT compound = NBTHelper.getNBTForStack(stack);
+        CompoundNBT rotationCompound = new CompoundNBT();
         bipedRotations.saveNBTData(rotationCompound);
         compound.setTag(TAG_ROTATION_DATA, rotationCompound);
         stack.setTagCompound(compound);

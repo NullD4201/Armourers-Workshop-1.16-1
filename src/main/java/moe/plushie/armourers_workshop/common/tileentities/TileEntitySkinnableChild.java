@@ -1,14 +1,14 @@
 package moe.plushie.armourers_workshop.common.tileentities;
 
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.Direction;
 import org.apache.logging.log4j.Level;
 
 import moe.plushie.armourers_workshop.common.init.blocks.BlockSkinnable;
 import moe.plushie.armourers_workshop.common.init.blocks.BlockSkinnableChild;
 import moe.plushie.armourers_workshop.utils.ModLogger;
 import net.minecraft.block.Block;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 
@@ -55,7 +55,7 @@ public class TileEntitySkinnableChild extends TileEntitySkinnable {
         }
         
         BlockSkinnableChild child = (BlockSkinnableChild) getBlockType();
-        EnumFacing dir = world.getBlockState(getPos()).getValue(BlockSkinnable.STATE_FACING);
+        Direction dir = world.getBlockState(getPos()).getValue(BlockSkinnable.STATE_FACING);
         
         switch (dir) {
         case NORTH:
@@ -91,13 +91,13 @@ public class TileEntitySkinnableChild extends TileEntitySkinnable {
     }
     
     @Override
-    public void readFromNBT(NBTTagCompound compound) {
+    public void readFromNBT(CompoundNBT compound) {
         super.readFromNBT(compound);
         parentPos = new BlockPos(compound.getInteger(TAG_PARENT_X), compound.getInteger(TAG_PARENT_Y), compound.getInteger(TAG_PARENT_Z));
     }
     
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+    public CompoundNBT writeToNBT(CompoundNBT compound) {
         super.writeToNBT(compound);
         if (parentPos != null) {
             compound.setInteger(TAG_PARENT_X, parentPos.getX());

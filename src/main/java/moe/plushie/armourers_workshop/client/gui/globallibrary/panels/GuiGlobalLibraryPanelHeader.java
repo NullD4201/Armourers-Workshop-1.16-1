@@ -11,9 +11,8 @@ import moe.plushie.armourers_workshop.client.lib.LibGuiResources;
 import moe.plushie.armourers_workshop.common.library.global.auth.PlushieAuth;
 import moe.plushie.armourers_workshop.common.library.global.auth.PlushieSession;
 import moe.plushie.armourers_workshop.common.library.global.permission.PermissionSystem.PlushieAction;
-import net.minecraft.client.entity.AbstractClientPlayer;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
+import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.util.ResourceLocation;
@@ -34,7 +33,7 @@ public class GuiGlobalLibraryPanelHeader extends GuiPanel {
     private GuiIconButton iconButtonModeration;
     private GuiIconButton iconButtonProfile;
 
-    public GuiGlobalLibraryPanelHeader(GuiScreen parent, int x, int y, int width, int height) {
+    public GuiGlobalLibraryPanelHeader(net.minecraft.client.gui.screen.Screen parent, int x, int y, int width, int height) {
         super(parent, x, y, width, height);
     }
 
@@ -123,7 +122,7 @@ public class GuiGlobalLibraryPanelHeader extends GuiPanel {
     }
 
     @Override
-    protected void actionPerformed(GuiButton button) {
+    protected void actionPerformed(Button button) {
         if (button == iconButtonHome) {
             ((GuiGlobalLibrary) parent).switchScreen(Screen.HOME);
             ((GuiGlobalLibrary) parent).panelHome.updateSkinPanels();
@@ -216,8 +215,8 @@ public class GuiGlobalLibraryPanelHeader extends GuiPanel {
     private void drawPlayerHead(String username) {
         ResourceLocation rl = DefaultPlayerSkin.getDefaultSkinLegacy();
         if (username != null) {
-            rl = AbstractClientPlayer.getLocationSkin(username);
-            AbstractClientPlayer.getDownloadImageSkin(rl, username);
+            rl = AbstractClientPlayerEntity.getLocationSkin(username);
+            AbstractClientPlayerEntity.getDownloadImageSkin(rl, username);
         }
         mc.renderEngine.bindTexture(rl);
 

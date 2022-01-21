@@ -15,18 +15,17 @@ import moe.plushie.armourers_workshop.common.painting.tool.ToolOptions;
 import moe.plushie.armourers_workshop.common.world.undo.UndoManager;
 import moe.plushie.armourers_workshop.utils.TranslateUtils;
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.ItemMeshDefinition;
-import net.minecraft.client.renderer.block.model.ModelBakery;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.model.ModelBakery;
+import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.util.*;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
@@ -41,18 +40,18 @@ public class ItemPaintRoller extends AbstractPaintingTool implements IConfigurab
     }
     
     @Override
-    public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        IBlockState state = worldIn.getBlockState(pos);
+    public ActionResultType onItemUse(PlayerEntity player, World worldIn, BlockPos pos, Hand hand, Direction facing, float hitX, float hitY, float hitZ) {
+        BlockState state = worldIn.getBlockState(pos);
         ItemStack stack = player.getHeldItem(hand);
         return super.onItemUse(player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
     }
     
     @Override
-    public void onPaint(ItemStack stack, EntityPlayer player, World world, BlockPos pos, Block block, EnumFacing usedFace) {
+    public void onPaint(ItemStack stack, PlayerEntity player, World world, BlockPos pos, Block block, Direction usedFace) {
         paintArea(world, player, block, stack, pos, usedFace);
     }
     
-    private void paintArea(World world, EntityPlayer player, Block targetBlock, ItemStack stack, BlockPos pos, EnumFacing face) {
+    private void paintArea(World world, PlayerEntity player, Block targetBlock, ItemStack stack, BlockPos pos, Direction face) {
         int radius = ToolOptions.RADIUS.getValue(stack);
         for (int i = -radius + 1; i < radius; i++ ) {
             for (int j = -radius + 1; j < radius; j++ ) {
@@ -87,12 +86,12 @@ public class ItemPaintRoller extends AbstractPaintingTool implements IConfigurab
     }
     
     @Override
-    public void playToolSound(EntityPlayer player, World world, BlockPos pos, ItemStack stack) {
+    public void playToolSound(PlayerEntity player, World world, BlockPos pos, ItemStack stack) {
         world.playSound(null, pos, ModSounds.PAINT, SoundCategory.BLOCKS, 1.0F, world.rand.nextFloat() * 0.1F + 0.9F);
     }
     
     @Override
-    public void usedOnBlockSide(ItemStack stack, EntityPlayer player, World world, BlockPos pos, Block block, EnumFacing facing, boolean spawnParticles) {
+    public void usedOnBlockSide(ItemStack stack, PlayerEntity player, World world, BlockPos pos, Block block, Direction facing, boolean spawnParticles) {
         boolean fullBlock = false;
         if (this instanceof IConfigurableTool) {
             ArrayList<ToolOption<?>> toolOptionList = new ArrayList<ToolOption<?>>();
@@ -109,11 +108,11 @@ public class ItemPaintRoller extends AbstractPaintingTool implements IConfigurab
                 IPantableBlock worldColourable = (IPantableBlock) block;
                 if (fullBlock) {
                     for (int i = 0; i < 6; i++) {
-                        int oldColour = worldColourable.getColour(world, pos, EnumFacing.VALUES[i]);
-                        byte oldPaintType = (byte) worldColourable.getPaintType(world, pos, EnumFacing.VALUES[i]).getId();
-                        UndoManager.blockPainted(player, world, pos, oldColour, oldPaintType, EnumFacing.VALUES[i]);
-                        ((IPantableBlock)block).setColour(world, pos, newColour, EnumFacing.VALUES[i]);
-                        ((IPantableBlock)block).setPaintType(world, pos, paintType, EnumFacing.VALUES[i]);
+                        int oldColour = worldColourable.getColour(world, pos, Direction.VALUES[i]);
+                        byte oldPaintType = (byte) worldColourable.getPaintType(world, pos, Direction.VALUES[i]).getId();
+                        UndoManager.blockPainted(player, world, pos, oldColour, oldPaintType, Direction.VALUES[i]);
+                        ((IPantableBlock)block).setColour(world, pos, newColour, Direction.VALUES[i]);
+                        ((IPantableBlock)block).setPaintType(world, pos, paintType, Direction.VALUES[i]);
                     }
                 } else {
                     int oldColour = worldColourable.getColour(world, pos, facing);

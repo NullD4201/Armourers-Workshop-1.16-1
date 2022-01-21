@@ -6,9 +6,9 @@ import java.util.Calendar;
 import moe.plushie.armourers_workshop.common.capability.holiday.HolidayTrackCap;
 import moe.plushie.armourers_workshop.common.capability.holiday.IHolidayTrackCap;
 import moe.plushie.armourers_workshop.common.lib.LibModInfo;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
@@ -63,7 +63,7 @@ public final class ModHolidays {
     
     @SubscribeEvent
     public static void onPlayerLoggedIn(PlayerLoggedInEvent event) {
-        EntityPlayer player = event.player;
+        PlayerEntity player = event.player;
         IHolidayTrackCap holidayTrackCap = HolidayTrackCap.get(player);
         if (holidayTrackCap == null) {
             return;
@@ -74,7 +74,7 @@ public final class ModHolidays {
                     ItemStack gift = holiday.getGiftSack();
                     if (!gift.isEmpty()) {
                         if (!player.inventory.addItemStackToInventory(gift)) {
-                            player.sendMessage(new TextComponentTranslation("chat.armourersworkshop:inventoryGiftFail"));
+                            player.sendMessage(new TranslationTextComponent("chat.armourersworkshop:inventoryGiftFail"));
                         } else {
                             holidayTrackCap.setLastHoloidayYear(holiday, getYear());
                         }

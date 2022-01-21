@@ -21,23 +21,23 @@ import moe.plushie.armourers_workshop.utils.BlockUtils;
 import moe.plushie.armourers_workshop.utils.ModLogger;
 import moe.plushie.armourers_workshop.utils.TrigUtils;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.SoundEvents;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.datasync.IDataSerializer;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializer;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.StringUtils;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -48,8 +48,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityMannequin extends Entity implements IGameProfileCallback, IInventoryCallback {
 
-    public static final DataSerializer<TextureData> TEXTURE_DATA_SERIALIZER = new DataSerializerTextureData();
-    public static final DataSerializer<BipedRotations> BIPED_ROTATIONS_SERIALIZER = new DataSerializerBipedRotations();
+    public static final IDataSerializer<TextureData> TEXTURE_DATA_SERIALIZER = new DataSerializerTextureData();
+    public static final IDataSerializer<BipedRotations> BIPED_ROTATIONS_SERIALIZER = new DataSerializerBipedRotations();
 
     private static final String TAG_BIPED_ROTATIONS = "biped_rotations";
     private static final String TAG_TEXTURE_DATA = "texture_data";
@@ -245,15 +245,15 @@ public class EntityMannequin extends Entity implements IGameProfileCallback, IIn
     }
 
     @Override
-    public boolean processInitialInteract(EntityPlayer player, EnumHand hand) {
+    public boolean processInitialInteract(PlayerEntity player, Hand hand) {
         return true;
     }
 
     @Override
-    public EnumActionResult applyPlayerInteraction(EntityPlayer player, Vec3d vec, EnumHand hand) {
+    public ActionResultType applyPlayerInteraction(PlayerEntity player, Vector3d vec, Hand hand) {
         ItemStack itemStack = player.getHeldItem(hand);
-        if (!player.canPlayerEdit(getPosition(), EnumFacing.UP, itemStack)) {
-            return EnumActionResult.PASS;
+        if (!player.canPlayerEdit(getPosition(), Direction.UP, itemStack)) {
+            return ActionResultType.PASS;
         }
         if (player.isSneaking()) {
             if (!world.isRemote) {
@@ -265,7 +265,7 @@ public class EntityMannequin extends Entity implements IGameProfileCallback, IIn
                 FMLNetworkHandler.openGui(player, ArmourersWorkshop.getInstance(), EnumGuiId.WARDROBE_ENTITY.ordinal(), getEntityWorld(), getEntityId(), 0, 0);
             }
         }
-        return EnumActionResult.PASS;
+        return ActionResultType.PASS;
     }
 
     @Override
@@ -292,10 +292,10 @@ public class EntityMannequin extends Entity implements IGameProfileCallback, IIn
     @Override
     public boolean hitByEntity(Entity entityIn) {
         if (!getEntityWorld().isRemote) {
-            if (entityIn instanceof EntityPlayer) {
-                EntityPlayer entityPlayer = (EntityPlayer) entityIn;
+            if (entityIn instanceof PlayerEntity) {
+                PlayerEntity entityPlayer = (PlayerEntity) entityIn;
                 ItemStack itemStack = entityPlayer.getHeldItem(entityPlayer.getActiveHand());
-                if (!entityPlayer.canPlayerEdit(getPosition(), EnumFacing.UP, itemStack)) {
+                if (!entityPlayer.canPlayerEdit(getPosition(), Direction.UP, itemStack)) {
                     return false;
                 }
                 playSound(SoundEvents.ENTITY_ARMORSTAND_HIT, 0.8F, 1F);
@@ -310,7 +310,7 @@ public class EntityMannequin extends Entity implements IGameProfileCallback, IIn
     }
 
     @Override
-    protected void readEntityFromNBT(NBTTagCompound compound) {
+    protected void readEntityFromNBT(CompoundNBT compound) {
         if (compound.hasKey(TAG_BIPED_ROTATIONS, NBT.TAG_COMPOUND)) {
             BipedRotations bipedRotations = new BipedRotations();
             bipedRotations.loadNBTData(compound.getCompoundTag(TAG_BIPED_ROTATIONS));
@@ -346,16 +346,16 @@ public class EntityMannequin extends Entity implements IGameProfileCallback, IIn
     }
 
     @Override
-    protected void writeEntityToNBT(NBTTagCompound compound) {
-        compound.setTag(TAG_BIPED_ROTATIONS, getBipedRotations().saveNBTData(new NBTTagCompound()));
-        compound.setTag(TAG_TEXTURE_DATA, getTextureData().writeToNBT(new NBTTagCompound()));
+    protected void writeEntityToNBT(CompoundNBT compound) {
+        compound.setTag(TAG_BIPED_ROTATIONS, getBipedRotations().saveNBTData(new CompoundNBT()));
+        compound.setTag(TAG_TEXTURE_DATA, getTextureData().writeToNBT(new CompoundNBT()));
         compound.setFloat(TAG_ROTATION, getRotation());
         compound.setBoolean(TAG_RENDER_EXTRAS, isRenderExtras());
         compound.setBoolean(TAG_FLYING, isFlying());
         compound.setBoolean(TAG_VISIBLE, isVisible());
         compound.setBoolean(TAG_NO_CLIP, isNoClip());
         compound.setFloat(TAG_SCALE, getScale());
-        compound.setTag(TAG_INVENTORY, inventoryHands.saveItemsToNBT(new NBTTagCompound()));
+        compound.setTag(TAG_INVENTORY, inventoryHands.saveItemsToNBT(new CompoundNBT()));
     }
 
     public static class TextureData {
@@ -394,7 +394,7 @@ public class EntityMannequin extends Entity implements IGameProfileCallback, IIn
             return url;
         }
 
-        public void readFromNBT(NBTTagCompound compound) {
+        public void readFromNBT(CompoundNBT compound) {
             if (compound.hasKey(TAG_TEXTURE_TYPE, NBT.TAG_STRING)) {
                 textureType = TextureType.valueOf(compound.getString(TAG_TEXTURE_TYPE));
             } else {
@@ -420,13 +420,13 @@ public class EntityMannequin extends Entity implements IGameProfileCallback, IIn
             }
         }
 
-        public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+        public CompoundNBT writeToNBT(CompoundNBT compound) {
             switch (textureType) {
             case NONE:
                 break;
             case USER:
                 if (profile != null) {
-                    compound.setTag(TAG_PROFILE, NBTUtil.writeGameProfile(new NBTTagCompound(), profile));
+                    compound.setTag(TAG_PROFILE, NBTUtil.writeGameProfile(new CompoundNBT(), profile));
                 } else {
                     textureType = TextureType.NONE;
                 }
@@ -444,7 +444,7 @@ public class EntityMannequin extends Entity implements IGameProfileCallback, IIn
         }
 
         public void writeToBuf(ByteBuf buf) {
-            ByteBufUtils.writeTag(buf, writeToNBT(new NBTTagCompound()));
+            ByteBufUtils.writeTag(buf, writeToNBT(new CompoundNBT()));
         }
 
         public void readFromBuf(ByteBuf buf) {
@@ -458,7 +458,7 @@ public class EntityMannequin extends Entity implements IGameProfileCallback, IIn
 
         public TextureData copy() {
             TextureData textureData = new TextureData();
-            textureData.readFromNBT(writeToNBT(new NBTTagCompound()));
+            textureData.readFromNBT(writeToNBT(new CompoundNBT()));
             return textureData;
         }
     }
@@ -474,7 +474,7 @@ public class EntityMannequin extends Entity implements IGameProfileCallback, IIn
         });
     }
 
-    public static class DataSerializerBipedRotations implements DataSerializer<BipedRotations> {
+    public static class DataSerializerBipedRotations implements IDataSerializer<BipedRotations> {
 
         @Override
         public void write(PacketBuffer buf, BipedRotations value) {
@@ -499,7 +499,7 @@ public class EntityMannequin extends Entity implements IGameProfileCallback, IIn
         }
     }
 
-    public static class DataSerializerTextureData implements DataSerializer<TextureData> {
+    public static class DataSerializerTextureData implements IDataSerializer<TextureData> {
 
         @Override
         public void write(PacketBuffer buf, TextureData value) {

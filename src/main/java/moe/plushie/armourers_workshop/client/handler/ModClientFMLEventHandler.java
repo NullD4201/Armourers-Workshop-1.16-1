@@ -10,8 +10,8 @@ import moe.plushie.armourers_workshop.common.network.messages.client.MessageClie
 import moe.plushie.armourers_workshop.common.network.messages.client.MessageClientKeyPress.Button;
 import moe.plushie.armourers_workshop.utils.TranslateUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.util.text.TextComponentString;
+import net.minecraft.client.entity.player.ClientPlayerEntity;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -39,15 +39,15 @@ public class ModClientFMLEventHandler {
     }
     
     public void onPlayerTickEndEvent() {
-        EntityPlayerSP player = Minecraft.getMinecraft().player;
+        ClientPlayerEntity player = Minecraft.getMinecraft().player;
         if (!showmDevWarning && LibModInfo.DEVELOPMENT_VERSION) {
-            TextComponentString devWarning = new TextComponentString(TranslateUtils.translate("chat.armourers_workshop:devWarning"));
+            StringTextComponent devWarning = new StringTextComponent(TranslateUtils.translate("chat.armourers_workshop:devWarning"));
             devWarning.getStyle().setColor(TextFormatting.RED);
             player.sendMessage(devWarning);
             showmDevWarning = true;
         }
         if (!shownMoBendsWarning & ModAddonManager.addonMobends.isModLoaded()) {
-            TextComponentString moBendsWarning = new TextComponentString(TranslateUtils.translate("chat.armourers_workshop:mobends.warn"));
+            StringTextComponent moBendsWarning = new StringTextComponent(TranslateUtils.translate("chat.armourers_workshop:mobends.warn"));
             moBendsWarning.getStyle().setColor(TextFormatting.RED);
             player.sendMessage(moBendsWarning);
             shownMoBendsWarning = true;

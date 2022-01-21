@@ -4,7 +4,7 @@ import moe.plushie.armourers_workshop.common.skin.advanced.AdvancedPart;
 import moe.plushie.armourers_workshop.common.skin.advanced.AdvancedSkinRegistry.AdvancedSkinAction;
 import moe.plushie.armourers_workshop.common.skin.data.Skin;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
@@ -21,7 +21,7 @@ public class SkinActionRotate extends AdvancedSkinAction {
         }
 
         AdvancedPart advancedPart = skin.getAdvancedPart(Math.round(data[0]));
-        EnumFacing.Axis axis = EnumFacing.Axis.values()[MathHelper.clamp(Math.round(data[1]), 0, EnumFacing.Axis.values().length)];
+        Direction.Axis axis = Direction.Axis.values()[MathHelper.clamp(Math.round(data[1]), 0, Direction.Axis.values().length)];
         float angle = data[2];
 
         switch (axis) {

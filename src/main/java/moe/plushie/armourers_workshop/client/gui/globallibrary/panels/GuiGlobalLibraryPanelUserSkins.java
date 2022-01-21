@@ -18,14 +18,13 @@ import moe.plushie.armourers_workshop.common.library.global.task.GlobalTaskSkinL
 import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
 import moe.plushie.armourers_workshop.utils.TranslateUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.widget.button.Button;
 
 public class GuiGlobalLibraryPanelUserSkins extends GuiGlobalLibraryPanelSearchResults {
 
     private int userId;
 
-    public GuiGlobalLibraryPanelUserSkins(GuiScreen parent, int x, int y, int width, int height) {
+    public GuiGlobalLibraryPanelUserSkins(net.minecraft.client.gui.screen.Screen parent, int x, int y, int width, int height) {
         super(parent, x, y, width, height);
     }
 
@@ -89,7 +88,7 @@ public class GuiGlobalLibraryPanelUserSkins extends GuiGlobalLibraryPanelSearchR
     }
 
     @Override
-    protected void actionPerformed(GuiButton button) {
+    protected void actionPerformed(Button button) {
         if (button.id == 1) {
             changePage(currentPageIndex - 1);
         }

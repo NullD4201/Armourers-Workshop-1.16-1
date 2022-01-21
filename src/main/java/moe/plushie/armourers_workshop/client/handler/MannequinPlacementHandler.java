@@ -1,5 +1,7 @@
 package moe.plushie.armourers_workshop.client.handler;
 
+import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.entity.player.PlayerEntity;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.client.texture.PlayerTexture;
@@ -15,10 +17,8 @@ import net.minecraft.client.model.ModelPlayer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;
 import net.minecraft.client.renderer.GlStateManager.SourceFactor;
-import net.minecraft.client.renderer.RenderGlobal;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -47,7 +47,7 @@ public class MannequinPlacementHandler {
     }
     
     private void drawMannequinBounds(DrawBlockHighlightEvent event) {
-        EntityPlayer player = event.getPlayer();
+        PlayerEntity player = event.getPlayer();
         World world = event.getPlayer().getEntityWorld();
         RayTraceResult target = event.getTarget();
 
@@ -74,7 +74,7 @@ public class MannequinPlacementHandler {
         GlStateManager.disableTexture2D();
         GlStateManager.disableAlpha();
 
-        RenderGlobal.drawSelectionBoundingBox(aabb, 0.1F, 0.1F, 0.1F, 0.75F);
+        WorldRenderer.drawSelectionBoundingBox(aabb, 0.1F, 0.1F, 0.1F, 0.75F);
 
         GlStateManager.enableAlpha();
         GlStateManager.enableTexture2D();
@@ -83,7 +83,7 @@ public class MannequinPlacementHandler {
     }
     
     private void drawMannequinPlacementGhost(DrawBlockHighlightEvent event) {
-        EntityPlayer player = event.getPlayer();
+        PlayerEntity player = event.getPlayer();
         World world = event.getPlayer().getEntityWorld();
         RayTraceResult target = event.getTarget();
         
@@ -93,7 +93,7 @@ public class MannequinPlacementHandler {
 
         BlockPos pos = target.getBlockPos();
         
-        EnumFacing facing = target.sideHit;
+        Direction facing = target.sideHit;
         ItemStack stack = player.getHeldItemMainhand();
         if (stack.getItem() != ModItems.MANNEQUIN) {
             return;

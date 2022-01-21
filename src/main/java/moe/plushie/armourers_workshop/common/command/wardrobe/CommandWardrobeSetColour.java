@@ -14,7 +14,7 @@ import moe.plushie.armourers_workshop.utils.ModLogger;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 
@@ -50,7 +50,7 @@ public class CommandWardrobeSetColour extends ModCommand {
         String argColourType = args[getParentCount() + 1];
         String argDye = args[getParentCount() + 2];
 
-        EntityPlayerMP player = getPlayer(server, sender, argPlayer);
+        ServerPlayerEntity player = getPlayer(server, sender, argPlayer);
         ExtraColourType colourType = ExtraColourType.valueOf(argColourType.toUpperCase());
         Color colour = null;
 

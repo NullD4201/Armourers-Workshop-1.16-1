@@ -2,11 +2,11 @@ package moe.plushie.armourers_workshop.client.gui.controls;
 
 import java.awt.Color;
 
+import net.minecraft.client.gui.screen.Screen;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.client.palette.Palette;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
@@ -69,7 +69,7 @@ public class GuiColourSelector extends GuiButtonExt {
 
             GlStateManager.resetColor();
             if (hoverX != -1) {
-                if (!GuiScreen.isShiftKeyDown()) {
+                if (!Screen.isShiftKeyDown()) {
                     GuiUtils.drawContinuousTexturedBox(hoverX, hoverY, 0, 240, colorWidth, colourHeight, 16, 16, 2, zLevel);
                 } else {
                     GuiUtils.drawContinuousTexturedBox(hoverX, hoverY, 16, 240, colorWidth, colourHeight, 16, 16, 2, zLevel);

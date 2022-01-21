@@ -4,7 +4,7 @@ import moe.plushie.armourers_workshop.api.common.ISkinNBTUtils;
 import moe.plushie.armourers_workshop.api.common.skin.data.ISkinDescriptor;
 import moe.plushie.armourers_workshop.common.skin.data.SkinDescriptor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 
 public class SkinNBTUtils implements ISkinNBTUtils {
 
@@ -45,7 +45,7 @@ public class SkinNBTUtils implements ISkinNBTUtils {
     }
 
     @Override
-    public void setSkinDescriptor(NBTTagCompound compound, ISkinDescriptor skinDescriptor) {
+    public void setSkinDescriptor(CompoundNBT compound, ISkinDescriptor skinDescriptor) {
         if (compound.isEmpty() | skinDescriptor == null) {
             return;
         }
@@ -53,7 +53,7 @@ public class SkinNBTUtils implements ISkinNBTUtils {
     }
 
     @Override
-    public ISkinDescriptor getSkinDescriptor(NBTTagCompound compound) {
+    public ISkinDescriptor getSkinDescriptor(CompoundNBT compound) {
         if (compound == null) {
             return null;
         }
@@ -61,7 +61,7 @@ public class SkinNBTUtils implements ISkinNBTUtils {
     }
 
     @Override
-    public void removeSkinDescriptor(NBTTagCompound compound) {
+    public void removeSkinDescriptor(CompoundNBT compound) {
         if (compound == null) {
             return;
         }
@@ -69,7 +69,7 @@ public class SkinNBTUtils implements ISkinNBTUtils {
     }
 
     @Override
-    public boolean hasSkinDescriptor(NBTTagCompound compound) {
+    public boolean hasSkinDescriptor(CompoundNBT compound) {
         if (compound != null) {
             return SkinNBTHelper.compoundHasSkinData(compound);
         }

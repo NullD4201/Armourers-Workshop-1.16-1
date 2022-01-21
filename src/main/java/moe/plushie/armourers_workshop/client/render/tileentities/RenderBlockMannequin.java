@@ -3,6 +3,7 @@ package moe.plushie.armourers_workshop.client.render.tileentities;
 import java.awt.Color;
 import java.nio.FloatBuffer;
 
+import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 
@@ -32,19 +33,18 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;
 import net.minecraft.client.renderer.GlStateManager.SourceFactor;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.model.ItemCameraTransforms.TransformType;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.Blocks;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemBlock;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class RenderBlockMannequin extends TileEntitySpecialRenderer<TileEntityMannequin> {
+public class RenderBlockMannequin extends TileEntityRenderer<TileEntityMannequin> {
     
     private static final ResourceLocation circle = new ResourceLocation(LibModInfo.ID.toLowerCase(), "textures/other/nanoha-circle.png");
     
@@ -459,7 +459,7 @@ public class RenderBlockMannequin extends TileEntitySpecialRenderer<TileEntityMa
     private boolean hasCustomHead(IInventory inventory) {
         ItemStack stack = getStackInMannequinSlot(inventory, MannequinSlotType.HEAD);
         if (stack != null) {
-            if (stack.getItem() instanceof ItemBlock) {
+            if (stack.getItem() instanceof BlockItem) {
                 return true;
             }
         }

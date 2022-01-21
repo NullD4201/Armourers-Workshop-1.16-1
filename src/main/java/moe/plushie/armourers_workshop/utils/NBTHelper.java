@@ -2,7 +2,7 @@ package moe.plushie.armourers_workshop.utils;
 
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.util.Constants.NBT;
@@ -15,12 +15,12 @@ public final class NBTHelper {
     
     private NBTHelper() {}
     
-    public static NBTTagCompound getNBTForStack(ItemStack stack) {
+    public static CompoundNBT getNBTForStack(ItemStack stack) {
         if (stack == null) {
             return null;
         }
         if (!stack.hasTagCompound()) {
-            stack.setTagCompound(new NBTTagCompound());
+            stack.setTagCompound(new CompoundNBT());
         }
         return stack.getTagCompound();
     }
@@ -38,13 +38,13 @@ public final class NBTHelper {
         return false;
     }
     
-    public static void writeStackToNBT(NBTTagCompound compound, String key, ItemStack itemStack) {
-        NBTTagCompound stackCompund = new NBTTagCompound();
+    public static void writeStackToNBT(CompoundNBT compound, String key, ItemStack itemStack) {
+        CompoundNBT stackCompund = new CompoundNBT();
         itemStack.writeToNBT(stackCompund);
         compound.setTag(key, stackCompund);
     }
     
-    public static ItemStack readStackfromNBT(NBTTagCompound compound, String key) {
+    public static ItemStack readStackfromNBT(CompoundNBT compound, String key) {
         ItemStack returnStack = ItemStack.EMPTY;
         if (compound.hasKey(key, NBT.TAG_COMPOUND)) {
             returnStack = new ItemStack(compound.getCompoundTag(key));
@@ -52,18 +52,18 @@ public final class NBTHelper {
         return returnStack;
     }
     
-    public static void writeStackArrayToNBT(NBTTagCompound compound, String key,  NonNullList<ItemStack> itemStacks) {
-        NBTTagCompound items = new NBTTagCompound();
+    public static void writeStackArrayToNBT(CompoundNBT compound, String key, NonNullList<ItemStack> itemStacks) {
+        CompoundNBT items = new CompoundNBT();
         ItemStackHelper.saveAllItems(items, itemStacks);
         compound.setTag(key, items);
     }
     
-    public static void readStackArrayFromNBT(NBTTagCompound compound, String key,  NonNullList<ItemStack> itemStacks) {
-        NBTTagCompound items = compound.getCompoundTag(key);
+    public static void readStackArrayFromNBT(CompoundNBT compound, String key, NonNullList<ItemStack> itemStacks) {
+        CompoundNBT items = compound.getCompoundTag(key);
         ItemStackHelper.loadAllItems(items, itemStacks);
     }
     
-    public static void writeBlockPosToNBT(NBTTagCompound compound, String key, BlockPos pos) {
+    public static void writeBlockPosToNBT(CompoundNBT compound, String key, BlockPos pos) {
         if (pos == null) {
             return;
         }
@@ -72,11 +72,11 @@ public final class NBTHelper {
         compound.setInteger(TAG_POS_Z + key, pos.getZ());
     }
     
-    public static BlockPos readBlockPosFromNBT(NBTTagCompound compound, String key) {
+    public static BlockPos readBlockPosFromNBT(CompoundNBT compound, String key) {
         return readBlockPosFromNBT(compound, key, null);
     }
     
-    public static BlockPos readBlockPosFromNBT(NBTTagCompound compound, String key, BlockPos defaultReturn) {
+    public static BlockPos readBlockPosFromNBT(CompoundNBT compound, String key, BlockPos defaultReturn) {
         if (compound.hasKey(TAG_POS_X + key, NBT.TAG_INT) & compound.hasKey(TAG_POS_Y + key, NBT.TAG_INT) & compound.hasKey(TAG_POS_Z + key, NBT.TAG_INT)) {
             return new BlockPos(compound.getInteger(TAG_POS_X + key), compound.getInteger(TAG_POS_Y + key), compound.getInteger(TAG_POS_Z + key));
         } else {

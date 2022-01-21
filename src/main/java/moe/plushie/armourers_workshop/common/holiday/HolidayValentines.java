@@ -1,8 +1,8 @@
 package moe.plushie.armourers_workshop.common.holiday;
 
 import moe.plushie.armourers_workshop.common.init.items.ItemGiftSack;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Items;
 import net.minecraft.item.ItemStack;
 
 public class HolidayValentines extends Holiday {
@@ -17,7 +17,7 @@ public class HolidayValentines extends Holiday {
     }
     
     @Override
-    public ItemStack getGift(EntityPlayer player) {
+    public ItemStack getGift(PlayerEntity player) {
         return new ItemStack(Items.CAKE);
     }
 }

@@ -1,5 +1,6 @@
 package moe.plushie.armourers_workshop.client.texture;
 
+import net.minecraft.nbt.CompoundNBT;
 import org.apache.commons.codec.Charsets;
 import org.apache.commons.codec.binary.Base64;
 
@@ -12,7 +13,6 @@ import com.mojang.authlib.properties.Property;
 
 import moe.plushie.armourers_workshop.common.data.type.TextureType;
 import moe.plushie.armourers_workshop.common.lib.LibModInfo;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StringUtils;
 
@@ -99,17 +99,17 @@ public class PlayerTexture {
         return resourceLocation;
     }
     
-    public void writeToNBT(NBTTagCompound compound) {
+    public void writeToNBT(CompoundNBT compound) {
         compound.setString(TAG_TEXTURE_STRING, textureString);
         compound.setByte(TAG_TEXTURE_TYPE, (byte) textureType.ordinal());
     }
     
-    public void readFromNBT(NBTTagCompound compound) {
+    public void readFromNBT(CompoundNBT compound) {
         textureString = compound.getString(TAG_TEXTURE_STRING);
         textureType = TextureType.values()[compound.getByte(TAG_TEXTURE_TYPE)];
     }
     
-    public static PlayerTexture fromNBT(NBTTagCompound compound) {
+    public static PlayerTexture fromNBT(CompoundNBT compound) {
         PlayerTexture playerTexture = new PlayerTexture("", TextureType.USER);
         playerTexture.readFromNBT(compound);
         return playerTexture;

@@ -7,7 +7,7 @@ import moe.plushie.armourers_workshop.api.common.ISkinInventoryContainer;
 import moe.plushie.armourers_workshop.api.common.skin.entity.ISkinnableEntity;
 import moe.plushie.armourers_workshop.api.common.skin.type.ISkinType;
 import moe.plushie.armourers_workshop.common.inventory.ModInventory.IInventoryCallback;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -36,8 +36,8 @@ public class SkinInventoryContainer implements ISkinInventoryContainer {
     }
     
     @Override
-    public void writeToNBT(NBTTagCompound compound) {
-        NBTTagCompound containerCompound = new NBTTagCompound();
+    public void writeToNBT(CompoundNBT compound) {
+        CompoundNBT containerCompound = new CompoundNBT();
         Set skinTypes = skinInventorys.keySet();
         for (int i = 0; i < skinInventorys.size(); i++) {
             ISkinType skinType = (ISkinType) skinInventorys.keySet().toArray()[i];
@@ -47,9 +47,9 @@ public class SkinInventoryContainer implements ISkinInventoryContainer {
     }
     
     @Override
-    public void readFromNBT(NBTTagCompound compound) {
+    public void readFromNBT(CompoundNBT compound) {
         if (compound.hasKey(TAG_WARDROBE_CONTAINER, 10)) {
-            NBTTagCompound containerCompound = compound.getCompoundTag(TAG_WARDROBE_CONTAINER);
+            CompoundNBT containerCompound = compound.getCompoundTag(TAG_WARDROBE_CONTAINER);
             Set skinTypes = skinInventorys.keySet();
             for (int i = 0; i < skinInventorys.size(); i++) {
                 ISkinType skinType = (ISkinType) skinInventorys.keySet().toArray()[i];

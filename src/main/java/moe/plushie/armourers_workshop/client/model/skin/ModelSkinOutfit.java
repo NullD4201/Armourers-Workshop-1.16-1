@@ -2,6 +2,8 @@ package moe.plushie.armourers_workshop.client.model.skin;
 
 import java.util.ArrayList;
 
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.Direction;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.api.common.IExtraColours;
@@ -21,8 +23,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.EnumFacing;
 
 public class ModelSkinOutfit extends ModelTypeHelper {
 
@@ -38,8 +38,8 @@ public class ModelSkinOutfit extends ModelTypeHelper {
         }
         ArrayList<SkinPart> parts = skin.getParts();
 
-        if (entity != null && entity instanceof EntityPlayer) {
-            EntityPlayer player = (EntityPlayer) entity;
+        if (entity != null && entity instanceof PlayerEntity) {
+            PlayerEntity player = (PlayerEntity) entity;
             this.isSneak = player.isSneaking();
             this.isRiding = player.isRiding();
         }
@@ -330,7 +330,7 @@ public class ModelSkinOutfit extends ModelTypeHelper {
         GL11.glTranslated(0, 0, partRenderData.getScale() * 2);
 
         Point3D point = new Point3D(0, 0, 0);
-        EnumFacing axis = EnumFacing.DOWN;
+        Direction axis = Direction.DOWN;
 
         if (partRenderData.getSkinPart().getMarkerCount() > 0) {
             point = partRenderData.getSkinPart().getMarker(0);
@@ -379,7 +379,7 @@ public class ModelSkinOutfit extends ModelTypeHelper {
         }
         GL11.glTranslated(0, 0, partRenderData.getScale() * 2);
         Point3D point = new Point3D(0, 0, 0);
-        EnumFacing axis = EnumFacing.DOWN;
+        Direction axis = Direction.DOWN;
 
         if (partRenderData.getSkinPart().getMarkerCount() > 0) {
             point = partRenderData.getSkinPart().getMarker(0);

@@ -3,6 +3,10 @@ package moe.plushie.armourers_workshop.client.gui.controls;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import net.minecraft.client.gui.AbstractGui;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.client.gui.widget.button.Button;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
@@ -11,25 +15,21 @@ import moe.plushie.armourers_workshop.client.lib.LibGuiResources;
 import moe.plushie.armourers_workshop.utils.ModLogger;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.container.Slot;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.config.GuiUtils;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public abstract class AbstractGuiDialog extends Gui implements IDialogCallback {
+public abstract class AbstractGuiDialog extends AbstractGui implements IDialogCallback {
 
     protected static final ResourceLocation TEXTURE = new ResourceLocation(LibGuiResources.COMMON);
 
-    protected final GuiScreen parent;
+    protected final Screen parent;
     protected final String name;
     protected final IDialogCallback callback;
     protected final Minecraft mc;
@@ -40,8 +40,8 @@ public abstract class AbstractGuiDialog extends Gui implements IDialogCallback {
     protected int width;
     protected int height;
 
-    protected ArrayList<GuiButton> buttonList;
-    private GuiButton selectedButton;
+    protected ArrayList<Button> buttonList;
+    private Button selectedButton;
 
     protected AbstractGuiDialog dialog;
     int oldMouseX;
@@ -49,7 +49,7 @@ public abstract class AbstractGuiDialog extends Gui implements IDialogCallback {
 
     protected GuiSlotHandler slotHandler;
 
-    public AbstractGuiDialog(GuiScreen parent, String name, IDialogCallback callback, int width, int height) {
+    public AbstractGuiDialog(Screen parent, String name, IDialogCallback callback, int width, int height) {
         this.parent = parent;
         this.name = name;
         this.callback = callback;
@@ -57,9 +57,9 @@ public abstract class AbstractGuiDialog extends Gui implements IDialogCallback {
         this.fontRenderer = mc.fontRenderer;
         this.width = width;
         this.height = height;
-        this.buttonList = new ArrayList<GuiButton>();
-        if (parent instanceof GuiContainer) {
-            GuiContainer guiContainer = (GuiContainer) parent;
+        this.buttonList = new ArrayList<Button>();
+        if (parent instanceof ContainerScreen) {
+            ContainerScreen guiContainer = (ContainerScreen) parent;
             slotHandler = new GuiSlotHandler(guiContainer);
         }
     }
@@ -96,7 +96,7 @@ public abstract class AbstractGuiDialog extends Gui implements IDialogCallback {
             }
             if (button == 0) {
                 for (int i = 0; i < this.buttonList.size(); i++) {
-                    GuiButton guiButton = this.buttonList.get(i);
+                    Button guiButton = this.buttonList.get(i);
                     if (guiButton.mousePressed(this.mc, mouseX, mouseY)) {
                         this.selectedButton = guiButton;
                         guiButton.playPressSound(this.mc.getSoundHandler());
@@ -107,7 +107,7 @@ public abstract class AbstractGuiDialog extends Gui implements IDialogCallback {
         }
     }
 
-    protected void actionPerformed(GuiButton button) {
+    protected void actionPerformed(Button button) {
     }
 
     public void mouseMovedOrUp(int mouseX, int mouseY, int button) {
@@ -214,7 +214,7 @@ public abstract class AbstractGuiDialog extends Gui implements IDialogCallback {
 
     public void drawItems(int mouseX, int mouseY, float partialTickTime) {
         if (slotHandler != null) {
-            GuiContainer guiContainer = (GuiContainer) parent;
+            ContainerScreen guiContainer = (ContainerScreen) parent;
 
             for (int i1 = 0; i1 < guiContainer.inventorySlots.inventorySlots.size(); ++i1) {
                 Slot slot = guiContainer.inventorySlots.inventorySlots.get(i1);

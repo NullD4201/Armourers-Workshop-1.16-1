@@ -1,7 +1,7 @@
 package moe.plushie.armourers_workshop.client.model.armourer;
 
 import net.minecraft.client.renderer.GLAllocation;
-import net.minecraft.client.renderer.entity.RenderArrow;
+import net.minecraft.client.renderer.entity.ArrowRenderer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
@@ -17,7 +17,7 @@ public class ModelArrow {
     
     public ModelArrow() {
         this.displayList = -1;
-        this.arrowTextures = ReflectionHelper.getPrivateValue(RenderArrow.class, null, "arrowTextures", "field_110780_a");
+        this.arrowTextures = ReflectionHelper.getPrivateValue(ArrowRenderer.class, null, "arrowTextures", "field_110780_a");
     }
     
     @Override

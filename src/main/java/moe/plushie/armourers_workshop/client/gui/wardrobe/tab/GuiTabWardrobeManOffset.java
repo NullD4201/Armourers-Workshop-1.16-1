@@ -1,5 +1,6 @@
 package moe.plushie.armourers_workshop.client.gui.wardrobe.tab;
 
+import net.minecraft.client.gui.widget.button.Button;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.client.gui.GuiHelper;
@@ -10,8 +11,7 @@ import moe.plushie.armourers_workshop.client.lib.LibGuiResources;
 import moe.plushie.armourers_workshop.common.init.entities.EntityMannequin;
 import moe.plushie.armourers_workshop.common.network.PacketHandler;
 import moe.plushie.armourers_workshop.common.network.messages.client.MessageClientGuiUpdateMannequin;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
@@ -30,7 +30,7 @@ public class GuiTabWardrobeManOffset extends GuiTabPanel {
     private GuiIconButton[] iconButtonsY = new GuiIconButton[6];
     private GuiIconButton[] iconButtonsZ = new GuiIconButton[6];
 
-    public GuiTabWardrobeManOffset(int tabId, GuiScreen parent, EntityMannequin entityMannequin) {
+    public GuiTabWardrobeManOffset(int tabId, Screen parent, EntityMannequin entityMannequin) {
         super(tabId, parent);
         this.entityMannequin = entityMannequin;
     }
@@ -82,7 +82,7 @@ public class GuiTabWardrobeManOffset extends GuiTabPanel {
     }
 
     @Override
-    protected void actionPerformed(GuiButton button) {
+    protected void actionPerformed(Button button) {
         MessageClientGuiUpdateMannequin message = new MessageClientGuiUpdateMannequin(entityMannequin);
         float scale = 0.0625F;
         
@@ -144,7 +144,7 @@ public class GuiTabWardrobeManOffset extends GuiTabPanel {
         GL11.glPopMatrix();
 
         for (int i = 0; i < buttonList.size(); i++) {
-            GuiButton button = (GuiButton) buttonList.get(i);
+            Button button = (Button) buttonList.get(i);
             if (button instanceof GuiIconButton) {
                 ((GuiIconButton) button).drawRollover(mc, mouseX - x, mouseY - y);
             }

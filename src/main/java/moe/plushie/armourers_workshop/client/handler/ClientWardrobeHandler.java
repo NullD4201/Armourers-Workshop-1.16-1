@@ -17,18 +17,18 @@ import moe.plushie.armourers_workshop.common.skin.data.Skin;
 import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
 import moe.plushie.armourers_workshop.utils.SkinNBTHelper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.AbstractClientPlayer;
+import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
 import net.minecraft.client.model.ModelPlayer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager.CullFace;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;
 import net.minecraft.client.renderer.GlStateManager.SourceFactor;
-import net.minecraft.client.renderer.entity.RenderPlayer;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.client.renderer.entity.PlayerRenderer;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.EnumHandSide;
+import net.minecraft.util.Hand;
+import net.minecraft.util.HandSide;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.client.event.RenderHandEvent;
 import net.minecraftforge.client.event.RenderLivingEvent;
@@ -61,7 +61,7 @@ public final class ClientWardrobeHandler {
     
     @SubscribeEvent
     public void onRenderSpecificHand(RenderSpecificHandEvent event) {
-        EntityPlayer player = Minecraft.getMinecraft().player;
+        PlayerEntity player = Minecraft.getMinecraft().player;
         ItemStack itemStack = event.getItemStack();
         
         if (itemStack.getItem() == ModItems.SKIN) {
@@ -115,11 +115,11 @@ public final class ClientWardrobeHandler {
         
         event.setCanceled(true);
         
-        boolean flag = event.getHand() == EnumHand.OFF_HAND;
+        boolean flag = event.getHand() == Hand.OFF_HAND;
         
         GlStateManager.pushMatrix();
         GlStateManager.pushAttrib();
-        renderItemInFirstPerson((AbstractClientPlayer) player, event.getPartialTicks(), event.getInterpolatedPitch(), event.getHand(), event.getSwingProgress(), itemStack, event.getEquipProgress());
+        renderItemInFirstPerson((AbstractClientPlayerEntity) player, event.getPartialTicks(), event.getInterpolatedPitch(), event.getHand(), event.getSwingProgress(), itemStack, event.getEquipProgress());
         
         
         //int i = event.getHand() == EnumHand.MAIN_HAND ? 1 : -1;
@@ -167,11 +167,11 @@ public final class ClientWardrobeHandler {
         return 0;
     }
     
-    public void renderItemInFirstPerson(AbstractClientPlayer player, float p_187457_2_, float p_187457_3_, EnumHand hand, float p_187457_5_, ItemStack stack, float equipProgress) {
-        boolean flag = hand == EnumHand.MAIN_HAND;
-        EnumHandSide enumhandside = flag ? player.getPrimaryHand() : player.getPrimaryHand().opposite();
+    public void renderItemInFirstPerson(AbstractClientPlayerEntity player, float p_187457_2_, float p_187457_3_, Hand hand, float p_187457_5_, ItemStack stack, float equipProgress) {
+        boolean flag = hand == Hand.MAIN_HAND;
+        HandSide enumhandside = flag ? player.getPrimaryHand() : player.getPrimaryHand().opposite();
         
-        boolean flag1 = enumhandside == EnumHandSide.RIGHT;
+        boolean flag1 = enumhandside == HandSide.RIGHT;
         
         if (player.isHandActive() && player.getItemInUseCount() > 0 && player.getActiveHand() == hand) {
             int j = flag1 ? 1 : -1;
@@ -226,13 +226,13 @@ public final class ClientWardrobeHandler {
         }
     }
     
-    private void transformSideFirstPerson(EnumHandSide hand, float equipProgress) {
-        int i = hand == EnumHandSide.RIGHT ? 1 : -1;
+    private void transformSideFirstPerson(HandSide hand, float equipProgress) {
+        int i = hand == HandSide.RIGHT ? 1 : -1;
         GlStateManager.translate((float)i * 0.56F, -0.52F + equipProgress * -0.6F, -0.72F);
     }
     
-    private void transformFirstPerson(EnumHandSide hand, float equipProgress) {
-        int i = hand == EnumHandSide.RIGHT ? 1 : -1;
+    private void transformFirstPerson(HandSide hand, float equipProgress) {
+        int i = hand == HandSide.RIGHT ? 1 : -1;
         float f = MathHelper.sin(equipProgress * equipProgress * (float)Math.PI);
         GlStateManager.rotate((float)i * (45.0F + f * -20.0F), 0.0F, 1.0F, 0.0F);
         float f1 = MathHelper.sin(MathHelper.sqrt(equipProgress) * (float)Math.PI);
@@ -243,7 +243,7 @@ public final class ClientWardrobeHandler {
 
     @SubscribeEvent
     public void onRender(RenderPlayerEvent.Pre event) {
-        EntityPlayer player = event.getEntityPlayer();
+        PlayerEntity player = event.getEntityPlayer();
         if (player instanceof FakePlayer) {
             return;
         }
@@ -255,7 +255,7 @@ public final class ClientWardrobeHandler {
         IPlayerWardrobeCap wardrobeCapability = PlayerWardrobeCap.get(player);
         if (wardrobeCapability != null) {
             for (int i = 0; i < armour.length; i++) {
-                EntityEquipmentSlot slot = EntityEquipmentSlot.values()[i + 2];
+                EquipmentSlotType slot = EquipmentSlotType.values()[i + 2];
                 armour[i] = player.inventory.armorInventory.get(i);
                 if (SkinNBTHelper.stackHasSkinData(armour[i])) {
                 	player.inventory.armorInventory.set(i, ItemStack.EMPTY);
@@ -268,7 +268,7 @@ public final class ClientWardrobeHandler {
     
     @SubscribeEvent
     public void onRender(RenderPlayerEvent.Post event) {
-        EntityPlayer player = event.getEntityPlayer();
+        PlayerEntity player = event.getEntityPlayer();
         // Restore the players armour stacks.
         for (int i = 0; i < armour.length; i++) {
             player.inventory.armorInventory.set(i, armour[i]);
@@ -276,13 +276,13 @@ public final class ClientWardrobeHandler {
     }
     
     @SubscribeEvent(priority = EventPriority.LOW)
-    public void onRenderLivingPre(RenderLivingEvent.Pre<EntityPlayer> event) {
+    public void onRenderLivingPre(RenderLivingEvent.Pre<PlayerEntity> event) {
         EntitySkinCapability skinCapability = (EntitySkinCapability) EntitySkinCapability.get(event.getEntity());
         if (skinCapability == null) {
             return;
         }
         // Hide parts of the player model.
-        for (RenderPlayer playerRender : Minecraft.getMinecraft().getRenderManager().getSkinMap().values()) {
+        for (PlayerRenderer playerRender : Minecraft.getMinecraft().getRenderManager().getSkinMap().values()) {
             ModelPlayer modelPlayer = playerRender.getMainModel();
             // Head
             if (skinCapability.hideHead) {
@@ -336,9 +336,9 @@ public final class ClientWardrobeHandler {
     }
     
     @SubscribeEvent(priority = EventPriority.HIGH)
-    public void onRenderLivingPost(RenderLivingEvent.Post<EntityPlayer> event) {
+    public void onRenderLivingPost(RenderLivingEvent.Post<PlayerEntity> event) {
         // Restore the player model.
-        for (RenderPlayer playerRender : Minecraft.getMinecraft().getRenderManager().getSkinMap().values()) {
+        for (PlayerRenderer playerRender : Minecraft.getMinecraft().getRenderManager().getSkinMap().values()) {
             ModelPlayer modelPlayer = playerRender.getMainModel();
             modelPlayer.bipedHead.isHidden = false;
             modelPlayer.bipedHeadwear.isHidden = false;

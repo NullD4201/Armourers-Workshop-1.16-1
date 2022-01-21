@@ -1,5 +1,6 @@
 package moe.plushie.armourers_workshop.client.gui.wardrobe.tab;
 
+import net.minecraft.client.gui.screen.Screen;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
@@ -15,9 +16,8 @@ import moe.plushie.armourers_workshop.common.init.entities.EntityMannequin;
 import moe.plushie.armourers_workshop.common.init.entities.EntityMannequin.TextureData;
 import moe.plushie.armourers_workshop.common.network.PacketHandler;
 import moe.plushie.armourers_workshop.common.network.messages.client.MessageClientGuiUpdateMannequin;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.GuiTextField;
+import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.util.StringUtils;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 import net.minecraftforge.fml.relauncher.Side;
@@ -30,12 +30,12 @@ public class GuiTabWardrobeManTextureData extends GuiTabPanel implements IDropDo
     private TextureData textureData;
 
     private GuiDropDownList textureTypeList;
-    private GuiTextField nameTextbox;
+    private TextFieldWidget nameTextbox;
     private GuiButtonExt setNameButton;
 
     private final String guiName = "wardrobe.tab.man_texture";
 
-    public GuiTabWardrobeManTextureData(int tabId, GuiScreen parent, EntityMannequin entityMannequin) {
+    public GuiTabWardrobeManTextureData(int tabId, Screen parent, EntityMannequin entityMannequin) {
         super(tabId, parent);
         this.entityMannequin = entityMannequin;
     }
@@ -53,7 +53,7 @@ public class GuiTabWardrobeManTextureData extends GuiTabPanel implements IDropDo
             textureTypeList.setListSelectedIndex(1);
         }
 
-        nameTextbox = new GuiTextField(-1, fontRenderer, x + 81, y + 70, 165, 14);
+        nameTextbox = new TextFieldWidget(-1, fontRenderer, x + 81, y + 70, 165, 14);
         nameTextbox.setMaxStringLength(300);
 
         setupForTextureData(textureData);
@@ -103,7 +103,7 @@ public class GuiTabWardrobeManTextureData extends GuiTabPanel implements IDropDo
     }
 
     @Override
-    protected void actionPerformed(GuiButton button) {
+    protected void actionPerformed(Button button) {
         if (button == setNameButton) {
             sendNewTextureData();
         }

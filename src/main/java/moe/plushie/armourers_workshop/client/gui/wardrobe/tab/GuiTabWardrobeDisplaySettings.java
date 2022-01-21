@@ -1,5 +1,9 @@
 package moe.plushie.armourers_workshop.client.gui.wardrobe.tab;
 
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.api.common.capability.IEntitySkinCapability;
@@ -11,10 +15,6 @@ import moe.plushie.armourers_workshop.client.gui.style.GuiResourceManager;
 import moe.plushie.armourers_workshop.client.gui.style.GuiStyle;
 import moe.plushie.armourers_workshop.client.gui.wardrobe.GuiWardrobe;
 import moe.plushie.armourers_workshop.client.lib.LibGuiResources;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -25,7 +25,7 @@ public class GuiTabWardrobeDisplaySettings extends GuiTabPanel {
     private static final ResourceLocation GUI_JSON = new ResourceLocation(LibGuiResources.JSON_WARDROBE);
     
     private final GuiStyle guiStyle;
-    private EntityPlayer entityPlayer;
+    private PlayerEntity entityPlayer;
     private IEntitySkinCapability skinCapability;
     private IPlayerWardrobeCap wardrobeCapability;
     
@@ -35,7 +35,7 @@ public class GuiTabWardrobeDisplaySettings extends GuiTabPanel {
     
     String guiName = "wardrobe.tab.display_settings";
     
-    public GuiTabWardrobeDisplaySettings(int tabId, GuiScreen parent, EntityPlayer entityPlayer, IEntitySkinCapability skinCapability, IPlayerWardrobeCap wardrobeCapability) {
+    public GuiTabWardrobeDisplaySettings(int tabId, Screen parent, PlayerEntity entityPlayer, IEntitySkinCapability skinCapability, IPlayerWardrobeCap wardrobeCapability) {
         super(tabId, parent, false);
         this.guiStyle = GuiResourceManager.getGuiJsonInfo(GUI_JSON);
         this.entityPlayer = entityPlayer;
@@ -43,7 +43,7 @@ public class GuiTabWardrobeDisplaySettings extends GuiTabPanel {
         this.wardrobeCapability = wardrobeCapability;
         armourOverride = new boolean[4];
         for (int i = 0; i < armourOverride.length; i++) {
-            EntityEquipmentSlot slot = EntityEquipmentSlot.values()[i + 2];
+            EquipmentSlotType slot = EquipmentSlotType.values()[i + 2];
             armourOverride[i] = wardrobeCapability.getArmourOverride(slot);
         }
     }
@@ -64,7 +64,7 @@ public class GuiTabWardrobeDisplaySettings extends GuiTabPanel {
     }
     
     @Override
-    protected void actionPerformed(GuiButton button) {
+    protected void actionPerformed(Button button) {
         if (button instanceof GuiCheckBox) {
             for (int i = 0; i < armourOverride.length; i++) {
                 armourOverride[i] = !armourOverrideCheck[3 - i].isChecked();
@@ -73,7 +73,7 @@ public class GuiTabWardrobeDisplaySettings extends GuiTabPanel {
         
         if (button.id >= 1) {
             for (int i = 0; i < armourOverride.length; i++) {
-                EntityEquipmentSlot slot = EntityEquipmentSlot.values()[i + 2];
+                EquipmentSlotType slot = EquipmentSlotType.values()[i + 2];
                 wardrobeCapability.setArmourOverride(slot, armourOverride[i]);
             }
             wardrobeCapability.sendUpdateToServer();

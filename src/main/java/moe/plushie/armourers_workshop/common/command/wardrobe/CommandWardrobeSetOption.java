@@ -8,8 +8,8 @@ import moe.plushie.armourers_workshop.common.command.ModCommand;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 
@@ -46,7 +46,7 @@ public class CommandWardrobeSetOption extends ModCommand {
         String argOption = args[getParentCount() + 1];
         boolean argValue = parseBoolean(args[getParentCount() + 2]);
 
-        EntityPlayerMP player = getPlayer(server, sender, argPlayer);
+        ServerPlayerEntity player = getPlayer(server, sender, argPlayer);
         if (player == null) {
             return;
         }
@@ -65,7 +65,7 @@ public class CommandWardrobeSetOption extends ModCommand {
         IPlayerWardrobeCap wardrobeCap = PlayerWardrobeCap.get(player);
         if (wardrobeCap != null) {
             if (subOptionIndex < 4) {
-                EntityEquipmentSlot slot = EntityEquipmentSlot.values()[subOptionIndex + 2];
+                EquipmentSlotType slot = EquipmentSlotType.values()[subOptionIndex + 2];
                 wardrobeCap.setArmourOverride(slot, !argValue);
                 wardrobeCap.syncToPlayer(player);
                 wardrobeCap.syncToAllTracking();

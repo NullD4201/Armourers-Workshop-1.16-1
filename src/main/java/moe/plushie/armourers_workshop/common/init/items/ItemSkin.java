@@ -3,6 +3,12 @@ package moe.plushie.armourers_workshop.common.init.items;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.block.BlockState;
+import net.minecraft.block.DispenserBlock;
+import net.minecraft.dispenser.IDispenseItemBehavior;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.*;
 import org.apache.commons.lang3.StringUtils;
 
 import moe.plushie.armourers_workshop.api.common.capability.IEntitySkinCapability;
@@ -25,21 +31,14 @@ import moe.plushie.armourers_workshop.common.world.BlockSkinPlacementHelper;
 import moe.plushie.armourers_workshop.utils.SkinNBTHelper;
 import moe.plushie.armourers_workshop.utils.SkinUtils;
 import moe.plushie.armourers_workshop.utils.TranslateUtils;
-import net.minecraft.block.BlockDispenser;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
-import net.minecraft.dispenser.IBehaviorDispenseItem;
+import net.minecraft.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.dispenser.IBlockSource;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
@@ -51,7 +50,7 @@ public class ItemSkin extends AbstractModItem {
 
     public ItemSkin() {
         super(LibItemNames.SKIN, false);
-        BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(this, dispenserBehavior);
+        DispenserBlock.DISPENSE_BEHAVIOR_REGISTRY.putObject(this, dispenserBehavior);
     }
 
     public ISkinType getSkinType(ItemStack stack) {
@@ -70,7 +69,7 @@ public class ItemSkin extends AbstractModItem {
     }
 
     @SideOnly(Side.CLIENT)
-    public static void addTooltipToSkinItem(ItemStack stack, EntityPlayer player, List tooltip, ITooltipFlag flagIn) {
+    public static void addTooltipToSkinItem(ItemStack stack, PlayerEntity player, List tooltip, ITooltipFlag flagIn) {
         String cRed = TextFormatting.RED.toString();
 
         boolean isEquipmentSkin = stack.getItem() == ModItems.SKIN;
@@ -98,7 +97,7 @@ public class ItemSkin extends AbstractModItem {
                 }
                 if (ConfigHandlerClient.tooltipDebug) {
                     // Debug info.
-                    if (GuiScreen.isShiftKeyDown()) {
+                    if (Screen.isShiftKeyDown()) {
                         tooltip.add(TranslateUtils.translate("item.armourers_workshop:rollover.skinIdentifier"));
                         if (identifier.hasLocalId()) {
                             tooltip.add("  " + TranslateUtils.translate("item.armourers_workshop:rollover.skinId", identifier.getSkinLocalId()));
@@ -166,49 +165,49 @@ public class ItemSkin extends AbstractModItem {
     }
 
     @Override
-    public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    public ActionResultType onItemUse(PlayerEntity player, World worldIn, BlockPos pos, Hand hand, Direction facing, float hitX, float hitY, float hitZ) {
         ItemStack stack = player.getHeldItem(hand);
-        IBlockState state = worldIn.getBlockState(pos);
+        BlockState state = worldIn.getBlockState(pos);
         ISkinDescriptor descriptor = SkinNBTHelper.getSkinDescriptorFromStack(stack);
         if (descriptor != null && descriptor.getIdentifier().getSkinType() == SkinTypeRegistry.skinBlock) {
             Skin skin = SkinUtils.getSkinDetectSide(descriptor, false, true);
             if (skin != null) {
-                IBlockState replaceBlock = worldIn.getBlockState(pos.offset(facing));
+                BlockState replaceBlock = worldIn.getBlockState(pos.offset(facing));
                 if (replaceBlock.getBlock().isReplaceable(worldIn, pos.offset(facing))) {
                     BlockSkinPlacementHelper.placeSkinAtLocation(worldIn, player, facing, stack, pos.offset(facing), skin, descriptor);
-                    return EnumActionResult.SUCCESS;
+                    return ActionResultType.SUCCESS;
                 }
             }
-            return EnumActionResult.FAIL;
+            return ActionResultType.FAIL;
         }
-        return EnumActionResult.PASS;
+        return ActionResultType.PASS;
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         ItemStack itemStack = playerIn.getHeldItem(handIn);
         IPlayerWardrobeCap wardrobeCap = PlayerWardrobeCap.get(playerIn);
         IEntitySkinCapability skinCapability = EntitySkinCapability.get(playerIn);
         ISkinDescriptor descriptor = SkinNBTHelper.getSkinDescriptorFromStack(itemStack);
         if (wardrobeCap == null | skinCapability == null | descriptor == null) {
-            return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemStack);
+            return new ActionResult<ItemStack>(ActionResultType.FAIL, itemStack);
         }
         ISkinType skinType = descriptor.getIdentifier().getSkinType();
 
         if (!worldIn.isRemote) {
             if (skinCapability.canHoldSkinType(descriptor.getIdentifier().getSkinType())) {
                 if (skinCapability.setStackInNextFreeSlot(itemStack.copy())) {
-                    skinCapability.syncToPlayer((EntityPlayerMP) playerIn);
+                    skinCapability.syncToPlayer((ServerPlayerEntity) playerIn);
                     skinCapability.syncToAllTracking();
                     itemStack.shrink(1);
                 }
-                return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStack);
+                return new ActionResult<ItemStack>(ActionResultType.SUCCESS, itemStack);
             }
         }
-        return new ActionResult<ItemStack>(EnumActionResult.FAIL, itemStack);
+        return new ActionResult<ItemStack>(ActionResultType.FAIL, itemStack);
     }
 
-    private static final IBehaviorDispenseItem dispenserBehavior = new BehaviorDefaultDispenseItem() {
+    private static final IDispenseItemBehavior dispenserBehavior = new DefaultDispenseItemBehavior() {
 
         @Override
         protected ItemStack dispenseStack(IBlockSource blockSource, ItemStack itemStack) {
@@ -216,20 +215,20 @@ public class ItemSkin extends AbstractModItem {
                 return super.dispenseStack(blockSource, itemStack);
             }
 
-            IBlockState state = blockSource.getBlockState();
-            EnumFacing facing = state.getValue(BlockDispenser.FACING);
+            BlockState state = blockSource.getBlockState();
+            Direction facing = state.getValue(DispenserBlock.FACING);
             BlockPos target = blockSource.getBlockPos().offset(facing);
             AxisAlignedBB axisalignedbb = new AxisAlignedBB(target);
-            List list = blockSource.getWorld().getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
+            List list = blockSource.getWorld().getEntitiesWithinAABB(LivingEntity.class, axisalignedbb);
             for (int i = 0; i < list.size(); i++) {
-                EntityLivingBase entitylivingbase = (EntityLivingBase) list.get(i);
-                if (entitylivingbase instanceof EntityPlayer) {
-                    EntityPlayer player = (EntityPlayer) entitylivingbase;
+                LivingEntity entitylivingbase = (LivingEntity) list.get(i);
+                if (entitylivingbase instanceof PlayerEntity) {
+                    PlayerEntity player = (PlayerEntity) entitylivingbase;
                     IEntitySkinCapability skinCap = EntitySkinCapability.get(player);
                     if (skinCap.setStackInNextFreeSlot(itemStack.copy())) {
                         itemStack.shrink(1);
                         skinCap.syncToAllTracking();
-                        skinCap.syncToPlayer((EntityPlayerMP) player);
+                        skinCap.syncToPlayer((ServerPlayerEntity) player);
                         return itemStack;
                     }
                 }

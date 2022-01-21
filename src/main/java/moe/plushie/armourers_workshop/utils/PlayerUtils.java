@@ -2,10 +2,10 @@ package moe.plushie.armourers_workshop.utils;
 
 import com.mojang.authlib.GameProfile;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.MathHelper;
 
 public final class PlayerUtils {
@@ -37,11 +37,11 @@ public final class PlayerUtils {
         return false;
     }
 
-    public static EnumFacing getDirection(int x, int y, int z, EntityPlayer player) {
-        return EnumFacing.byIndex(getOrientation(x, y, z, player));
+    public static Direction getDirection(int x, int y, int z, PlayerEntity player) {
+        return Direction.byIndex(getOrientation(x, y, z, player));
     }
 
-    public static int getOrientation(int x, int y, int z, EntityLivingBase entity) {
+    public static int getOrientation(int x, int y, int z, LivingEntity entity) {
         if (MathHelper.abs((float) entity.posX - x) < 2.0F && MathHelper.abs((float) entity.posZ - z) < 2.0F) {
             double d0 = entity.posY + entity.getEyeHeight() - entity.getYOffset();
 
@@ -57,16 +57,16 @@ public final class PlayerUtils {
         return l == 0 ? 3 : (l == 1 ? 4 : (l == 2 ? 2 : (l == 3 ? 5 : 0)));
     }
 
-    public static EnumFacing getDirectionSide(EntityPlayer player) {
-        return EnumFacing.byIndex(getOrientationSide(player));
+    public static Direction getDirectionSide(PlayerEntity player) {
+        return Direction.byIndex(getOrientationSide(player));
     }
 
-    public static int getOrientationSide(EntityLivingBase entity) {
+    public static int getOrientationSide(LivingEntity entity) {
         int l = MathHelper.floor(entity.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
         return l == 0 ? 3 : (l == 1 ? 4 : (l == 2 ? 2 : (l == 3 ? 5 : 0)));
     }
 
-    public static void giveItem(EntityPlayer player, ItemStack stack) {
+    public static void giveItem(PlayerEntity player, ItemStack stack) {
         if (stack == null) {
             return;
         }

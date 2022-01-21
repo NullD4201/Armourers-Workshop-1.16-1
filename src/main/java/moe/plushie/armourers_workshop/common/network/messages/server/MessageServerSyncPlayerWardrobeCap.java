@@ -1,5 +1,7 @@
 package moe.plushie.armourers_workshop.common.network.messages.server;
 
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
 import org.apache.logging.log4j.Level;
 
 import io.netty.buffer.ByteBuf;
@@ -10,8 +12,6 @@ import moe.plushie.armourers_workshop.common.network.messages.client.DelayedMess
 import moe.plushie.armourers_workshop.utils.ModLogger;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -20,9 +20,9 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 public class MessageServerSyncPlayerWardrobeCap implements IMessage, IMessageHandler<MessageServerSyncPlayerWardrobeCap, IMessage>, IDelayedMessage {
 
     private int entityId;
-    private NBTTagCompound compound;
+    private CompoundNBT compound;
 
-    public MessageServerSyncPlayerWardrobeCap(int entityId, NBTTagCompound compound) {
+    public MessageServerSyncPlayerWardrobeCap(int entityId, CompoundNBT compound) {
         this.entityId = entityId;
         this.compound = compound;
     }
@@ -60,8 +60,8 @@ public class MessageServerSyncPlayerWardrobeCap implements IMessage, IMessageHan
     public void onDelayedMessage() {
         if (Minecraft.getMinecraft().world != null) {
             Entity entity = Minecraft.getMinecraft().world.getEntityByID(entityId);
-            if (entity != null && entity instanceof EntityPlayer) {
-                IPlayerWardrobeCap wardrobeCapability = PlayerWardrobeCap.get((EntityPlayer) entity);
+            if (entity != null && entity instanceof PlayerEntity) {
+                IPlayerWardrobeCap wardrobeCapability = PlayerWardrobeCap.get((PlayerEntity) entity);
                 if (wardrobeCapability != null) {
                     PlayerWardrobeCap.PLAYER_WARDROBE_CAP.getStorage().readNBT(PlayerWardrobeCap.PLAYER_WARDROBE_CAP, wardrobeCapability, null, compound);
                 }

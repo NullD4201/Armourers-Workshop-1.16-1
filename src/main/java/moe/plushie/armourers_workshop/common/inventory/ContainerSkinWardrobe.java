@@ -18,9 +18,9 @@ import moe.plushie.armourers_workshop.common.painting.PaintTypeRegistry;
 import moe.plushie.armourers_workshop.common.painting.PaintingHelper;
 import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
 import moe.plushie.armourers_workshop.utils.SkinNBTHelper;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Slot;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 
@@ -43,7 +43,7 @@ public class ContainerSkinWardrobe extends ModContainer {
     private int indexMannequinHandsStart = 0;
     private int indexMannequinHandsEnd = 0;
 
-    public ContainerSkinWardrobe(InventoryPlayer invPlayer, EntitySkinCapability skinCapability, IWardrobeCap wardrobeCapability) {
+    public ContainerSkinWardrobe(PlayerInventory invPlayer, EntitySkinCapability skinCapability, IWardrobeCap wardrobeCapability) {
         super(invPlayer);
         this.skinCapability = skinCapability;
         this.wardrobeCapability = wardrobeCapability;
@@ -167,7 +167,7 @@ public class ContainerSkinWardrobe extends ModContainer {
     }
 
     @Override
-    public boolean canInteractWith(EntityPlayer player) {
+    public boolean canInteractWith(PlayerEntity player) {
         return !player.isDead;
     }
 
@@ -204,7 +204,7 @@ public class ContainerSkinWardrobe extends ModContainer {
     }
 
     @Override
-    protected ItemStack transferStackFromPlayer(EntityPlayer playerIn, int index) {
+    protected ItemStack transferStackFromPlayer(PlayerEntity playerIn, int index) {
         Slot slot = getSlot(index);
         if (slot.getHasStack()) {
             ItemStack stack = slot.getStack();

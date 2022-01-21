@@ -4,7 +4,7 @@ import moe.plushie.armourers_workshop.api.common.skin.type.ISkinType;
 import moe.plushie.armourers_workshop.utils.NBTHelper;
 import moe.plushie.armourers_workshop.utils.UtilItems;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -21,11 +21,11 @@ public class WardrobeInventory extends ModInventory {
         return skinType;
     }
     
-    public void writeItemsToNBT(NBTTagCompound compound) {
+    public void writeItemsToNBT(CompoundNBT compound) {
         NBTHelper.writeStackArrayToNBT(compound, skinType.getRegistryName(), slots);
     }
     
-    public void readItemsFromNBT(NBTTagCompound compound) {
+    public void readItemsFromNBT(CompoundNBT compound) {
         clear();
         NBTHelper.readStackArrayFromNBT(compound, skinType.getRegistryName(), slots);
     }

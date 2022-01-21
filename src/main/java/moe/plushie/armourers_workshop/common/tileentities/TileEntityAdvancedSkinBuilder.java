@@ -4,12 +4,12 @@ import moe.plushie.armourers_workshop.client.gui.GuiAdvancedSkinBuilder;
 import moe.plushie.armourers_workshop.common.inventory.ContainerAdvancedSkinBuilder;
 import moe.plushie.armourers_workshop.common.inventory.IGuiFactory;
 import moe.plushie.armourers_workshop.common.skin.type.wings.SkinWings.MovementType;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -36,17 +36,17 @@ public class TileEntityAdvancedSkinBuilder extends AbstractTileEntityInventory i
     }
 
     @Override
-    public NBTTagCompound getUpdateTag() {
-        return writeToNBT(new NBTTagCompound());
+    public CompoundNBT getUpdateTag() {
+        return writeToNBT(new CompoundNBT());
     }
 
     @Override
-    public SPacketUpdateTileEntity getUpdatePacket() {
-        return new SPacketUpdateTileEntity(getPos(), 0, getUpdateTag());
+    public SUpdateTileEntityPacket getUpdatePacket() {
+        return new SUpdateTileEntityPacket(getPos(), 0, getUpdateTag());
     }
 
     @Override
-    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
+    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
         readFromNBT(pkt.getNbtCompound());
         dirtySync();
     }
@@ -70,13 +70,13 @@ public class TileEntityAdvancedSkinBuilder extends AbstractTileEntityInventory i
     }
 
     @Override
-    public Container getServerGuiElement(EntityPlayer player, World world, BlockPos pos) {
+    public Container getServerGuiElement(PlayerEntity player, World world, BlockPos pos) {
         return new ContainerAdvancedSkinBuilder(player.inventory, this);
     }
     
     @SideOnly(Side.CLIENT)
     @Override
-    public GuiScreen getClientGuiElement(EntityPlayer player, World world, BlockPos pos) {
+    public Screen getClientGuiElement(PlayerEntity player, World world, BlockPos pos) {
         return new GuiAdvancedSkinBuilder(player, this);
     }
 }

@@ -20,8 +20,7 @@ import moe.plushie.armourers_workshop.common.library.global.task.GlobalTaskSkinS
 import moe.plushie.armourers_workshop.common.library.global.task.GlobalTaskSkinSearch.SearchOrderType;
 import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.widget.button.Button;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -37,7 +36,7 @@ public class GuiGlobalLibraryPanelHome extends GuiPanel {
 
     private GuiButtonExt buttonShowAll;
 
-    public GuiGlobalLibraryPanelHome(GuiScreen parent, int x, int y, int width, int height) {
+    public GuiGlobalLibraryPanelHome(net.minecraft.client.gui.screen.Screen parent, int x, int y, int width, int height) {
         super(parent, x, y, width, height);
         scrollbar = new GuiScrollbar(-1, width - 11, y + 1, 10, height - 2, "", false);
         scrollbar.setStyleFlat(true);
@@ -213,7 +212,7 @@ public class GuiGlobalLibraryPanelHome extends GuiPanel {
     }
 
     @Override
-    protected void actionPerformed(GuiButton button) {
+    protected void actionPerformed(Button button) {
         if (button == buttonShowAll) {
             ((GuiGlobalLibrary) parent).panelSearchResults.clearResults();
             ((GuiGlobalLibrary) parent).switchScreen(Screen.SEARCH);

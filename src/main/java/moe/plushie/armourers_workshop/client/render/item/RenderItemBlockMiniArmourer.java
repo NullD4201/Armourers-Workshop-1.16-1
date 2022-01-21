@@ -2,10 +2,10 @@ package moe.plushie.armourers_workshop.client.render.item;
 
 import moe.plushie.armourers_workshop.client.model.block.ModelBlockArmourer;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.tileentity.TileEntityItemStackRenderer;
+import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
 import net.minecraft.item.ItemStack;
 
-public class RenderItemBlockMiniArmourer extends TileEntityItemStackRenderer {
+public class RenderItemBlockMiniArmourer extends ItemStackTileEntityRenderer {
 
     private static final ModelBlockArmourer modelArmourer = new ModelBlockArmourer();
 

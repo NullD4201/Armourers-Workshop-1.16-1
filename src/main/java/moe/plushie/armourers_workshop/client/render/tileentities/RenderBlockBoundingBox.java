@@ -12,12 +12,12 @@ import moe.plushie.armourers_workshop.common.tileentities.TileEntityBoundingBox;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.profiler.Profiler;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 
-public class RenderBlockBoundingBox extends TileEntitySpecialRenderer<TileEntityBoundingBox> {
+public class RenderBlockBoundingBox extends TileEntityRenderer<TileEntityBoundingBox> {
 
     private final IRenderBuffer renderer;
     
@@ -46,7 +46,7 @@ public class RenderBlockBoundingBox extends TileEntitySpecialRenderer<TileEntity
         renderer.startDrawingQuads(DefaultVertexFormats.POSITION_TEX);
         for (int i = 0; i < 6; i++) {
             if (te.isPaintableSide(i)) {
-                EnumFacing dir = EnumFacing.byIndex(i);
+                Direction dir = Direction.byIndex(i);
                 IPaintType paintType = te.getPaintType(dir);
                 if (paintType != PaintTypeRegistry.PAINT_TYPE_NONE) {
                     RenderBlockColourable.renderFaceWithMarker(renderer, x, y, z, dir, paintType.getMarkerIndex());

@@ -3,19 +3,19 @@ package moe.plushie.armourers_workshop.client.gui.controls;
 import java.util.ArrayList;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.button.Button;
 import net.minecraftforge.client.event.GuiScreenEvent.ActionPerformedEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public abstract class GuiPanel extends Gui {
+public abstract class GuiPanel extends AbstractGui {
     
-    protected final GuiScreen parent;
+    protected final Screen parent;
     protected final Minecraft mc;
     protected final FontRenderer fontRenderer;
     
@@ -27,10 +27,10 @@ public abstract class GuiPanel extends Gui {
     protected boolean visible;
     protected boolean insideCheck = false;
     
-    protected ArrayList<GuiButton> buttonList;
-    private GuiButton selectedButton;
+    protected ArrayList<Button> buttonList;
+    private Button selectedButton;
     
-    public GuiPanel(GuiScreen parent, int x, int y, int width, int height) {
+    public GuiPanel(Screen parent, int x, int y, int width, int height) {
         this.parent = parent;
         this.mc = Minecraft.getMinecraft();
         this.fontRenderer = mc.fontRenderer;
@@ -42,7 +42,7 @@ public abstract class GuiPanel extends Gui {
         this.enabled = true;
         this.visible = true;
         
-        buttonList = new ArrayList<GuiButton>();
+        buttonList = new ArrayList<Button>();
     }
     
     public void initGui() {
@@ -99,7 +99,7 @@ public abstract class GuiPanel extends Gui {
         }
         if (button == 0) {
             for (int i = 0; i < buttonList.size(); i++) {
-                GuiButton guiButton = buttonList.get(i);
+                Button guiButton = buttonList.get(i);
                 if (guiButton.mousePressed(mc, mouseX, mouseY)) {
                     ActionPerformedEvent.Pre event = new ActionPerformedEvent.Pre(parent, guiButton, buttonList);
                     if (MinecraftForge.EVENT_BUS.post(event)) {
@@ -118,7 +118,7 @@ public abstract class GuiPanel extends Gui {
         return false;
     }
     
-    protected void actionPerformed(GuiButton button) {}
+    protected void actionPerformed(Button button) {}
     
     public void mouseMovedOrUp(int mouseX, int mouseY, int button) {
         if (!this.enabled | !this.visible) {

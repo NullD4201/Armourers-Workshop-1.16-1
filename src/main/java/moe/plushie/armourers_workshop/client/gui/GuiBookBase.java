@@ -2,6 +2,8 @@ package moe.plushie.armourers_workshop.client.gui;
 
 import java.io.IOException;
 
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.button.Button;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL14;
 
@@ -13,8 +15,6 @@ import moe.plushie.armourers_workshop.client.guidebook.IBookPage;
 import moe.plushie.armourers_workshop.client.lib.LibGuiResources;
 import moe.plushie.armourers_workshop.client.render.ModRenderHelper;
 import moe.plushie.armourers_workshop.utils.ModLogger;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.shader.Framebuffer;
 import net.minecraft.util.ResourceLocation;
@@ -23,7 +23,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public abstract class GuiBookBase extends GuiScreen {
+public abstract class GuiBookBase extends Screen {
     
     protected static final ResourceLocation bookTexture = new ResourceLocation(LibGuiResources.GUI_GUIDE_BOOK);
     
@@ -64,7 +64,7 @@ public abstract class GuiBookBase extends GuiScreen {
     }
     
     @Override
-    protected void actionPerformed(GuiButton button) {
+    protected void actionPerformed(Button button) {
         if (button.id == 0) {
             startPageTurnRight();
         }

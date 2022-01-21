@@ -29,14 +29,14 @@ import moe.plushie.armourers_workshop.utils.ModLogger;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderLivingBase;
-import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.LivingRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -124,9 +124,9 @@ public class AddonCustomNPCS extends ModAddon {
         return null;
     }
     
-    private static Class<? extends EntityLivingBase>  getCNPCEntityClass() {
+    private static Class<? extends LivingEntity>  getCNPCEntityClass() {
         try {
-            return (Class<? extends EntityLivingBase>) Class.forName(CLASS_NAME_ENTITY_CNPC);
+            return (Class<? extends LivingEntity>) Class.forName(CLASS_NAME_ENTITY_CNPC);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -157,16 +157,16 @@ public class AddonCustomNPCS extends ModAddon {
 
         @SideOnly(Side.CLIENT)
         @Override
-        public void addRenderLayer(RenderManager renderManager) {
-            Render<Entity> renderer = renderManager.getEntityClassRenderObject(getEntityClass());
-            if (renderer != null && renderer instanceof RenderLivingBase) {
-                LayerRenderer<? extends EntityLivingBase> layerRendererNPC = new SkinLayerRendererCustomNPC((RenderLivingBase) renderer);
+        public void addRenderLayer(EntityRendererManager renderManager) {
+            EntityRenderer<Entity> renderer = renderManager.getEntityClassRenderObject(getEntityClass());
+            if (renderer != null && renderer instanceof LivingRenderer) {
+                LayerRenderer<? extends LivingEntity> layerRendererNPC = new SkinLayerRendererCustomNPC((LivingRenderer) renderer);
                 if (layerRendererNPC != null) {
-                    ((RenderLivingBase<?>) renderer).addLayer(layerRendererNPC);
+                    ((LivingRenderer<?>) renderer).addLayer(layerRendererNPC);
                 }
 
                 try {
-                    Object object = ReflectionHelper.getPrivateValue(RenderLivingBase.class, (RenderLivingBase) renderer, "field_177097_h", "layerRenderers");
+                    Object object = ReflectionHelper.getPrivateValue(LivingRenderer.class, (LivingRenderer) renderer, "field_177097_h", "layerRenderers");
                     if (object != null) {
                         List<LayerRenderer<?>> layerRenderers = (List<LayerRenderer<?>>) object;
                         // Looking for held item layer.
@@ -177,7 +177,7 @@ public class AddonCustomNPCS extends ModAddon {
                                 ModLogger.log("Removing held item layer from " + renderer);
                                 layerRenderers.remove(i);
                                 ModLogger.log("Adding skinned held item layer to " + renderer);
-                                layerRenderers.add(new SkinLayerRendererHeldItem((RenderLivingBase) renderer, layerRenderer));
+                                layerRenderers.add(new SkinLayerRendererHeldItem((LivingRenderer) renderer, layerRenderer));
                                 break;
                             }
                         }
@@ -192,7 +192,7 @@ public class AddonCustomNPCS extends ModAddon {
         }
 
         @Override
-        public Class<? extends EntityLivingBase> getEntityClass() {
+        public Class<? extends LivingEntity> getEntityClass() {
             return getCNPCEntityClass();
         }
 
@@ -222,7 +222,7 @@ public class AddonCustomNPCS extends ModAddon {
         }
 
         @Override
-        public boolean canUseWandOfStyle(EntityPlayer user) {
+        public boolean canUseWandOfStyle(PlayerEntity user) {
             return true;
         }
     }
@@ -230,15 +230,15 @@ public class AddonCustomNPCS extends ModAddon {
     @SideOnly(Side.CLIENT)
     public static class SkinLayerRendererCustomNPC implements LayerRenderer {
 
-        private final RenderLivingBase renderLivingBase;
+        private final LivingRenderer renderLivingBase;
 
-        public SkinLayerRendererCustomNPC(RenderLivingBase renderLivingBase) {
+        public SkinLayerRendererCustomNPC(LivingRenderer renderLivingBase) {
             this.renderLivingBase = renderLivingBase;
             MinecraftForge.EVENT_BUS.register(this);
         }
 
         @Override
-        public void doRenderLayer(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+        public void doRenderLayer(LivingEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
             IEntitySkinCapability skinCapability = EntitySkinCapability.get(entitylivingbaseIn);
             if (skinCapability == null) {
                 return;
@@ -290,14 +290,14 @@ public class AddonCustomNPCS extends ModAddon {
         }
         
         @SubscribeEvent(priority = EventPriority.LOW)
-        public void onRenderLivingPre(RenderLivingEvent.Pre<EntityLivingBase> event) {
+        public void onRenderLivingPre(RenderLivingEvent.Pre<LivingEntity> event) {
             if (event.getEntity().getClass() != getCNPCEntityClass()) {
                 return;
             }
         }
 
         @SubscribeEvent(priority = EventPriority.HIGH)
-        public void onRenderLivingPost(RenderLivingEvent.Post<EntityLivingBase> event) {
+        public void onRenderLivingPost(RenderLivingEvent.Post<LivingEntity> event) {
             if (event.getEntity().getClass() != getCNPCEntityClass()) {
                 return;
             }

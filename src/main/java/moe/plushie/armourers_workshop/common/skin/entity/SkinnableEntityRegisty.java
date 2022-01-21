@@ -16,7 +16,7 @@ import moe.plushie.armourers_workshop.common.library.LibraryFile;
 import moe.plushie.armourers_workshop.common.library.LibraryFileList;
 import moe.plushie.armourers_workshop.utils.ModLogger;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.common.MinecraftForge;
 
 public final class SkinnableEntityRegisty implements ISkinnableEntityRegisty {
@@ -81,7 +81,7 @@ public final class SkinnableEntityRegisty implements ISkinnableEntityRegisty {
         return false;
     }
 
-    public boolean canUseWandOfStyleOnEntity(Entity entity, EntityPlayer user) {
+    public boolean canUseWandOfStyleOnEntity(Entity entity, PlayerEntity user) {
         ISkinnableEntity skinnableEntity = getSkinnableEntity(entity);
         if (skinnableEntity != null) {
             return skinnableEntity.canUseWandOfStyle(user);

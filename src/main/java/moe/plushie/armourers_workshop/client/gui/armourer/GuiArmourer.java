@@ -1,5 +1,6 @@
 package moe.plushie.armourers_workshop.client.gui.armourer;
 
+import net.minecraft.entity.player.PlayerInventory;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.api.common.skin.type.ISkinType;
@@ -22,7 +23,6 @@ import moe.plushie.armourers_workshop.common.skin.data.SkinProperties;
 import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
 import moe.plushie.armourers_workshop.common.tileentities.TileEntityArmourer;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -42,7 +42,7 @@ public class GuiArmourer extends GuiTabbed<ContainerArmourer> implements IDialog
     private static int activeTab;
     
     
-    public GuiArmourer(InventoryPlayer invPlayer, TileEntityArmourer tileEntity) {
+    public GuiArmourer(PlayerInventory invPlayer, TileEntityArmourer tileEntity) {
         super(new ContainerArmourer(invPlayer, tileEntity), false, TEXTURE_TAB_ICONS);
         this.tileEntity = tileEntity;
         this.inventoryName = tileEntity.getName();

@@ -7,14 +7,14 @@ import moe.plushie.armourers_workshop.common.lib.EnumGuiId;
 import moe.plushie.armourers_workshop.common.lib.LibBlockNames;
 import moe.plushie.armourers_workshop.common.tileentities.TileEntityArmourer;
 import moe.plushie.armourers_workshop.utils.BlockUtils;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.block.BlockRenderType;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -27,18 +27,18 @@ public class BlockArmourer extends AbstractModBlockContainer {
     }
     
     @Override
-    public EnumBlockRenderType getRenderType(IBlockState state) {
-        return EnumBlockRenderType.MODEL;
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
     }
     
     @Override
-    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-        if (placer instanceof EntityPlayer) {
-            EntityPlayer player = (EntityPlayer)placer;
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
+        if (placer instanceof PlayerEntity) {
+            PlayerEntity player = (PlayerEntity)placer;
             TileEntity te = worldIn.getTileEntity(pos);
             if (te != null && te instanceof TileEntityArmourer) {
-                EnumFacing direction = BlockUtils.determineDirectionSide(placer).getOpposite();
-                ((TileEntityArmourer)te).setDirection(EnumFacing.NORTH);
+                Direction direction = BlockUtils.determineDirectionSide(placer).getOpposite();
+                ((TileEntityArmourer)te).setDirection(Direction.NORTH);
                 if (!worldIn.isRemote) {
                     ((TileEntityArmourer)te).setTexture(new PlayerTexture(player.getName(), TextureType.USER));
                     ((TileEntityArmourer)te).onPlaced();
@@ -48,7 +48,7 @@ public class BlockArmourer extends AbstractModBlockContainer {
     }
     
     @Override
-    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+    public void breakBlock(World worldIn, BlockPos pos, BlockState state) {
         TileEntity te = worldIn.getTileEntity(pos);
         if (te != null & te instanceof TileEntityArmourer) {
             ((TileEntityArmourer)te).preRemove();
@@ -58,7 +58,7 @@ public class BlockArmourer extends AbstractModBlockContainer {
     }
     
     @Override
-    public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
+    public boolean removedByPlayer(BlockState state, World world, BlockPos pos, PlayerEntity player, boolean willHarvest) {
         TileEntity te = world.getTileEntity(pos);
         if (te != null & te instanceof TileEntityArmourer) {
             ((TileEntityArmourer)te).preRemove();
@@ -67,7 +67,7 @@ public class BlockArmourer extends AbstractModBlockContainer {
     }
     
     @Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World worldIn, BlockPos pos, BlockState state, PlayerEntity playerIn, Hand hand, Direction facing, float hitX, float hitY, float hitZ) {
         if (!playerIn.canPlayerEdit(pos, facing, playerIn.getHeldItem(hand))) {
             return false;
         }
@@ -76,7 +76,7 @@ public class BlockArmourer extends AbstractModBlockContainer {
     }
     
     @Override
-    public TileEntity createTileEntity(World world, IBlockState state) {
+    public TileEntity createTileEntity(World world, BlockState state) {
         return new TileEntityArmourer();
     }
 

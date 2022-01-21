@@ -4,7 +4,7 @@ import moe.plushie.armourers_workshop.client.gui.controls.GuiCustomSlider;
 import moe.plushie.armourers_workshop.client.gui.controls.GuiTabPanel;
 import moe.plushie.armourers_workshop.common.data.type.Rectangle_I_2D;
 import moe.plushie.armourers_workshop.common.tileentities.TileEntityHologramProjector;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraftforge.fml.client.config.GuiSlider;
 import net.minecraftforge.fml.client.config.GuiSlider.ISlider;
 import net.minecraftforge.fml.client.config.GuiUtils;
@@ -21,7 +21,7 @@ public class GuiHologramProjectorTabAngle extends GuiTabPanel implements ISlider
     private GuiCustomSlider sliderOffsetY;
     private GuiCustomSlider sliderOffsetZ;
     
-    public GuiHologramProjectorTabAngle(int tabId, GuiScreen parent, String inventoryName, TileEntityHologramProjector tileEntity) {
+    public GuiHologramProjectorTabAngle(int tabId, Screen parent, String inventoryName, TileEntityHologramProjector tileEntity) {
         super(tabId, parent, true);
         this.inventoryName = inventoryName;
         this.tileEntity = tileEntity;

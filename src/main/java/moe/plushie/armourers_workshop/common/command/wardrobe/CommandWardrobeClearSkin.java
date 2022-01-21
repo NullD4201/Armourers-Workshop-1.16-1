@@ -12,7 +12,7 @@ import moe.plushie.armourers_workshop.utils.ModLogger;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 
@@ -53,7 +53,7 @@ public class CommandWardrobeClearSkin extends ModCommand {
         String argSkinType = args[getParentCount() + 1];
         int argSlotId = parseInt(args[getParentCount() + 2], 1, 10);
 
-        EntityPlayerMP player = getPlayer(server, sender, argPlayer);
+        ServerPlayerEntity player = getPlayer(server, sender, argPlayer);
         if (player == null) {
             throw new WrongUsageException(getUsage(sender), (Object) args);
         }

@@ -3,17 +3,17 @@ package moe.plushie.armourers_workshop.common.inventory;
 import moe.plushie.armourers_workshop.common.skin.data.Skin;
 import moe.plushie.armourers_workshop.common.skin.data.SkinProperties;
 import moe.plushie.armourers_workshop.common.tileentities.TileEntitySkinnable;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 
 public class ContainerSkinnable extends ModTileContainer<TileEntitySkinnable> {
 
     private int size;
     
-    public ContainerSkinnable(InventoryPlayer invPlayer, TileEntitySkinnable tileEntity, Skin skin) {
+    public ContainerSkinnable(PlayerInventory invPlayer, TileEntitySkinnable tileEntity, Skin skin) {
         super(invPlayer, tileEntity);
         
         
@@ -41,7 +41,7 @@ public class ContainerSkinnable extends ModTileContainer<TileEntitySkinnable> {
     }
     
     @Override
-    protected ItemStack transferStackFromPlayer(EntityPlayer playerIn, int index) {
+    protected ItemStack transferStackFromPlayer(PlayerEntity playerIn, int index) {
         Slot slot = getSlot(index);
         if (slot != null && slot.getHasStack()) {
             ItemStack stack = slot.getStack();

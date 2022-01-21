@@ -14,7 +14,7 @@ import moe.plushie.armourers_workshop.api.common.skin.data.ISkinProperties;
 import moe.plushie.armourers_workshop.common.skin.data.serialize.SkinSerializer;
 import moe.plushie.armourers_workshop.common.skin.type.wings.SkinWings.MovementType;
 import moe.plushie.armourers_workshop.utils.StreamUtils;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 
 public class SkinProperties implements ISkinProperties {
 
@@ -251,7 +251,7 @@ public class SkinProperties implements ISkinProperties {
         STRING, INT, DOUBLE, BOOLEAN
     }
 
-    public void readFromNBT(NBTTagCompound compound) {
+    public void readFromNBT(CompoundNBT compound) {
         if (!compound.hasKey(TAG_SKIN_PROPS)) {
             return;
         }
@@ -269,7 +269,7 @@ public class SkinProperties implements ISkinProperties {
         }
     }
 
-    public void writeToNBT(NBTTagCompound compound) {
+    public void writeToNBT(CompoundNBT compound) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         DataOutputStream dataOutputStream = new DataOutputStream(baos);
         try {

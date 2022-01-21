@@ -3,13 +3,13 @@ package moe.plushie.armourers_workshop.client.gui;
 import moe.plushie.armourers_workshop.client.config.ConfigHandlerClient;
 import moe.plushie.armourers_workshop.client.gui.controls.GuiCheckBox;
 import moe.plushie.armourers_workshop.client.render.SkinItemRenderHelper;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class GuiDebugTool extends GuiScreen {
+public class GuiDebugTool extends Screen {
     
     protected final int guiWidth;
     protected final int guiHeight;
@@ -68,7 +68,7 @@ public class GuiDebugTool extends GuiScreen {
     }
     
     @Override
-    protected void actionPerformed(GuiButton button) {
+    protected void actionPerformed(Button button) {
         if (button == checkWireframe) {
             ConfigHandlerClient.wireframeRender = checkWireframe.isChecked();
         }

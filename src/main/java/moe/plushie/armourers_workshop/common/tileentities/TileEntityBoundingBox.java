@@ -10,11 +10,11 @@ import moe.plushie.armourers_workshop.common.painting.PaintTypeRegistry;
 import moe.plushie.armourers_workshop.common.skin.SkinTextureHelper;
 import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
 import moe.plushie.armourers_workshop.utils.NBTHelper;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.relauncher.Side;
@@ -45,7 +45,7 @@ public class TileEntityBoundingBox extends ModTileEntity {
     }
     
     @Override
-    public void readFromNBT(NBTTagCompound compound) {
+    public void readFromNBT(CompoundNBT compound) {
         super.readFromNBT(compound);
         this.parent = NBTHelper.readBlockPosFromNBT(compound, TAG_PARENT);
         this.guideX = compound.getByte(TAG_GUIDE_X);
@@ -55,7 +55,7 @@ public class TileEntityBoundingBox extends ModTileEntity {
     }
     
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+    public CompoundNBT writeToNBT(CompoundNBT compound) {
         super.writeToNBT(compound);
         NBTHelper.writeBlockPosToNBT(compound, TAG_PARENT, parent);
         compound.setByte(TAG_GUIDE_X, this.guideX);
@@ -68,19 +68,19 @@ public class TileEntityBoundingBox extends ModTileEntity {
     }
     
     @Override
-    public NBTTagCompound getUpdateTag() {
-        return writeToNBT(new NBTTagCompound());
+    public CompoundNBT getUpdateTag() {
+        return writeToNBT(new CompoundNBT());
     }
     
     @Override
-    public SPacketUpdateTileEntity getUpdatePacket() {
-        NBTTagCompound compound = new NBTTagCompound();
+    public SUpdateTileEntityPacket getUpdatePacket() {
+        CompoundNBT compound = new CompoundNBT();
         writeToNBT(compound);
-        return new SPacketUpdateTileEntity(getPos(), 5, compound);
+        return new SUpdateTileEntityPacket(getPos(), 5, compound);
     }
 
     @Override
-    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
+    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket packet) {
         readFromNBT(packet.getNbtCompound());
         syncWithClients();
     }
@@ -131,14 +131,14 @@ public class TileEntityBoundingBox extends ModTileEntity {
     }
     
     public boolean isPaintableSide(int side) {
-        EnumFacing sideBlock = EnumFacing.byIndex(side);
+        Direction sideBlock = Direction.byIndex(side);
         if (getWorld().getBlockState(getPos().offset(sideBlock)).getBlock() == getBlockType()) {
             return false;
         }
         return true;
     }
     
-    public IPaintType getPaintType(EnumFacing facing) {
+    public IPaintType getPaintType(Direction facing) {
         if (isParentValid() && skinPart instanceof ISkinPartTypeTextured) {
             
             Point texPoint = SkinTextureHelper.getTextureLocationFromWorldBlock(this, facing);

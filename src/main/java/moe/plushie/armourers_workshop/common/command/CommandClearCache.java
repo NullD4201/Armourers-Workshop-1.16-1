@@ -9,7 +9,7 @@ import moe.plushie.armourers_workshop.common.skin.cache.CommonSkinCache;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.relauncher.Side;
@@ -51,7 +51,7 @@ public class CommandClearCache extends ModCommand {
                 throw new WrongUsageException(getUsage(sender), (Object) args);
             }
             String playerName = args[getParentCount() + 1];
-            EntityPlayerMP player = getPlayer(server, sender, playerName);
+            ServerPlayerEntity player = getPlayer(server, sender, playerName);
             if (player == null) {
                 return;
             }

@@ -7,7 +7,7 @@ import moe.plushie.armourers_workshop.common.lib.LibModInfo;
 import moe.plushie.armourers_workshop.common.painting.PaintingHelper;
 import moe.plushie.armourers_workshop.utils.SkinNBTHelper;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -55,7 +55,7 @@ public class SlotDyeBottle extends SlotHidable {
     }
     
     @Override
-    public boolean canTakeStack(EntityPlayer player) {
+    public boolean canTakeStack(PlayerEntity player) {
         if (container != null) {
             if (!ConfigHandler.lockDyesOnSkins | player.capabilities.isCreativeMode) {
                 return true;

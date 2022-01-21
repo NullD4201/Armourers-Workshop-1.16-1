@@ -12,7 +12,7 @@ import moe.plushie.armourers_workshop.common.library.global.task.mod.GlobalTaskG
 import moe.plushie.armourers_workshop.common.library.global.task.mod.GlobalTaskGetReportList.Filter;
 import moe.plushie.armourers_workshop.common.library.global.task.user.GlobalTaskSkinReport.SkinReport;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.resources.I18n;
 
 public class GuiGlobalLibraryPanelModeration extends GuiPanel {
@@ -25,7 +25,7 @@ public class GuiGlobalLibraryPanelModeration extends GuiPanel {
 
     private GlobalTaskGetReportList.Result result = null;
 
-    public GuiGlobalLibraryPanelModeration(GuiScreen parent) {
+    public GuiGlobalLibraryPanelModeration(Screen parent) {
         super(parent, 0, 0, 1, 1);
         guiName = ((GuiGlobalLibrary) parent).getGuiName() + ".panel.info";
         

@@ -19,7 +19,7 @@ import moe.plushie.armourers_workshop.common.skin.data.Skin;
 import moe.plushie.armourers_workshop.common.skin.data.SkinProperties;
 import moe.plushie.armourers_workshop.utils.BitwiseUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.texture.AbstractTexture;
+import net.minecraft.client.renderer.texture.Texture;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.resources.DefaultPlayerSkin;
@@ -364,7 +364,7 @@ public class EntityTextureInfo {
         return normalTexture;
     }
 
-    private class SkinTextureObject extends AbstractTexture {
+    private class SkinTextureObject extends Texture {
 
         private final BufferedImage texture;
 

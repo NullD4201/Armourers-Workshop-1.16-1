@@ -6,8 +6,8 @@ import moe.plushie.armourers_workshop.common.inventory.MannequinSlotType;
 import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
@@ -28,7 +28,7 @@ public class SlotMannequin extends SlotHidable {
 
         switch (slotType) {
         case HEAD:
-            if (item instanceof ItemBlock) {
+            if (item instanceof BlockItem) {
                 return true;
             }
             /*

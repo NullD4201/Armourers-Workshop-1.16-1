@@ -8,13 +8,13 @@ import moe.plushie.armourers_workshop.common.lib.LibModInfo;
 import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.item.ItemBlock;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ModItemBlock extends ItemBlock implements ISortOrder {
+public class ModItemBlock extends BlockItem implements ISortOrder {
 
     public ModItemBlock(Block block) {
         super(block);

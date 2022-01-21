@@ -19,20 +19,20 @@ import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
 import moe.plushie.armourers_workshop.common.world.ArmourerWorldHelper;
 import moe.plushie.armourers_workshop.common.world.undo.UndoManager;
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.inventory.Container;
+import net.minecraft.block.BlockState;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.network.IPacket;
+import net.minecraft.network.play.server.SUpdateTileEntityPacket;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.fml.relauncher.Side;
@@ -51,7 +51,7 @@ public class TileEntityArmourer extends AbstractTileEntityInventory implements I
     private static final int INVENTORY_SIZE = 2;
     private static final AxisAlignedBB AABB = new AxisAlignedBB(-32, -32, -44, 64, 64, 64);
     
-    private EnumFacing direction;
+    private Direction direction;
     private ISkinType skinType;
     private boolean showGuides;
     private boolean showHelper;
@@ -67,7 +67,7 @@ public class TileEntityArmourer extends AbstractTileEntityInventory implements I
     
     public TileEntityArmourer() {
         super(INVENTORY_SIZE);
-        this.direction = EnumFacing.NORTH;
+        this.direction = Direction.NORTH;
         this.skinType = SkinTypeRegistry.INSTANCE.getSkinTypeFromRegistryName("armourers:head");
         this.showGuides = true;
         this.showHelper = true;
@@ -103,24 +103,24 @@ public class TileEntityArmourer extends AbstractTileEntityInventory implements I
         }
     }
     
-    public void toolUsedOnArmourer(IBlockPainter tool, World world, ItemStack stack, EntityPlayer player) {
+    public void toolUsedOnArmourer(IBlockPainter tool, World world, ItemStack stack, PlayerEntity player) {
         UndoManager.begin(player);
         applyToolToBlocks(tool, world, stack, player);
         UndoManager.end(player);
     }
     
-    private void applyToolToBlocks(IBlockPainter tool, World world, ItemStack stack, EntityPlayer player) {
+    private void applyToolToBlocks(IBlockPainter tool, World world, ItemStack stack, PlayerEntity player) {
         if (skinType != null) {
-            ArrayList<BlockPos> paintableCubes = ArmourerWorldHelper.getListOfPaintableCubes(getWorld(), getPos().offset(EnumFacing.UP, HEIGHT_OFFSET), skinType);
+            ArrayList<BlockPos> paintableCubes = ArmourerWorldHelper.getListOfPaintableCubes(getWorld(), getPos().offset(Direction.UP, HEIGHT_OFFSET), skinType);
             for (int i = 0; i < paintableCubes.size(); i++) {
                 BlockPos bl = paintableCubes.get(i);
-                IBlockState blockState = world.getBlockState(bl);
+                BlockState blockState = world.getBlockState(bl);
                 //IPantableBlock pBlock = (IPantableBlock) blockState.getBlock();
                 Block block = blockState.getBlock();
                 
                 if (block instanceof IPantableBlock) {
                     for (int side = 0; side < 6; side++) {
-                        EnumFacing face = EnumFacing.VALUES[side];
+                        Direction face = Direction.VALUES[side];
                         tool.usedOnBlockSide(stack, player, world, bl, block, face, false);
                     }
                 }
@@ -141,17 +141,17 @@ public class TileEntityArmourer extends AbstractTileEntityInventory implements I
     }
     
 
-    public void copySkinCubes(EntityPlayerMP player, ISkinPartType srcPart, ISkinPartType desPart, boolean mirror) {
+    public void copySkinCubes(ServerPlayerEntity player, ISkinPartType srcPart, ISkinPartType desPart, boolean mirror) {
         try {
-            ArmourerWorldHelper.copySkinCubes(getWorld(), getPos().offset(EnumFacing.UP, HEIGHT_OFFSET), srcPart, desPart, mirror);
+            ArmourerWorldHelper.copySkinCubes(getWorld(), getPos().offset(Direction.UP, HEIGHT_OFFSET), srcPart, desPart, mirror);
         } catch (SkinSaveException e) {
-            player.sendMessage(new TextComponentString(e.getMessage()));
+            player.sendMessage(new StringTextComponent(e.getMessage()));
         }
     }
 
     public void clearArmourCubes(ISkinPartType partType) {
         if (skinType != null) {
-            ArmourerWorldHelper.clearEquipmentCubes(getWorld(), getPos().offset(EnumFacing.UP, HEIGHT_OFFSET), skinType, skinProps, partType);
+            ArmourerWorldHelper.clearEquipmentCubes(getWorld(), getPos().offset(Direction.UP, HEIGHT_OFFSET), skinType, skinProps, partType);
             SkinProperties newSkinProps = new SkinProperties();
             SkinProperties.PROP_BLOCK_MULTIBLOCK.setValue(newSkinProps, SkinProperties.PROP_BLOCK_MULTIBLOCK.getValue(skinProps));
             setSkinProps(newSkinProps);
@@ -161,29 +161,29 @@ public class TileEntityArmourer extends AbstractTileEntityInventory implements I
     
     public void clearMarkers(ISkinPartType partType) {
         if (skinType != null) {
-            ArmourerWorldHelper.clearMarkers(getWorld(), getPos().offset(EnumFacing.UP, HEIGHT_OFFSET), skinType, skinProps, partType);
+            ArmourerWorldHelper.clearMarkers(getWorld(), getPos().offset(Direction.UP, HEIGHT_OFFSET), skinType, skinProps, partType);
             dirtySync();
         }
     }
     
     protected void removeBoundingBoxes() {
         if (skinType != null) {
-            ArmourerWorldHelper.removeBoundingBoxes(getWorld(), getPos().offset(EnumFacing.UP, HEIGHT_OFFSET), skinType);
+            ArmourerWorldHelper.removeBoundingBoxes(getWorld(), getPos().offset(Direction.UP, HEIGHT_OFFSET), skinType);
         }
     }
     
     protected void createBoundingBoxes() {
         if (skinType != null) {
-            ArmourerWorldHelper.createBoundingBoxes(getWorld(), getPos().offset(EnumFacing.UP, HEIGHT_OFFSET), getPos(), skinType, skinProps);
+            ArmourerWorldHelper.createBoundingBoxes(getWorld(), getPos().offset(Direction.UP, HEIGHT_OFFSET), getPos(), skinType, skinProps);
         }
     }
     
-    public void setDirection(EnumFacing direction) {
+    public void setDirection(Direction direction) {
         this.direction = direction;
         dirtySync();
     }
     
-    public EnumFacing getDirection() {
+    public Direction getDirection() {
         return direction;
     }
     
@@ -272,24 +272,24 @@ public class TileEntityArmourer extends AbstractTileEntityInventory implements I
     }
     
     @Override
-    public SPacketUpdateTileEntity getUpdatePacket() {
-        return new SPacketUpdateTileEntity(getPos(), 5, getUpdateTag());
+    public SUpdateTileEntityPacket getUpdatePacket() {
+        return new SUpdateTileEntityPacket(getPos(), 5, getUpdateTag());
     }
     
     @Override
-    public NBTTagCompound getUpdateTag() {
-        NBTTagCompound compound = super.getUpdateTag();
+    public CompoundNBT getUpdateTag() {
+        CompoundNBT compound = super.getUpdateTag();
         writeCommonToNBT(compound);
         return compound;
     }
     
-    public Packet getDescriptionPacket() {
+    public IPacket getDescriptionPacket() {
         return getUpdatePacket();
     }
     
     @Override
-    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
-        NBTTagCompound compound = packet.getNbtCompound();
+    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket packet) {
+        CompoundNBT compound = packet.getNbtCompound();
         PlayerTexture playerTexture = texture;
         readBaseFromNBT(compound);
         readCommonFromNBT(compound);
@@ -301,22 +301,22 @@ public class TileEntityArmourer extends AbstractTileEntityInventory implements I
     }
     
     @Override
-    public void readFromNBT(NBTTagCompound compound) {
+    public void readFromNBT(CompoundNBT compound) {
         super.readFromNBT(compound);
         readCommonFromNBT(compound);
     }
     
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+    public CompoundNBT writeToNBT(CompoundNBT compound) {
         super.writeToNBT(compound);
         writeCommonToNBT(compound);
         return compound;
     }
     
     @Override
-    public void readCommonFromNBT(NBTTagCompound compound) {
+    public void readCommonFromNBT(CompoundNBT compound) {
         super.readCommonFromNBT(compound);
-        direction = EnumFacing.byIndex(compound.getByte(TAG_DIRECTION));
+        direction = Direction.byIndex(compound.getByte(TAG_DIRECTION));
         skinType = SkinTypeRegistry.INSTANCE.getSkinTypeFromRegistryName(compound.getString(TAG_TYPE));
         
         showGuides = compound.getBoolean(TAG_SHOW_GUIDES);
@@ -334,7 +334,7 @@ public class TileEntityArmourer extends AbstractTileEntityInventory implements I
     }
     
     @Override
-    public void writeCommonToNBT(NBTTagCompound compound) {
+    public void writeCommonToNBT(CompoundNBT compound) {
         super.writeCommonToNBT(compound);
         compound.setByte(TAG_DIRECTION, (byte) direction.ordinal());
         if (skinType != null) {
@@ -343,20 +343,20 @@ public class TileEntityArmourer extends AbstractTileEntityInventory implements I
         compound.setBoolean(TAG_SHOW_GUIDES, showGuides);
         compound.setBoolean(TAG_SHOW_HELPER, showHelper);
         skinProps.writeToNBT(compound);
-        NBTTagCompound textureCompound = new NBTTagCompound();
+        CompoundNBT textureCompound = new CompoundNBT();
         texture.writeToNBT(textureCompound);
         compound.setTag(TAG_TEXTURE, textureCompound);
         compound.setIntArray(TAG_PAINT_DATA, this.paintData);
     }
 
     @Override
-    public Container getServerGuiElement(EntityPlayer player, World world, BlockPos pos) {
+    public Container getServerGuiElement(PlayerEntity player, World world, BlockPos pos) {
         return new ContainerArmourer(player.inventory, this);
     }
     
     @SideOnly(Side.CLIENT)
     @Override
-    public GuiScreen getClientGuiElement(EntityPlayer player, World world, BlockPos pos) {
+    public Screen getClientGuiElement(PlayerEntity player, World world, BlockPos pos) {
         return new GuiArmourer(player.inventory, this);
     }
 }

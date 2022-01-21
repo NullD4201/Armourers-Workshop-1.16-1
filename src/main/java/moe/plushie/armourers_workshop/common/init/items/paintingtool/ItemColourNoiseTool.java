@@ -25,20 +25,17 @@ import moe.plushie.armourers_workshop.common.world.undo.UndoManager;
 import moe.plushie.armourers_workshop.utils.TranslateUtils;
 import moe.plushie.armourers_workshop.utils.UtilColour;
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.ItemMeshDefinition;
-import net.minecraft.client.renderer.block.model.ModelBakery;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.model.ModelBakery;
+import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.util.*;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
@@ -54,8 +51,8 @@ public class ItemColourNoiseTool extends AbstractModItem implements IConfigurabl
     }
 
     @Override
-    public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        IBlockState state = worldIn.getBlockState(pos);
+    public ActionResultType onItemUse(PlayerEntity player, World worldIn, BlockPos pos, Hand hand, Direction facing, float hitX, float hitY, float hitZ) {
+        BlockState state = worldIn.getBlockState(pos);
         ItemStack stack = player.getHeldItem(hand);
         
         if (state.getBlock() instanceof IPantableBlock) {
@@ -64,7 +61,7 @@ public class ItemColourNoiseTool extends AbstractModItem implements IConfigurabl
             }
             if (ToolOptions.FULL_BLOCK_MODE.getValue(stack)) {
                 for (int i = 0; i < 6; i++) {
-                    usedOnBlockSide(stack, player, worldIn, pos, state.getBlock(), EnumFacing.values()[i], facing == EnumFacing.values()[i]);
+                    usedOnBlockSide(stack, player, worldIn, pos, state.getBlock(), Direction.values()[i], facing == Direction.values()[i]);
                 }
             } else {
                 usedOnBlockSide(stack, player, worldIn, pos, state.getBlock(), facing, true);
@@ -77,7 +74,7 @@ public class ItemColourNoiseTool extends AbstractModItem implements IConfigurabl
                     worldIn.playSound(null, pos, ModSounds.NOISE, SoundCategory.BLOCKS, 1.0F, worldIn.rand.nextFloat() * 0.2F + 1.5F);
                 }
             }
-            return EnumActionResult.SUCCESS;
+            return ActionResultType.SUCCESS;
         }
         
         if (state.getBlock() == ModBlocks.ARMOURER & player.isSneaking()) {
@@ -87,14 +84,14 @@ public class ItemColourNoiseTool extends AbstractModItem implements IConfigurabl
                     ((TileEntityArmourer)te).toolUsedOnArmourer(this, worldIn, stack, player);
                 }
             }
-            return EnumActionResult.SUCCESS;
+            return ActionResultType.SUCCESS;
         }
         
-        return EnumActionResult.PASS;
+        return ActionResultType.PASS;
     }
     
     @Override
-    public void usedOnBlockSide(ItemStack stack, EntityPlayer player, World world, BlockPos pos, Block block, EnumFacing face, boolean spawnParticles) {
+    public void usedOnBlockSide(ItemStack stack, PlayerEntity player, World world, BlockPos pos, Block block, Direction face, boolean spawnParticles) {
         int intensity = ToolOptions.INTENSITY.getValue(stack);
         IPantableBlock worldColourable = (IPantableBlock) block;
         if (worldColourable.isRemoteOnly(world, pos, face) & world.isRemote) {
@@ -121,12 +118,12 @@ public class ItemColourNoiseTool extends AbstractModItem implements IConfigurabl
     }
     
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         if (playerIn.isSneaking()) {
             if (worldIn.isRemote) {
                 playerIn.openGui(ArmourersWorkshop.getInstance(), EnumGuiId.TOOL_OPTIONS.ordinal(), worldIn, 0, 0, 0);
             }
-            return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
+            return new ActionResult<ItemStack>(ActionResultType.SUCCESS, playerIn.getHeldItem(handIn));
         }
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }

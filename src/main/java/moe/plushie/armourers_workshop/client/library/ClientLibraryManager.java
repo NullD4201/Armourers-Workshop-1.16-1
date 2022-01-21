@@ -12,8 +12,8 @@ import moe.plushie.armourers_workshop.common.library.LibraryFileList;
 import moe.plushie.armourers_workshop.common.library.LibraryFileType;
 import moe.plushie.armourers_workshop.common.library.LibraryHelper;
 import moe.plushie.armourers_workshop.utils.ModLogger;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent.ClientDisconnectionFromServerEvent;
@@ -73,7 +73,7 @@ public class ClientLibraryManager implements ILibraryManager {
     }
     
     @Override
-    public LibraryFileList getServerPrivateFileList(EntityPlayer player) {
+    public LibraryFileList getServerPrivateFileList(PlayerEntity player) {
         return serverPrivateFiles;
     }
 
@@ -93,7 +93,7 @@ public class ClientLibraryManager implements ILibraryManager {
     }
     
     @Override
-    public void addFileToListType(LibraryFile file, LibraryFileType listType, EntityPlayer player) {
+    public void addFileToListType(LibraryFile file, LibraryFileType listType, PlayerEntity player) {
         switch (listType) {
         case LOCAL:
             clientFiles.addFileToList(file);
@@ -108,7 +108,7 @@ public class ClientLibraryManager implements ILibraryManager {
     }
     
     @Override
-    public void removeFileFromListType(LibraryFile file, LibraryFileType listType, EntityPlayer player) {
+    public void removeFileFromListType(LibraryFile file, LibraryFileType listType, PlayerEntity player) {
         switch (listType) {
         case LOCAL:
             clientFiles.removeFileFromList(file);
@@ -123,7 +123,7 @@ public class ClientLibraryManager implements ILibraryManager {
     }
     
     @Override
-    public void syncLibraryWithPlayer(EntityPlayerMP player) {
+    public void syncLibraryWithPlayer(ServerPlayerEntity player) {
         // TODO Check if this is ever called on the client.
         // Maybe used on LAN servers?
     }

@@ -1,5 +1,6 @@
 package moe.plushie.armourers_workshop.client.render.entity;
 
+import net.minecraft.client.renderer.entity.BipedRenderer;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.api.client.render.entity.ISkinnableEntityRenderer;
@@ -12,18 +13,17 @@ import moe.plushie.armourers_workshop.client.render.SkinPartRenderer;
 import moe.plushie.armourers_workshop.client.skin.cache.ClientSkinCache;
 import moe.plushie.armourers_workshop.common.skin.data.Skin;
 import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
-import net.minecraft.client.renderer.entity.RenderBiped;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.monster.EntitySlime;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.monster.SlimeEntity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class SkinLayerRendererSlime implements ISkinnableEntityRenderer<EntitySlime> {
+public class SkinLayerRendererSlime implements ISkinnableEntityRenderer<SlimeEntity> {
 
     //@Override
-    public void render(EntitySlime entity, RenderBiped renderer, double x, double y, double z, IEntityEquipment entityEquipment) {
+    public void render(SlimeEntity entity, BipedRenderer renderer, double x, double y, double z, IEntityEquipment entityEquipment) {
         GL11.glPushMatrix();
         float scale = 0.0625F;
         
@@ -56,7 +56,7 @@ public class SkinLayerRendererSlime implements ISkinnableEntityRenderer<EntitySl
         GL11.glPopMatrix();
     }
     
-    private void renderEquipmentType(EntityLivingBase entity, RenderBiped renderer, ISkinType skinType, IEntityEquipment equipmentData) {
+    private void renderEquipmentType(LivingEntity entity, BipedRenderer renderer, ISkinType skinType, IEntityEquipment equipmentData) {
         if (equipmentData.haveEquipment(skinType, 0)) {
             ISkinDescriptor skinPointer = equipmentData.getSkinPointer(skinType, 0);
             Skin skin = ClientSkinCache.INSTANCE.getSkin(skinPointer);

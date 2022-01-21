@@ -16,8 +16,7 @@ import moe.plushie.armourers_workshop.common.library.global.GlobalSkinLibraryUti
 import moe.plushie.armourers_workshop.common.library.global.task.GlobalTaskBetaJoin;
 import moe.plushie.armourers_workshop.common.library.global.task.GlobalTaskBetaJoin.BetaJoinResult;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StringUtils;
@@ -47,7 +46,7 @@ public class GuiGlobalLibraryPanelJoin extends GuiPanel {
     private String joinFailMessage = null;
     private int messagePageIndex = 0;
 
-    public GuiGlobalLibraryPanelJoin(GuiScreen parent, int x, int y, int width, int height) {
+    public GuiGlobalLibraryPanelJoin(net.minecraft.client.gui.screen.Screen parent, int x, int y, int width, int height) {
         super(parent, x, y, width, height);
         guiName = ((GuiGlobalLibrary) parent).getGuiName() + ".join";
     }
@@ -119,7 +118,7 @@ public class GuiGlobalLibraryPanelJoin extends GuiPanel {
     }
 
     @Override
-    protected void actionPerformed(GuiButton button) {
+    protected void actionPerformed(Button button) {
         if (button == buttonPrevious) {
             messagePageIndex--;
             messagePageIndex = MathHelper.clamp(messagePageIndex, 0, MAX_PAGES - 1);

@@ -1,13 +1,13 @@
 package moe.plushie.armourers_workshop.common.network.messages.client;
 
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
 import org.apache.logging.log4j.Level;
 
 import io.netty.buffer.ByteBuf;
 import moe.plushie.armourers_workshop.api.common.capability.IPlayerWardrobeCap;
 import moe.plushie.armourers_workshop.common.capability.wardrobe.player.PlayerWardrobeCap;
 import moe.plushie.armourers_workshop.utils.ModLogger;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -21,11 +21,11 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
  */
 public class MessageClientUpdatePlayerWardrobeCap implements IMessage, IMessageHandler<MessageClientUpdatePlayerWardrobeCap, IMessage> {
     
-    private NBTTagCompound compound;
+    private CompoundNBT compound;
     
     public MessageClientUpdatePlayerWardrobeCap() {}
 
-    public MessageClientUpdatePlayerWardrobeCap(NBTTagCompound compound) {
+    public MessageClientUpdatePlayerWardrobeCap(CompoundNBT compound) {
         this.compound = compound;
     }
     
@@ -41,7 +41,7 @@ public class MessageClientUpdatePlayerWardrobeCap implements IMessage, IMessageH
 
     @Override
     public IMessage onMessage(MessageClientUpdatePlayerWardrobeCap message, MessageContext ctx) {
-        IPlayerWardrobeCap wardrobeCapability = PlayerWardrobeCap.get((EntityPlayer) ctx.getServerHandler().player);
+        IPlayerWardrobeCap wardrobeCapability = PlayerWardrobeCap.get((PlayerEntity) ctx.getServerHandler().player);
         if (wardrobeCapability != null) {
             PlayerWardrobeCap.PLAYER_WARDROBE_CAP.getStorage().readNBT(PlayerWardrobeCap.PLAYER_WARDROBE_CAP, wardrobeCapability, null, message.compound);
             wardrobeCapability.syncToAllTracking();

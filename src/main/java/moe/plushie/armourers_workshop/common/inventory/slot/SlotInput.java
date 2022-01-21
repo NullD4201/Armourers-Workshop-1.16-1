@@ -1,8 +1,8 @@
 package moe.plushie.armourers_workshop.common.inventory.slot;
 
-import net.minecraft.inventory.Container;
+import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.container.Slot;
 
 public class SlotInput extends Slot {
     

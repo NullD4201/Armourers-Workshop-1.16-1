@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
+import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
 import org.apache.commons.io.IOUtils;
 
 import com.mojang.authlib.GameProfile;
@@ -16,7 +17,6 @@ import com.mojang.authlib.minecraft.MinecraftProfileTexture;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture.Type;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.renderer.ThreadDownloadImageData;
 import net.minecraft.client.renderer.texture.ITextureObject;
 import net.minecraft.client.resources.DefaultPlayerSkin;
@@ -29,7 +29,7 @@ public final class TextureHelper {
      * https://github.com/kihira/FoxLib/blob/2946cd6033d3039151064ceccfb8d38612d0af02/src/main/scala/kihira/foxlib/client/TextureHelper.scala#L28
      */
     
-    public static BufferedImage getBufferedImageSkin(AbstractClientPlayer player) {
+    public static BufferedImage getBufferedImageSkin(AbstractClientPlayerEntity player) {
         BufferedImage bufferedImage = null;
         ResourceLocation skinloc = DefaultPlayerSkin.getDefaultSkinLegacy();
         InputStream inputStream = null;
@@ -112,8 +112,8 @@ public final class TextureHelper {
         ResourceLocation rl = DefaultPlayerSkin.getDefaultSkinLegacy();
         
         if (gameProfile != null) {
-            rl = AbstractClientPlayer.getLocationSkin(gameProfile.getName());
-            AbstractClientPlayer.getDownloadImageSkin(rl, gameProfile.getName());
+            rl = AbstractClientPlayerEntity.getLocationSkin(gameProfile.getName());
+            AbstractClientPlayerEntity.getDownloadImageSkin(rl, gameProfile.getName());
         }
         bufferedImage = getBuffFromResourceLocation(rl);
         

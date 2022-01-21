@@ -3,6 +3,7 @@ package moe.plushie.armourers_workshop.client.gui;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import net.minecraft.nbt.CompoundNBT;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.client.lib.LibGuiResources;
@@ -12,17 +13,16 @@ import moe.plushie.armourers_workshop.common.painting.tool.IConfigurableTool;
 import moe.plushie.armourers_workshop.common.painting.tool.ToolOption;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.config.GuiUtils;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class GuiToolOptions extends GuiScreen {
+public class GuiToolOptions extends Screen {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(LibGuiResources.COMMON);
     private static final int MARGIN_TOP = 22;
@@ -64,7 +64,7 @@ public class GuiToolOptions extends GuiScreen {
         // Place the controls on the GUI.
         controlHeight = MARGIN_TOP;
         for (int i = 0; i < toolOptionsList.size(); i++) {
-            GuiButton control = toolOptionsList.get(i).getGuiControl(i, guiLeft + MARGIN_LEFT, controlHeight + guiTop, stack.getTagCompound());
+            Button control = toolOptionsList.get(i).getGuiControl(i, guiLeft + MARGIN_LEFT, controlHeight + guiTop, stack.getTagCompound());
             buttonList.add(control);
             controlHeight += toolOptionsList.get(i).getDisplayHeight() + CONTROL_PADDING;
         }
@@ -83,8 +83,8 @@ public class GuiToolOptions extends GuiScreen {
     }
 
     @Override
-    protected void actionPerformed(GuiButton button) throws IOException {
-        NBTTagCompound compound = new NBTTagCompound();
+    protected void actionPerformed(Button button) throws IOException {
+        CompoundNBT compound = new CompoundNBT();
         writeToCompound(compound);
         PacketHandler.networkWrapper.sendToServer(new MessageClientGuiToolOptionUpdate(compound));
     }
@@ -109,12 +109,12 @@ public class GuiToolOptions extends GuiScreen {
 
     @Override
     public void onGuiClosed() {
-        NBTTagCompound compound = new NBTTagCompound();
+        CompoundNBT compound = new CompoundNBT();
         writeToCompound(compound);
         PacketHandler.networkWrapper.sendToServer(new MessageClientGuiToolOptionUpdate(compound));
     }
 
-    public void writeToCompound(NBTTagCompound compound) {
+    public void writeToCompound(CompoundNBT compound) {
         for (int i = 0; i < toolOptionsList.size(); i++) {
             toolOptionsList.get(i).writeGuiControlToNBT(buttonList.get(i), compound);
         }

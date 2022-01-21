@@ -5,26 +5,26 @@ import java.util.ArrayList;
 import moe.plushie.armourers_workshop.api.common.skin.type.ISkinType;
 import moe.plushie.armourers_workshop.client.render.entity.SkinLayerRendererBibed;
 import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
-import net.minecraft.client.renderer.entity.RenderLivingBase;
-import net.minecraft.client.renderer.entity.RenderSkeleton;
+import net.minecraft.client.renderer.entity.LivingRenderer;
+import net.minecraft.client.renderer.entity.SkeletonRenderer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.monster.EntitySkeleton;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.monster.SkeletonEntity;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class SkinnableEntitySkeleton extends SkinnableEntity {
 
     @Override
-    public Class<? extends EntityLivingBase> getEntityClass() {
-        return EntitySkeleton.class;
+    public Class<? extends LivingEntity> getEntityClass() {
+        return SkeletonEntity.class;
     }
 
     @SideOnly(Side.CLIENT)
     @Override
-    public LayerRenderer<? extends EntityLivingBase> getLayerRenderer(RenderLivingBase renderLivingBase) {
-        if (renderLivingBase instanceof RenderSkeleton) {
-            return new SkinLayerRendererBibed((RenderSkeleton) renderLivingBase);
+    public LayerRenderer<? extends LivingEntity> getLayerRenderer(LivingRenderer renderLivingBase) {
+        if (renderLivingBase instanceof SkeletonRenderer) {
+            return new SkinLayerRendererBibed((SkeletonRenderer) renderLivingBase);
         }
         return null;
     }

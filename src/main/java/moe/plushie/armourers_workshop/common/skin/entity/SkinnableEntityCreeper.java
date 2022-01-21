@@ -5,26 +5,26 @@ import java.util.ArrayList;
 import moe.plushie.armourers_workshop.api.common.skin.type.ISkinType;
 import moe.plushie.armourers_workshop.client.render.entity.SkinLayerRendererCreeper;
 import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
-import net.minecraft.client.renderer.entity.RenderCreeper;
-import net.minecraft.client.renderer.entity.RenderLivingBase;
+import net.minecraft.client.renderer.entity.CreeperRenderer;
+import net.minecraft.client.renderer.entity.LivingRenderer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.monster.EntityCreeper;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class SkinnableEntityCreeper extends SkinnableEntity {
 
     @Override
-    public Class<? extends EntityLivingBase> getEntityClass() {
-        return EntityCreeper.class;
+    public Class<? extends LivingEntity> getEntityClass() {
+        return CreeperEntity.class;
     }
     
     @SideOnly(Side.CLIENT)
     @Override
-    public LayerRenderer<? extends EntityLivingBase> getLayerRenderer(RenderLivingBase renderLivingBase) {
-        if (renderLivingBase instanceof RenderCreeper) {
-            return new SkinLayerRendererCreeper((RenderCreeper) renderLivingBase);
+    public LayerRenderer<? extends LivingEntity> getLayerRenderer(LivingRenderer renderLivingBase) {
+        if (renderLivingBase instanceof CreeperRenderer) {
+            return new SkinLayerRendererCreeper((CreeperRenderer) renderLivingBase);
         }
         return null;
     }

@@ -5,8 +5,8 @@ import moe.plushie.armourers_workshop.client.gui.controls.AbstractGuiDialog;
 import moe.plushie.armourers_workshop.client.gui.controls.GuiLabeledTextField;
 import moe.plushie.armourers_workshop.client.gui.controls.IDialogCallback;
 import moe.plushie.armourers_workshop.client.lib.LibGuiResources;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.resources.I18n;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 import net.minecraftforge.fml.relauncher.Side;
@@ -19,7 +19,7 @@ public class GuiDialogAddPalette extends AbstractGuiDialog {
     private GuiButtonExt buttonOK;
     private GuiButtonExt buttonCancel;
 
-    public GuiDialogAddPalette(GuiScreen parent, String name, IDialogCallback callback) {
+    public GuiDialogAddPalette(Screen parent, String name, IDialogCallback callback) {
         super(parent, name, callback, 240, 120);
         textFieldName = new GuiLabeledTextField(fontRenderer, x, y, width - 20, 20);
         textFieldName.setEmptyLabel(GuiHelper.getLocalizedControlName(name, "enter_name"));
@@ -42,7 +42,7 @@ public class GuiDialogAddPalette extends AbstractGuiDialog {
     }
 
     @Override
-    protected void actionPerformed(GuiButton button) {
+    protected void actionPerformed(Button button) {
         if (button == buttonOK) {
             returnDialogResult(DialogResult.OK);
         }

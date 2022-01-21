@@ -19,34 +19,31 @@ import moe.plushie.armourers_workshop.common.lib.LibBlockNames;
 import moe.plushie.armourers_workshop.common.tileentities.TileEntityMannequin;
 import moe.plushie.armourers_workshop.utils.BlockUtils;
 import moe.plushie.armourers_workshop.utils.UtilItems;
-import net.minecraft.block.Block;
-import net.minecraft.block.SoundType;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.*;
+import net.minecraft.block.BlockRenderType;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.StringUtils;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -87,7 +84,7 @@ public class BlockMannequin extends AbstractModBlockContainer {
     }
 
     @Override
-    public int getMetaFromState(IBlockState state) {
+    public int getMetaFromState(BlockState state) {
         if (state.getValue(STATE_PART) == EnumPartType.TOP) {
             return 1;
         }
@@ -95,7 +92,7 @@ public class BlockMannequin extends AbstractModBlockContainer {
     }
 
     @Override
-    public IBlockState getStateFromMeta(int meta) {
+    public BlockState getStateFromMeta(int meta) {
         switch (meta) {
         case 0:
             return this.blockState.getBaseState().withProperty(STATE_PART, EnumPartType.BOTTOM);
@@ -107,7 +104,7 @@ public class BlockMannequin extends AbstractModBlockContainer {
     }
 
     @Override
-    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+    public BlockState getActualState(BlockState state, IBlockAccess worldIn, BlockPos pos) {
         TileEntityMannequin te = getTileEntity(worldIn, pos, TileEntityMannequin.class);
         if (te != null) {
             state = state.withProperty(STATE_ROTATION, te.PROP_ROTATION.get());
@@ -116,7 +113,7 @@ public class BlockMannequin extends AbstractModBlockContainer {
     }
 
     @Override
-    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+    public void breakBlock(World worldIn, BlockPos pos, BlockState state) {
         if (!worldIn.isRemote) {
             TileEntityMannequin te = getTileEntity(worldIn, pos, TileEntityMannequin.class);
             if (te != null) {
@@ -135,13 +132,13 @@ public class BlockMannequin extends AbstractModBlockContainer {
 
     public ItemStack getStackWithTexture(PlayerTexture playerTexture) {
         ItemStack result = new ItemStack(this);
-        result.setTagCompound(new NBTTagCompound());
+        result.setTagCompound(new CompoundNBT());
         playerTexture.writeToNBT(result.getTagCompound());
         return result;
     }
 
     @Override
-    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+    public AxisAlignedBB getBoundingBox(BlockState state, IBlockAccess source, BlockPos pos) {
         if (state.getValue(STATE_PART) == EnumPartType.BOTTOM) {
             return new AxisAlignedBB(0.1F, 0, 0.1F, 0.9F, 1.9F, 0.9F);
         }
@@ -152,14 +149,14 @@ public class BlockMannequin extends AbstractModBlockContainer {
     }
 
     @Override
-    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
         TileEntityMannequin te = getTileEntity(worldIn, pos, TileEntityMannequin.class);
         if (te != null) {
             int l = MathHelper.floor(placer.rotationYaw * 16.0F / 360.0F + 0.5D) & 15;
             te.PROP_ROTATION.set(l);
             if (!worldIn.isRemote) {
                 if (stack.hasTagCompound()) {
-                    NBTTagCompound compound = stack.getTagCompound();
+                    CompoundNBT compound = stack.getTagCompound();
                     GameProfile gameProfile = null;
                     if (compound.hasKey(TAG_OWNER, 10)) {
                         gameProfile = NBTUtil.readGameProfileFromNBT(compound.getCompoundTag(TAG_OWNER));
@@ -171,12 +168,12 @@ public class BlockMannequin extends AbstractModBlockContainer {
                 }
             }
         }
-        worldIn.setBlockState(pos.offset(EnumFacing.UP), state.withProperty(STATE_PART, EnumPartType.TOP));
+        worldIn.setBlockState(pos.offset(Direction.UP), state.withProperty(STATE_PART, EnumPartType.TOP));
     }
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
+    public void randomDisplayTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
         if (!isTopOfMannequin(worldIn, pos)) {
             ParticleManager particleManager = Minecraft.getMinecraft().effectRenderer;
             if (isValentins) {
@@ -209,8 +206,8 @@ public class BlockMannequin extends AbstractModBlockContainer {
     public void convertToEntity(World world, BlockPos pos) {
         
         if (isTopOfMannequin(world, pos)) {
-            pos = pos.offset(EnumFacing.DOWN);
-            IBlockState state = world.getBlockState(pos);
+            pos = pos.offset(Direction.DOWN);
+            BlockState state = world.getBlockState(pos);
             if (state.getBlock() == this) {
                 ((BlockMannequin) state.getBlock()).convertToEntity(world, pos);
             }
@@ -240,8 +237,8 @@ public class BlockMannequin extends AbstractModBlockContainer {
             world.removeTileEntity(pos);
             
             world.setBlockToAir(pos);
-            if (world.getBlockState(pos.offset(EnumFacing.UP)).getBlock() == this) {
-                world.setBlockToAir(pos.offset(EnumFacing.UP));
+            if (world.getBlockState(pos.offset(Direction.UP)).getBlock() == this) {
+                world.setBlockToAir(pos.offset(Direction.UP));
             }
         }
     }
@@ -276,7 +273,7 @@ public class BlockMannequin extends AbstractModBlockContainer {
 //    }
 
     @Override
-    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
+    public AxisAlignedBB getCollisionBoundingBox(BlockState blockState, IBlockAccess worldIn, BlockPos pos) {
         TileEntityMannequin te = getTileEntity(worldIn, pos, TileEntityMannequin.class);
         if (te != null && te instanceof TileEntityMannequin) {
             if (te.PROP_NOCLIP.get()) {
@@ -287,7 +284,7 @@ public class BlockMannequin extends AbstractModBlockContainer {
     }
 
     public boolean isTopOfMannequin(IBlockAccess blockAccess, BlockPos pos) {
-        IBlockState state = blockAccess.getBlockState(pos);
+        BlockState state = blockAccess.getBlockState(pos);
         if ((state.getBlock() != this)) {
             return false;
         }
@@ -295,7 +292,7 @@ public class BlockMannequin extends AbstractModBlockContainer {
     }
 
     @Override
-    public boolean rotateBlock(World world, BlockPos pos, EnumFacing axis) {
+    public boolean rotateBlock(World world, BlockPos pos, Direction axis) {
         if (world.isRemote) {
             return false;
         }
@@ -312,14 +309,14 @@ public class BlockMannequin extends AbstractModBlockContainer {
     }
 
     @Override
-    public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
+    public void onEntityCollision(World worldIn, BlockPos pos, BlockState state, Entity entityIn) {
         if (worldIn.isRemote) {
             return;
         }
-        if (!(entityIn instanceof EntityLivingBase)) {
+        if (!(entityIn instanceof LivingEntity)) {
             return;
         }
-        EntityLivingBase entityLiving = (EntityLivingBase) entityIn;
+        LivingEntity entityLiving = (LivingEntity) entityIn;
         if (!isTopOfMannequin(worldIn, pos)) {
             return;
         }
@@ -347,7 +344,7 @@ public class BlockMannequin extends AbstractModBlockContainer {
     }
 
     @Override
-    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+    public ItemStack getPickBlock(BlockState state, RayTraceResult target, World world, BlockPos pos, PlayerEntity player) {
         TileEntityMannequin te = getTileEntity(world, pos, TileEntityMannequin.class);
         return createItemStackFromTile(te);
     }
@@ -356,13 +353,13 @@ public class BlockMannequin extends AbstractModBlockContainer {
         ItemStack stack = new ItemStack(this, 1);
         if (te != null) {
             if (te.PROP_OWNER.get() != null) {
-                NBTTagCompound profileTag = new NBTTagCompound();
+                CompoundNBT profileTag = new CompoundNBT();
                 NBTUtil.writeGameProfile(profileTag, te.PROP_OWNER.get());
-                stack.setTagCompound(new NBTTagCompound());
+                stack.setTagCompound(new CompoundNBT());
                 stack.getTagCompound().setTag(TAG_OWNER, profileTag);
             }
             if (!StringUtils.isNullOrEmpty(te.PROP_IMAGE_URL.get())) {
-                stack.setTagCompound(new NBTTagCompound());
+                stack.setTagCompound(new CompoundNBT());
                 stack.getTagCompound().setString(TAG_IMAGE_URL, te.PROP_IMAGE_URL.get());
             }
         }
@@ -377,14 +374,14 @@ public class BlockMannequin extends AbstractModBlockContainer {
 
     @SideOnly(Side.CLIENT)
     @Override
-    public boolean addHitEffects(IBlockState state, World worldObj, RayTraceResult target, ParticleManager manager) {
+    public boolean addHitEffects(BlockState state, World worldObj, RayTraceResult target, ParticleManager manager) {
         return true;
     }
 
     @Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World worldIn, BlockPos pos, BlockState state, PlayerEntity playerIn, Hand hand, Direction facing, float hitX, float hitY, float hitZ) {
         if (isTopOfMannequin(worldIn, pos)) {
-            pos = pos.offset(EnumFacing.DOWN);
+            pos = pos.offset(Direction.DOWN);
         }
         if (!playerIn.canPlayerEdit(pos, facing, playerIn.getHeldItem(hand))) {
             return false;
@@ -394,20 +391,20 @@ public class BlockMannequin extends AbstractModBlockContainer {
     }
 
     @Override
-    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
+    public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
         if (isTopOfMannequin(worldIn, pos)) {
-            if (worldIn.getBlockState(pos.offset(EnumFacing.DOWN)).getBlock() != this) {
+            if (worldIn.getBlockState(pos.offset(Direction.DOWN)).getBlock() != this) {
                 worldIn.setBlockToAir(pos);
             }
         } else {
-            if (worldIn.getBlockState(pos.offset(EnumFacing.UP)).getBlock() != this) {
+            if (worldIn.getBlockState(pos.offset(Direction.UP)).getBlock() != this) {
                 worldIn.setBlockToAir(pos);
             }
         }
     }
 
     @Override
-    public TileEntity createTileEntity(World world, IBlockState state) {
+    public TileEntity createTileEntity(World world, BlockState state) {
         if (state.getValue(STATE_PART) == EnumPartType.BOTTOM) {
             return new TileEntityMannequin();
         }
@@ -420,22 +417,22 @@ public class BlockMannequin extends AbstractModBlockContainer {
     }
 
     @Override
-    public EnumBlockRenderType getRenderType(IBlockState state) {
-        return EnumBlockRenderType.INVISIBLE;
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.INVISIBLE;
     }
 
     @Override
-    public boolean isOpaqueCube(IBlockState state) {
+    public boolean isOpaqueCube(BlockState state) {
         return false;
     }
 
     @Override
-    public boolean isFullBlock(IBlockState state) {
+    public boolean isFullBlock(BlockState state) {
         return false;
     }
 
     @Override
-    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, BlockState state, BlockPos pos, Direction face) {
         return BlockFaceShape.UNDEFINED;
     }
 
@@ -447,7 +444,7 @@ public class BlockMannequin extends AbstractModBlockContainer {
     @Override
     public <T extends TileEntity> T getTileEntity(IBlockAccess blockAccess, BlockPos pos, Class<T> type) {
         if (isTopOfMannequin(blockAccess, pos)) {
-            pos = pos.offset(EnumFacing.DOWN);
+            pos = pos.offset(Direction.DOWN);
         }
         return super.getTileEntity(blockAccess, pos, type);
     }

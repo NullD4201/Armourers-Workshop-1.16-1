@@ -1,7 +1,7 @@
 package moe.plushie.armourers_workshop.common.inventory.slot;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 
@@ -18,7 +18,7 @@ public class SlotOutput extends SlotHidable {
         this.callback = callback;
     }
     @Override
-    public ItemStack onTake(EntityPlayer thePlayer, ItemStack stack) {
+    public ItemStack onTake(PlayerEntity thePlayer, ItemStack stack) {
         if (callback != null) {
             callback.onCraftMatrixChanged(inventory);
         }

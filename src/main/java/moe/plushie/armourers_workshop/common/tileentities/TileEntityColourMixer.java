@@ -15,13 +15,13 @@ import moe.plushie.armourers_workshop.common.lib.LibBlockNames;
 import moe.plushie.armourers_workshop.common.lib.LibCommonTags;
 import moe.plushie.armourers_workshop.common.painting.PaintTypeRegistry;
 import moe.plushie.armourers_workshop.common.skin.cubes.CubeColour;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -103,7 +103,7 @@ public class TileEntityColourMixer extends AbstractTileEntityInventory implement
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound compound) {
+    public void readFromNBT(CompoundNBT compound) {
         super.readFromNBT(compound);
         colour = compound.getInteger(LibCommonTags.TAG_COLOUR);
         if (compound.hasKey(TAG_PAINT_TYPE)) {
@@ -114,7 +114,7 @@ public class TileEntityColourMixer extends AbstractTileEntityInventory implement
     }
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+    public CompoundNBT writeToNBT(CompoundNBT compound) {
         super.writeToNBT(compound);
         compound.setInteger(LibCommonTags.TAG_COLOUR, colour);
         compound.setInteger(TAG_PAINT_TYPE, paintType.getId());
@@ -122,8 +122,8 @@ public class TileEntityColourMixer extends AbstractTileEntityInventory implement
     }
 
     @Override
-    public NBTTagCompound getUpdateTag() {
-        NBTTagCompound compound = new NBTTagCompound();
+    public CompoundNBT getUpdateTag() {
+        CompoundNBT compound = new CompoundNBT();
         writeBaseToNBT(compound);
         compound.setInteger(LibCommonTags.TAG_COLOUR, colour);
         compound.setInteger(TAG_PAINT_TYPE, paintType.getId());
@@ -132,16 +132,16 @@ public class TileEntityColourMixer extends AbstractTileEntityInventory implement
     }
 
     @Override
-    public SPacketUpdateTileEntity getUpdatePacket() {
+    public SUpdateTileEntityPacket getUpdatePacket() {
         if (itemUpdate) {
             itemUpdate = false;
         }
-        return new SPacketUpdateTileEntity(getPos(), 0, getUpdateTag());
+        return new SUpdateTileEntityPacket(getPos(), 0, getUpdateTag());
     }
 
     @Override
-    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
-        NBTTagCompound compound = packet.getNbtCompound();
+    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket packet) {
+        CompoundNBT compound = packet.getNbtCompound();
         readBaseFromNBT(compound);
         colour = compound.getInteger(LibCommonTags.TAG_COLOUR);
         paintType = PaintTypeRegistry.getInstance().getPaintTypeFromIndex(compound.getInteger(TAG_PAINT_TYPE));
@@ -204,13 +204,13 @@ public class TileEntityColourMixer extends AbstractTileEntityInventory implement
     }
 
     @Override
-    public Container getServerGuiElement(EntityPlayer player, World world, BlockPos pos) {
+    public Container getServerGuiElement(PlayerEntity player, World world, BlockPos pos) {
         return new ContainerColourMixer(player.inventory, this);
     }
 
     @SideOnly(Side.CLIENT)
     @Override
-    public GuiScreen getClientGuiElement(EntityPlayer player, World world, BlockPos pos) {
+    public Screen getClientGuiElement(PlayerEntity player, World world, BlockPos pos) {
         return new GuiColourMixer(player.inventory, this);
     }
 }

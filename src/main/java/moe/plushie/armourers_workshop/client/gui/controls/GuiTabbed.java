@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import moe.plushie.armourers_workshop.common.inventory.ModContainer;
-import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -104,7 +104,7 @@ public abstract class GuiTabbed<CONTAINER_TYPE extends ModContainer> extends Mod
     }
 
     @Override
-    protected void actionPerformed(GuiButton button) {
+    protected void actionPerformed(Button button) {
         if (button == tabController) {
             tabChanged();
         }

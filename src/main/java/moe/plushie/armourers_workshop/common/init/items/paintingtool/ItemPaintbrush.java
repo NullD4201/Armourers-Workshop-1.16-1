@@ -15,12 +15,12 @@ import moe.plushie.armourers_workshop.common.painting.tool.ToolOptions;
 import moe.plushie.armourers_workshop.common.world.undo.UndoManager;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.ItemMeshDefinition;
-import net.minecraft.client.renderer.block.model.ModelBakery;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.model.ModelBakery;
+import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
@@ -38,7 +38,7 @@ public class ItemPaintbrush extends AbstractPaintingTool implements IConfigurabl
     }
     
     @Override
-    public void playToolSound(EntityPlayer player, World world, BlockPos pos, ItemStack stack) {
+    public void playToolSound(PlayerEntity player, World world, BlockPos pos, ItemStack stack) {
         SoundEvent soundEvent = ModSounds.PAINT;
         if (ModHolidays.APRIL_FOOLS.isHolidayActive()) {
             soundEvent = ModSounds.BOI;
@@ -51,7 +51,7 @@ public class ItemPaintbrush extends AbstractPaintingTool implements IConfigurabl
     }
     
     @Override
-    public void usedOnBlockSide(ItemStack stack, EntityPlayer player, World world, BlockPos pos, Block block, EnumFacing face, boolean spawnParticles) {
+    public void usedOnBlockSide(ItemStack stack, PlayerEntity player, World world, BlockPos pos, Block block, Direction face, boolean spawnParticles) {
         int colour = getToolColour(stack);
         IPaintType paintType = getToolPaintType(stack);
         if (!world.isRemote) {

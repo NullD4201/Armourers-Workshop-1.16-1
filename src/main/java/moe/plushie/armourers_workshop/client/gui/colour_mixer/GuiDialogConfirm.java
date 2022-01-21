@@ -3,8 +3,8 @@ package moe.plushie.armourers_workshop.client.gui.colour_mixer;
 import moe.plushie.armourers_workshop.client.gui.controls.AbstractGuiDialog;
 import moe.plushie.armourers_workshop.client.gui.controls.IDialogCallback;
 import moe.plushie.armourers_workshop.client.lib.LibGuiResources;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.resources.I18n;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 import net.minecraftforge.fml.relauncher.Side;
@@ -17,7 +17,7 @@ public class GuiDialogConfirm extends AbstractGuiDialog {
     private GuiButtonExt buttonCancel;
     private String message;
 
-    public GuiDialogConfirm(GuiScreen parent, String name, IDialogCallback callback, String message) {
+    public GuiDialogConfirm(Screen parent, String name, IDialogCallback callback, String message) {
         super(parent, name, callback, 240, 120);
         this.message = message;
         slotHandler = null;
@@ -36,7 +36,7 @@ public class GuiDialogConfirm extends AbstractGuiDialog {
     }
 
     @Override
-    protected void actionPerformed(GuiButton button) {
+    protected void actionPerformed(Button button) {
         if (button == buttonOK) {
             returnDialogResult(DialogResult.OK);
         }

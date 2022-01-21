@@ -12,8 +12,8 @@ import moe.plushie.armourers_workshop.common.permission.Permission;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.block.BlockState;
+import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.ResourceLocation;
@@ -52,12 +52,12 @@ public abstract class AbstractModBlock extends Block implements ISortOrder, ICus
     }
 
     @Override
-    public boolean isOpaqueCube(IBlockState state) {
+    public boolean isOpaqueCube(BlockState state) {
         return false;
     }
 
     @Override
-    public boolean isBlockNormalCube(IBlockState state) {
+    public boolean isBlockNormalCube(BlockState state) {
         return false;
     }
 

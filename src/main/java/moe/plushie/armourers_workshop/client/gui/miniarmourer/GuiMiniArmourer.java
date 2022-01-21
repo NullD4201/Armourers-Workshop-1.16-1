@@ -2,25 +2,25 @@ package moe.plushie.armourers_workshop.client.gui.miniarmourer;
 
 import moe.plushie.armourers_workshop.common.lib.LibModInfo;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class GuiMiniArmourer extends GuiScreen {
+public class GuiMiniArmourer extends Screen {
 
     private static final ResourceLocation texture = new ResourceLocation(LibModInfo.ID.toLowerCase(), "textures/gui/mini-armourer.png");
     
-    private EntityPlayer player;
+    private PlayerEntity player;
     private final int guiWidth;
     private final int guiHeight;
     protected int guiLeft;
     protected int guiTop;
     
-    public GuiMiniArmourer(EntityPlayer player) {
+    public GuiMiniArmourer(PlayerEntity player) {
         this.player = player;
         guiWidth = 176;
         guiHeight = 176;

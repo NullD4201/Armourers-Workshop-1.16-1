@@ -3,11 +3,11 @@ package moe.plushie.armourers_workshop.common.init.entities;
 import io.netty.buffer.ByteBuf;
 import moe.plushie.armourers_workshop.api.common.skin.Point3D;
 import moe.plushie.armourers_workshop.common.init.blocks.BlockSkinnable;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
@@ -16,9 +16,9 @@ public class EntitySeat extends Entity implements IEntityAdditionalSpawnData {
 
     private int noRiderTime = 0;
     private Point3D offset;
-    private EnumFacing rotation;
+    private Direction rotation;
 
-    public EntitySeat(World world, BlockPos pos, Point3D offset, EnumFacing rotation) {
+    public EntitySeat(World world, BlockPos pos, Point3D offset, Direction rotation) {
         super(world);
         setPosition(pos.getX(), pos.getY(), pos.getZ());
         setSize(0F, 0F);
@@ -30,7 +30,7 @@ public class EntitySeat extends Entity implements IEntityAdditionalSpawnData {
         super(world);
         setSize(0F, 0F);
         this.offset = new Point3D(0, 0, 0);
-        this.rotation = EnumFacing.EAST;
+        this.rotation = Direction.EAST;
     }
 
     @Override
@@ -58,7 +58,7 @@ public class EntitySeat extends Entity implements IEntityAdditionalSpawnData {
     @Override
     public void onUpdate() {
         super.onUpdate();
-        IBlockState state = world.getBlockState(getPosition());
+        BlockState state = world.getBlockState(getPosition());
         if (!(state.getBlock() instanceof BlockSkinnable)) {
             setDead();
             return;
@@ -73,7 +73,7 @@ public class EntitySeat extends Entity implements IEntityAdditionalSpawnData {
     }
 
     @Override
-    public void onCollideWithPlayer(EntityPlayer player) {
+    public void onCollideWithPlayer(PlayerEntity player) {
         if (player.getRidingEntity() != this) {
             super.onCollideWithPlayer(player);
         }
@@ -85,11 +85,11 @@ public class EntitySeat extends Entity implements IEntityAdditionalSpawnData {
     }
 
     @Override
-    protected void readEntityFromNBT(NBTTagCompound compound) {
+    protected void readEntityFromNBT(CompoundNBT compound) {
     }
 
     @Override
-    protected void writeEntityToNBT(NBTTagCompound compound) {
+    protected void writeEntityToNBT(CompoundNBT compound) {
     }
 
     @Override
@@ -103,6 +103,6 @@ public class EntitySeat extends Entity implements IEntityAdditionalSpawnData {
     @Override
     public void readSpawnData(ByteBuf buf) {
         offset = new Point3D(buf.readInt(), buf.readInt(), buf.readInt());
-        rotation = EnumFacing.values()[buf.readInt()];
+        rotation = Direction.values()[buf.readInt()];
     }
 }

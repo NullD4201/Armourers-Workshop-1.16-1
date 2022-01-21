@@ -3,24 +3,24 @@ package moe.plushie.armourers_workshop.client.gui.controls;
 import java.io.IOException;
 import java.util.Set;
 
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import org.lwjgl.input.Keyboard;
 
 import com.google.common.collect.Sets;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.RenderItem;
+import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.ClickType;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.Slot;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.container.ClickType;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextFormatting;
@@ -28,13 +28,13 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class GuiSlotHandler extends Gui {
+public class GuiSlotHandler extends AbstractGui {
 
-    private final GuiContainer parentContainer;
+    private final ContainerScreen parentContainer;
     /** Reference to the Minecraft object. */
     public Minecraft mc;
     /** Holds a instance of RenderItem, used to draw the achievement icons on screen (is based on ItemStack) */
-    protected RenderItem itemRender;
+    protected ItemRenderer itemRender;
     /** The FontRenderer used by GuiScreen */
     protected FontRenderer fontRenderer;
     /** The X size of the inventory window in pixels. */
@@ -75,7 +75,7 @@ public class GuiSlotHandler extends Gui {
     private boolean doubleClick;
     private ItemStack shiftClickedSlot = ItemStack.EMPTY;
 
-    public GuiSlotHandler(GuiContainer parentContainer) {
+    public GuiSlotHandler(ContainerScreen parentContainer) {
         this.parentContainer = parentContainer;
         this.mc = parentContainer.mc;
         this.itemRender = mc.getRenderItem();
@@ -141,7 +141,7 @@ public class GuiSlotHandler extends Gui {
         // this.drawGuiContainerForegroundLayer(mouseX, mouseY);
         RenderHelper.enableGUIStandardItemLighting();
         // net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(new net.minecraftforge.client.event.GuiContainerEvent.DrawForeground(this, mouseX, mouseY));
-        InventoryPlayer inventoryplayer = this.mc.player.inventory;
+        PlayerInventory inventoryplayer = this.mc.player.inventory;
         ItemStack itemstack = this.draggedStack.isEmpty() ? inventoryplayer.getItemStack() : this.draggedStack;
 
         if (!itemstack.isEmpty()) {
@@ -325,7 +325,7 @@ public class GuiSlotHandler extends Gui {
             }
 
             if (this.mc.gameSettings.touchscreen && flag1 && this.mc.player.inventory.getItemStack().isEmpty()) {
-                this.mc.displayGuiScreen((GuiScreen) null);
+                this.mc.displayGuiScreen((Screen) null);
                 return;
             }
 
@@ -441,7 +441,7 @@ public class GuiSlotHandler extends Gui {
         }
 
         if (this.doubleClick && slot != null && state == 0 && this.inventorySlots.canMergeSlot(ItemStack.EMPTY, slot)) {
-            if (GuiScreen.isShiftKeyDown()) {
+            if (Screen.isShiftKeyDown()) {
                 if (!this.shiftClickedSlot.isEmpty()) {
                     for (Slot slot2 : this.inventorySlots.inventorySlots) {
                         if (slot2 != null && slot2.canTakeStack(this.mc.player) && slot2.getHasStack() && slot2.isSameInventory(slot) && Container.canAddItemToSlot(slot2, this.shiftClickedSlot, true)) {
@@ -575,7 +575,7 @@ public class GuiSlotHandler extends Gui {
             if (this.mc.gameSettings.keyBindPickBlock.isActiveAndMatches(keyCode)) {
                 this.handleMouseClick(this.hoveredSlot, this.hoveredSlot.slotNumber, 0, ClickType.CLONE);
             } else if (this.mc.gameSettings.keyBindDrop.isActiveAndMatches(keyCode)) {
-                this.handleMouseClick(this.hoveredSlot, this.hoveredSlot.slotNumber, GuiScreen.isCtrlKeyDown() ? 1 : 0, ClickType.THROW);
+                this.handleMouseClick(this.hoveredSlot, this.hoveredSlot.slotNumber, Screen.isCtrlKeyDown() ? 1 : 0, ClickType.THROW);
             }
         }
     }

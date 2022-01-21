@@ -7,9 +7,9 @@ import moe.plushie.armourers_workshop.common.inventory.ModTileContainer;
 import moe.plushie.armourers_workshop.common.tileentities.ModTileEntity;
 import moe.plushie.armourers_workshop.common.tileentities.property.TileProperty;
 import moe.plushie.armourers_workshop.common.tileentities.property.TilePropertyManager;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.inventory.Container;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -19,7 +19,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 public class MessageClientGuiUpdateTileProperties implements IMessage, IMessageHandler<MessageClientGuiUpdateTileProperties, IMessage> {
 
     private ArrayList<TileProperty<?>> propertiesList;
-    private NBTTagCompound compound;
+    private CompoundNBT compound;
     
     public MessageClientGuiUpdateTileProperties() {
     }
@@ -37,7 +37,7 @@ public class MessageClientGuiUpdateTileProperties implements IMessage, IMessageH
 
     @Override
     public void toBytes(ByteBuf buf) {
-        NBTTagCompound compound = new NBTTagCompound();
+        CompoundNBT compound = new CompoundNBT();
         for (TileProperty<?> property : propertiesList) {
             TilePropertyManager.INSTANCE.writePropToCompound(property, compound);
         }
@@ -51,7 +51,7 @@ public class MessageClientGuiUpdateTileProperties implements IMessage, IMessageH
 
     @Override
     public IMessage onMessage(MessageClientGuiUpdateTileProperties message, MessageContext ctx) {
-        EntityPlayerMP player = ctx.getServerHandler().player;
+        ServerPlayerEntity player = ctx.getServerHandler().player;
         if (player == null) {
             return null;
         }

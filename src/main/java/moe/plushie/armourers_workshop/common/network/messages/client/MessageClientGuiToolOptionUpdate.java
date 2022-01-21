@@ -5,10 +5,10 @@ import java.util.Set;
 
 import io.netty.buffer.ByteBuf;
 import moe.plushie.armourers_workshop.common.painting.tool.IConfigurableTool;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -16,11 +16,11 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 public class MessageClientGuiToolOptionUpdate implements IMessage, IMessageHandler<MessageClientGuiToolOptionUpdate, IMessage> {
 
-    private NBTTagCompound toolOptions;
+    private CompoundNBT toolOptions;
     
     public MessageClientGuiToolOptionUpdate() { }
     
-    public MessageClientGuiToolOptionUpdate(NBTTagCompound toolOptions) {
+    public MessageClientGuiToolOptionUpdate(CompoundNBT toolOptions) {
         this.toolOptions = toolOptions;
     }
     
@@ -36,17 +36,17 @@ public class MessageClientGuiToolOptionUpdate implements IMessage, IMessageHandl
     
     @Override
     public IMessage onMessage(MessageClientGuiToolOptionUpdate message, MessageContext ctx) {
-        EntityPlayerMP player = ctx.getServerHandler().player;
+        ServerPlayerEntity player = ctx.getServerHandler().player;
         if (player != null) {
             ItemStack stack = player.getHeldItemMainhand();
             Item item = stack.getItem();
             
             if (item instanceof IConfigurableTool) {
-                NBTTagCompound newOptions = message.toolOptions;
+                CompoundNBT newOptions = message.toolOptions;
                 if (!stack.hasTagCompound()) {
-                    stack.setTagCompound(new NBTTagCompound());
+                    stack.setTagCompound(new CompoundNBT());
                 }
-                NBTTagCompound stackCompound = stack.getTagCompound();
+                CompoundNBT stackCompound = stack.getTagCompound();
                 Set keySet = newOptions.getKeySet();
                 
                 Iterator iterator = keySet.iterator();

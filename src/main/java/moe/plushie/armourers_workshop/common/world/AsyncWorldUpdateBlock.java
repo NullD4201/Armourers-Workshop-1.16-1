@@ -1,21 +1,21 @@
 package moe.plushie.armourers_workshop.common.world;
 
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public final class AsyncWorldUpdateBlock extends AsyncWorldUpdate {
 
-    private final IBlockState state;
+    private final BlockState state;
     private boolean onlyReplaceable;
     private TileEntity tileEntity;
 
-    public AsyncWorldUpdateBlock(IBlockState state, BlockPos pos, World world) {
+    public AsyncWorldUpdateBlock(BlockState state, BlockPos pos, World world) {
         this(state, pos, world.provider.getDimension());
     }
 
-    public AsyncWorldUpdateBlock(IBlockState state, BlockPos pos, int dimensionId) {
+    public AsyncWorldUpdateBlock(BlockState state, BlockPos pos, int dimensionId) {
         super(pos, dimensionId);
         this.state = state;
         onlyReplaceable = false;
@@ -31,7 +31,7 @@ public final class AsyncWorldUpdateBlock extends AsyncWorldUpdate {
         return this;
     }
 
-    public IBlockState getState() {
+    public BlockState getState() {
         return state;
     }
 
@@ -39,7 +39,7 @@ public final class AsyncWorldUpdateBlock extends AsyncWorldUpdate {
     public void doUpdate(World world) {
         boolean canPlace = true;
         if (onlyReplaceable) {
-            IBlockState target = world.getBlockState(pos);
+            BlockState target = world.getBlockState(pos);
             if (!target.getBlock().isReplaceable(world, pos)) {
                 canPlace = false;
             }

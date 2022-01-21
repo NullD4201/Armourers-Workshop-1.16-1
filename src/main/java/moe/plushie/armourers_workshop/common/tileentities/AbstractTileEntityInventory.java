@@ -1,10 +1,10 @@
 package moe.plushie.armourers_workshop.common.tileentities;
 
 import moe.plushie.armourers_workshop.utils.NBTHelper;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.ITextComponent;
 
@@ -68,37 +68,37 @@ public abstract class AbstractTileEntityInventory extends ModTileEntity implemen
     }
     
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+    public CompoundNBT writeToNBT(CompoundNBT compound) {
         super.writeToNBT(compound);
         writeItemsToNBT(compound);
         return compound;
     }
     
     @Override
-    public void readFromNBT(NBTTagCompound compound) {
+    public void readFromNBT(CompoundNBT compound) {
         super.readFromNBT(compound);
         readItemsFromNBT(compound);
     }
     
-    public void writeBaseToNBT(NBTTagCompound compound) {
+    public void writeBaseToNBT(CompoundNBT compound) {
         super.writeToNBT(compound);
     }
     
-    public void readBaseFromNBT(NBTTagCompound compound) {
+    public void readBaseFromNBT(CompoundNBT compound) {
         super.readFromNBT(compound);
     }
     
-    public void readCommonFromNBT(NBTTagCompound compound) {
+    public void readCommonFromNBT(CompoundNBT compound) {
     }
     
-    public void writeCommonToNBT(NBTTagCompound compound) {
+    public void writeCommonToNBT(CompoundNBT compound) {
     }
     
-    public void writeItemsToNBT(NBTTagCompound compound) {
+    public void writeItemsToNBT(CompoundNBT compound) {
         NBTHelper.writeStackArrayToNBT(compound, TAG_ITEMS, items);
     }
     
-    public void readItemsFromNBT(NBTTagCompound compound) {
+    public void readItemsFromNBT(CompoundNBT compound) {
         NBTHelper.readStackArrayFromNBT(compound, TAG_ITEMS, items);
     }
     
@@ -113,11 +113,11 @@ public abstract class AbstractTileEntityInventory extends ModTileEntity implemen
     }
     
     @Override
-    public void closeInventory(EntityPlayer player) {
+    public void closeInventory(PlayerEntity player) {
     }
     
     @Override
-    public void openInventory(EntityPlayer player) {
+    public void openInventory(PlayerEntity player) {
     }
     
     @Override
@@ -150,7 +150,7 @@ public abstract class AbstractTileEntityInventory extends ModTileEntity implemen
     }
     
     @Override
-    public boolean isUsableByPlayer(EntityPlayer player) {
+    public boolean isUsableByPlayer(PlayerEntity player) {
         return player.getDistanceSq(getPos()) <= 64;
     }
 }

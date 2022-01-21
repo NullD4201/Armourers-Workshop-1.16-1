@@ -12,14 +12,13 @@ import moe.plushie.armourers_workshop.common.lib.LibModInfo;
 import moe.plushie.armourers_workshop.utils.TranslateUtils;
 import moe.plushie.armourers_workshop.utils.TrigUtils;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.NonNullList;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.*;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -39,7 +38,7 @@ public class ItemMannequin extends AbstractModItem {
     }
 
     @Override
-    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
+    public void getSubItems(ItemGroup tab, NonNullList<ItemStack> items) {
         if (isInCreativeTab(tab)) {
             items.add(new ItemStack(this));
             if (!ConfigHandler.hideDollFromCreativeTabs) {
@@ -82,7 +81,7 @@ public class ItemMannequin extends AbstractModItem {
 
     public static ItemStack create(TextureData textureData, float scale) {
         ItemStack itemStack = new ItemStack(ModItems.MANNEQUIN);
-        itemStack.setTagCompound(new NBTTagCompound());
+        itemStack.setTagCompound(new CompoundNBT());
         if (textureData != null) {
             setTextureData(itemStack, textureData);
         }
@@ -90,7 +89,7 @@ public class ItemMannequin extends AbstractModItem {
         return itemStack;
     }
 
-    public static ItemStack create(EntityPlayer player, float scale) {
+    public static ItemStack create(PlayerEntity player, float scale) {
         if (player != null) {
             return create(new TextureData(player.getGameProfile()), scale);
         }
@@ -102,9 +101,9 @@ public class ItemMannequin extends AbstractModItem {
             return;
         }
         if (!itemStack.hasTagCompound()) {
-            itemStack.setTagCompound(new NBTTagCompound());
+            itemStack.setTagCompound(new CompoundNBT());
         }
-        NBTTagCompound compoundTextureData = new NBTTagCompound();
+        CompoundNBT compoundTextureData = new CompoundNBT();
         textureData.writeToNBT(compoundTextureData);
         itemStack.getTagCompound().setTag(TAG_TEXTURE_DATA, compoundTextureData);
     }
@@ -124,7 +123,7 @@ public class ItemMannequin extends AbstractModItem {
             return;
         }
         if (!itemStack.hasTagCompound()) {
-            itemStack.setTagCompound(new NBTTagCompound());
+            itemStack.setTagCompound(new CompoundNBT());
         }
         itemStack.getTagCompound().setFloat(TAG_SCALE, scale);
     }
@@ -141,8 +140,8 @@ public class ItemMannequin extends AbstractModItem {
     }
 
     @Override
-    public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        if (facing == EnumFacing.UP) {
+    public ActionResultType onItemUse(PlayerEntity player, World worldIn, BlockPos pos, Hand hand, Direction facing, float hitX, float hitY, float hitZ) {
+        if (facing == Direction.UP) {
             ItemStack itemStack = player.getHeldItem(hand);
             if (!worldIn.isRemote) {
                 pos = pos.offset(facing);
@@ -165,9 +164,9 @@ public class ItemMannequin extends AbstractModItem {
                 worldIn.spawnEntity(entityMannequin);
                 itemStack.shrink(1);
             }
-            return EnumActionResult.SUCCESS;
+            return ActionResultType.SUCCESS;
         }
-        return EnumActionResult.PASS;
+        return ActionResultType.PASS;
     }
 
     @SideOnly(Side.CLIENT)

@@ -1,5 +1,7 @@
 package moe.plushie.armourers_workshop.client.gui.wardrobe.tab;
 
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.button.Button;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.client.gui.GuiHelper;
@@ -10,8 +12,6 @@ import moe.plushie.armourers_workshop.common.data.type.BipedRotations;
 import moe.plushie.armourers_workshop.common.init.entities.EntityMannequin;
 import moe.plushie.armourers_workshop.common.network.PacketHandler;
 import moe.plushie.armourers_workshop.common.network.messages.client.MessageClientGuiUpdateMannequin;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -28,7 +28,7 @@ public class GuiTabWardrobeManExtras extends GuiTabPanel {
     
     private final String guiName = "wardrobe.tab.man_extras";
     
-    public GuiTabWardrobeManExtras(int tabId, GuiScreen parent, EntityMannequin entityMannequin) {
+    public GuiTabWardrobeManExtras(int tabId, Screen parent, EntityMannequin entityMannequin) {
         super(tabId, parent);
         this.entityMannequin = entityMannequin;
     }
@@ -50,7 +50,7 @@ public class GuiTabWardrobeManExtras extends GuiTabPanel {
     }
     
     @Override
-    protected void actionPerformed(GuiButton button) {
+    protected void actionPerformed(Button button) {
         MessageClientGuiUpdateMannequin message = new MessageClientGuiUpdateMannequin(entityMannequin);
         if (button == isExtraRenders) {
             message.setExtraRenders(isExtraRenders.isChecked());

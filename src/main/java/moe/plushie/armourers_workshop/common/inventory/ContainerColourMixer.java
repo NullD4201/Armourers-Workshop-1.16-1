@@ -4,16 +4,16 @@ import moe.plushie.armourers_workshop.api.common.painting.IPaintingTool;
 import moe.plushie.armourers_workshop.common.inventory.slot.SlotColourTool;
 import moe.plushie.armourers_workshop.common.inventory.slot.SlotOutput;
 import moe.plushie.armourers_workshop.common.tileentities.TileEntityColourMixer;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Slot;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 
 public class ContainerColourMixer extends ModContainer {
 
     private TileEntityColourMixer tileEntityColourMixer;
 
-    public ContainerColourMixer(InventoryPlayer invPlayer, TileEntityColourMixer tileEntityColourMixer) {
+    public ContainerColourMixer(PlayerInventory invPlayer, TileEntityColourMixer tileEntityColourMixer) {
         super(invPlayer);
         this.tileEntityColourMixer = tileEntityColourMixer;
 
@@ -24,7 +24,7 @@ public class ContainerColourMixer extends ModContainer {
     }
 
     @Override
-    protected ItemStack transferStackFromPlayer(EntityPlayer playerIn, int index) {
+    protected ItemStack transferStackFromPlayer(PlayerEntity playerIn, int index) {
         if (isSlotPlayerInv(index)) {
             Slot slot = getSlot(index);
             if (slot.getHasStack()) {
@@ -55,7 +55,7 @@ public class ContainerColourMixer extends ModContainer {
     }
 
     @Override
-    public boolean canInteractWith(EntityPlayer player) {
+    public boolean canInteractWith(PlayerEntity player) {
         return tileEntityColourMixer.isUsableByPlayer(player);
     }
 

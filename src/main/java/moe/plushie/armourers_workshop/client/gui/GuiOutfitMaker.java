@@ -11,17 +11,17 @@ import moe.plushie.armourers_workshop.common.network.messages.client.MessageClie
 import moe.plushie.armourers_workshop.common.network.messages.client.MessageClientGuiUpdateTileProperties;
 import moe.plushie.armourers_workshop.common.tileentities.TileEntityOutfitMaker;
 import moe.plushie.armourers_workshop.common.tileentities.property.TileProperty;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class GuiOutfitMaker extends GuiContainer {
+public class GuiOutfitMaker extends ContainerScreen {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(LibGuiResources.GUI_OUTFIT_MAKER);
     
@@ -32,7 +32,7 @@ public class GuiOutfitMaker extends GuiContainer {
     private GuiIconButton iconButtonLoad;
     private GuiIconButton iconButtonSave;
     
-    public GuiOutfitMaker(EntityPlayer entityPlayer, TileEntityOutfitMaker tileEntity) {
+    public GuiOutfitMaker(PlayerEntity entityPlayer, TileEntityOutfitMaker tileEntity) {
         super(new ContainerOutfitMaker(entityPlayer, tileEntity));
         this.tileEntity = tileEntity;
         xSize = 176;
@@ -62,7 +62,7 @@ public class GuiOutfitMaker extends GuiContainer {
     }
     
     @Override
-    protected void actionPerformed(GuiButton button) throws IOException {
+    protected void actionPerformed(Button button) throws IOException {
         MessageClientGuiButton message = new MessageClientGuiButton((byte) button.id);
         PacketHandler.networkWrapper.sendToServer(message);
     }

@@ -24,9 +24,9 @@ import moe.plushie.armourers_workshop.common.skin.data.SkinProperty;
 import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
 import moe.plushie.armourers_workshop.common.tileentities.TileEntityOutfitMaker;
 import moe.plushie.armourers_workshop.utils.SkinNBTHelper;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.inventory.Slot;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 
 public class ContainerOutfitMaker extends ModTileContainer<TileEntityOutfitMaker> implements IButtonPress {
@@ -34,7 +34,7 @@ public class ContainerOutfitMaker extends ModTileContainer<TileEntityOutfitMaker
     private int indexSkinsStart = 0;
     private int indexSkinsEnd = 0;
     
-    public ContainerOutfitMaker(EntityPlayer entityPlayer, TileEntityOutfitMaker tileEntity) {
+    public ContainerOutfitMaker(PlayerEntity entityPlayer, TileEntityOutfitMaker tileEntity) {
         super(entityPlayer.inventory, tileEntity);
         
         
@@ -63,7 +63,7 @@ public class ContainerOutfitMaker extends ModTileContainer<TileEntityOutfitMaker
         
     }
     
-    private void saveOutfit(EntityPlayer player) {
+    private void saveOutfit(PlayerEntity player) {
         ArrayList<SkinPart> skinParts = new ArrayList<SkinPart>();
         SkinProperties skinProperties = new SkinProperties();
         String partIndexs = "";
@@ -149,7 +149,7 @@ public class ContainerOutfitMaker extends ModTileContainer<TileEntityOutfitMaker
     }
 
     @Override
-    protected ItemStack transferStackFromPlayer(EntityPlayer playerIn, int index) {
+    protected ItemStack transferStackFromPlayer(PlayerEntity playerIn, int index) {
         Slot slot = getSlot(index);
         if (slot.getHasStack()) {
             ItemStack stack = slot.getStack();
@@ -202,7 +202,7 @@ public class ContainerOutfitMaker extends ModTileContainer<TileEntityOutfitMaker
     }
 
     @Override
-    public void buttonPressed(EntityPlayerMP player, byte buttonId) {
+    public void buttonPressed(ServerPlayerEntity player, byte buttonId) {
         if (buttonId == 0) {
             loadOutfit();
         }

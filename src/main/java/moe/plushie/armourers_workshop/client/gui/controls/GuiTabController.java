@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import moe.plushie.armourers_workshop.client.gui.GuiHelper;
 import moe.plushie.armourers_workshop.client.lib.LibGuiResources;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
@@ -19,7 +19,7 @@ public class GuiTabController extends GuiButtonExt {
     private static final ResourceLocation TEXTURE_TABS = new ResourceLocation(LibGuiResources.CONTROL_TABS);
     private final ResourceLocation textureIcons;
 
-    private GuiScreen parent;
+    private Screen parent;
     private boolean fullscreen;
     private int activeTab = -1;
     private ArrayList<GuiTab> tabs = new ArrayList<GuiTab>();
@@ -27,7 +27,7 @@ public class GuiTabController extends GuiButtonExt {
     private boolean editMode = false;
     private int tabsPerSide = 5;
 
-    public GuiTabController(GuiScreen parent, boolean fullscreen, int xPos, int yPos, int width, int height, ResourceLocation tabIcons) {
+    public GuiTabController(Screen parent, boolean fullscreen, int xPos, int yPos, int width, int height, ResourceLocation tabIcons) {
         super(0, xPos, yPos, width, height, "");
         this.parent = parent;
         this.fullscreen = fullscreen;
@@ -37,7 +37,7 @@ public class GuiTabController extends GuiButtonExt {
         }
     }
 
-    public GuiTabController(GuiScreen parent, boolean fullscreen, ResourceLocation tabIcons) {
+    public GuiTabController(Screen parent, boolean fullscreen, ResourceLocation tabIcons) {
         this(parent, fullscreen, 0, 0, 0, 0, tabIcons);
     }
 

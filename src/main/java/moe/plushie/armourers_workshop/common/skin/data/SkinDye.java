@@ -2,12 +2,12 @@ package moe.plushie.armourers_workshop.common.skin.data;
 
 import java.util.Arrays;
 
+import net.minecraft.nbt.CompoundNBT;
 import org.apache.logging.log4j.Level;
 
 import io.netty.buffer.ByteBuf;
 import moe.plushie.armourers_workshop.api.common.skin.data.ISkinDye;
 import moe.plushie.armourers_workshop.utils.ModLogger;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StringUtils;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.Constants.NBT;
@@ -149,8 +149,8 @@ public class SkinDye implements ISkinDye {
         }
     }
     
-    public NBTTagCompound writeToCompound(NBTTagCompound compound) {
-        NBTTagCompound dyeCompound = new NBTTagCompound();
+    public CompoundNBT writeToCompound(CompoundNBT compound) {
+        CompoundNBT dyeCompound = new CompoundNBT();
         for (int i = 0; i < MAX_SKIN_DYES; i++) {
             if (hasDye[i]) {
                 dyeCompound.setByte(TAG_DYE + i + TAG_RED, dyes[i][0]);
@@ -166,8 +166,8 @@ public class SkinDye implements ISkinDye {
         return compound;
     }
 
-    public void readFromCompound(NBTTagCompound compound) {
-        NBTTagCompound dyeCompound = compound.getCompoundTag(TAG_SKIN_DYE);
+    public void readFromCompound(CompoundNBT compound) {
+        CompoundNBT dyeCompound = compound.getCompoundTag(TAG_SKIN_DYE);
         for (int i = 0; i < MAX_SKIN_DYES; i++) {
             // Load old dye code.
             if (dyeCompound.hasKey(TAG_DYE + i, Constants.NBT.TAG_BYTE_ARRAY)) {

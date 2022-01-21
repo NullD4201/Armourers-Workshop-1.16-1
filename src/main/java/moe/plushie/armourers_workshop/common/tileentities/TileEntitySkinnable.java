@@ -2,6 +2,12 @@ package moe.plushie.armourers_workshop.common.tileentities;
 
 import java.util.ArrayList;
 
+import net.minecraft.block.BlockState;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.play.server.SUpdateTileEntityPacket;
+import net.minecraft.util.Direction;
 import org.apache.logging.log4j.Level;
 
 import moe.plushie.armourers_workshop.api.common.skin.Rectangle3D;
@@ -22,15 +28,9 @@ import moe.plushie.armourers_workshop.common.skin.data.SkinProperties;
 import moe.plushie.armourers_workshop.utils.ModConstants;
 import moe.plushie.armourers_workshop.utils.ModLogger;
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.nbt.ListNBT;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.StringUtils;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -134,7 +134,7 @@ public class TileEntitySkinnable extends ModTileEntity implements IGuiFactory {
             Skin skin = null;
             skin = getSkin(descriptor);
             if (skin != null) {
-                EnumFacing dir = world.getBlockState(getPos()).getValue(BlockSkinnable.STATE_FACING);
+                Direction dir = world.getBlockState(getPos()).getValue(BlockSkinnable.STATE_FACING);
                 float[] bounds = getBlockBounds(skin, xOffset, yOffset, zOffset, dir);
                 if (bounds != null) {
                     minX = bounds[0];
@@ -161,7 +161,7 @@ public class TileEntitySkinnable extends ModTileEntity implements IGuiFactory {
         }
     }
     
-    public static float[] getBlockBounds(Skin skin, int gridX, int gridY, int gridZ, EnumFacing dir) {
+    public static float[] getBlockBounds(Skin skin, int gridX, int gridY, int gridZ, Direction dir) {
         float[] bounds = new float[6];
         float scale = 0.0625F;
         SkinPart skinPart = skin.getParts().get(0);
@@ -209,7 +209,7 @@ public class TileEntitySkinnable extends ModTileEntity implements IGuiFactory {
         return bounds;
 }
     
-    private static float[] rotateBlockBounds(float[] bounds, EnumFacing dir) {
+    private static float[] rotateBlockBounds(float[] bounds, Direction dir) {
         float[] rotatedBounds = new float[6];
         for (int i = 0; i < bounds.length; i++) {
             rotatedBounds[i] = bounds[i];
@@ -286,25 +286,25 @@ public class TileEntitySkinnable extends ModTileEntity implements IGuiFactory {
     }
     
     @Override
-    public SPacketUpdateTileEntity getUpdatePacket() {
-        return new SPacketUpdateTileEntity(getPos(), 0, getUpdateTag());
+    public SUpdateTileEntityPacket getUpdatePacket() {
+        return new SUpdateTileEntityPacket(getPos(), 0, getUpdateTag());
     }
 
     @Override
-    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
-        NBTTagCompound compound = packet.getNbtCompound();
+    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket packet) {
+        CompoundNBT compound = packet.getNbtCompound();
         readFromNBT(compound);
     }
     
     @Override
-    public NBTTagCompound getUpdateTag() {
-        NBTTagCompound compound = new NBTTagCompound();
+    public CompoundNBT getUpdateTag() {
+        CompoundNBT compound = new CompoundNBT();
         writeToNBT(compound);
         return compound;
     }
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+    public CompoundNBT writeToNBT(CompoundNBT compound) {
         super.writeToNBT(compound);
         compound.setBoolean(TAG_HAS_SKIN, hasSkin());
         compound.setInteger(ModConstants.Tags.TAG_NBT_VERSION, NBT_VERSION);
@@ -314,9 +314,9 @@ public class TileEntitySkinnable extends ModTileEntity implements IGuiFactory {
         if (hasSkin()) {
             ((SkinDescriptor)descriptor).writeToCompound(compound);
             if (relatedBlocks != null) {
-                NBTTagList list = new NBTTagList();
+                ListNBT list = new ListNBT();
                 for (int i = 0; i < relatedBlocks.size(); i++) {
-                    NBTTagCompound blockCompound = new NBTTagCompound();
+                    CompoundNBT blockCompound = new CompoundNBT();
                     BlockPos blockLoc = relatedBlocks.get(i);
                     blockCompound.setInteger(TAG_X, blockLoc.getX());
                     blockCompound.setInteger(TAG_Y, blockLoc.getY());
@@ -337,7 +337,7 @@ public class TileEntitySkinnable extends ModTileEntity implements IGuiFactory {
     }
     
     @Override
-    public void readFromNBT(NBTTagCompound compound) {
+    public void readFromNBT(CompoundNBT compound) {
         super.readFromNBT(compound);
         boolean hasSkin = compound.getBoolean(TAG_HAS_SKIN);
         nbtVersion = 0;
@@ -354,10 +354,10 @@ public class TileEntitySkinnable extends ModTileEntity implements IGuiFactory {
             descriptor = new SkinDescriptor();
             ((SkinDescriptor)descriptor).readFromCompound(compound);
             if (compound.hasKey(TAG_RELATED_BLOCKS, Constants.NBT.TAG_LIST)) {
-                NBTTagList list = compound.getTagList(TAG_RELATED_BLOCKS, Constants.NBT.TAG_COMPOUND);
+                ListNBT list = compound.getTagList(TAG_RELATED_BLOCKS, Constants.NBT.TAG_COMPOUND);
                 relatedBlocks = new ArrayList<BlockPos>();
                 for (int i = 0; i < list.tagCount(); i++) {
-                    NBTTagCompound blockCompound = list.getCompoundTagAt(i);
+                    CompoundNBT blockCompound = list.getCompoundTagAt(i);
                     int x = blockCompound.getInteger(TAG_X);
                     int y = blockCompound.getInteger(TAG_Y);
                     int z = blockCompound.getInteger(TAG_Z);
@@ -398,10 +398,10 @@ public class TileEntitySkinnable extends ModTileEntity implements IGuiFactory {
                 Skin skin = getSkin(getSkinPointer());
                 if (skin != null) {
                     if (SkinProperties.PROP_BLOCK_MULTIBLOCK.getValue(skin.getProperties())) {
-                        IBlockState state = world.getBlockState(getPos());
+                        BlockState state = world.getBlockState(getPos());
                         if (state.getBlock() instanceof BlockSkinnable) {
                             renderBounds = new AxisAlignedBB(-1, 0, -1, 2, 3, 2).offset(getPos());
-                            EnumFacing dir = world.getBlockState(getPos()).getValue(BlockSkinnable.STATE_FACING);
+                            Direction dir = world.getBlockState(getPos()).getValue(BlockSkinnable.STATE_FACING);
                             renderBounds = renderBounds.offset(-dir.getXOffset(), 0, -dir.getZOffset());
                         }
                     } else {
@@ -453,7 +453,7 @@ public class TileEntitySkinnable extends ModTileEntity implements IGuiFactory {
     }
 
     @Override
-    public Container getServerGuiElement(EntityPlayer player, World world, BlockPos pos) {
+    public Container getServerGuiElement(PlayerEntity player, World world, BlockPos pos) {
         Skin skin = getSkin(getSkinPointer());
         if (skin != null) {
             return new ContainerSkinnable(player.inventory, this, skin);
@@ -463,7 +463,7 @@ public class TileEntitySkinnable extends ModTileEntity implements IGuiFactory {
     
     @SideOnly(Side.CLIENT)
     @Override
-    public GuiScreen getClientGuiElement(EntityPlayer player, World world, BlockPos pos) {
+    public Screen getClientGuiElement(PlayerEntity player, World world, BlockPos pos) {
         Skin skin = getSkin(getSkinPointer());
         if (skin != null) {
             return new GuiSkinnable(player.inventory, this, skin);

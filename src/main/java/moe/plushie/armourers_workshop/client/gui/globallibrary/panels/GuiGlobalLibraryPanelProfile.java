@@ -7,7 +7,7 @@ import moe.plushie.armourers_workshop.client.gui.controls.GuiPanel;
 import moe.plushie.armourers_workshop.client.gui.controls.GuiScrollbar;
 import moe.plushie.armourers_workshop.client.gui.globallibrary.GuiGlobalLibrary;
 import moe.plushie.armourers_workshop.common.library.global.PlushieUser;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -21,7 +21,7 @@ public class GuiGlobalLibraryPanelProfile extends GuiPanel {
     private Rectangle recBio;
     private Rectangle recStats;
 
-    public GuiGlobalLibraryPanelProfile(GuiScreen parent) {
+    public GuiGlobalLibraryPanelProfile(Screen parent) {
         super(parent, 0, 0, 1, 1);
         guiName = ((GuiGlobalLibrary) parent).getGuiName() + ".panel.profile";
         scrollbar = new GuiScrollbar(-1, width - 11, y + 1, 10, height - 2, "", false);

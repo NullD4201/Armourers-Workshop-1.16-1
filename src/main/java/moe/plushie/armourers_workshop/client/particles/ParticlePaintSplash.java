@@ -3,7 +3,7 @@ package moe.plushie.armourers_workshop.client.particles;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -12,9 +12,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class ParticlePaintSplash extends Particle {
 
-    private final EnumFacing facing;
+    private final Direction facing;
     
-    public ParticlePaintSplash(World worldIn, BlockPos pos, byte r, byte g, byte b, EnumFacing facing) {
+    public ParticlePaintSplash(World worldIn, BlockPos pos, byte r, byte g, byte b, Direction facing) {
         super(worldIn, pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F);
         
         particleTextureIndexX = (int) (rand.nextFloat() * 4F);

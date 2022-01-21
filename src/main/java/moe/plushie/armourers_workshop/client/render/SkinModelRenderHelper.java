@@ -29,8 +29,8 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;
 import net.minecraft.client.renderer.GlStateManager.SourceFactor;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.EnumHandSide;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.HandSide;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -68,7 +68,7 @@ public final class SkinModelRenderHelper {
 
     public final ModelDummy modelHelperDummy = new ModelDummy();
 
-    public EntityPlayer targetPlayer = null;
+    public PlayerEntity targetPlayer = null;
 
     private SkinModelRenderHelper() {
         MinecraftForge.EVENT_BUS.register(this);
@@ -93,7 +93,7 @@ public final class SkinModelRenderHelper {
         registerSkinTypeHelperForModel(ModelType.MODEL_BIPED, SkinTypeRegistry.skinOutfit, modelOutfit);
     }
 
-    private boolean isPlayerWearingSkirt(EntityPlayer player) {
+    private boolean isPlayerWearingSkirt(PlayerEntity player) {
         IEntitySkinCapability skinCapability = EntitySkinCapability.get(player);
         if (skinCapability == null) {
             return false;
@@ -129,10 +129,10 @@ public final class SkinModelRenderHelper {
         return limitLimbs;
     }
     
-    public static boolean isPlayersArmSlim(ModelBiped modelBiped, EntityPlayer entityPlayer, EnumHandSide handSide) {
+    public static boolean isPlayersArmSlim(ModelBiped modelBiped, PlayerEntity entityPlayer, HandSide handSide) {
         boolean slim = false;
         SkinProperty<Boolean> targetProp = null;
-        if (handSide == EnumHandSide.LEFT) {
+        if (handSide == HandSide.LEFT) {
             slim = modelBiped.bipedLeftArm.rotationPointY == 2.5F;
             targetProp = SkinProperties.PROP_MODEL_OVERRIDE_ARM_LEFT;
         } else {
@@ -179,7 +179,7 @@ public final class SkinModelRenderHelper {
 
     @SubscribeEvent
     public void onRender(RenderPlayerEvent.Pre event) {
-        EntityPlayer player = event.getEntityPlayer();
+        PlayerEntity player = event.getEntityPlayer();
         // Limit the players limbs if they have a skirt equipped.
         // A proper lady should not swing her legs around!
         if (isPlayerWearingSkirt(player)) {

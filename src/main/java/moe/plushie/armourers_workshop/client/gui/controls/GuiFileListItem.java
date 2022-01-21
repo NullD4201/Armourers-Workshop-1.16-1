@@ -1,5 +1,6 @@
 package moe.plushie.armourers_workshop.client.gui.controls;
 
+import net.minecraft.client.gui.AbstractGui;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.client.gui.skinlibrary.GuiSkinLibrary;
@@ -13,7 +14,6 @@ import moe.plushie.armourers_workshop.common.skin.data.SkinDescriptor;
 import moe.plushie.armourers_workshop.common.skin.data.SkinIdentifier;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.util.ResourceLocation;
@@ -21,7 +21,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class GuiFileListItem extends Gui implements IGuiListItem {
+public class GuiFileListItem extends AbstractGui implements IGuiListItem {
 
     private static final ResourceLocation texture = new ResourceLocation(LibGuiResources.CONTROL_LIST);
 
@@ -45,11 +45,11 @@ public class GuiFileListItem extends Gui implements IGuiListItem {
 
         int fontColour = 0xFFAAAAAA;
         if (isHovering(fontRenderer, x, y, mouseX, mouseY, width)) {
-            Gui.drawRect(x, y, x + width - 3, y + 12, 0xFFCCCCCC);
+            AbstractGui.drawRect(x, y, x + width - 3, y + 12, 0xFFCCCCCC);
             fontColour = 0xFF000000;
         }
         if (selected) {
-            Gui.drawRect(x, y, x + width - 3, y + 12, 0xFFFFFF88);
+            AbstractGui.drawRect(x, y, x + width - 3, y + 12, 0xFFFFFF88);
             fontColour = 0xFF000000;
         }
         if (!file.isDirectory()) {

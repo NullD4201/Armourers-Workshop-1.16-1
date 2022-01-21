@@ -7,9 +7,9 @@ import com.mojang.authlib.GameProfile;
 import moe.plushie.armourers_workshop.utils.TranslateUtils;
 import net.minecraft.block.Block;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
@@ -28,14 +28,14 @@ public class ItemBlockMannequin extends ModItemBlock {
     }
     
     @Override
-    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
+    public void getSubItems(ItemGroup tab, NonNullList<ItemStack> items) {
     }
     
     @SideOnly(Side.CLIENT)
     @Override
     public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         if (stack.hasTagCompound()) {
-            NBTTagCompound compound = stack.getTagCompound();
+            CompoundNBT compound = stack.getTagCompound();
             GameProfile gameProfile = null;
             if (compound.hasKey(TAG_OWNER, 10)) {
                 gameProfile = NBTUtil.readGameProfileFromNBT(compound.getCompoundTag(TAG_OWNER));

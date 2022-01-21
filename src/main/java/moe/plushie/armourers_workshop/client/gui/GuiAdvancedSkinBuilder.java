@@ -11,10 +11,10 @@ import moe.plushie.armourers_workshop.common.network.PacketHandler;
 import moe.plushie.armourers_workshop.common.network.messages.client.MessageClientGuiButton;
 import moe.plushie.armourers_workshop.common.tileentities.TileEntityAdvancedSkinBuilder;
 import moe.plushie.armourers_workshop.common.tileentities.TileEntityAdvancedSkinBuilder.SkinPartSettings;
-import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Slot;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.container.Slot;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
@@ -48,7 +48,7 @@ public class GuiAdvancedSkinBuilder extends ModGuiContainer<ContainerAdvancedSki
     private GuiCustomSlider rotOffsetYSlider;
     private GuiCustomSlider rotOffsetZSlider;
     
-    public GuiAdvancedSkinBuilder(EntityPlayer player, TileEntityAdvancedSkinBuilder tileEntity) {
+    public GuiAdvancedSkinBuilder(PlayerEntity player, TileEntityAdvancedSkinBuilder tileEntity) {
         super(new ContainerAdvancedSkinBuilder(player.inventory, tileEntity));
         this.tileEntity = tileEntity;
     }
@@ -161,7 +161,7 @@ public class GuiAdvancedSkinBuilder extends ModGuiContainer<ContainerAdvancedSki
     }
     
     @Override
-    protected void actionPerformed(GuiButton button) throws IOException {
+    protected void actionPerformed(Button button) throws IOException {
         if (button == indexDecrease) {
             indexActive--;
         }

@@ -1,13 +1,13 @@
 package moe.plushie.armourers_workshop.client.gui.controls;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class GuiTab extends Gui {
+public class GuiTab extends AbstractGui {
 
     private final GuiTabController parent;
     private final String name;

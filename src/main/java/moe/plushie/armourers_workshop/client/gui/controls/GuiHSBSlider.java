@@ -7,7 +7,7 @@ import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.client.lib.LibGuiResources;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.config.GuiSlider;
@@ -142,7 +142,7 @@ public class GuiHSBSlider extends GuiSlider {
     
     public void drawTexturedModalRectScaled (int x, int y, int u, int v, int srcWidth, int srcHeight, int tarWidth, int tarHeight) {
         //Gui.drawModalRectWithCustomSizedTexture(x, y, u, v, tarWidth, tarHeight, srcWidth, srcHeight);
-        Gui.drawScaledCustomSizeModalRect(x, y, u, v, srcWidth, srcHeight, tarWidth, tarHeight, 256, 256);
+        AbstractGui.drawScaledCustomSizeModalRect(x, y, u, v, srcWidth, srcHeight, tarWidth, tarHeight, 256, 256);
     }
     
     public enum HSBSliderType {

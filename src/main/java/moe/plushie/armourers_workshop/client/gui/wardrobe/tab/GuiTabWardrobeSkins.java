@@ -1,13 +1,13 @@
 package moe.plushie.armourers_workshop.client.gui.wardrobe.tab;
 
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.inventory.container.Slot;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.client.gui.controls.GuiTabPanel;
 import moe.plushie.armourers_workshop.client.gui.wardrobe.GuiWardrobe;
 import moe.plushie.armourers_workshop.common.inventory.ContainerSkinWardrobe;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.inventory.Slot;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -16,7 +16,7 @@ public class GuiTabWardrobeSkins extends GuiTabPanel {
 
     //private static final ResourceLocation TEXTURE = new ResourceLocation(LibGuiResources.WARDROBE);
     
-    public GuiTabWardrobeSkins(int tabId, GuiScreen parent) {
+    public GuiTabWardrobeSkins(int tabId, Screen parent) {
         super(tabId, parent, false);
     }
 
@@ -32,7 +32,7 @@ public class GuiTabWardrobeSkins extends GuiTabPanel {
 
         
         int sloImageSize = 18;
-        GuiContainer guiContainer = (GuiContainer) parent;
+        ContainerScreen guiContainer = (ContainerScreen) parent;
         ContainerSkinWardrobe skinWardrobe = (ContainerSkinWardrobe) guiContainer.inventorySlots;
         
         for (int i = skinWardrobe.getIndexSkinsStart(); i <  skinWardrobe.getIndexSkinsEnd(); i++) {

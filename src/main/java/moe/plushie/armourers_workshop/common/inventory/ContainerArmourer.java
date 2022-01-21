@@ -21,17 +21,17 @@ import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
 import moe.plushie.armourers_workshop.common.tileentities.TileEntityArmourer;
 import moe.plushie.armourers_workshop.common.world.ArmourerWorldHelper;
 import moe.plushie.armourers_workshop.utils.SkinNBTHelper;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Slot;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.Direction;
+import net.minecraft.util.text.StringTextComponent;
 
 public class ContainerArmourer extends ModTileContainer<TileEntityArmourer> implements IButtonPress {
 
-    public ContainerArmourer(InventoryPlayer invPlayer, TileEntityArmourer tileEntity) {
+    public ContainerArmourer(PlayerInventory invPlayer, TileEntityArmourer tileEntity) {
         super(invPlayer, tileEntity);
 
         addSlotToContainer(new SlotSkinTemplate(tileEntity, 0, 64, 21));
@@ -41,7 +41,7 @@ public class ContainerArmourer extends ModTileContainer<TileEntityArmourer> impl
     }
 
     @Override
-    protected ItemStack transferStackFromPlayer(EntityPlayer playerIn, int index) {
+    protected ItemStack transferStackFromPlayer(PlayerEntity playerIn, int index) {
         Slot slot = getSlot(index);
         if (slot.getHasStack()) {
             ItemStack stack = slot.getStack();
@@ -74,7 +74,7 @@ public class ContainerArmourer extends ModTileContainer<TileEntityArmourer> impl
      * @param player The player that pressed the save button.
      * @param name   Custom name for the item.
      */
-    public void saveArmourItem(EntityPlayerMP player, String customName, String tags) {
+    public void saveArmourItem(ServerPlayerEntity player, String customName, String tags) {
         if (tileEntity.getWorld().isRemote) {
             return;
         }
@@ -117,23 +117,23 @@ public class ContainerArmourer extends ModTileContainer<TileEntityArmourer> impl
         }
 
         try {
-            skin = ArmourerWorldHelper.saveSkinFromWorld(tileEntity.getWorld(), skinProps, tileEntity.getSkinType(), tileEntity.getPaintData(), tileEntity.getPos().offset(EnumFacing.UP, tileEntity.getHeightOffset()), tileEntity.getDirection());
+            skin = ArmourerWorldHelper.saveSkinFromWorld(tileEntity.getWorld(), skinProps, tileEntity.getSkinType(), tileEntity.getPaintData(), tileEntity.getPos().offset(Direction.UP, tileEntity.getHeightOffset()), tileEntity.getDirection());
         } catch (SkinSaveException e) {
             switch (e.getType()) {
             case NO_DATA:
-                player.sendMessage(new TextComponentString(e.getMessage()));
+                player.sendMessage(new StringTextComponent(e.getMessage()));
                 break;
             case MARKER_ERROR:
-                player.sendMessage(new TextComponentString(e.getMessage()));
+                player.sendMessage(new StringTextComponent(e.getMessage()));
                 break;
             case MISSING_PARTS:
-                player.sendMessage(new TextComponentString(e.getMessage()));
+                player.sendMessage(new StringTextComponent(e.getMessage()));
                 break;
             case BED_AND_SEAT:
-                player.sendMessage(new TextComponentString(e.getMessage()));
+                player.sendMessage(new StringTextComponent(e.getMessage()));
                 break;
             case INVALID_MULTIBLOCK:
-                player.sendMessage(new TextComponentString(e.getMessage()));
+                player.sendMessage(new StringTextComponent(e.getMessage()));
                 break;
             }
         }
@@ -160,7 +160,7 @@ public class ContainerArmourer extends ModTileContainer<TileEntityArmourer> impl
      * 
      * @param player The player that pressed the load button.
      */
-    public void loadArmourItem(EntityPlayerMP player) {
+    public void loadArmourItem(ServerPlayerEntity player) {
         if (tileEntity.getWorld().isRemote) {
             return;
         }
@@ -196,7 +196,7 @@ public class ContainerArmourer extends ModTileContainer<TileEntityArmourer> impl
 
         tileEntity.setSkinProps(new SkinProperties(skin.getProperties()));
 
-        ArmourerWorldHelper.loadSkinIntoWorld(tileEntity.getWorld(), tileEntity.getPos().offset(EnumFacing.UP, tileEntity.getHeightOffset()), skin, tileEntity.getDirection());
+        ArmourerWorldHelper.loadSkinIntoWorld(tileEntity.getWorld(), tileEntity.getPos().offset(Direction.UP, tileEntity.getHeightOffset()), skin, tileEntity.getDirection());
         if (skin.hasPaintData()) {
             tileEntity.setPaintData(skin.getPaintData().clone());
         } else {
@@ -209,7 +209,7 @@ public class ContainerArmourer extends ModTileContainer<TileEntityArmourer> impl
     }
 
     @Override
-    public void buttonPressed(EntityPlayerMP player, byte buttonId) {
+    public void buttonPressed(ServerPlayerEntity player, byte buttonId) {
         TileEntityArmourer armourerBrain = getTileEntity();
         // ModLogger.log("load " + message.buttonId);
         if (buttonId == 14) {

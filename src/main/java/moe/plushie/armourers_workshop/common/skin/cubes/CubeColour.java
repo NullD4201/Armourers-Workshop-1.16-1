@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.util.Arrays;
 
 import moe.plushie.armourers_workshop.api.common.skin.cubes.ICubeColour;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 
 public class CubeColour implements ICubeColour {
 
@@ -140,7 +140,7 @@ public class CubeColour implements ICubeColour {
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound compound) {
+    public void readFromNBT(CompoundNBT compound) {
         for (int i = 0; i < 6; i++) {
             r[i] = compound.getByte(TAG_RED + i);
             g[i] = compound.getByte(TAG_GREEN + i);
@@ -154,7 +154,7 @@ public class CubeColour implements ICubeColour {
     }
 
     @Override
-    public void writeToNBT(NBTTagCompound compound) {
+    public void writeToNBT(CompoundNBT compound) {
         for (int i = 0; i < 6; i++) {
             compound.setByte(TAG_RED + i, r[i]);
             compound.setByte(TAG_GREEN + i, g[i]);

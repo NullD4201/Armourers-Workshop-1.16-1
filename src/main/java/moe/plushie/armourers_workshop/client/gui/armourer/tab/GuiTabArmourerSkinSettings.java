@@ -17,8 +17,8 @@ import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
 import moe.plushie.armourers_workshop.common.skin.type.wings.SkinWings.MovementType;
 import moe.plushie.armourers_workshop.common.tileentities.TileEntityArmourer;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.config.GuiSlider;
@@ -71,7 +71,7 @@ public class GuiTabArmourerSkinSettings extends GuiTabPanel implements ISlider, 
 
     private boolean resetting;
 
-    public GuiTabArmourerSkinSettings(int tabId, GuiScreen parent) {
+    public GuiTabArmourerSkinSettings(int tabId, Screen parent) {
         super(tabId, parent, false);
         tileEntity = ((GuiArmourer) parent).tileEntity;
     }
@@ -186,7 +186,7 @@ public class GuiTabArmourerSkinSettings extends GuiTabPanel implements ISlider, 
     }
 
     @Override
-    protected void actionPerformed(GuiButton button) {
+    protected void actionPerformed(Button button) {
         SkinProperties skinProps = tileEntity.getSkinProps();
 
         if (!checkBlockMultiblock.isChecked()) {

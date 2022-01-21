@@ -1,5 +1,7 @@
 package moe.plushie.armourers_workshop.client.gui.wardrobe.tab;
 
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.button.Button;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.client.gui.GuiHelper;
@@ -7,8 +9,6 @@ import moe.plushie.armourers_workshop.client.gui.controls.GuiCheckBox;
 import moe.plushie.armourers_workshop.client.gui.controls.GuiTabPanel;
 import moe.plushie.armourers_workshop.client.gui.wardrobe.GuiWardrobe;
 import moe.plushie.armourers_workshop.client.lib.LibGuiResources;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -21,7 +21,7 @@ public class GuiTabWardrobeContributor extends GuiTabPanel {
     
     private GuiCheckBox checkBoxTest;
     
-    public GuiTabWardrobeContributor(int tabId, GuiScreen parent) {
+    public GuiTabWardrobeContributor(int tabId, Screen parent) {
         super(tabId, parent, false);
     }
     
@@ -34,7 +34,7 @@ public class GuiTabWardrobeContributor extends GuiTabPanel {
     }
     
     @Override
-    protected void actionPerformed(GuiButton button) {
+    protected void actionPerformed(Button button) {
         if (button == checkBoxTest) {
             testMode = checkBoxTest.isChecked();
         }

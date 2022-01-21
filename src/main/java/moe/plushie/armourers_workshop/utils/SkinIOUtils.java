@@ -15,6 +15,7 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.util.ArrayList;
 
+import net.minecraft.util.text.StringTextComponent;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.Level;
@@ -27,9 +28,8 @@ import moe.plushie.armourers_workshop.common.library.LibraryFile;
 import moe.plushie.armourers_workshop.common.skin.data.Skin;
 import moe.plushie.armourers_workshop.common.skin.data.SkinProperties;
 import moe.plushie.armourers_workshop.common.skin.data.serialize.SkinSerializer;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.StringUtils;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.common.DimensionManager;
 
 public final class SkinIOUtils {
@@ -270,8 +270,8 @@ public final class SkinIOUtils {
         return true;
     }
 
-    public static void recoverSkins(EntityPlayer player) {
-        player.sendMessage(new TextComponentString("Starting skin recovery."));
+    public static void recoverSkins(PlayerEntity player) {
+        player.sendMessage(new StringTextComponent("Starting skin recovery."));
         File skinDir = getSkinDatabaseDirectory();
         if (skinDir.exists() & skinDir.isDirectory()) {
             File recoverDir = new File(System.getProperty("user.dir"), "recovered-skins");
@@ -279,8 +279,8 @@ public final class SkinIOUtils {
                 recoverDir.mkdirs();
             }
             File[] skinFiles = skinDir.listFiles();
-            player.sendMessage(new TextComponentString(String.format("Found %d skins to be recovered.", skinFiles.length)));
-            player.sendMessage(new TextComponentString("Working..."));
+            player.sendMessage(new StringTextComponent(String.format("Found %d skins to be recovered.", skinFiles.length)));
+            player.sendMessage(new StringTextComponent("Working..."));
             int unnamedSkinCount = 0;
             int successCount = 0;
             int failCount = 0;
@@ -332,17 +332,17 @@ public final class SkinIOUtils {
                     failCount++;
                 }
             }
-            player.sendMessage(new TextComponentString("Finished skin recovery."));
-            player.sendMessage(new TextComponentString(String.format("%d skins were recovered and %d fail recovery.", successCount, failCount)));
+            player.sendMessage(new StringTextComponent("Finished skin recovery."));
+            player.sendMessage(new StringTextComponent(String.format("%d skins were recovered and %d fail recovery.", successCount, failCount)));
         } else {
-            player.sendMessage(new TextComponentString("No skins found to recover."));
+            player.sendMessage(new StringTextComponent("No skins found to recover."));
         }
     }
 
-    public static void updateSkins(EntityPlayer player) {
+    public static void updateSkins(PlayerEntity player) {
         File updateDir = new File(System.getProperty("user.dir"), "skin-update");
         if (!updateDir.exists() & updateDir.isDirectory()) {
-            player.sendMessage(new TextComponentString("Directory skin-update not found."));
+            player.sendMessage(new StringTextComponent("Directory skin-update not found."));
             return;
         }
 
@@ -351,8 +351,8 @@ public final class SkinIOUtils {
             outputDir.mkdir();
         }
         File[] skinFiles = updateDir.listFiles();
-        player.sendMessage(new TextComponentString(String.format("Found %d skins to be updated.", skinFiles.length)));
-        player.sendMessage(new TextComponentString("Working..."));
+        player.sendMessage(new StringTextComponent(String.format("Found %d skins to be updated.", skinFiles.length)));
+        player.sendMessage(new StringTextComponent("Working..."));
         int successCount = 0;
         int failCount = 0;
 
@@ -373,8 +373,8 @@ public final class SkinIOUtils {
                 }
             }
         }
-        player.sendMessage(new TextComponentString("Finished skin update."));
-        player.sendMessage(new TextComponentString(String.format("%d skins were updated and %d failed.", successCount, failCount)));
+        player.sendMessage(new StringTextComponent("Finished skin update."));
+        player.sendMessage(new StringTextComponent(String.format("%d skins were updated and %d failed.", successCount, failCount)));
     }
 
     public static boolean isInSubDirectory(File dir, File file) {

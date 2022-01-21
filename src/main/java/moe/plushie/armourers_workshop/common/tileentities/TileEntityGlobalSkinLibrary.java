@@ -4,10 +4,10 @@ import moe.plushie.armourers_workshop.client.gui.globallibrary.GuiGlobalLibrary;
 import moe.plushie.armourers_workshop.common.inventory.ContainerGlobalSkinLibrary;
 import moe.plushie.armourers_workshop.common.inventory.IGuiFactory;
 import moe.plushie.armourers_workshop.common.network.messages.client.MessageClientGuiButton.IButtonPress;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.inventory.Container;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.container.Container;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -21,7 +21,7 @@ public class TileEntityGlobalSkinLibrary extends TileEntity implements IButtonPr
     }
 
     @Override
-    public void buttonPressed(EntityPlayerMP player, byte buttonId) {
+    public void buttonPressed(ServerPlayerEntity player, byte buttonId) {
         if (buttonId == 0) {
 
         }
@@ -34,13 +34,13 @@ public class TileEntityGlobalSkinLibrary extends TileEntity implements IButtonPr
     }
 
     @Override
-    public Container getServerGuiElement(EntityPlayer player, World world, BlockPos pos) {
+    public Container getServerGuiElement(PlayerEntity player, World world, BlockPos pos) {
         return new ContainerGlobalSkinLibrary(player.inventory, this);
     }
 
     @SideOnly(Side.CLIENT)
     @Override
-    public GuiScreen getClientGuiElement(EntityPlayer player, World world, BlockPos pos) {
+    public Screen getClientGuiElement(PlayerEntity player, World world, BlockPos pos) {
         return new GuiGlobalLibrary(this, player.inventory);
     }
 }

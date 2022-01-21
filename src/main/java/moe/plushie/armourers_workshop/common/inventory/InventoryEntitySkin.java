@@ -3,11 +3,11 @@ package moe.plushie.armourers_workshop.common.inventory;
 import java.util.ArrayList;
 
 import moe.plushie.armourers_workshop.api.common.skin.type.ISkinType;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.common.util.Constants.NBT;
 
@@ -90,27 +90,27 @@ public class InventoryEntitySkin implements IInventory {
     }
     
     @Override
-    public boolean isUsableByPlayer(EntityPlayer player) {
+    public boolean isUsableByPlayer(PlayerEntity player) {
         return true;
     }
     
     @Override
-    public void openInventory(EntityPlayer player) {}
+    public void openInventory(PlayerEntity player) {}
     
     @Override
-    public void closeInventory(EntityPlayer player) {}
+    public void closeInventory(PlayerEntity player) {}
 
     @Override
     public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_) {
         return true;
     }
     
-    public void saveItemsToNBT(NBTTagCompound compound) {
-        NBTTagList items = new NBTTagList();
+    public void saveItemsToNBT(CompoundNBT compound) {
+        ListNBT items = new ListNBT();
         for (int i = 0; i < getSizeInventory(); i++) {
             ItemStack stack = getStackInSlot(i);
             if (stack != null) {
-                NBTTagCompound item = new NBTTagCompound();
+                CompoundNBT item = new CompoundNBT();
                 item.setByte(TAG_SLOT, (byte)i);
                 stack.writeToNBT(item);
                 items.appendTag(item);
@@ -119,13 +119,13 @@ public class InventoryEntitySkin implements IInventory {
         compound.setTag(TAG_ITEMS, items);
     }
     
-    public void loadItemsFromNBT(NBTTagCompound compound) {
-        NBTTagList items = compound.getTagList(TAG_ITEMS, NBT.TAG_COMPOUND);
+    public void loadItemsFromNBT(CompoundNBT compound) {
+        ListNBT items = compound.getTagList(TAG_ITEMS, NBT.TAG_COMPOUND);
         for (int i = 0; i < skinSlots.length; i++) {
             skinSlots[i] = null;
         }
         for (int i = 0; i < items.tagCount(); i++) {
-            NBTTagCompound item = (NBTTagCompound)items.getCompoundTagAt(i);
+            CompoundNBT item = (CompoundNBT)items.getCompoundTagAt(i);
             int slot = item.getByte(TAG_SLOT);
             if (slot >= 0 && slot < getSizeInventory()) {
                 //setInventorySlotContents(slot, ItemStack.loadItemStackFromNBT(item));

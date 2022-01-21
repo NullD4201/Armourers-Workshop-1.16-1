@@ -21,19 +21,19 @@ import moe.plushie.armourers_workshop.common.tileentities.TileEntityArmourer;
 import moe.plushie.armourers_workshop.common.tileentities.TileEntityBoundingBox;
 import moe.plushie.armourers_workshop.proxies.ClientProxy;
 import moe.plushie.armourers_workshop.utils.BitwiseUtils;
+import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.particle.ParticleManager;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -57,7 +57,7 @@ public class BlockBoundingBox extends AbstractModBlockContainer implements IPant
     }
     
     @Override
-    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
+    public void getSubBlocks(ItemGroup itemIn, NonNullList<ItemStack> items) {
     }
     
     @Override
@@ -66,18 +66,18 @@ public class BlockBoundingBox extends AbstractModBlockContainer implements IPant
     }
     
     @Override
-    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
         worldIn.setBlockToAir(pos);
     }
     
     
     @Override
-    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+    public ItemStack getPickBlock(BlockState state, RayTraceResult target, World world, BlockPos pos, PlayerEntity player) {
         return ItemStack.EMPTY;
     }
     
     @Override
-    public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
+    public boolean removedByPlayer(BlockState state, World world, BlockPos pos, PlayerEntity player, boolean willHarvest) {
         if (world.isRemote) {
             return true;
         }
@@ -106,32 +106,32 @@ public class BlockBoundingBox extends AbstractModBlockContainer implements IPant
     
     @SideOnly(Side.CLIENT)
     @Override
-    public boolean addHitEffects(IBlockState state, World worldObj, RayTraceResult target, ParticleManager manager) {
+    public boolean addHitEffects(BlockState state, World worldObj, RayTraceResult target, ParticleManager manager) {
         return true;
     }
     
     @Override
-    public EnumBlockRenderType getRenderType(IBlockState state) {
-        return EnumBlockRenderType.INVISIBLE;
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.INVISIBLE;
     }
     
     @Override
-    public boolean isOpaqueCube(IBlockState state) {
+    public boolean isOpaqueCube(BlockState state) {
         return false;
     }
     
     @Override
-    public boolean isFullBlock(IBlockState state) {
+    public boolean isFullBlock(BlockState state) {
         return false;
     }
     
     @Override
-    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, BlockState state, BlockPos pos, Direction face) {
         return BlockFaceShape.UNDEFINED;
     }
     
     @Override
-    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
+    public AxisAlignedBB getCollisionBoundingBox(BlockState blockState, IBlockAccess worldIn, BlockPos pos) {
         return NULL_AABB;
     }
     
@@ -151,7 +151,7 @@ public class BlockBoundingBox extends AbstractModBlockContainer implements IPant
     }
     
     @Override
-    public boolean setColour(IBlockAccess world, BlockPos pos, int colour, EnumFacing facing) {
+    public boolean setColour(IBlockAccess world, BlockPos pos, int colour, Direction facing) {
         if (world.getBlockState(pos.offset(facing)).getBlock() == this) {
             return false;
         }
@@ -181,13 +181,13 @@ public class BlockBoundingBox extends AbstractModBlockContainer implements IPant
     public void registerModels() {}
     
     @Override
-    public boolean setColour(IBlockAccess world, BlockPos pos, byte[] rgb, EnumFacing facing) {
+    public boolean setColour(IBlockAccess world, BlockPos pos, byte[] rgb, Direction facing) {
         int colour = new Color(rgb[0] & 0xFF, rgb[1] & 0xFF, rgb[2] & 0xFF).getRGB();
         return setColour(world, pos, colour, facing);
     }
 
     @Override
-    public int getColour(IBlockAccess world, BlockPos pos, EnumFacing facing) {
+    public int getColour(IBlockAccess world, BlockPos pos, Direction facing) {
         if (world.getBlockState(pos.offset(facing)).getBlock() == this) {
             return 0x00FFFFFF;
         }
@@ -213,7 +213,7 @@ public class BlockBoundingBox extends AbstractModBlockContainer implements IPant
     }
     
     @SideOnly(Side.CLIENT)
-    private int getColourRemote(IBlockAccess world, BlockPos pos, EnumFacing facing, TileEntityArmourer parent, Point texturePoint, int colour) {
+    private int getColourRemote(IBlockAccess world, BlockPos pos, Direction facing, TileEntityArmourer parent, Point texturePoint, int colour) {
         PlayerTexture playerTexture = ClientProxy.playerTextureDownloader.getPlayerTexture(parent.getTexture());
         BufferedImage playerSkin = TextureHelper.getBufferedImageSkin(playerTexture.getResourceLocation());
         if (playerSkin != null) {
@@ -224,7 +224,7 @@ public class BlockBoundingBox extends AbstractModBlockContainer implements IPant
     }
     
     @Override
-    public boolean isRemoteOnly(IBlockAccess world, BlockPos pos, EnumFacing facing) {
+    public boolean isRemoteOnly(IBlockAccess world, BlockPos pos, Direction facing) {
         if (world.getBlockState(pos.offset(facing)).getBlock() == this) {
             return false;
         }
@@ -244,7 +244,7 @@ public class BlockBoundingBox extends AbstractModBlockContainer implements IPant
     }
     
     @Override
-    public void setPaintType(IBlockAccess world, BlockPos pos, IPaintType paintType, EnumFacing facing) {
+    public void setPaintType(IBlockAccess world, BlockPos pos, IPaintType paintType, Direction facing) {
         if (world.getBlockState(pos.offset(facing)).getBlock() == this) {
             return;
         }
@@ -264,7 +264,7 @@ public class BlockBoundingBox extends AbstractModBlockContainer implements IPant
     }
     
     @Override
-    public IPaintType getPaintType(IBlockAccess world, BlockPos pos, EnumFacing facing) {
+    public IPaintType getPaintType(IBlockAccess world, BlockPos pos, Direction facing) {
         if (world.getBlockState(pos.offset(facing)).getBlock() == this) {
             return PaintTypeRegistry.PAINT_TYPE_NORMAL;
         }

@@ -5,8 +5,8 @@ import moe.plushie.armourers_workshop.client.gui.controls.AbstractGuiDialog;
 import moe.plushie.armourers_workshop.client.gui.controls.GuiLabeledTextField;
 import moe.plushie.armourers_workshop.client.gui.controls.IDialogCallback;
 import moe.plushie.armourers_workshop.utils.SkinIOUtils;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -19,7 +19,7 @@ public class GuiDialogNewFolder extends AbstractGuiDialog {
     private GuiButtonExt buttonCreate;
     private boolean invalidFolderName;
 
-    public GuiDialogNewFolder(GuiScreen parent, String name, IDialogCallback callback, int width, int height) {
+    public GuiDialogNewFolder(Screen parent, String name, IDialogCallback callback, int width, int height) {
         super(parent, name, callback, width, height);
         this.slotHandler = null;
     }
@@ -43,7 +43,7 @@ public class GuiDialogNewFolder extends AbstractGuiDialog {
     }
 
     @Override
-    protected void actionPerformed(GuiButton button) {
+    protected void actionPerformed(Button button) {
         if (button == buttonClose) {
             returnDialogResult(DialogResult.CANCEL);
         }

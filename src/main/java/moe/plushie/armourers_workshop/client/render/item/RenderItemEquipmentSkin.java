@@ -1,5 +1,6 @@
 package moe.plushie.armourers_workshop.client.render.item;
 
+import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.api.common.skin.data.ISkinDescriptor;
@@ -9,12 +10,11 @@ import moe.plushie.armourers_workshop.client.render.SkinItemRenderHelper;
 import moe.plushie.armourers_workshop.client.skin.cache.ClientSkinCache;
 import moe.plushie.armourers_workshop.utils.SkinNBTHelper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.tileentity.TileEntityItemStackRenderer;
 import net.minecraft.item.ItemStack;
 
-public class RenderItemEquipmentSkin extends TileEntityItemStackRenderer {
+public class RenderItemEquipmentSkin extends ItemStackTileEntityRenderer {
     
     private static final ModelBlockSkinnable loadingModel = new ModelBlockSkinnable();
     
@@ -91,7 +91,7 @@ public class RenderItemEquipmentSkin extends TileEntityItemStackRenderer {
         GlStateManager.disableCull();
         GlStateManager.disableLighting();
         GlStateManager.scale(-1, -1, 1);
-        Gui.drawModalRectWithCustomSizedTexture(0, 0, 0, 0, 16, 16, 16, 16);
+        AbstractGui.drawModalRectWithCustomSizedTexture(0, 0, 0, 0, 16, 16, 16, 16);
         GlStateManager.enableLighting();
         GlStateManager.enableCull();
         GlStateManager.popMatrix();

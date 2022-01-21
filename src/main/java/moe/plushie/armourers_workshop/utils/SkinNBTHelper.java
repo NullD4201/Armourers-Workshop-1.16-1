@@ -8,7 +8,7 @@ import moe.plushie.armourers_workshop.common.init.items.ItemSkinTemplate;
 import moe.plushie.armourers_workshop.common.init.items.ModItems;
 import moe.plushie.armourers_workshop.common.skin.data.SkinDescriptor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 
 public class SkinNBTHelper {
 
@@ -23,7 +23,7 @@ public class SkinNBTHelper {
             return false;
         }
 
-        NBTTagCompound itemCompound = stack.getTagCompound();
+        CompoundNBT itemCompound = stack.getTagCompound();
         if (!itemCompound.hasKey(SkinDescriptor.TAG_SKIN_DATA)) {
             return false;
         }
@@ -31,7 +31,7 @@ public class SkinNBTHelper {
         return true;
     }
 
-    public static boolean compoundHasSkinData(NBTTagCompound compound) {
+    public static boolean compoundHasSkinData(CompoundNBT compound) {
         if (compound == null) {
             return false;
         }
@@ -45,13 +45,13 @@ public class SkinNBTHelper {
         if (!stackHasSkinData(stack)) {
             return;
         }
-        NBTTagCompound itemCompound = stack.getTagCompound();
+        CompoundNBT itemCompound = stack.getTagCompound();
         if (itemCompound.hasKey(SkinDescriptor.TAG_SKIN_DATA)) {
             itemCompound.removeTag(SkinDescriptor.TAG_SKIN_DATA);
         }
     }
 
-    public static void removeSkinData(NBTTagCompound compound) {
+    public static void removeSkinData(CompoundNBT compound) {
         if (!compoundHasSkinData(compound)) {
             return;
         }
@@ -71,7 +71,7 @@ public class SkinNBTHelper {
         return skinData;
     }
 
-    public static SkinDescriptor getSkinDescriptork(NBTTagCompound compound) {
+    public static SkinDescriptor getSkinDescriptork(CompoundNBT compound) {
         if (!compoundHasSkinData(compound)) {
             return null;
         }
@@ -101,12 +101,12 @@ public class SkinNBTHelper {
 
     public static void addSkinDataToStack(ItemStack stack, SkinDescriptor descriptor) {
         if (!stack.hasTagCompound()) {
-            stack.setTagCompound(new NBTTagCompound());
+            stack.setTagCompound(new CompoundNBT());
         }
         descriptor.writeToCompound(stack.getTagCompound());
     }
 
-    public static void addSkinDataToStack(NBTTagCompound compound, SkinDescriptor descriptor) {
+    public static void addSkinDataToStack(CompoundNBT compound, SkinDescriptor descriptor) {
         descriptor.writeToCompound(compound);
     }
 

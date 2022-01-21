@@ -6,16 +6,16 @@ import moe.plushie.armourers_workshop.common.inventory.ModContainer;
 import moe.plushie.armourers_workshop.common.network.PacketHandler;
 import moe.plushie.armourers_workshop.common.network.messages.client.MessageClientGuiAdminPanel;
 import moe.plushie.armourers_workshop.common.network.messages.client.MessageClientGuiAdminPanel.AdminPanelCommand;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 
-public class GuiAdminPanel extends GuiContainer {
+public class GuiAdminPanel extends ContainerScreen {
     
     private static final String GUI_NAME = "admin-panel";
     
-    public GuiAdminPanel(EntityPlayer player) {
+    public GuiAdminPanel(PlayerEntity player) {
         super(new ModContainer(player.inventory));
         this.xSize = 320;
         this.ySize = 240;
@@ -45,7 +45,7 @@ public class GuiAdminPanel extends GuiContainer {
     }
     
     @Override
-    protected void actionPerformed(GuiButton button) {
+    protected void actionPerformed(Button button) {
         if (button.id == EnumButtons.RECOVER_SKINS.ordinal()) {
             MessageClientGuiAdminPanel message = new MessageClientGuiAdminPanel(AdminPanelCommand.RECOVER_SKINS);
             PacketHandler.networkWrapper.sendToServer(message);

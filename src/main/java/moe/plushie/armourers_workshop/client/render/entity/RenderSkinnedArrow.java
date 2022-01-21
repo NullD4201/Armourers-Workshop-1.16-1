@@ -1,5 +1,7 @@
 package moe.plushie.armourers_workshop.client.render.entity;
 
+import net.minecraft.client.renderer.entity.ArrowRenderer;
+import net.minecraft.entity.projectile.AbstractArrowEntity;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.api.common.capability.IEntitySkinCapability;
@@ -14,19 +16,17 @@ import moe.plushie.armourers_workshop.common.capability.entityskin.EntitySkinCap
 import moe.plushie.armourers_workshop.common.skin.data.Skin;
 import moe.plushie.armourers_workshop.common.skin.data.SkinPart;
 import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
-import net.minecraft.client.renderer.entity.RenderArrow;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.projectile.EntityArrow;
+import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public abstract class RenderSkinnedArrow<T extends EntityArrow> extends RenderArrow<T> {
+public abstract class RenderSkinnedArrow<T extends AbstractArrowEntity> extends ArrowRenderer<T> {
 
     private final SkinModelRenderHelper equipmentModelRenderer;
 
-    public RenderSkinnedArrow(RenderManager renderManager) {
+    public RenderSkinnedArrow(EntityRendererManager renderManager) {
         super(renderManager);
         this.equipmentModelRenderer = SkinModelRenderHelper.INSTANCE;
     }
@@ -59,7 +59,7 @@ public abstract class RenderSkinnedArrow<T extends EntityArrow> extends RenderAr
         }
     }
 
-    private void renderArrowSkin(EntityArrow entityArrow, double x, double y, double z, float partialTickTime, SkinPart skinPart, ISkinDye skinDye) {
+    private void renderArrowSkin(AbstractArrowEntity entityArrow, double x, double y, double z, float partialTickTime, SkinPart skinPart, ISkinDye skinDye) {
         float scale = 0.0625F;
         GL11.glPushMatrix();
         GL11.glTranslatef((float) x, (float) y, (float) z);

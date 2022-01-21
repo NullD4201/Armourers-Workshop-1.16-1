@@ -1,5 +1,6 @@
 package moe.plushie.armourers_workshop.client.render.entity;
 
+import net.minecraft.entity.LivingEntity;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.api.common.IExtraColours;
@@ -15,17 +16,16 @@ import moe.plushie.armourers_workshop.common.skin.data.Skin;
 import moe.plushie.armourers_workshop.common.skin.data.SkinDye;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
-import net.minecraft.client.renderer.entity.RenderLivingBase;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.client.renderer.entity.LivingRenderer;
 
-public class SkinLayerRendererBibed extends SkinLayerRenderer<EntityLivingBase, RenderLivingBase> {
+public class SkinLayerRendererBibed extends SkinLayerRenderer<LivingEntity, LivingRenderer> {
 
-    public SkinLayerRendererBibed(RenderLivingBase renderer) {
+    public SkinLayerRendererBibed(LivingRenderer renderer) {
         super(renderer);
     }
     
     @Override
-    protected void renderSkinType(EntityLivingBase entity, ISkinType skinType, IEntitySkinCapability skinCapability, IWardrobeCap wardrobeCap) {
+    protected void renderSkinType(LivingEntity entity, ISkinType skinType, IEntitySkinCapability skinCapability, IWardrobeCap wardrobeCap) {
         float distance = entity.getDistance(Minecraft.getMinecraft().player);
         for (int i = 0; i < skinCapability.getSlotCountForSkinType(skinType); i++) {
             ISkinDescriptor skinDescriptor = skinCapability.getSkinDescriptor(skinType, i);
@@ -58,7 +58,7 @@ public class SkinLayerRendererBibed extends SkinLayerRenderer<EntityLivingBase, 
     }
 
     @Override
-    protected void setRotTranForPartType(EntityLivingBase entitylivingbaseIn, ISkinType skinType, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+    protected void setRotTranForPartType(LivingEntity entitylivingbaseIn, ISkinType skinType, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
         // TODO Auto-generated method stub
         
     }

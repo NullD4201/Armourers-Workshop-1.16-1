@@ -26,10 +26,10 @@ import moe.plushie.armourers_workshop.common.tileentities.TileEntityColourable;
 import moe.plushie.armourers_workshop.utils.BlockUtils;
 import moe.plushie.armourers_workshop.utils.ModLogger;
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 /**
@@ -58,7 +58,7 @@ public final class ArmourerWorldHelper {
      * @throws InvalidCubeTypeException
      * @throws SkinSaveException
      */
-    public static Skin saveSkinFromWorld(World world, SkinProperties skinProps, ISkinType skinType, int[] paintData, BlockPos pos, EnumFacing direction) throws SkinSaveException {
+    public static Skin saveSkinFromWorld(World world, SkinProperties skinProps, ISkinType skinType, int[] paintData, BlockPos pos, Direction direction) throws SkinSaveException {
         
         ArrayList<SkinPart> parts = new ArrayList<SkinPart>();
         
@@ -126,7 +126,7 @@ public final class ArmourerWorldHelper {
         return skin;
     }
     
-    private static SkinPart saveArmourPart(World world, ISkinPartType skinPart, BlockPos pos, EnumFacing direction, boolean markerCheck) throws SkinSaveException {
+    private static SkinPart saveArmourPart(World world, ISkinPartType skinPart, BlockPos pos, Direction direction, boolean markerCheck) throws SkinSaveException {
         
         int cubeCount = getNumberOfCubesInPart(world, pos, skinPart);
         if (cubeCount < 1) {
@@ -153,7 +153,7 @@ public final class ArmourerWorldHelper {
                     int zOrigin = -iz + -buildSpace.getZ();
                     
                     if (!world.isAirBlock(target)) {
-                        IBlockState blockState = world.getBlockState(target);
+                        BlockState blockState = world.getBlockState(target);
                         if (CubeRegistry.INSTANCE.isBuildingBlock(blockState.getBlock())) {
                             saveArmourBlockToList(world, target,
                                     xOrigin - 1,
@@ -181,8 +181,8 @@ public final class ArmourerWorldHelper {
         return new SkinPart(cubeData, skinPart, markerBlocks);
     }
     
-    private static void saveArmourBlockToList(World world, BlockPos pos, int ix, int iy, int iz, SkinCubeData cubeData, int index, ArrayList<CubeMarkerData> markerBlocks, EnumFacing direction) {
-        IBlockState blockState = world.getBlockState(pos);
+    private static void saveArmourBlockToList(World world, BlockPos pos, int ix, int iy, int iz, SkinCubeData cubeData, int index, ArrayList<CubeMarkerData> markerBlocks, Direction direction) {
+        BlockState blockState = world.getBlockState(pos);
         if (!CubeRegistry.INSTANCE.isBuildingBlock(blockState.getBlock())) {
             return;
         }
@@ -211,7 +211,7 @@ public final class ArmourerWorldHelper {
      * @param skin The skin to load.
      * @param direction The direction the armourer is facing.
      */
-    public static void loadSkinIntoWorld(World world, BlockPos pos, Skin skin, EnumFacing direction) {
+    public static void loadSkinIntoWorld(World world, BlockPos pos, Skin skin, Direction direction) {
         ArrayList<SkinPart> parts = skin.getParts();
         
         for (int i = 0; i < parts.size(); i++) {
@@ -219,7 +219,7 @@ public final class ArmourerWorldHelper {
         }
     }
     
-    private static void loadSkinPartIntoWorld(World world, SkinPart partData, BlockPos pos, EnumFacing direction, boolean mirror) {
+    private static void loadSkinPartIntoWorld(World world, SkinPart partData, BlockPos pos, Direction direction, boolean mirror) {
         ISkinPartType skinPart = partData.getPartType();
         IRectangle3D buildSpace = skinPart.getBuildingSpace();
         IPoint3D offset = skinPart.getOffset();
@@ -243,7 +243,7 @@ public final class ArmourerWorldHelper {
         
     }
     
-    private static void loadSkinBlockIntoWorld(World world, BlockPos pos, BlockPos origin, ICube blockData, EnumFacing direction, int meta, SkinCubeData cubeData, int index, boolean mirror) {
+    private static void loadSkinBlockIntoWorld(World world, BlockPos pos, BlockPos origin, ICube blockData, Direction direction, int meta, SkinCubeData cubeData, int index, boolean mirror) {
         byte[] loc = cubeData.getCubeLocation(index);
         
         int shiftX = -loc[0] - 1;
@@ -262,7 +262,7 @@ public final class ArmourerWorldHelper {
         }
         
         Block targetBlock = blockData.getMinecraftBlock();
-        IBlockState targetState = targetBlock.getStateFromMeta(meta);
+        BlockState targetState = targetBlock.getStateFromMeta(meta);
         
         ModLogger.log(targetState);
         
@@ -419,9 +419,9 @@ public final class ArmourerWorldHelper {
                             iz + offset.getZ() + buildSpace.getZ());
                     
                     if (world.isValid(target)) {
-                        IBlockState state = world.getBlockState(target);
+                        BlockState state = world.getBlockState(target);
                         if (CubeRegistry.INSTANCE.isBuildingBlock(state.getBlock())) {
-                            IBlockState newState = state.getBlock().getStateFromMeta(0);
+                            BlockState newState = state.getBlock().getStateFromMeta(0);
                             SyncWorldUpdater.addWorldUpdate(new AsyncWorldUpdateBlock(newState, target, world).setOnlyReplaceable(true));
                         }
                     }
@@ -470,7 +470,7 @@ public final class ArmourerWorldHelper {
                             iz + offset.getZ() + buildSpace.getZ());
                     
                     if (world.isValid(target)) {
-                        IBlockState state = world.getBlockState(target);
+                        BlockState state = world.getBlockState(target);
                         Block block = state.getBlock();
                         if (CubeRegistry.INSTANCE.isBuildingBlock(block)) {
                             SyncWorldUpdater.addWorldUpdate(new AsyncWorldUpdateBlock(Blocks.AIR.getDefaultState(), target, world).setDelay(blockCount / 5));
@@ -508,7 +508,7 @@ public final class ArmourerWorldHelper {
                             iz + offset.getZ() + buildSpace.getZ());
                     
                     if (world.isValid(target)) {
-                        IBlockState state = world.getBlockState(target);
+                        BlockState state = world.getBlockState(target);
                         if (CubeRegistry.INSTANCE.isBuildingBlock(state.getBlock())) {
                             blList.add(new BlockPos(target.getX(), target.getY(), target.getZ()));
                         }
@@ -529,7 +529,7 @@ public final class ArmourerWorldHelper {
                     BlockPos target = pos.add(ix + -offset.getX() + buildSpace.getX(), iy + -offset.getY(), iz + offset.getZ() + buildSpace.getZ());
                     
                     if (world.isValid(target)) {
-                        IBlockState blockState = world.getBlockState(target);
+                        BlockState blockState = world.getBlockState(target);
                         if (CubeRegistry.INSTANCE.isBuildingBlock(blockState.getBlock())) {
                             cubeCount++;
                         }

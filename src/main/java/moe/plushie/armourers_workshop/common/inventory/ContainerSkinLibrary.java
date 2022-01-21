@@ -13,11 +13,11 @@ import moe.plushie.armourers_workshop.common.skin.data.SkinDescriptor;
 import moe.plushie.armourers_workshop.common.tileentities.TileEntitySkinLibrary;
 import moe.plushie.armourers_workshop.utils.SkinNBTHelper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Slot;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StringUtils;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -26,7 +26,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ContainerSkinLibrary extends ModTileContainer<TileEntitySkinLibrary> implements ISlotChanged {
 
-    public ContainerSkinLibrary(InventoryPlayer invPlayer, TileEntitySkinLibrary tileEntity) {
+    public ContainerSkinLibrary(PlayerInventory invPlayer, TileEntitySkinLibrary tileEntity) {
         super(invPlayer, tileEntity);
         addPlayerSlots(6, 174);
         addSlotToContainer(new SlotSkinTemplate(tileEntity, 0, 226, 101, this));
@@ -34,7 +34,7 @@ public class ContainerSkinLibrary extends ModTileContainer<TileEntitySkinLibrary
     }
     
     @Override
-    protected ItemStack transferStackFromPlayer(EntityPlayer playerIn, int index) {
+    protected ItemStack transferStackFromPlayer(PlayerEntity playerIn, int index) {
         Slot slot = getSlot(index);
         if (slot.getHasStack()) {
             ItemStack stack = slot.getStack();
@@ -73,7 +73,7 @@ public class ContainerSkinLibrary extends ModTileContainer<TileEntitySkinLibrary
     @SideOnly(Side.CLIENT)
     public void updateSkinName(int slotId) {
         Minecraft mc = Minecraft.getMinecraft();
-        GuiScreen screen = mc.currentScreen;
+        Screen screen = mc.currentScreen;
         if (screen != null && screen instanceof GuiSkinLibrary) {
             GuiSkinLibrary libScreen = (GuiSkinLibrary) screen;
             ItemStack stack = getSlot(36).getStack();
@@ -98,8 +98,8 @@ public class ContainerSkinLibrary extends ModTileContainer<TileEntitySkinLibrary
     public void detectAndSendChanges() {
         super.detectAndSendChanges();
         for (Object player : listeners) {
-            if (player instanceof EntityPlayerMP) {
-                EntityPlayerMP playerMp = (EntityPlayerMP) player;
+            if (player instanceof ServerPlayerEntity) {
+                ServerPlayerEntity playerMp = (ServerPlayerEntity) player;
                 ArmourersWorkshop.getProxy().getLibraryManager().syncLibraryWithPlayer(playerMp);
             }
         }

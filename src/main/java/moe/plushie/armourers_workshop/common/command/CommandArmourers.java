@@ -7,7 +7,7 @@ import moe.plushie.armourers_workshop.common.network.messages.server.MessageServ
 import moe.plushie.armourers_workshop.common.network.messages.server.MessageServerClientCommand.CommandType;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
 
 public class CommandArmourers extends ModSubCommands {
@@ -22,7 +22,7 @@ public class CommandArmourers extends ModSubCommands {
 
             @Override
             public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-                EntityPlayerMP player = getCommandSenderAsPlayer(sender);
+                ServerPlayerEntity player = getCommandSenderAsPlayer(sender);
                 PacketHandler.networkWrapper.sendTo(new MessageServerClientCommand(CommandType.OPEN_MOD_FOLDER), player);
             }
         }));

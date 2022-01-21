@@ -16,16 +16,16 @@ import moe.plushie.armourers_workshop.common.tileentities.TileEntityHologramProj
 import moe.plushie.armourers_workshop.utils.SkinNBTHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.RenderGlobal;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class RenderBlockHologramProjector extends TileEntitySpecialRenderer<TileEntityHologramProjector> {
+public class RenderBlockHologramProjector extends TileEntityRenderer<TileEntityHologramProjector> {
 
     @Override
     public void render(TileEntityHologramProjector tileEntity, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
@@ -109,7 +109,7 @@ public class RenderBlockHologramProjector extends TileEntitySpecialRenderer<Tile
             angleZ = angleZ / speedZ * 360F;
         }
         if (!tileEntity.getGlowing().get()) {
-            EnumFacing dir = EnumFacing.byIndex(tileEntity.getBlockMetadata());
+            Direction dir = Direction.byIndex(tileEntity.getBlockMetadata());
             float xLight = tileEntity.getPos().getX();
             float yLight = tileEntity.getPos().getY();
             float zLight = tileEntity.getPos().getZ();
@@ -220,7 +220,7 @@ public class RenderBlockHologramProjector extends TileEntitySpecialRenderer<Tile
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         GL11.glDisable(GL11.GL_DEPTH_TEST);
         GL11.glDepthMask(false);
-        RenderGlobal.drawSelectionBoundingBox(aabb.contract(f1, f1, f1), r, g, b, 0.4F);
+        WorldRenderer.drawSelectionBoundingBox(aabb.contract(f1, f1, f1), r, g, b, 0.4F);
         GL11.glDepthMask(true);
         GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glEnable(GL11.GL_TEXTURE_2D);

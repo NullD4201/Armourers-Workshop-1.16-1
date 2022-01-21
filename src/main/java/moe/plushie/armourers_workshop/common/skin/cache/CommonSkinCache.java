@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import net.minecraft.entity.player.ServerPlayerEntity;
 import org.apache.logging.log4j.Level;
 
 import moe.plushie.armourers_workshop.api.common.library.ILibraryFile;
@@ -20,7 +21,6 @@ import moe.plushie.armourers_workshop.common.skin.data.Skin;
 import moe.plushie.armourers_workshop.common.skin.data.SkinIdentifier;
 import moe.plushie.armourers_workshop.utils.ModLogger;
 import moe.plushie.armourers_workshop.utils.SkinIOUtils;
-import net.minecraft.entity.player.EntityPlayerMP;
 
 /**
  * Holds a cache of equipment data on the server that will be sent to clients if
@@ -89,7 +89,7 @@ public final class CommonSkinCache implements Runnable, IExpiringMapCallback<Ski
         ModLogger.log("Stopped server skin thread.");
     }
     
-    public void clientRequestEquipmentData(ISkinIdentifier skinIdentifier, EntityPlayerMP player) {
+    public void clientRequestEquipmentData(ISkinIdentifier skinIdentifier, ServerPlayerEntity player) {
         SkinRequestMessage queueMessage = new SkinRequestMessage(skinIdentifier, player);
         synchronized (messageQueueLock) {
             messageQueue.add(queueMessage);
@@ -127,7 +127,7 @@ public final class CommonSkinCache implements Runnable, IExpiringMapCallback<Ski
     
     private void processMessage(SkinRequestMessage queueMessage) {
         ISkinIdentifier identifier = queueMessage.getSkinIdentifier();
-        EntityPlayerMP player = queueMessage.getPlayer();
+        ServerPlayerEntity player = queueMessage.getPlayer();
         if (identifier.hasLocalId()) {
             sendLocalDatabaseSkinToClient(queueMessage);
         } else if (identifier.hasLibraryFile()) {

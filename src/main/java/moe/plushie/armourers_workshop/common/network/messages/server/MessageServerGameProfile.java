@@ -4,7 +4,7 @@ import com.mojang.authlib.GameProfile;
 
 import io.netty.buffer.ByteBuf;
 import moe.plushie.armourers_workshop.common.GameProfileCache;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -23,14 +23,14 @@ public class MessageServerGameProfile  implements IMessage, IMessageHandler<Mess
     
     @Override
     public void toBytes(ByteBuf buf) {
-        NBTTagCompound profileTag = new NBTTagCompound();
+        CompoundNBT profileTag = new CompoundNBT();
         NBTUtil.writeGameProfile(profileTag, this.gameProfile);
         ByteBufUtils.writeTag(buf, profileTag);
     }
     
     @Override
     public void fromBytes(ByteBuf buf) {
-        NBTTagCompound profileTag = ByteBufUtils.readTag(buf);
+        CompoundNBT profileTag = ByteBufUtils.readTag(buf);
         gameProfile = NBTUtil.readGameProfileFromNBT(profileTag);
     }
 

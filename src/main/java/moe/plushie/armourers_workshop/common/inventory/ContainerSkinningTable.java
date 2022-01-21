@@ -4,10 +4,10 @@ import moe.plushie.armourers_workshop.common.crafting.ItemSkinningRecipes;
 import moe.plushie.armourers_workshop.common.inventory.slot.SlotInput;
 import moe.plushie.armourers_workshop.common.inventory.slot.SlotOutput;
 import moe.plushie.armourers_workshop.common.tileentities.TileEntitySkinningTable;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 
 public class ContainerSkinningTable extends ModTileContainer<TileEntitySkinningTable> {
@@ -15,7 +15,7 @@ public class ContainerSkinningTable extends ModTileContainer<TileEntitySkinningT
     private final IInventory craftingInventory;
     private final IInventory outputInventory;
     
-    public ContainerSkinningTable(InventoryPlayer invPlayer, TileEntitySkinningTable tileEntity) {
+    public ContainerSkinningTable(PlayerInventory invPlayer, TileEntitySkinningTable tileEntity) {
         super(invPlayer, tileEntity);
         craftingInventory = tileEntity.getCraftingInventory();
         outputInventory = tileEntity.getOutputInventory();
@@ -34,7 +34,7 @@ public class ContainerSkinningTable extends ModTileContainer<TileEntitySkinningT
     }
 
     @Override
-    protected ItemStack transferStackFromPlayer(EntityPlayer playerIn, int index) {
+    protected ItemStack transferStackFromPlayer(PlayerEntity playerIn, int index) {
         Slot slot = getSlot(index);
         if (slot.getHasStack()) {
             ItemStack stack = slot.getStack();

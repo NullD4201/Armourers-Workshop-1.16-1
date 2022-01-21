@@ -25,27 +25,27 @@ import moe.plushie.armourers_workshop.proxies.ClientProxy;
 import moe.plushie.armourers_workshop.proxies.ClientProxy.TexturePaintType;
 import moe.plushie.armourers_workshop.utils.SkinNBTHelper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.AbstractClientPlayer;
+import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.entity.RenderPlayer;
+import net.minecraft.client.renderer.entity.PlayerRenderer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class SkinLayerRendererPlayer implements LayerRenderer<EntityPlayer> {
+public class SkinLayerRendererPlayer implements LayerRenderer<PlayerEntity> {
 
-    private final RenderPlayer renderPlayer;
+    private final PlayerRenderer renderPlayer;
 
-    public SkinLayerRendererPlayer(RenderPlayer renderPlayer) {
+    public SkinLayerRendererPlayer(PlayerRenderer renderPlayer) {
         this.renderPlayer = renderPlayer;
     }
 
     @Override
-    public void doRenderLayer(EntityPlayer entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+    public void doRenderLayer(PlayerEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
         if (GuiTabWardrobeContributor.testMode) {
             Contributor contributor = Contributors.INSTANCE.getContributor(entitylivingbaseIn.getGameProfile());
             if (contributor != null) {
@@ -104,7 +104,7 @@ public class SkinLayerRendererPlayer implements LayerRenderer<EntityPlayer> {
         }
     }
 
-    private void renderSkin(EntityPlayer entityPlayer, ISkinDescriptor skinDescriptor, EntitySkinCapability skinCap, IWardrobeCap wardrobe, IExtraColours extraColours, double distance, boolean doLodLoading) {
+    private void renderSkin(PlayerEntity entityPlayer, ISkinDescriptor skinDescriptor, EntitySkinCapability skinCap, IWardrobeCap wardrobe, IExtraColours extraColours, double distance, boolean doLodLoading) {
         SkinModelRenderHelper modelRenderer = SkinModelRenderHelper.INSTANCE;
         Skin skin = ClientSkinCache.INSTANCE.getSkin(skinDescriptor);
 
@@ -173,7 +173,7 @@ public class SkinLayerRendererPlayer implements LayerRenderer<EntityPlayer> {
                 }
             }
             GlStateManager.pushMatrix();
-            modelRenderer.renderEquipmentPart(skin, new SkinRenderData(0.0625F, dye, extraColours, distance, doLodLoading, false, false, ((AbstractClientPlayer) entityPlayer).getLocationSkin()), entityPlayer, renderPlayer.getMainModel());
+            modelRenderer.renderEquipmentPart(skin, new SkinRenderData(0.0625F, dye, extraColours, distance, doLodLoading, false, false, ((AbstractClientPlayerEntity) entityPlayer).getLocationSkin()), entityPlayer, renderPlayer.getMainModel());
             // modelRenderer.renderEquipmentPart(entityPlayer, renderPlayer.getMainModel(),
             // skin, dye, extraColours, distance, doLodLoading);
             GlStateManager.popMatrix();

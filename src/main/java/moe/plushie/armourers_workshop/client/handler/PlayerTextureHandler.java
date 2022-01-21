@@ -22,8 +22,8 @@ import moe.plushie.armourers_workshop.proxies.ClientProxy;
 import moe.plushie.armourers_workshop.proxies.ClientProxy.TexturePaintType;
 import moe.plushie.armourers_workshop.utils.SkinNBTHelper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.AbstractClientPlayer;
-import net.minecraft.client.network.NetworkPlayerInfo;
+import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
+import net.minecraft.client.network.play.NetworkPlayerInfo;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.profiler.Profiler;
@@ -63,10 +63,10 @@ public class PlayerTextureHandler {
         if (ClientProxy.getTexturePaintType() != TexturePaintType.TEXTURE_REPLACE) {
             return;
         }
-        if (!(event.getEntityPlayer() instanceof AbstractClientPlayer)) {
+        if (!(event.getEntityPlayer() instanceof AbstractClientPlayerEntity)) {
             return;
         }
-        AbstractClientPlayer player = (AbstractClientPlayer) event.getEntityPlayer();
+        AbstractClientPlayerEntity player = (AbstractClientPlayerEntity) event.getEntityPlayer();
         /*
          * if (player instanceof MannequinFakePlayer) { return; }
          */
@@ -171,10 +171,10 @@ public class PlayerTextureHandler {
         if (ClientProxy.getTexturePaintType() != TexturePaintType.TEXTURE_REPLACE) {
             return;
         }
-        if (!(event.getEntityPlayer() instanceof AbstractClientPlayer)) {
+        if (!(event.getEntityPlayer() instanceof AbstractClientPlayerEntity)) {
             return;
         }
-        AbstractClientPlayer player = (AbstractClientPlayer) event.getEntityPlayer();
+        AbstractClientPlayerEntity player = (AbstractClientPlayerEntity) event.getEntityPlayer();
         /*
          * if (player instanceof MannequinFakePlayer) { return; }
          */

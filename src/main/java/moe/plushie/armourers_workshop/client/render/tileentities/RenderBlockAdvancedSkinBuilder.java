@@ -6,14 +6,14 @@ import moe.plushie.armourers_workshop.common.tileentities.TileEntityAdvancedSkin
 import moe.plushie.armourers_workshop.common.tileentities.TileEntityAdvancedSkinBuilder.SkinPartSettings;
 import moe.plushie.armourers_workshop.utils.SkinNBTHelper;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.RenderGlobal;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class RenderBlockAdvancedSkinBuilder extends TileEntitySpecialRenderer<TileEntityAdvancedSkinBuilder> {
+public class RenderBlockAdvancedSkinBuilder extends TileEntityRenderer<TileEntityAdvancedSkinBuilder> {
 
     @Override
     public void render(TileEntityAdvancedSkinBuilder te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
@@ -46,7 +46,7 @@ public class RenderBlockAdvancedSkinBuilder extends TileEntitySpecialRenderer<Ti
             GlStateManager.enableBlend();
             GlStateManager.disableTexture2D();
             GlStateManager.glLineWidth(1F);
-            RenderGlobal.drawBoundingBox(
+            WorldRenderer.drawBoundingBox(
                     -scale / 4F, scale / 1.5F, -scale / 4F,
                     scale / 4F, scale / 1.5F + scale / 2F, scale / 4F, 0.1F, 1F, 0.1F, 0.5F);
             GlStateManager.enableTexture2D();

@@ -10,8 +10,8 @@ import moe.plushie.armourers_workshop.client.gui.controls.IDialogCallback;
 import moe.plushie.armourers_workshop.common.skin.data.SkinProperties;
 import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
 import moe.plushie.armourers_workshop.common.skin.type.block.SkinBlock;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -28,7 +28,7 @@ public class GuiDialogCopy extends AbstractGuiDialog {
     private GuiCheckBox checkMirror;
     private final SkinProperties skinProperties;
     
-    public GuiDialogCopy(GuiScreen parent, String name, IDialogCallback callback, int width, int height, ISkinType skinType, SkinProperties skinProperties) {
+    public GuiDialogCopy(Screen parent, String name, IDialogCallback callback, int width, int height, ISkinType skinType, SkinProperties skinProperties) {
         super(parent, name, callback, width, height);
         this.skinType = skinType;
         this.skinProperties = skinProperties;
@@ -80,7 +80,7 @@ public class GuiDialogCopy extends AbstractGuiDialog {
     }
     
     @Override
-    protected void actionPerformed(GuiButton button) {
+    protected void actionPerformed(Button button) {
         if (button == buttonClose) {
             returnDialogResult(DialogResult.CANCEL);
         }

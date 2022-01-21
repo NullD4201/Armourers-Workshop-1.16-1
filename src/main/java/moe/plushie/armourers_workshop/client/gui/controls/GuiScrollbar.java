@@ -1,18 +1,18 @@
 package moe.plushie.armourers_workshop.client.gui.controls;
 
+import net.minecraft.client.gui.widget.button.Button;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.client.lib.LibGuiResources;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.GuiButton;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class GuiScrollbar  extends GuiButton {
+public class GuiScrollbar  extends Button {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibGuiResources.CONTROL_SCROLLBAR);
 	

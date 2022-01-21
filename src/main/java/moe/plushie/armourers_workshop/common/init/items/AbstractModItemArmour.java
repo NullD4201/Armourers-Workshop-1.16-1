@@ -15,13 +15,13 @@ import moe.plushie.armourers_workshop.common.skin.data.Skin;
 import moe.plushie.armourers_workshop.common.skin.data.SkinDescriptor;
 import moe.plushie.armourers_workshop.utils.SkinNBTHelper;
 import net.minecraft.client.model.ModelBiped;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -29,11 +29,11 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class AbstractModItemArmour extends ItemArmor implements ISortOrder, ICustomModel {
+public class AbstractModItemArmour extends ArmorItem implements ISortOrder, ICustomModel {
 
     private int sortPriority = 0;
     
-    public AbstractModItemArmour(String name, ArmorMaterial armorMaterial, EntityEquipmentSlot armorType, boolean addCreativeTab) {
+    public AbstractModItemArmour(String name, ArmorMaterial armorMaterial, EquipmentSlotType armorType, boolean addCreativeTab) {
         super(armorMaterial, 2, armorType);
         if (addCreativeTab) {
             setCreativeTab(ArmourersWorkshop.TAB_MAIN);
@@ -96,7 +96,7 @@ public class AbstractModItemArmour extends ItemArmor implements ISortOrder, ICus
     
     @SideOnly(Side.CLIENT)
     @Override
-    public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped _default) {
+    public ModelBiped getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, ModelBiped _default) {
         if (!SkinNBTHelper.stackHasSkinData(itemStack)) {
             return null;
         }

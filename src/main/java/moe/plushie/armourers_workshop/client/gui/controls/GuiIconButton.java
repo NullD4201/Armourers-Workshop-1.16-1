@@ -2,12 +2,12 @@ package moe.plushie.armourers_workshop.client.gui.controls;
 
 import java.util.ArrayList;
 
+import net.minecraft.client.gui.screen.Screen;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.client.gui.GuiHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SoundHandler;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StringUtils;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
@@ -17,7 +17,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class GuiIconButton extends GuiButtonExt {
 
-    private final GuiScreen parent;
+    private final Screen parent;
     private String hoverText;
     private final ResourceLocation iconTexture;
     private String disableText;
@@ -30,7 +30,7 @@ public class GuiIconButton extends GuiButtonExt {
     private boolean drawButtonBackground = true;
     private boolean playSound = true;
 
-    public GuiIconButton(GuiScreen parent, int id, int xPos, int yPos, int width, int height, String hoverText, ResourceLocation iconTexture) {
+    public GuiIconButton(Screen parent, int id, int xPos, int yPos, int width, int height, String hoverText, ResourceLocation iconTexture) {
         super(id, xPos, yPos, width, height, "");
         this.parent = parent;
         this.iconTexture = iconTexture;
@@ -38,7 +38,7 @@ public class GuiIconButton extends GuiButtonExt {
         this.hoverText = hoverText;
     }
     
-    public GuiIconButton(GuiScreen parent, int id, int xPos, int yPos, int width, int height, ResourceLocation iconTexture) {
+    public GuiIconButton(Screen parent, int id, int xPos, int yPos, int width, int height, ResourceLocation iconTexture) {
         super(id, xPos, yPos, width, height, "");
         this.parent = parent;
         this.iconTexture = iconTexture;

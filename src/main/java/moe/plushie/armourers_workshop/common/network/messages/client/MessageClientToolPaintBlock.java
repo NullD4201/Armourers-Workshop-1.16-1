@@ -6,8 +6,8 @@ import moe.plushie.armourers_workshop.api.common.painting.IPantableBlock;
 import moe.plushie.armourers_workshop.common.painting.PaintTypeRegistry;
 import moe.plushie.armourers_workshop.common.world.undo.UndoManager;
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -19,13 +19,13 @@ public class MessageClientToolPaintBlock implements IMessage, IMessageHandler<Me
     private int x;
     private int y;
     private int z;
-    private EnumFacing facing;
+    private Direction facing;
     private byte[] rgbt = new byte[4];
     
     public MessageClientToolPaintBlock() {
     }
     
-    public MessageClientToolPaintBlock(BlockPos pos, EnumFacing facing, byte[] rgbt) {
+    public MessageClientToolPaintBlock(BlockPos pos, Direction facing, byte[] rgbt) {
         this.x = pos.getX();
         this.y = pos.getY();
         this.z = pos.getZ();
@@ -47,13 +47,13 @@ public class MessageClientToolPaintBlock implements IMessage, IMessageHandler<Me
         x = buf.readInt();
         y = buf.readInt();
         z = buf.readInt();
-        facing = EnumFacing.VALUES[buf.readByte()];
+        facing = Direction.VALUES[buf.readByte()];
         buf.readBytes(rgbt);
     }
     
     @Override
     public IMessage onMessage(MessageClientToolPaintBlock message, MessageContext ctx) {
-        EntityPlayerMP player = ctx.getServerHandler().player;
+        ServerPlayerEntity player = ctx.getServerHandler().player;
         if (player != null && player.getEntityWorld() != null) {
             World world = player.getEntityWorld();
             BlockPos pos = new BlockPos(message.x, message.y, message.z);

@@ -8,11 +8,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.RenderItem;
+import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.ShapedRecipes;
+import net.minecraft.item.crafting.ShapedRecipe;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -20,7 +20,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class BookPageRecipe extends BookPageBase {
     
     private static final int TEXT_COLOUR = 0xFF000000;
-    private static RenderItem renderItem;
+    private static ItemRenderer renderItem;
     
     private Item item;
     private List<IRecipe> validRecipes;
@@ -89,8 +89,8 @@ public class BookPageRecipe extends BookPageBase {
         //GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         //GL11.glEnable(GL11.GL_DEPTH_TEST);
         
-        if (recipe instanceof ShapedRecipes) {
-            ShapedRecipes shapedRecipe = (ShapedRecipes) recipe;
+        if (recipe instanceof ShapedRecipe) {
+            ShapedRecipe shapedRecipe = (ShapedRecipe) recipe;
             for (int ix = 0; ix < shapedRecipe.recipeWidth; ix++) {
                 for (int iy = 0; iy < shapedRecipe.recipeHeight; iy++) {
                     //renderItem.renderItemAndEffectIntoGUI(shapedRecipe.getIngredients().get(0), x, y);

@@ -8,7 +8,7 @@ import moe.plushie.armourers_workshop.api.common.skin.entity.ISkinnableEntity;
 import moe.plushie.armourers_workshop.common.skin.entity.SkinnableEntityRegisty;
 import moe.plushie.armourers_workshop.utils.ModLogger;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.LivingEntity;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -22,11 +22,11 @@ public final class EntitySkinRenderHandler {
         INSTANCE = new EntitySkinRenderHandler();
     }
 
-    private HashMap<Class<? extends EntityLivingBase>, ISkinnableEntityRenderer> entityRenderer;
+    private HashMap<Class<? extends LivingEntity>, ISkinnableEntityRenderer> entityRenderer;
 
     public EntitySkinRenderHandler() {
         MinecraftForge.EVENT_BUS.register(this);
-        entityRenderer = new HashMap<Class<? extends EntityLivingBase>, ISkinnableEntityRenderer>();
+        entityRenderer = new HashMap<Class<? extends LivingEntity>, ISkinnableEntityRenderer>();
     }
 
     public void initRenderer() {
@@ -43,7 +43,7 @@ public final class EntitySkinRenderHandler {
         }
     }
 
-    private void registerRendererForEntity(Class<? extends EntityLivingBase> entity, Class<? extends ISkinnableEntityRenderer> renderClass) {
+    private void registerRendererForEntity(Class<? extends LivingEntity> entity, Class<? extends ISkinnableEntityRenderer> renderClass) {
         try {
             entityRenderer.put(entity, renderClass.newInstance());
         } catch (InstantiationException e) {

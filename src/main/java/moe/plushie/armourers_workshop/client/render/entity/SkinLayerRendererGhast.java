@@ -1,5 +1,7 @@
 package moe.plushie.armourers_workshop.client.render.entity;
 
+import net.minecraft.client.renderer.entity.GhastRenderer;
+import net.minecraft.entity.monster.GhastEntity;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.api.common.capability.IEntitySkinCapability;
@@ -12,8 +14,6 @@ import moe.plushie.armourers_workshop.common.skin.data.SkinProperties;
 import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
 import net.minecraft.client.model.ModelGhast;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.client.renderer.entity.RenderGhast;
-import net.minecraft.entity.monster.EntityGhast;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -22,12 +22,12 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class SkinLayerRendererGhast extends SkinLayerRenderer<EntityGhast, RenderGhast> {
+public class SkinLayerRendererGhast extends SkinLayerRenderer<GhastEntity, GhastRenderer> {
 
     private ModelRenderer body = null;
     private ModelRenderer[] tentacles = null;
     
-    public SkinLayerRendererGhast(RenderGhast renderGhast) {
+    public SkinLayerRendererGhast(GhastRenderer renderGhast) {
         super(renderGhast);
         if (renderGhast.getMainModel() instanceof ModelGhast) {
             try {
@@ -41,7 +41,7 @@ public class SkinLayerRendererGhast extends SkinLayerRenderer<EntityGhast, Rende
     }
     
     @SubscribeEvent()
-    public void onRenderLivingPre(RenderLivingEvent.Pre<EntityGhast> event) {
+    public void onRenderLivingPre(RenderLivingEvent.Pre<GhastEntity> event) {
         IEntitySkinCapability skinCapability = EntitySkinCapability.get(event.getEntity());
         if (skinCapability == null) {
             return;
@@ -67,7 +67,7 @@ public class SkinLayerRendererGhast extends SkinLayerRenderer<EntityGhast, Rende
     }
     
     @SubscribeEvent()
-    public void onRenderLivingPost(RenderLivingEvent.Post<EntityGhast> event) {
+    public void onRenderLivingPost(RenderLivingEvent.Post<GhastEntity> event) {
         body.isHidden = false;
         for (ModelRenderer tentacle : tentacles) {
             tentacle.isHidden = false;
@@ -75,7 +75,7 @@ public class SkinLayerRendererGhast extends SkinLayerRenderer<EntityGhast, Rende
     }
     
     @Override
-    protected void setRotTranForPartType(EntityGhast entitylivingbaseIn, ISkinType skinType, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+    protected void setRotTranForPartType(GhastEntity entitylivingbaseIn, ISkinType skinType, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
         GL11.glTranslated(0, 25.65 * scale, 0);
         float headScale = 2.0001F;
         GL11.glScalef(headScale, headScale, headScale);

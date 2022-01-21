@@ -10,7 +10,7 @@ import moe.plushie.armourers_workshop.common.command.ModCommand;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 
@@ -36,7 +36,7 @@ public class CommandWardrobeResync extends ModCommand {
         }
 
         String argPlayer = args[getParentCount()];
-        EntityPlayerMP player = getPlayer(server, sender, argPlayer);
+        ServerPlayerEntity player = getPlayer(server, sender, argPlayer);
         if (player == null) {
             return;
         }

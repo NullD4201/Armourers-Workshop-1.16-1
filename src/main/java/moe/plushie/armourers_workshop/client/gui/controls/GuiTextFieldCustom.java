@@ -1,13 +1,13 @@
 package moe.plushie.armourers_workshop.client.gui.controls;
 
+import net.minecraft.client.gui.screen.Screen;
 import org.lwjgl.input.Keyboard;
 
 import moe.plushie.armourers_workshop.client.render.ModRenderHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.util.ChatAllowedCharacters;
+import net.minecraft.util.SharedConstants;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -72,24 +72,24 @@ public class GuiTextFieldCustom extends GuiButtonExt {
             text += "\n";
             break;
         case Keyboard.KEY_A:
-            if (GuiScreen.isCtrlKeyDown()) {
+            if (Screen.isCtrlKeyDown()) {
                 break;
             }
         case Keyboard.KEY_X:
-            if (GuiScreen.isCtrlKeyDown()) {
+            if (Screen.isCtrlKeyDown()) {
                 break;
             }
         case Keyboard.KEY_C:
-            if (GuiScreen.isCtrlKeyDown()) {
+            if (Screen.isCtrlKeyDown()) {
                 break;
             }
         case Keyboard.KEY_V:
-            if (GuiScreen.isCtrlKeyDown()) {
-                addText(GuiScreen.getClipboardString());
+            if (Screen.isCtrlKeyDown()) {
+                addText(Screen.getClipboardString());
                 break;
             }
         default:
-            if (!GuiScreen.isCtrlKeyDown()) {
+            if (!Screen.isCtrlKeyDown()) {
                 addText(Character.toString(c));
             }
             break;
@@ -110,7 +110,7 @@ public class GuiTextFieldCustom extends GuiButtonExt {
 
     private void addText(String s) {
         s = s.replace("\n", "%n");
-        s = ChatAllowedCharacters.filterAllowedCharacters(s);
+        s = SharedConstants.filterAllowedCharacters(s);
         s = s.replace("%n", "\n");
         if (!s.isEmpty()) {
             text += s;

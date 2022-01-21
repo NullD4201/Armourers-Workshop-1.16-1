@@ -4,7 +4,7 @@ import moe.plushie.armourers_workshop.api.common.skin.data.ISkinDescriptor;
 import moe.plushie.armourers_workshop.api.common.skin.data.ISkinDye;
 import moe.plushie.armourers_workshop.api.common.skin.data.ISkinIdentifier;
 import moe.plushie.armourers_workshop.common.data.serialize.SkinIdentifierSerializer;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 
 public class SkinDescriptor implements ISkinDescriptor {
 
@@ -50,22 +50,22 @@ public class SkinDescriptor implements ISkinDescriptor {
         return skinDye;
     }
     
-    public void readFromCompound(NBTTagCompound compound) {
+    public void readFromCompound(CompoundNBT compound) {
         readFromCompound(compound, TAG_SKIN_DATA);
     }
     
-    public void readFromCompound(NBTTagCompound compound, String tag) {
-        NBTTagCompound skinDataCompound = compound.getCompoundTag(tag);
+    public void readFromCompound(CompoundNBT compound, String tag) {
+        CompoundNBT skinDataCompound = compound.getCompoundTag(tag);
         this.identifier = SkinIdentifierSerializer.readFromCompound(skinDataCompound);
         this.skinDye.readFromCompound(skinDataCompound);
     }
     
-    public void writeToCompound(NBTTagCompound compound) {
+    public void writeToCompound(CompoundNBT compound) {
         writeToCompound(compound, TAG_SKIN_DATA);
     }
     
-    public void writeToCompound(NBTTagCompound compound, String tag) {
-        NBTTagCompound skinDataCompound = new NBTTagCompound();
+    public void writeToCompound(CompoundNBT compound, String tag) {
+        CompoundNBT skinDataCompound = new CompoundNBT();
         SkinIdentifierSerializer.writeToCompound(identifier, skinDataCompound);
         skinDye.writeToCompound(skinDataCompound);
         compound.setTag(tag, skinDataCompound);

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import net.minecraft.client.gui.widget.button.Button;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.api.common.painting.IPaintType;
@@ -34,11 +35,10 @@ import moe.plushie.armourers_workshop.common.painting.PaintingHelper;
 import moe.plushie.armourers_workshop.common.tileentities.TileEntityColourMixer;
 import moe.plushie.armourers_workshop.proxies.ClientProxy;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiTextField;
+import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StringUtils;
 import net.minecraftforge.fml.relauncher.Side;
@@ -56,7 +56,7 @@ public class GuiColourMixer extends ModGuiContainer<ContainerColourMixer> implem
 
     private Color colour;
     private GuiHSBSlider[] slidersHSB;
-    private GuiTextField colourHex;
+    private TextFieldWidget colourHex;
     private GuiColourSelector colourSelector;
     private GuiDropDownList colourFamilyList;
     private GuiDropDownList paintTypeDropDown;
@@ -64,7 +64,7 @@ public class GuiColourMixer extends ModGuiContainer<ContainerColourMixer> implem
     private GuiIconButton buttonPaletteRemove;
     private GuiIconButton buttonPaletteRename;
 
-    public GuiColourMixer(InventoryPlayer invPlayer, TileEntityColourMixer tileEntityColourMixer) {
+    public GuiColourMixer(PlayerInventory invPlayer, TileEntityColourMixer tileEntityColourMixer) {
         super(new ContainerColourMixer(invPlayer, tileEntityColourMixer));
         this.tileEntityColourMixer = tileEntityColourMixer;
         this.xSize = 256;
@@ -85,7 +85,7 @@ public class GuiColourMixer extends ModGuiContainer<ContainerColourMixer> implem
         buttonList.add(slidersHSB[1]);
         buttonList.add(slidersHSB[2]);
 
-        colourHex = new GuiTextField(-1, fontRenderer, this.guiLeft + 5, this.guiTop + 105, 50, 10);
+        colourHex = new TextFieldWidget(-1, fontRenderer, this.guiLeft + 5, this.guiTop + 105, 50, 10);
         colourHex.setMaxStringLength(7);
         updateHexTextbox();
 
@@ -193,7 +193,7 @@ public class GuiColourMixer extends ModGuiContainer<ContainerColourMixer> implem
     }
 
     @Override
-    protected void actionPerformed(GuiButton button) {
+    protected void actionPerformed(Button button) {
         if (button.id == 3) {
             if (!isShiftKeyDown()) {
                 this.colour = colourSelector.getSelectedColour();
@@ -319,7 +319,7 @@ public class GuiColourMixer extends ModGuiContainer<ContainerColourMixer> implem
             GlStateManager.pushMatrix();
             GlStateManager.translate(-guiLeft, -guiTop, 0);
             for (int i = 0; i < buttonList.size(); i++) {
-                GuiButton button = buttonList.get(i);
+                Button button = buttonList.get(i);
                 if (button instanceof GuiHelp) {
                     ((GuiHelp) button).drawRollover(mc, mouseX, mouseY);
                 }

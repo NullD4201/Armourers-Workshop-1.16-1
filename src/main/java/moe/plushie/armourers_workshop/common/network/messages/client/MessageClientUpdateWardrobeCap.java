@@ -7,7 +7,7 @@ import moe.plushie.armourers_workshop.api.common.capability.IWardrobeCap;
 import moe.plushie.armourers_workshop.common.capability.wardrobe.WardrobeCap;
 import moe.plushie.armourers_workshop.utils.ModLogger;
 import net.minecraft.entity.Entity;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -22,11 +22,11 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 public class MessageClientUpdateWardrobeCap implements IMessage, IMessageHandler<MessageClientUpdateWardrobeCap, IMessage> {
 
     private int entityId;
-    private NBTTagCompound compound;
+    private CompoundNBT compound;
     
     public MessageClientUpdateWardrobeCap() {}
 
-    public MessageClientUpdateWardrobeCap(int entityId, NBTTagCompound compound) {
+    public MessageClientUpdateWardrobeCap(int entityId, CompoundNBT compound) {
         this.entityId = entityId;
         this.compound = compound;
     }

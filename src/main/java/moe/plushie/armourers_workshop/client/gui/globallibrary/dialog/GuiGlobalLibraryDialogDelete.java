@@ -3,8 +3,8 @@ package moe.plushie.armourers_workshop.client.gui.globallibrary.dialog;
 import moe.plushie.armourers_workshop.client.gui.GuiHelper;
 import moe.plushie.armourers_workshop.client.gui.controls.AbstractGuiDialog;
 import moe.plushie.armourers_workshop.client.gui.controls.IDialogCallback;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 
 public class GuiGlobalLibraryDialogDelete extends AbstractGuiDialog {
@@ -12,7 +12,7 @@ public class GuiGlobalLibraryDialogDelete extends AbstractGuiDialog {
     private GuiButtonExt buttonOk;
     private GuiButtonExt buttonCancel;
 
-    public GuiGlobalLibraryDialogDelete(GuiScreen parent, String name, IDialogCallback callback, int width, int height) {
+    public GuiGlobalLibraryDialogDelete(Screen parent, String name, IDialogCallback callback, int width, int height) {
         super(parent, name, callback, width, height);
     }
 
@@ -27,7 +27,7 @@ public class GuiGlobalLibraryDialogDelete extends AbstractGuiDialog {
     }
 
     @Override
-    protected void actionPerformed(GuiButton button) {
+    protected void actionPerformed(Button button) {
         if (button == buttonCancel) {
             returnDialogResult(DialogResult.CANCEL);
         }

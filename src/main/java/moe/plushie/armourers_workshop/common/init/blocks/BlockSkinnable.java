@@ -3,6 +3,10 @@ package moe.plushie.armourers_workshop.common.init.blocks;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.block.*;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import org.apache.logging.log4j.Level;
 
 import moe.plushie.armourers_workshop.ArmourersWorkshop;
@@ -22,24 +26,20 @@ import moe.plushie.armourers_workshop.utils.ModLogger;
 import moe.plushie.armourers_workshop.utils.SkinNBTHelper;
 import moe.plushie.armourers_workshop.utils.SkinUtils;
 import moe.plushie.armourers_workshop.utils.UtilItems;
-import net.minecraft.block.BlockHorizontal;
-import net.minecraft.block.SoundType;
+import net.minecraft.block.HorizontalBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.EntityRenderer;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.block.statemap.StateMap;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.block.BlockRenderType;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -55,7 +55,7 @@ import net.minecraftforge.server.permission.DefaultPermissionLevel;
 
 public class BlockSkinnable extends AbstractModBlockContainer {
 
-    public static final PropertyDirection STATE_FACING = BlockHorizontal.FACING;
+    public static final PropertyDirection STATE_FACING = HorizontalBlock.FACING;
 
     public BlockSkinnable() {
         this(LibBlockNames.SKINNABLE);
@@ -63,7 +63,7 @@ public class BlockSkinnable extends AbstractModBlockContainer {
 
     public BlockSkinnable(String name) {
         super(name, Material.IRON, SoundType.METAL, false);
-        setDefaultState(this.blockState.getBaseState().withProperty(STATE_FACING, EnumFacing.NORTH));
+        setDefaultState(this.blockState.getBaseState().withProperty(STATE_FACING, Direction.NORTH));
     }
 
     @Override
@@ -72,42 +72,42 @@ public class BlockSkinnable extends AbstractModBlockContainer {
     }
 
     @Override
-    public IBlockState getStateFromMeta(int meta) {
+    public BlockState getStateFromMeta(int meta) {
         boolean northSouthBit = getBitBool(meta, 0);
         boolean posNegBit = getBitBool(meta, 1);
-        EnumFacing facing = EnumFacing.EAST;
+        Direction facing = Direction.EAST;
         if (northSouthBit) {
             if (posNegBit) {
-                facing = EnumFacing.SOUTH;
+                facing = Direction.SOUTH;
             } else {
-                facing = EnumFacing.NORTH;
+                facing = Direction.NORTH;
             }
         } else {
             if (posNegBit) {
-                facing = EnumFacing.EAST;
+                facing = Direction.EAST;
             } else {
-                facing = EnumFacing.WEST;
+                facing = Direction.WEST;
             }
         }
         return this.getDefaultState().withProperty(STATE_FACING, facing);
     }
 
     @Override
-    public int getMetaFromState(IBlockState state) {
-        EnumFacing facing = state.getValue(STATE_FACING);
+    public int getMetaFromState(BlockState state) {
+        Direction facing = state.getValue(STATE_FACING);
         int meta = 0;
-        if (facing == EnumFacing.NORTH | facing == EnumFacing.SOUTH) {
+        if (facing == Direction.NORTH | facing == Direction.SOUTH) {
             meta = setBit(meta, 0, true);
         }
-        if (facing == EnumFacing.EAST | facing == EnumFacing.SOUTH) {
+        if (facing == Direction.EAST | facing == Direction.SOUTH) {
             meta = setBit(meta, 1, true);
         }
         return meta;
     }
 
     @Override
-    public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
-        EnumFacing enumfacing = placer.getHorizontalFacing().getOpposite();
+    public BlockState getStateForPlacement(World world, BlockPos pos, Direction facing, float hitX, float hitY, float hitZ, int meta, LivingEntity placer, Hand hand) {
+        Direction enumfacing = placer.getHorizontalFacing().getOpposite();
         return getDefaultState().withProperty(STATE_FACING, enumfacing);
     }
 
@@ -130,7 +130,7 @@ public class BlockSkinnable extends AbstractModBlockContainer {
     }
 
     @Override
-    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+    public void breakBlock(World worldIn, BlockPos pos, BlockState state) {
         TileEntitySkinnable te = getTileEntity(worldIn, pos);
         if (te != null && te.getInventory() != null) {
             te.killChildren(worldIn);
@@ -150,7 +150,7 @@ public class BlockSkinnable extends AbstractModBlockContainer {
     }
 
     @Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World worldIn, BlockPos pos, BlockState state, PlayerEntity playerIn, Hand hand, Direction facing, float hitX, float hitY, float hitZ) {
         TileEntitySkinnable te = getTileEntity(worldIn, pos);
         if (te == null) {
             return false;
@@ -161,7 +161,7 @@ public class BlockSkinnable extends AbstractModBlockContainer {
         }
         if (parentTe.hasLinkedBlock()) {
             BlockPos posLinked = parentTe.getLinkedBlock();
-            IBlockState stateLinked = worldIn.getBlockState(posLinked);
+            BlockState stateLinked = worldIn.getBlockState(posLinked);
             if (!(stateLinked.getBlock() instanceof BlockSkinnable)) {
                 return stateLinked.getBlock().onBlockActivated(worldIn, posLinked, stateLinked, playerIn, hand, facing, hitX, hitY, hitZ);
             }
@@ -184,7 +184,7 @@ public class BlockSkinnable extends AbstractModBlockContainer {
         return false;
     }
 
-    private boolean sitOnSeat(World world, BlockPos pos, EntityPlayer player, Skin skin) {
+    private boolean sitOnSeat(World world, BlockPos pos, PlayerEntity player, Skin skin) {
         List<EntitySeat> seats = world.<EntitySeat>getEntitiesWithinAABB(EntitySeat.class, new AxisAlignedBB(pos));
         if (seats.size() == 0) {
             Point3D point = null;
@@ -193,9 +193,9 @@ public class BlockSkinnable extends AbstractModBlockContainer {
             } else {
                 point = new Point3D(0, 0, 0);
             }
-            IBlockState blockState = world.getBlockState(pos);
+            BlockState blockState = world.getBlockState(pos);
             if (blockState.getBlock() instanceof BlockSkinnable) {
-                EnumFacing rotation = blockState.getValue(STATE_FACING);
+                Direction rotation = blockState.getValue(STATE_FACING);
                 // skin.getParts().get(0).getMarker(0);
                 EntitySeat entitySeat = new EntitySeat(world, pos, point, rotation);
                 world.spawnEntity(entitySeat);
@@ -225,7 +225,7 @@ public class BlockSkinnable extends AbstractModBlockContainer {
      */
 
     @Override
-    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
+    public AxisAlignedBB getCollisionBoundingBox(BlockState blockState, IBlockAccess worldIn, BlockPos pos) {
         Skin skin = getSkin(worldIn, pos);
         if (skin != null) {
             if (SkinProperties.PROP_BLOCK_NO_COLLISION.getValue(skin.getProperties())) {
@@ -236,20 +236,20 @@ public class BlockSkinnable extends AbstractModBlockContainer {
     }
 
     @Override
-    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+    public AxisAlignedBB getBoundingBox(BlockState state, IBlockAccess source, BlockPos pos) {
         TileEntitySkinnable te = getTileEntity(source, pos);
         if (te != null) {
-            EnumFacing dir = state.getValue(STATE_FACING);
-            if (dir == EnumFacing.NORTH) {
+            Direction dir = state.getValue(STATE_FACING);
+            if (dir == Direction.NORTH) {
                 return te.getBoundsForBlock(this, 1, 0, 0);
             }
-            if (dir == EnumFacing.EAST) {
+            if (dir == Direction.EAST) {
                 return te.getBoundsForBlock(this, 0, 0, 1);
             }
-            if (dir == EnumFacing.SOUTH) {
+            if (dir == Direction.SOUTH) {
                 return te.getBoundsForBlock(this, 1, 0, 2);
             }
-            if (dir == EnumFacing.WEST) {
+            if (dir == Direction.WEST) {
                 return te.getBoundsForBlock(this, 2, 0, 1);
             }
         }
@@ -257,7 +257,7 @@ public class BlockSkinnable extends AbstractModBlockContainer {
     }
 
     @Override
-    public boolean canCollideCheck(IBlockState state, boolean hitIfLiquid) {
+    public boolean canCollideCheck(BlockState state, boolean hitIfLiquid) {
         if (!ArmourersWorkshop.isDedicated()) {
             return !checkCameraCollide();
         }
@@ -276,7 +276,7 @@ public class BlockSkinnable extends AbstractModBlockContainer {
         StackTraceElement[] stack = Thread.currentThread().getStackTrace();
         for (int i = 0; i < stack.length; i++) {
             StackTraceElement element = stack[i];
-            if (element.getClassName().equals(EntityRenderer.class.getName())) {
+            if (element.getClassName().equals(GameRenderer.class.getName())) {
                 renderCount++;
             }
             if (renderCount == 4) {
@@ -315,7 +315,7 @@ public class BlockSkinnable extends AbstractModBlockContainer {
     }
 
     @Override
-    public boolean isLadder(IBlockState state, IBlockAccess world, BlockPos pos, EntityLivingBase entity) {
+    public boolean isLadder(BlockState state, IBlockAccess world, BlockPos pos, LivingEntity entity) {
         Skin skin = getSkin(world, pos);
         if (skin != null) {
             return SkinProperties.PROP_BLOCK_LADDER.getValue(skin.getProperties());
@@ -324,7 +324,7 @@ public class BlockSkinnable extends AbstractModBlockContainer {
     }
 
     @Override
-    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+    public ItemStack getPickBlock(BlockState state, RayTraceResult target, World world, BlockPos pos, PlayerEntity player) {
         SkinDescriptor skinPointer = getSkinPointer(world, pos);
         if (skinPointer != null) {
             ItemStack returnStack = new ItemStack(ModItems.SKIN, 1);
@@ -335,11 +335,11 @@ public class BlockSkinnable extends AbstractModBlockContainer {
     }
 
     @Override
-    public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+    public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, BlockState state, int fortune) {
     }
 
     @Override
-    public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
+    public boolean removedByPlayer(BlockState state, World world, BlockPos pos, PlayerEntity player, boolean willHarvest) {
         if (!world.isRemote) {
             dropSkin(world, pos, player.capabilities.isCreativeMode);
         }
@@ -369,27 +369,27 @@ public class BlockSkinnable extends AbstractModBlockContainer {
     }
 
     @Override
-    public EnumBlockRenderType getRenderType(IBlockState state) {
-        return EnumBlockRenderType.ENTITYBLOCK_ANIMATED;
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.ENTITYBLOCK_ANIMATED;
     }
 
     @Override
-    public boolean isBlockNormalCube(IBlockState state) {
+    public boolean isBlockNormalCube(BlockState state) {
         return false;
     }
 
     @Override
-    public boolean isOpaqueCube(IBlockState state) {
+    public boolean isOpaqueCube(BlockState state) {
         return false;
     }
 
     @Override
-    public boolean isFullCube(IBlockState state) {
+    public boolean isFullCube(BlockState state) {
         return false;
     }
 
     @Override
-    public boolean rotateBlock(World world, BlockPos pos, EnumFacing axis) {
+    public boolean rotateBlock(World world, BlockPos pos, Direction axis) {
         Skin skin = getSkin(world, pos);
         if (skin != null) {
             if (!SkinProperties.PROP_BLOCK_MULTIBLOCK.getValue(skin.getProperties())) {

@@ -4,29 +4,29 @@ import java.util.ArrayList;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.AbstractGui;
+import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraftforge.client.event.GuiScreenEvent.ActionPerformedEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public abstract class GuiTabPanel<T extends GuiScreen> extends Gui {
+public abstract class GuiTabPanel<T extends Screen> extends AbstractGui {
     
     private final int tabId;
     protected final T parent;
     protected final FontRenderer fontRenderer;
     protected final Minecraft mc;
     
-    protected ArrayList<GuiButton> buttonList;
+    protected ArrayList<Button> buttonList;
     protected int x;
     protected int y;
     protected int width;
     protected int height;
     private final boolean fullscreen;
-    private GuiButton selectedButton;
+    private Button selectedButton;
     
     public GuiTabPanel(int tabId, T parent, boolean fullscreen) {
         this.tabId = tabId;
@@ -35,7 +35,7 @@ public abstract class GuiTabPanel<T extends GuiScreen> extends Gui {
         this.fontRenderer = mc.fontRenderer;
         this.fullscreen = fullscreen;
         
-        buttonList = new ArrayList<GuiButton>();
+        buttonList = new ArrayList<Button>();
     }
     
     public GuiTabPanel(int tabId, T parent) {
@@ -72,7 +72,7 @@ public abstract class GuiTabPanel<T extends GuiScreen> extends Gui {
     public boolean mouseClicked(int mouseX, int mouseY, int button) {
         if (button == 0) {
             for (int i = 0; i < buttonList.size(); i++) {
-                GuiButton guiButton = buttonList.get(i);
+                Button guiButton = buttonList.get(i);
                 if (guiButton.mousePressed(mc, mouseX - x, mouseY - y)) {
                     ActionPerformedEvent.Pre event = new ActionPerformedEvent.Pre(parent, guiButton, buttonList);
                     if (MinecraftForge.EVENT_BUS.post(event)) {
@@ -91,7 +91,7 @@ public abstract class GuiTabPanel<T extends GuiScreen> extends Gui {
         return false;
     }
     
-    protected void actionPerformed(GuiButton button) {}
+    protected void actionPerformed(Button button) {}
     
     public boolean mouseMovedOrUp(int mouseX, int mouseY, int button) {
         if (this.selectedButton != null && button == 0) {

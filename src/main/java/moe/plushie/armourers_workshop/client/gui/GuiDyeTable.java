@@ -2,6 +2,8 @@ package moe.plushie.armourers_workshop.client.gui;
 
 import java.awt.Color;
 
+import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.entity.player.PlayerInventory;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.api.common.skin.data.ISkinDescriptor;
@@ -14,25 +16,23 @@ import moe.plushie.armourers_workshop.common.inventory.slot.SlotDyeBottle;
 import moe.plushie.armourers_workshop.common.skin.data.SkinDye;
 import moe.plushie.armourers_workshop.common.tileentities.TileEntityDyeTable;
 import moe.plushie.armourers_workshop.utils.SkinNBTHelper;
-import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class GuiDyeTable extends GuiContainer {
+public class GuiDyeTable extends ContainerScreen {
 
     private static final ResourceLocation texture = new ResourceLocation(LibGuiResources.GUI_DYE_TABLE);
 
     private final TileEntityDyeTable tileEntity;
     private SkinDye[] rolloverDyes;
 
-    public GuiDyeTable(InventoryPlayer invPlayer, TileEntityDyeTable tileEntity) {
+    public GuiDyeTable(PlayerInventory invPlayer, TileEntityDyeTable tileEntity) {
         super(new ContainerDyeTable(invPlayer, tileEntity));
         this.tileEntity = tileEntity;
 

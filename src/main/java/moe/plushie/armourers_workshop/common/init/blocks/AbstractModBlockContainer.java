@@ -10,17 +10,15 @@ import moe.plushie.armourers_workshop.common.lib.EnumGuiId;
 import moe.plushie.armourers_workshop.common.lib.LibModInfo;
 import moe.plushie.armourers_workshop.common.permission.IPermissionHolder;
 import moe.plushie.armourers_workshop.common.permission.Permission;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockContainer;
-import net.minecraft.block.SoundType;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.block.BlockState;
+import net.minecraft.client.renderer.model.ModelResourceLocation;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.block.BlockRenderType;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -34,7 +32,7 @@ import net.minecraftforge.server.permission.DefaultPermissionLevel;
 import net.minecraftforge.server.permission.PermissionAPI;
 import net.minecraftforge.server.permission.context.BlockPosContext;
 
-public abstract class AbstractModBlockContainer extends BlockContainer implements ISortOrder, ICustomItemBlock, ICustomModel, IPermissionHolder {
+public abstract class AbstractModBlockContainer extends ContainerBlock implements ISortOrder, ICustomItemBlock, ICustomModel, IPermissionHolder {
 
     private int sortPriority = 100;
 
@@ -59,18 +57,18 @@ public abstract class AbstractModBlockContainer extends BlockContainer implement
     }
 
     @Override
-    public boolean isOpaqueCube(IBlockState state) {
+    public boolean isOpaqueCube(BlockState state) {
         return false;
     }
 
     @Override
-    public boolean isBlockNormalCube(IBlockState state) {
+    public boolean isBlockNormalCube(BlockState state) {
         return false;
     }
 
     @Override
-    public EnumBlockRenderType getRenderType(IBlockState state) {
-        return EnumBlockRenderType.MODEL;
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
     }
 
     protected static boolean getBitBool(int value, int index) {
@@ -125,11 +123,11 @@ public abstract class AbstractModBlockContainer extends BlockContainer implement
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(new ResourceLocation(LibModInfo.ID, getTranslationKey()), "normal"));
     }
 
-    protected void openGui(EntityPlayer playerIn, EnumGuiId guiId, World worldIn, BlockPos pos, IBlockState state, EnumFacing facing) {
+    protected void openGui(PlayerEntity playerIn, EnumGuiId guiId, World worldIn, BlockPos pos, BlockState state, Direction facing) {
         openGui(playerIn, guiId.ordinal(), worldIn, pos, state, facing);
     }
 
-    protected void openGui(EntityPlayer playerIn, int guiId, World worldIn, BlockPos pos, IBlockState state, EnumFacing facing) {
+    protected void openGui(PlayerEntity playerIn, int guiId, World worldIn, BlockPos pos, BlockState state, Direction facing) {
         if (!worldIn.isRemote) {
             if (PermissionAPI.hasPermission(playerIn.getGameProfile(), LibModInfo.ID + "." + getPermissionName() + ".open-gui", new BlockPosContext(playerIn, pos, state, facing))) {
                 FMLNetworkHandler.openGui(playerIn, ArmourersWorkshop.getInstance(), guiId, worldIn, pos.getX(), pos.getY(), pos.getZ());

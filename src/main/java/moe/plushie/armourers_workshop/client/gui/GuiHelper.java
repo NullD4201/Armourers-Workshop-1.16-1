@@ -3,6 +3,7 @@ package moe.plushie.armourers_workshop.client.gui;
 import java.util.Iterator;
 import java.util.List;
 
+import net.minecraft.client.gui.AbstractGui;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
@@ -13,7 +14,6 @@ import moe.plushie.armourers_workshop.common.lib.LibModInfo;
 import moe.plushie.armourers_workshop.proxies.ClientProxy;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -45,9 +45,9 @@ public final class GuiHelper {
         int sourceSize = 8;
 
         // Face
-        Gui.drawScaledCustomSizeModalRect(x + 1, y + 1, 8, 8, sourceSize, sourceSize, size, size, 64, 64);
+        AbstractGui.drawScaledCustomSizeModalRect(x + 1, y + 1, 8, 8, sourceSize, sourceSize, size, size, 64, 64);
         // Overlay
-        Gui.drawScaledCustomSizeModalRect(x, y, 40, 8, sourceSize, sourceSize, size + 2, size + 2, 64, 64);
+        AbstractGui.drawScaledCustomSizeModalRect(x, y, 40, 8, sourceSize, sourceSize, size + 2, size + 2, 64, 64);
     }
 
     private static PlayerTexture getPlayerTexture(String textureString, TextureType textureType) {
@@ -56,7 +56,7 @@ public final class GuiHelper {
 
     public static void renderPlayerInvTexture(int x, int y) {
         Minecraft.getMinecraft().renderEngine.bindTexture(PLAYER_TEXTURE);
-        Gui.drawModalRectWithCustomSizedTexture(x, y, 0, 0, 176, 98, 256, 256);
+        AbstractGui.drawModalRectWithCustomSizedTexture(x, y, 0, 0, 176, 98, 256, 256);
     }
 
     public static void renderPlayerInvlabel(int x, int y, FontRenderer fontRenderer) {

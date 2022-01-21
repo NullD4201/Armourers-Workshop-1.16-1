@@ -5,12 +5,12 @@ import java.util.concurrent.Callable;
 
 import moe.plushie.armourers_workshop.common.holiday.Holiday;
 import moe.plushie.armourers_workshop.common.holiday.ModHolidays;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.nbt.NBTTagString;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.nbt.ListNBT;
+import net.minecraft.nbt.StringNBT;
+import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.Capability.IStorage;
 import net.minecraftforge.common.capabilities.CapabilityInject;
@@ -51,7 +51,7 @@ public class HolidayTrackCap implements IHolidayTrackCap {
         holidayYears.clear();
     }
     
-    public static class Provider implements ICapabilitySerializable<NBTTagCompound>  {
+    public static class Provider implements ICapabilitySerializable<CompoundNBT>  {
 
         private final IHolidayTrackCap holidayTrackCap;
         
@@ -60,12 +60,12 @@ public class HolidayTrackCap implements IHolidayTrackCap {
         }
         
         @Override
-        public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+        public boolean hasCapability(Capability<?> capability, Direction facing) {
             return capability != null && capability == HOLIDAY_TRACK_CAP;
         }
 
         @Override
-        public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+        public <T> T getCapability(Capability<T> capability, Direction facing) {
             if (hasCapability(capability, facing)) {
                 return HOLIDAY_TRACK_CAP.cast(holidayTrackCap);
             }
@@ -73,12 +73,12 @@ public class HolidayTrackCap implements IHolidayTrackCap {
         }
 
         @Override
-        public NBTTagCompound serializeNBT() {
-            return (NBTTagCompound) HOLIDAY_TRACK_CAP.getStorage().writeNBT(HOLIDAY_TRACK_CAP, holidayTrackCap, null);
+        public CompoundNBT serializeNBT() {
+            return (CompoundNBT) HOLIDAY_TRACK_CAP.getStorage().writeNBT(HOLIDAY_TRACK_CAP, holidayTrackCap, null);
         }
 
         @Override
-        public void deserializeNBT(NBTTagCompound nbt) {
+        public void deserializeNBT(CompoundNBT nbt) {
             HOLIDAY_TRACK_CAP.getStorage().readNBT(HOLIDAY_TRACK_CAP, holidayTrackCap, null, nbt);
         }
     }
@@ -88,21 +88,21 @@ public class HolidayTrackCap implements IHolidayTrackCap {
         private static final String TAG_HOLIDAY_LIST = "holiday-list";
         
         @Override
-        public NBTBase writeNBT(Capability<IHolidayTrackCap> capability, IHolidayTrackCap instance, EnumFacing side) {
-            NBTTagCompound compound = new NBTTagCompound();
-            NBTTagList list = new NBTTagList();
+        public NBTBase writeNBT(Capability<IHolidayTrackCap> capability, IHolidayTrackCap instance, Direction side) {
+            CompoundNBT compound = new CompoundNBT();
+            ListNBT list = new ListNBT();
             for (Holiday holiday : instance.getHolidays()) {
-                list.appendTag(new NBTTagString(holiday.getName() + ";" + instance.getLastHolidayYear(holiday))); 
+                list.appendTag(new StringNBT(holiday.getName() + ";" + instance.getLastHolidayYear(holiday)));
             }
             compound.setTag(TAG_HOLIDAY_LIST, list);
             return compound;
         }
 
         @Override
-        public void readNBT(Capability<IHolidayTrackCap> capability, IHolidayTrackCap instance, EnumFacing side, NBTBase nbt) {
-            NBTTagCompound compound = (NBTTagCompound) nbt;
+        public void readNBT(Capability<IHolidayTrackCap> capability, IHolidayTrackCap instance, Direction side, NBTBase nbt) {
+            CompoundNBT compound = (CompoundNBT) nbt;
             if (compound.hasKey(TAG_HOLIDAY_LIST, NBT.TAG_LIST)) {
-                NBTTagList list = compound.getTagList(TAG_HOLIDAY_LIST, NBT.TAG_STRING);
+                ListNBT list = compound.getTagList(TAG_HOLIDAY_LIST, NBT.TAG_STRING);
                 for (int i = 0; i < list.tagCount(); i++) {
                     String key = list.getStringTagAt(i);
                     if (key.contains(";")) {
@@ -124,7 +124,7 @@ public class HolidayTrackCap implements IHolidayTrackCap {
         }
     }
 
-    public static IHolidayTrackCap get(EntityPlayer player) {
+    public static IHolidayTrackCap get(PlayerEntity player) {
         return player.getCapability(HOLIDAY_TRACK_CAP, null);
     }
 }

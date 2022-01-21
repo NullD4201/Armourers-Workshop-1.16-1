@@ -1,12 +1,12 @@
 package moe.plushie.armourers_workshop.client.gui.controls;
 
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.GuiTextField;
+import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class GuiLabeledTextField extends GuiTextField {
+public class GuiLabeledTextField extends TextFieldWidget {
 
     private final FontRenderer fontRenderer;
     private String emptyLabel = "";

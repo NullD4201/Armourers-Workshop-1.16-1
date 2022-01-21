@@ -1,5 +1,7 @@
 package moe.plushie.armourers_workshop.client.gui;
 
+import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.entity.player.PlayerInventory;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.client.lib.LibGuiResources;
@@ -7,21 +9,19 @@ import moe.plushie.armourers_workshop.common.inventory.ContainerSkinningTable;
 import moe.plushie.armourers_workshop.common.lib.LibBlockNames;
 import moe.plushie.armourers_workshop.common.tileentities.TileEntitySkinningTable;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class GuiSkinningTable extends GuiContainer {
+public class GuiSkinningTable extends ContainerScreen {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(LibGuiResources.GUI_SKINNING_TABLE);
 
     private final TileEntitySkinningTable tileEntity;
 
-    public GuiSkinningTable(InventoryPlayer invPlayer, TileEntitySkinningTable tileEntity) {
+    public GuiSkinningTable(PlayerInventory invPlayer, TileEntitySkinningTable tileEntity) {
         super(new ContainerSkinningTable(invPlayer, tileEntity));
         this.tileEntity = tileEntity;
         this.xSize = 176;

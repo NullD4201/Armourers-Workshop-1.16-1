@@ -3,20 +3,20 @@ package moe.plushie.armourers_workshop.common.inventory;
 import javax.annotation.Nonnull;
 
 import moe.plushie.armourers_workshop.common.inventory.slot.SlotHidable;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.Slot;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 
 public class ModContainer extends Container {
 
-    protected final InventoryPlayer invPlayer;
+    protected final PlayerInventory invPlayer;
     
     private int playerInvStartIndex;
     private int playerInvEndIndex;
     
-    public ModContainer(InventoryPlayer invPlayer) {
+    public ModContainer(PlayerInventory invPlayer) {
         this.invPlayer = invPlayer;
     }
     
@@ -57,7 +57,7 @@ public class ModContainer extends Container {
     }
     
     @Override
-    public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
+    public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
         if (!isSlotPlayerInv(index)) {
             Slot slot = getSlot(index);
             if (slot.getHasStack()) {
@@ -84,12 +84,12 @@ public class ModContainer extends Container {
     }
     
     @Nonnull
-    protected ItemStack transferStackFromPlayer(EntityPlayer playerIn, int index) {
+    protected ItemStack transferStackFromPlayer(PlayerEntity playerIn, int index) {
         return ItemStack.EMPTY;
     }
     
     @Override
-    public boolean canInteractWith(EntityPlayer playerIn) {
+    public boolean canInteractWith(PlayerEntity playerIn) {
         return !playerIn.isDead;
     }
 }

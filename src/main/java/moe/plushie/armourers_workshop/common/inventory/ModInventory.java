@@ -3,11 +3,11 @@ package moe.plushie.armourers_workshop.common.inventory;
 import javax.annotation.Nonnull;
 
 import moe.plushie.armourers_workshop.utils.NBTHelper;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.ITextComponent;
@@ -100,12 +100,12 @@ public class ModInventory implements IInventory {
         return true;
     }
     
-    public NBTTagCompound saveItemsToNBT(NBTTagCompound compound) {
+    public CompoundNBT saveItemsToNBT(CompoundNBT compound) {
         NBTHelper.writeStackArrayToNBT(compound, TAG_ITEMS, slots);
         return compound;
     }
     
-    public void loadItemsFromNBT(NBTTagCompound compound) {
+    public void loadItemsFromNBT(CompoundNBT compound) {
         clear();
         NBTHelper.readStackArrayFromNBT(compound, TAG_ITEMS, slots);
     }
@@ -131,16 +131,16 @@ public class ModInventory implements IInventory {
     }
 
     @Override
-    public boolean isUsableByPlayer(EntityPlayer player) {
+    public boolean isUsableByPlayer(PlayerEntity player) {
         return !player.isDead;
     }
 
     @Override
-    public void openInventory(EntityPlayer player) {
+    public void openInventory(PlayerEntity player) {
     }
 
     @Override
-    public void closeInventory(EntityPlayer player) {
+    public void closeInventory(PlayerEntity player) {
     }
 
     @Override

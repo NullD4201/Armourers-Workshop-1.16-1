@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import moe.plushie.armourers_workshop.api.common.skin.type.ISkinType;
 import moe.plushie.armourers_workshop.common.init.entities.EntityMannequin;
 import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
-import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.entity.Entity;
 
 public class SkinnableEntityMannequin extends SkinnableEntity {
@@ -16,7 +16,7 @@ public class SkinnableEntityMannequin extends SkinnableEntity {
     }
     
     @Override
-    public void addRenderLayer(RenderManager renderManager) {
+    public void addRenderLayer(EntityRendererManager renderManager) {
         // NO-OP
     }
 

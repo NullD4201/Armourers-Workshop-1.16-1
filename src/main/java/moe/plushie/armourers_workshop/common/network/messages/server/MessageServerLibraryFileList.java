@@ -8,8 +8,8 @@ import moe.plushie.armourers_workshop.common.library.LibraryFile;
 import moe.plushie.armourers_workshop.common.library.LibraryFileType;
 import moe.plushie.armourers_workshop.utils.ModLogger;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.inventory.Container;
+import net.minecraft.client.entity.player.ClientPlayerEntity;
+import net.minecraft.inventory.container.Container;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
@@ -54,7 +54,7 @@ public class MessageServerLibraryFileList implements IMessage, IMessageHandler<M
     
     @Override
     public IMessage onMessage(MessageServerLibraryFileList message, MessageContext ctx) {
-        EntityPlayerSP player = Minecraft.getMinecraft().player;
+        ClientPlayerEntity player = Minecraft.getMinecraft().player;
         Container container = player.openContainer;
         ModLogger.log("got file list type " + message.listType);
         ArmourersWorkshop.getProxy().libraryManager.setFileList(message.fileList, message.listType);

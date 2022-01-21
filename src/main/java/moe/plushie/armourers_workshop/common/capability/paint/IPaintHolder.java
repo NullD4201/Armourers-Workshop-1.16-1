@@ -1,15 +1,15 @@
 package moe.plushie.armourers_workshop.common.capability.paint;
 
 import moe.plushie.armourers_workshop.common.painting.PaintType;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 
 public interface IPaintHolder {
 
-    public void setPaintColour(byte[] colour, EnumFacing facing);
+    public void setPaintColour(byte[] colour, Direction facing);
     
-    public byte[] getPaintColour(EnumFacing facing);
+    public byte[] getPaintColour(Direction facing);
     
-    public void setPaintType(PaintType paintType, EnumFacing facing);
+    public void setPaintType(PaintType paintType, Direction facing);
     
-    public PaintType getPaintType(EnumFacing facing);
+    public PaintType getPaintType(Direction facing);
 }

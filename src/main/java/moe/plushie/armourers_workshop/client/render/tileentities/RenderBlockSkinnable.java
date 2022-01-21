@@ -13,15 +13,15 @@ import moe.plushie.armourers_workshop.common.skin.data.Skin;
 import moe.plushie.armourers_workshop.common.skin.data.SkinPart;
 import moe.plushie.armourers_workshop.common.tileentities.TileEntitySkinnable;
 import moe.plushie.armourers_workshop.common.tileentities.TileEntitySkinnableChild;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;
 import net.minecraft.client.renderer.GlStateManager.SourceFactor;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -29,7 +29,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class RenderBlockSkinnable extends TileEntitySpecialRenderer<TileEntitySkinnable> {
+public class RenderBlockSkinnable extends TileEntityRenderer<TileEntitySkinnable> {
 
     private static final ModelBlockSkinnable loadingModel = new ModelBlockSkinnable();
     private static final float SCALE = 0.0625F;
@@ -66,7 +66,7 @@ public class RenderBlockSkinnable extends TileEntitySpecialRenderer<TileEntitySk
     @Override
     public void render(TileEntitySkinnable te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
         ISkinDescriptor skinPointer = te.getSkinPointer();
-        IBlockState state = te.getWorld().getBlockState(te.getPos());
+        BlockState state = te.getWorld().getBlockState(te.getPos());
         
         if (!(state.getBlock() instanceof BlockSkinnable)) {
             return;
@@ -81,15 +81,15 @@ public class RenderBlockSkinnable extends TileEntitySpecialRenderer<TileEntitySk
                     GlStateManager.translate(x + 0.5F, y + 0.5F, z + 0.5F);
                     GlStateManager.enableBlend();
                     GlStateManager.blendFunc(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA);
-                    EnumFacing facing = state.getValue(BlockSkinnable.STATE_FACING);
+                    Direction facing = state.getValue(BlockSkinnable.STATE_FACING);
                     //RenderItemEquipmentSkin.renderLoadingIcon(te.getSkinPointer());
-                    if (facing == EnumFacing.EAST) {
+                    if (facing == Direction.EAST) {
                         GlStateManager.rotate(-90F, 0, 1, 0);
                     }
-                    if (facing == EnumFacing.SOUTH) {
+                    if (facing == Direction.SOUTH) {
                         GlStateManager.rotate(180F, 0, 1, 0);
                     }
-                    if (facing == EnumFacing.WEST) {
+                    if (facing == Direction.WEST) {
                         GlStateManager.rotate(90F, 0, 1, 0);
                     }
                     
@@ -257,7 +257,7 @@ public class RenderBlockSkinnable extends TileEntitySpecialRenderer<TileEntitySk
 
         @Override
         public int compareTo(RenderLast o) {
-            EntityPlayerSP player = Minecraft.getMinecraft().player;
+            ClientPlayerEntity player = Minecraft.getMinecraft().player;
             double dist = getDistanceFrom(player.posX, player.posY + player.getEyeHeight(), player.posZ);
             double otherDist = o.getDistanceFrom(player.posX, player.posY + player.getEyeHeight(), player.posZ);
             return (int) ((otherDist - dist) * 128);

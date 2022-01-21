@@ -2,6 +2,7 @@ package moe.plushie.armourers_workshop.client.render;
 
 import java.util.ArrayList;
 
+import net.minecraft.client.renderer.WorldRenderer;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.api.common.IPoint3D;
@@ -20,7 +21,6 @@ import moe.plushie.armourers_workshop.common.skin.data.SkinPart;
 import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
 import moe.plushie.armourers_workshop.utils.SkinNBTHelper;
 import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.fml.relauncher.Side;
@@ -180,7 +180,7 @@ public final class SkinItemRenderHelper {
         GL11.glLineWidth(1.0F);
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         //GL11.glDepthMask(false);
-        RenderGlobal.drawSelectionBoundingBox(aabb, r / 255F, g / 255F, b / 255F, 1);
+        WorldRenderer.drawSelectionBoundingBox(aabb, r / 255F, g / 255F, b / 255F, 1);
         //GL11.glDepthMask(true);
         GL11.glEnable(GL11.GL_TEXTURE_2D);
         GL11.glEnable(GL11.GL_LIGHTING);

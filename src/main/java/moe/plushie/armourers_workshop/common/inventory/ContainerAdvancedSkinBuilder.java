@@ -17,13 +17,13 @@ import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
 import moe.plushie.armourers_workshop.common.tileentities.TileEntityAdvancedSkinBuilder;
 import moe.plushie.armourers_workshop.utils.SkinNBTHelper;
 import moe.plushie.armourers_workshop.utils.UtilItems;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 
 public class ContainerAdvancedSkinBuilder extends ModTileContainer<TileEntityAdvancedSkinBuilder> implements IButtonPress {
 
-    public ContainerAdvancedSkinBuilder(InventoryPlayer invPlayer, TileEntityAdvancedSkinBuilder tileEntity) {
+    public ContainerAdvancedSkinBuilder(PlayerInventory invPlayer, TileEntityAdvancedSkinBuilder tileEntity) {
         super(invPlayer, tileEntity);
         addPlayerSlots(8, 40);
         for (int i = 0; i < tileEntity.getSizeInventory(); i++) {
@@ -32,7 +32,7 @@ public class ContainerAdvancedSkinBuilder extends ModTileContainer<TileEntityAdv
     }
 
     @Override
-    public void buttonPressed(EntityPlayerMP player, byte buttonId) {
+    public void buttonPressed(ServerPlayerEntity player, byte buttonId) {
         ArmourersWorkshop.getLogger().info("Making advanced part.");
 
         SkinProperties properties = new SkinProperties();

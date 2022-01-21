@@ -2,6 +2,7 @@ package moe.plushie.armourers_workshop.client.gui.globallibrary.panels;
 
 import java.io.ByteArrayOutputStream;
 
+import net.minecraft.client.gui.widget.button.Button;
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.Level;
 
@@ -30,8 +31,6 @@ import moe.plushie.armourers_workshop.utils.ModLogger;
 import moe.plushie.armourers_workshop.utils.SkinIOUtils;
 import moe.plushie.armourers_workshop.utils.SkinNBTHelper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StringUtils;
 import net.minecraft.util.text.TextFormatting;
@@ -52,7 +51,7 @@ public class GuiGlobalLibraryPanelUpload extends GuiPanel {
     private GuiCustomLabel statsText;
     private String error = null;
 
-    public GuiGlobalLibraryPanelUpload(GuiScreen parent, int x, int y, int width, int height) {
+    public GuiGlobalLibraryPanelUpload(net.minecraft.client.gui.screen.Screen parent, int x, int y, int width, int height) {
         super(parent, x, y, width, height);
         guiName = ((GuiGlobalLibrary) parent).getGuiName() + ".upload";
     }
@@ -155,7 +154,7 @@ public class GuiGlobalLibraryPanelUpload extends GuiPanel {
     }
 
     @Override
-    protected void actionPerformed(GuiButton button) {
+    protected void actionPerformed(Button button) {
         if (button == buttonUpload) {
             GameProfile gameProfile = mc.player.getGameProfile();
             PlushieSession plushieSession = PlushieAuth.PLUSHIE_SESSION;

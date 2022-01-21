@@ -2,6 +2,8 @@ package moe.plushie.armourers_workshop.client.gui.wardrobe.tab;
 
 import java.util.Random;
 
+import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.nbt.CompoundNBT;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.client.gui.GuiHelper;
@@ -15,10 +17,8 @@ import moe.plushie.armourers_workshop.common.data.type.Rectangle_I_2D;
 import moe.plushie.armourers_workshop.common.init.entities.EntityMannequin;
 import moe.plushie.armourers_workshop.common.network.PacketHandler;
 import moe.plushie.armourers_workshop.common.network.messages.client.MessageClientGuiUpdateMannequin;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 import net.minecraftforge.fml.client.config.GuiSlider;
@@ -52,7 +52,7 @@ public class GuiTabWardrobeManRotations extends GuiTabPanel implements ISlider {
     int partsDisplayX = 80;
     int partsDisplayY = 50;
     
-    public GuiTabWardrobeManRotations(int tabId, GuiScreen parent, EntityMannequin entityMannequin) {
+    public GuiTabWardrobeManRotations(int tabId, Screen parent, EntityMannequin entityMannequin) {
         super(tabId, parent);
         this.entityMannequin = entityMannequin;
         bipedRotations = new BipedRotations();
@@ -68,14 +68,14 @@ public class GuiTabWardrobeManRotations extends GuiTabPanel implements ISlider {
     }
 
     public void updateRotationData(BipedRotations rots) {
-        NBTTagCompound compound = new NBTTagCompound();
+        CompoundNBT compound = new CompoundNBT();
         rots.saveNBTData(compound);
         this.bipedRotations.loadNBTData(compound);
         this.lastBipedRotations.loadNBTData(compound);
     }
     
     public void updateLastRotations() {
-        NBTTagCompound compound = new NBTTagCompound();
+        CompoundNBT compound = new CompoundNBT();
         bipedRotations.saveNBTData(compound);
         lastBipedRotations.loadNBTData(compound);
     }
@@ -149,7 +149,7 @@ public class GuiTabWardrobeManRotations extends GuiTabPanel implements ISlider {
     }
 
     @Override
-    protected void actionPerformed(GuiButton button) {
+    protected void actionPerformed(Button button) {
         if (button == resetRotsButton) {
             guiLoaded = false;
             bipedRotations.resetRotations();

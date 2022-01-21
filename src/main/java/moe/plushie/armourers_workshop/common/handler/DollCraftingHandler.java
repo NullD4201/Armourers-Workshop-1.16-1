@@ -2,12 +2,12 @@ package moe.plushie.armourers_workshop.common.handler;
 
 import moe.plushie.armourers_workshop.common.config.ConfigHandler;
 import moe.plushie.armourers_workshop.utils.ModLogger;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityFallingBlock;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.entity.item.FallingBlockEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -30,7 +30,7 @@ public class DollCraftingHandler implements IWorldEventListener {
     }
     
     @Override
-    public void notifyBlockUpdate(World worldIn, BlockPos pos, IBlockState oldState, IBlockState newState, int flags) {
+    public void notifyBlockUpdate(World worldIn, BlockPos pos, BlockState oldState, BlockState newState, int flags) {
     }
 
     @Override
@@ -42,7 +42,7 @@ public class DollCraftingHandler implements IWorldEventListener {
     }
 
     @Override
-    public void playSoundToAllNearExcept(EntityPlayer player, SoundEvent soundIn, SoundCategory category, double x, double y, double z, float volume, float pitch) {
+    public void playSoundToAllNearExcept(PlayerEntity player, SoundEvent soundIn, SoundCategory category, double x, double y, double z, float volume, float pitch) {
     }
 
     @Override
@@ -68,10 +68,10 @@ public class DollCraftingHandler implements IWorldEventListener {
         }
         World world = entityIn.getEntityWorld();
         if (!world.isRemote) {
-            if (entityIn instanceof EntityFallingBlock) {
-                if (((EntityFallingBlock)entityIn).getBlock().getBlock() == Blocks.ANVIL) {
+            if (entityIn instanceof FallingBlockEntity) {
+                if (((FallingBlockEntity)entityIn).getBlock().getBlock() == Blocks.ANVIL) {
                     BlockPos pos = entityIn.getPosition();
-                    IBlockState state = world.getBlockState(pos.offset(EnumFacing.DOWN));
+                    BlockState state = world.getBlockState(pos.offset(Direction.DOWN));
                     // if (state.getBlock() == ModBlocks.MANNEQUIN) {
                     //     ((BlockMannequin)state.getBlock()).convertToDoll(world, pos);
                     // }
@@ -85,7 +85,7 @@ public class DollCraftingHandler implements IWorldEventListener {
     }
 
     @Override
-    public void playEvent(EntityPlayer player, int type, BlockPos blockPosIn, int data) {
+    public void playEvent(PlayerEntity player, int type, BlockPos blockPosIn, int data) {
     }
 
     @Override

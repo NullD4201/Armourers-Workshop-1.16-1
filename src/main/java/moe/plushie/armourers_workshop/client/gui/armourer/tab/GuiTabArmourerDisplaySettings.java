@@ -14,9 +14,9 @@ import moe.plushie.armourers_workshop.common.network.messages.client.MessageClie
 import moe.plushie.armourers_workshop.common.network.messages.client.MessageClientGuiSetSkin;
 import moe.plushie.armourers_workshop.common.tileentities.TileEntityArmourer;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.GuiTextField;
+import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 import net.minecraftforge.fml.relauncher.Side;
@@ -30,11 +30,11 @@ public class GuiTabArmourerDisplaySettings extends GuiTabPanel implements IDropD
     private final TileEntityArmourer tileEntity;
 
     private GuiDropDownList textureTypeList;
-    private GuiTextField textUserSkin;
+    private TextFieldWidget textUserSkin;
     private GuiCheckBox checkShowGuides;
     private GuiCheckBox checkShowHelper;
 
-    public GuiTabArmourerDisplaySettings(int tabId, GuiScreen parent) {
+    public GuiTabArmourerDisplaySettings(int tabId, Screen parent) {
         super(tabId, parent, false);
         tileEntity = ((GuiArmourer) parent).tileEntity;
     }
@@ -50,7 +50,7 @@ public class GuiTabArmourerDisplaySettings extends GuiTabPanel implements IDropD
         checkShowHelper = new GuiCheckBox(6, 10, 125, GuiHelper.getLocalizedControlName(guiName, "showHelper"), tileEntity.isShowHelper());
 
         buttonList.add(new GuiButtonExt(8, 10, 90, 80, 16, GuiHelper.getLocalizedControlName(guiName, "set")));
-        textUserSkin = new GuiTextField(-1, fontRenderer, x + 10, y + 70, 120, 16);
+        textUserSkin = new TextFieldWidget(-1, fontRenderer, x + 10, y + 70, 120, 16);
         textUserSkin.setMaxStringLength(300);
         textUserSkin.setText(tileEntity.getTexture().getTextureString());
 
@@ -83,7 +83,7 @@ public class GuiTabArmourerDisplaySettings extends GuiTabPanel implements IDropD
     }
 
     @Override
-    protected void actionPerformed(GuiButton button) {
+    protected void actionPerformed(Button button) {
         if (button.id == 8) {
             String username = textUserSkin.getText().trim();
             PacketHandler.networkWrapper.sendToServer(new MessageClientGuiSetSkin(new PlayerTexture(username, TextureType.values()[textureTypeList.getListSelectedIndex() + 1])));

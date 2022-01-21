@@ -15,7 +15,7 @@ import moe.plushie.armourers_workshop.common.painting.PaintTypeRegistry;
 import moe.plushie.armourers_workshop.common.painting.PaintingHelper;
 import moe.plushie.armourers_workshop.proxies.ClientProxy;
 import moe.plushie.armourers_workshop.proxies.ClientProxy.TexturePaintType;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.MathHelper;
 
 public class ColouredFace {
@@ -126,7 +126,7 @@ public class ColouredFace {
     }
     
     public static byte[] getColourFromTexture(byte x, byte y, byte z, byte r, byte g, byte b, byte face, BufferedImage image, ISkinPartTypeTextured skinPartTex, boolean oldImage) {
-        EnumFacing facing = EnumFacing.VALUES[face];
+        Direction facing = Direction.VALUES[face];
         
         Point posBase = skinPartTex.getTextureBasePos();
         if (oldImage) {

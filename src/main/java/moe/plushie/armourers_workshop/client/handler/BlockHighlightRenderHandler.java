@@ -8,14 +8,14 @@ import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
 import moe.plushie.armourers_workshop.common.tileentities.TileEntitySkinnable;
 import moe.plushie.armourers_workshop.utils.SkinNBTHelper;
 import moe.plushie.armourers_workshop.utils.PlayerUtils;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;
 import net.minecraft.client.renderer.GlStateManager.SourceFactor;
-import net.minecraft.client.renderer.RenderGlobal;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -35,7 +35,7 @@ public class BlockHighlightRenderHandler {
 
     @SubscribeEvent
     public void onDrawBlockHighlightEvent(DrawBlockHighlightEvent event) {
-        EntityPlayer player = event.getPlayer();
+        PlayerEntity player = event.getPlayer();
         World world = event.getPlayer().getEntityWorld();
         RayTraceResult target = event.getTarget();
 
@@ -44,8 +44,8 @@ public class BlockHighlightRenderHandler {
         }
 
         BlockPos pos = target.getBlockPos();
-        EnumFacing facing = target.sideHit;
-        IBlockState state = world.getBlockState(pos);
+        Direction facing = target.sideHit;
+        BlockState state = world.getBlockState(pos);
         ItemStack stack = player.getHeldItemMainhand();
 
         if (stack.getItem()  == ModItems.SKIN) {
@@ -57,7 +57,7 @@ public class BlockHighlightRenderHandler {
         }
     }
     
-    private void drawSkinnableBlockHelper(World world, BlockPos pos, EnumFacing facing, EntityPlayer player, float partialTicks, ISkinDescriptor descriptor) {
+    private void drawSkinnableBlockHelper(World world, BlockPos pos, Direction facing, PlayerEntity player, float partialTicks, ISkinDescriptor descriptor) {
         //int meta = world.getBlockMetadata(x, y, z);
         
         //Rectangle3D[][][] blockGrid;
@@ -78,7 +78,7 @@ public class BlockHighlightRenderHandler {
         float f1 = 0.002F;
         float scale = 0.0625F;
         
-        EnumFacing dir = PlayerUtils.getDirectionSide(player).getOpposite();
+        Direction dir = PlayerUtils.getDirectionSide(player).getOpposite();
         
         for (int ix = 0; ix < 3; ix++) {
             for (int iy = 0; iy < 3; iy++) {
@@ -110,9 +110,9 @@ public class BlockHighlightRenderHandler {
                         GlStateManager.disableTexture2D();
                         GlStateManager.disableAlpha();
                         if (!blocked) {
-                            RenderGlobal.drawSelectionBoundingBox(aabb.contract(f1, f1, f1), 1F, 1F, 1F, 0.75F);
+                            WorldRenderer.drawSelectionBoundingBox(aabb.contract(f1, f1, f1), 1F, 1F, 1F, 0.75F);
                         } else {
-                            RenderGlobal.drawSelectionBoundingBox(aabb.contract(f1, f1, f1), 1F, 0F, 0F, 0.75F);
+                            WorldRenderer.drawSelectionBoundingBox(aabb.contract(f1, f1, f1), 1F, 0F, 0F, 0.75F);
                         }
                         GlStateManager.enableAlpha();
                         GlStateManager.enableTexture2D();

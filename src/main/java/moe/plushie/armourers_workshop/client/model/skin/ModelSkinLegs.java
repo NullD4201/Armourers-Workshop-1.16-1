@@ -2,6 +2,7 @@ package moe.plushie.armourers_workshop.client.model.skin;
 
 import java.util.ArrayList;
 
+import net.minecraft.entity.player.PlayerEntity;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.api.common.IExtraColours;
@@ -20,7 +21,6 @@ import moe.plushie.armourers_workshop.proxies.ClientProxy.TexturePaintType;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -40,8 +40,8 @@ public class ModelSkinLegs extends ModelTypeHelper {
         }
         ArrayList<SkinPart> parts = skin.getParts();
 
-        if (entity != null && entity instanceof EntityPlayer) {
-            EntityPlayer player = (EntityPlayer) entity;
+        if (entity != null && entity instanceof PlayerEntity) {
+            PlayerEntity player = (PlayerEntity) entity;
             this.isSneak = player.isSneaking();
             this.isRiding = player.isRiding();
             /*

@@ -1,22 +1,22 @@
 package moe.plushie.armourers_workshop.client.render.entity;
 
+import net.minecraft.client.renderer.entity.CreeperRenderer;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.api.common.skin.type.ISkinType;
-import net.minecraft.client.renderer.entity.RenderCreeper;
-import net.minecraft.entity.monster.EntityCreeper;
+import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class SkinLayerRendererCreeper extends SkinLayerRenderer<EntityCreeper, RenderCreeper> {
+public class SkinLayerRendererCreeper extends SkinLayerRenderer<CreeperEntity, CreeperRenderer> {
 
-    public SkinLayerRendererCreeper(RenderCreeper renderCreeper) {
+    public SkinLayerRendererCreeper(CreeperRenderer renderCreeper) {
         super(renderCreeper);
     }
     
     @Override
-    protected void setRotTranForPartType(EntityCreeper entitylivingbaseIn, ISkinType skinType, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+    protected void setRotTranForPartType(CreeperEntity entitylivingbaseIn, ISkinType skinType, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
         
         /*if (entity.deathTime > 0) {
             float angle = ((float)entity.deathTime + ModClientFMLEventHandler.renderTickTime - 1.0F) / 20.0F * 1.6F;

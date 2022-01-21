@@ -1,5 +1,6 @@
 package moe.plushie.armourers_workshop.client.render.tileentities;
 
+import net.minecraft.util.Direction;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.api.common.painting.IPaintType;
@@ -13,22 +14,21 @@ import moe.plushie.armourers_workshop.common.painting.IBlockPainter;
 import moe.plushie.armourers_workshop.common.painting.PaintTypeRegistry;
 import moe.plushie.armourers_workshop.common.tileentities.TileEntityColourable;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class RenderBlockColourable extends TileEntitySpecialRenderer<TileEntityColourable> {
+public class RenderBlockColourable extends TileEntityRenderer<TileEntityColourable> {
 
     public static final ResourceLocation MARKERS = new ResourceLocation(LibModInfo.ID.toLowerCase(), "textures/tile-entities/markers.png");
     public static float markerAlpha = 0F;
@@ -56,7 +56,7 @@ public class RenderBlockColourable extends TileEntitySpecialRenderer<TileEntityC
         bindTexture(MARKERS);
         renderer.startDrawingQuads(DefaultVertexFormats.POSITION_TEX);
         for (int i = 0; i < 6; i++) {
-            EnumFacing dir = EnumFacing.byIndex(i);
+            Direction dir = Direction.byIndex(i);
             int paintType = cubeColour.getPaintType(i) & 0xFF;
             if (paintType != 255) {
                 IPaintType pt = PaintTypeRegistry.getInstance().getPaintTypeFromIndex(paintType);
@@ -88,7 +88,7 @@ public class RenderBlockColourable extends TileEntitySpecialRenderer<TileEntityC
         }
     }
 
-    public static void renderFaceWithMarker(IRenderBuffer renderer, double x, double y, double z, EnumFacing face, int marker) {
+    public static void renderFaceWithMarker(IRenderBuffer renderer, double x, double y, double z, Direction face, int marker) {
         Tessellator tess = Tessellator.getInstance();
         float tileScale = 0.125F;
         float ySrc = (float) Math.floor((double) marker / 8F);
@@ -163,7 +163,7 @@ public class RenderBlockColourable extends TileEntitySpecialRenderer<TileEntityC
     }
 
     private static boolean isPlayerHoldingPaintingTool() {
-        EntityPlayerSP player = Minecraft.getMinecraft().player;
+        ClientPlayerEntity player = Minecraft.getMinecraft().player;
         ItemStack stack = player.getHeldItemMainhand();
         if (stack != null) {
             Item item = stack.getItem();

@@ -9,7 +9,7 @@ import moe.plushie.armourers_workshop.client.gui.globallibrary.GuiGlobalLibrary;
 import moe.plushie.armourers_workshop.common.library.global.task.GlobalTaskInfo;
 import moe.plushie.armourers_workshop.common.library.global.task.GlobalTaskInfo.TaskData;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -29,7 +29,7 @@ public class GuiGlobalLibraryPanelInfo extends GuiPanel {
 
     private String failMessage = null;
 
-    public GuiGlobalLibraryPanelInfo(GuiScreen parent) {
+    public GuiGlobalLibraryPanelInfo(Screen parent) {
         super(parent, 0, 0, 1, 1);
         guiName = ((GuiGlobalLibrary) parent).getGuiName() + ".panel.info";
     }

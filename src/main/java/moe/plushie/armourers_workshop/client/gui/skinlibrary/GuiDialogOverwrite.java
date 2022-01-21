@@ -3,8 +3,8 @@ package moe.plushie.armourers_workshop.client.gui.skinlibrary;
 import moe.plushie.armourers_workshop.client.gui.GuiHelper;
 import moe.plushie.armourers_workshop.client.gui.controls.AbstractGuiDialog;
 import moe.plushie.armourers_workshop.client.gui.controls.IDialogCallback;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -16,7 +16,7 @@ public class GuiDialogOverwrite extends AbstractGuiDialog {
     private GuiButtonExt buttonClose;
     private GuiButtonExt buttonOK;
 
-    public GuiDialogOverwrite(GuiScreen parent, String name, IDialogCallback callback, int width, int height, String fileName) {
+    public GuiDialogOverwrite(Screen parent, String name, IDialogCallback callback, int width, int height, String fileName) {
         super(parent, name, callback, width, height);
         this.fileName = fileName;
         this.slotHandler = null;
@@ -35,7 +35,7 @@ public class GuiDialogOverwrite extends AbstractGuiDialog {
     }
 
     @Override
-    protected void actionPerformed(GuiButton button) {
+    protected void actionPerformed(Button button) {
         if (button == buttonClose) {
             returnDialogResult(DialogResult.CANCEL);
         }

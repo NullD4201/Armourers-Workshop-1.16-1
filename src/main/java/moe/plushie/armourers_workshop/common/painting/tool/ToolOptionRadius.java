@@ -1,7 +1,7 @@
 package moe.plushie.armourers_workshop.common.painting.tool;
 
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.fml.client.config.GuiSlider;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -26,7 +26,7 @@ public class ToolOptionRadius extends ToolOption<Integer> {
 
     @SideOnly(Side.CLIENT)
     @Override
-    public GuiButton getGuiControl(int id, int x, int y, NBTTagCompound compound) {
+    public Button getGuiControl(int id, int x, int y, CompoundNBT compound) {
         GuiSlider sliderControl = new GuiSlider(id, x, y, getLocalisedLabel() + " ", 1, 6, (Integer) readFromNBT(compound, defaultValue), null);
         sliderControl.showDecimal = false;
         return sliderControl;
@@ -34,7 +34,7 @@ public class ToolOptionRadius extends ToolOption<Integer> {
     
     @SideOnly(Side.CLIENT)
     @Override
-    public void writeGuiControlToNBT(GuiButton button, NBTTagCompound compound) {
+    public void writeGuiControlToNBT(Button button, CompoundNBT compound) {
         writeToNBT(compound, ((GuiSlider)button).getValueInt());
     }
 }

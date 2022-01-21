@@ -16,11 +16,11 @@ import moe.plushie.armourers_workshop.common.network.messages.server.MessageServ
 import moe.plushie.armourers_workshop.common.skin.data.SkinDescriptor;
 import moe.plushie.armourers_workshop.utils.SkinNBTHelper;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 
@@ -137,8 +137,8 @@ public class EntitySkinCapability implements IEntitySkinCapability, IInventoryCa
         }
 
         int maxSlot = wardrobeInventory.getSizeInventory();
-        if (entity instanceof EntityPlayer) {
-            IPlayerWardrobeCap wardrobeCap = PlayerWardrobeCap.get((EntityPlayer) entity);
+        if (entity instanceof PlayerEntity) {
+            IPlayerWardrobeCap wardrobeCap = PlayerWardrobeCap.get((PlayerEntity) entity);
             if (wardrobeCap != null) {
                 maxSlot = wardrobeCap.getUnlockedSlotsForSkinType(skinType);
             }
@@ -177,12 +177,12 @@ public class EntitySkinCapability implements IEntitySkinCapability, IInventoryCa
     }
     
     private MessageServerSyncSkinCap getUpdateMessage() {
-        NBTTagCompound compound = (NBTTagCompound)ENTITY_SKIN_CAP.getStorage().writeNBT(ENTITY_SKIN_CAP, this, null);
+        CompoundNBT compound = (CompoundNBT)ENTITY_SKIN_CAP.getStorage().writeNBT(ENTITY_SKIN_CAP, this, null);
         return new MessageServerSyncSkinCap(entity.getEntityId(), compound);
     }
     
     @Override
-    public void syncToPlayer(EntityPlayerMP entityPlayer) {
+    public void syncToPlayer(ServerPlayerEntity entityPlayer) {
         PacketHandler.networkWrapper.sendTo(getUpdateMessage(), entityPlayer);
     }
 

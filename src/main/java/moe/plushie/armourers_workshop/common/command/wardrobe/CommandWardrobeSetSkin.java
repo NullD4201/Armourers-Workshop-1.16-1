@@ -23,7 +23,7 @@ import moe.plushie.armourers_workshop.utils.SkinIOUtils;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 
@@ -49,7 +49,7 @@ public class CommandWardrobeSetSkin extends ModCommand {
         }
 
         String playerName = args[getParentCount()];
-        EntityPlayerMP player = getPlayer(server, sender, playerName);
+        ServerPlayerEntity player = getPlayer(server, sender, playerName);
         if (player == null) {
             return;
         }

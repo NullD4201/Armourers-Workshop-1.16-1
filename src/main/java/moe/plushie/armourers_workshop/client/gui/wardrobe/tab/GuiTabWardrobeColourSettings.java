@@ -3,6 +3,8 @@ package moe.plushie.armourers_workshop.client.gui.wardrobe.tab;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
+import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.entity.player.PlayerEntity;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.api.common.IExtraColours;
@@ -21,11 +23,9 @@ import moe.plushie.armourers_workshop.common.TextureHelper;
 import moe.plushie.armourers_workshop.common.capability.wardrobe.ExtraColours;
 import moe.plushie.armourers_workshop.common.painting.PaintTypeRegistry;
 import moe.plushie.armourers_workshop.common.painting.PaintingHelper;
-import net.minecraft.client.entity.AbstractClientPlayer;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -39,7 +39,7 @@ public class GuiTabWardrobeColourSettings extends GuiTabPanel {
     private static final ResourceLocation TEXTURE_BUTTONS = new ResourceLocation(LibGuiResources.CONTROL_BUTTONS);
 
     private final GuiStyle guiStyle;
-    private EntityPlayer entityPlayer;
+    private PlayerEntity entityPlayer;
     private IEntitySkinCapability skinCapability;
     private IWardrobeCap wardrobeCapability;
 
@@ -58,7 +58,7 @@ public class GuiTabWardrobeColourSettings extends GuiTabPanel {
 
     String guiName = "wardrobe.tab.colour_settings";
 
-    public GuiTabWardrobeColourSettings(int tabId, GuiScreen parent, EntityPlayer entityPlayer, IEntitySkinCapability skinCapability, IWardrobeCap wardrobeCapability) {
+    public GuiTabWardrobeColourSettings(int tabId, Screen parent, PlayerEntity entityPlayer, IEntitySkinCapability skinCapability, IWardrobeCap wardrobeCapability) {
         super(tabId, parent, false);
         this.guiStyle = GuiResourceManager.getGuiJsonInfo(GUI_JSON);
         this.entityPlayer = entityPlayer;
@@ -133,7 +133,7 @@ public class GuiTabWardrobeColourSettings extends GuiTabPanel {
     }
 
     @Override
-    protected void actionPerformed(GuiButton button) {
+    protected void actionPerformed(Button button) {
         for (int i = 0; i < buttonsSelect.length; i++) {
             if (button == buttonsSelect[i]) {
                 selectingColourType = ExtraColourType.values()[i];
@@ -143,7 +143,7 @@ public class GuiTabWardrobeColourSettings extends GuiTabPanel {
 
         for (int i = 0; i < buttonsAuto.length; i++) {
             if (button == buttonsAuto[i]) {
-                int newColour = autoColour((AbstractClientPlayer) this.entityPlayer, ExtraColourType.values()[i]);
+                int newColour = autoColour((AbstractClientPlayerEntity) this.entityPlayer, ExtraColourType.values()[i]);
                 wardrobeCapability.getExtraColours().setColour(ExtraColourType.values()[i], newColour);
                 wardrobeCapability.sendUpdateToServer();
             }
@@ -236,7 +236,7 @@ public class GuiTabWardrobeColourSettings extends GuiTabPanel {
         }
         GL11.glPopMatrix();
         for (int i = 0; i < buttonList.size(); i++) {
-            GuiButton button = (GuiButton) buttonList.get(i);
+            Button button = (Button) buttonList.get(i);
             if (button instanceof GuiIconButton) {
                 ((GuiIconButton) button).drawRollover(mc, mouseX - x, mouseY - y);
             }
@@ -244,7 +244,7 @@ public class GuiTabWardrobeColourSettings extends GuiTabPanel {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
     }
 
-    public int autoColour(AbstractClientPlayer player, ExtraColourType type) {
+    public int autoColour(AbstractClientPlayerEntity player, ExtraColourType type) {
         BufferedImage playerTexture = TextureHelper.getBufferedImageSkin(player);
         if (playerTexture == null) {
             return ExtraColours.COLOUR_NONE;

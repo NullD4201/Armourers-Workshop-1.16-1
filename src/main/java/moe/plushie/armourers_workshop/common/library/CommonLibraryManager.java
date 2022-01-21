@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import org.apache.logging.log4j.Level;
 
 import moe.plushie.armourers_workshop.ArmourersWorkshop;
 import moe.plushie.armourers_workshop.common.lib.LibModInfo;
 import moe.plushie.armourers_workshop.utils.ModLogger;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 
 /**
  * 
@@ -93,7 +93,7 @@ public class CommonLibraryManager implements ILibraryManager {
     }
     
     @Override
-    public LibraryFileList getServerPrivateFileList(EntityPlayer player) {
+    public LibraryFileList getServerPrivateFileList(PlayerEntity player) {
         return serverPrivateFiles.get(player.getUniqueID());
     }
     
@@ -113,7 +113,7 @@ public class CommonLibraryManager implements ILibraryManager {
     }
     
     @Override
-    public void addFileToListType(LibraryFile file, LibraryFileType listType, EntityPlayer player) {
+    public void addFileToListType(LibraryFile file, LibraryFileType listType, PlayerEntity player) {
         switch (listType) {
         case LOCAL:
             ModLogger.log(Level.WARN, "Tried to add a file in the server library manager.");
@@ -135,7 +135,7 @@ public class CommonLibraryManager implements ILibraryManager {
     }
     
     @Override
-    public void removeFileFromListType(LibraryFile file, LibraryFileType listType, EntityPlayer player) {
+    public void removeFileFromListType(LibraryFile file, LibraryFileType listType, PlayerEntity player) {
         switch (listType) {
         case LOCAL:
             ModLogger.log(Level.WARN, "Tried to remove a file in the server library manager.");
@@ -157,7 +157,7 @@ public class CommonLibraryManager implements ILibraryManager {
     }
     
     @Override
-    public void syncLibraryWithPlayer(EntityPlayerMP player) {
+    public void syncLibraryWithPlayer(ServerPlayerEntity player) {
         serverPublicFiles.syncFileListWithPlayer(player);
         LibraryFileList privateList = serverPrivateFiles.get(player.getUniqueID());
         if (privateList != null) {

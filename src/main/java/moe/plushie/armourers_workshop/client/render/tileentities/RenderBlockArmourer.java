@@ -10,12 +10,12 @@ import moe.plushie.armourers_workshop.common.tileentities.TileEntityArmourer;
 import moe.plushie.armourers_workshop.proxies.ClientProxy;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class RenderBlockArmourer extends TileEntitySpecialRenderer<TileEntityArmourer> {
+public class RenderBlockArmourer extends TileEntityRenderer<TileEntityArmourer> {
 
     @Override
     public void render(TileEntityArmourer te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {

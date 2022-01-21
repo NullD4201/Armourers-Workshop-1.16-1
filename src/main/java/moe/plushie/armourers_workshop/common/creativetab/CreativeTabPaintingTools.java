@@ -5,16 +5,16 @@ import java.util.Comparator;
 
 import moe.plushie.armourers_workshop.common.init.blocks.ModBlocks;
 import moe.plushie.armourers_workshop.common.lib.LibModInfo;
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class CreativeTabPaintingTools extends CreativeTabs {
+public class CreativeTabPaintingTools extends ItemGroup {
     
     public CreativeTabPaintingTools() {
-        super(CreativeTabs.getNextID(), LibModInfo.ID + "_painting_tools");
+        super(ItemGroup.getNextID(), LibModInfo.ID + "_painting_tools");
     }
     
     @SideOnly(Side.CLIENT)

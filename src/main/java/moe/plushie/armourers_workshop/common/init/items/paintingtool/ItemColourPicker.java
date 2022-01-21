@@ -23,21 +23,19 @@ import moe.plushie.armourers_workshop.common.painting.tool.IConfigurableTool;
 import moe.plushie.armourers_workshop.common.painting.tool.ToolOption;
 import moe.plushie.armourers_workshop.common.painting.tool.ToolOptions;
 import moe.plushie.armourers_workshop.utils.TranslateUtils;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.ItemMeshDefinition;
-import net.minecraft.client.renderer.block.model.ModelBakery;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.model.ModelBakery;
+import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.util.*;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
@@ -63,8 +61,8 @@ public class ItemColourPicker extends AbstractModItem implements IPaintingTool, 
     }
     
     @Override
-    public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        IBlockState state = worldIn.getBlockState(pos);
+    public ActionResultType onItemUse(PlayerEntity player, World worldIn, BlockPos pos, Hand hand, Direction facing, float hitX, float hitY, float hitZ) {
+        BlockState state = worldIn.getBlockState(pos);
         ItemStack stack = player.getHeldItem(hand);
         boolean changePaintType = ToolOptions.CHANGE_PAINT_TYPE.getValue(stack);
         IPaintType paintType = getToolPaintType(stack);
@@ -78,7 +76,7 @@ public class ItemColourPicker extends AbstractModItem implements IPaintingTool, 
                     ((IPantable)te).setPaintType(paintType, 0);
                 }
             }
-            return EnumActionResult.SUCCESS;
+            return ActionResultType.SUCCESS;
         }
         
         if (state.getBlock() instanceof IPantableBlock) {
@@ -87,7 +85,7 @@ public class ItemColourPicker extends AbstractModItem implements IPaintingTool, 
             
             if (paintable.isRemoteOnly(worldIn, pos, facing) & worldIn.isRemote) {
                 int colour = paintable.getColour(worldIn, pos, facing);
-                NBTTagCompound compound = new NBTTagCompound();
+                CompoundNBT compound = new CompoundNBT();
                 byte[] paintData = new byte[4];
                 Color c = new Color(colour);
                 paintData[0] = (byte) c.getRed();
@@ -113,9 +111,9 @@ public class ItemColourPicker extends AbstractModItem implements IPaintingTool, 
             if (!worldIn.isRemote) {
                 worldIn.playSound(null, pos, ModSounds.PICKER, SoundCategory.BLOCKS, 1.0F, worldIn.rand.nextFloat() * 0.1F + 0.9F);
             }
-            return EnumActionResult.SUCCESS;
+            return ActionResultType.SUCCESS;
         }
-        return EnumActionResult.PASS;
+        return ActionResultType.PASS;
     }
     
     @SideOnly(Side.CLIENT)
@@ -151,12 +149,12 @@ public class ItemColourPicker extends AbstractModItem implements IPaintingTool, 
     }
     
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         if (playerIn.isSneaking()) {
             if (worldIn.isRemote) {
                 playerIn.openGui(ArmourersWorkshop.getInstance(), EnumGuiId.TOOL_OPTIONS.ordinal(), worldIn, 0, 0, 0);
             }
-            return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
+            return new ActionResult<ItemStack>(ActionResultType.SUCCESS, playerIn.getHeldItem(handIn));
         }
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }

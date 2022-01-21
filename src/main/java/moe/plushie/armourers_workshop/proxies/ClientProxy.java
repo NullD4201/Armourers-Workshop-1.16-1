@@ -7,6 +7,13 @@ import java.lang.reflect.Field;
 import java.net.URI;
 import java.util.List;
 
+import net.minecraft.block.BlockState;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.LivingRenderer;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.SpectralArrowEntity;
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.Level;
 import org.lwjgl.Sys;
@@ -82,20 +89,13 @@ import moe.plushie.armourers_workshop.common.tileentities.TileEntitySkinnable;
 import moe.plushie.armourers_workshop.utils.ModLogger;
 import moe.plushie.armourers_workshop.utils.SkinIOUtils;
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.client.renderer.color.IItemColor;
-import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderLivingBase;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.entity.RenderPlayer;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.PlayerRenderer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntitySpectralArrow;
-import net.minecraft.entity.projectile.EntityTippedArrow;
+import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
@@ -162,21 +162,21 @@ public class ClientProxy extends CommonProxy implements IBakedSkinReceiver {
         RenderingRegistry.registerEntityRenderingHandler(EntityMannequin.class, new IRenderFactory() {
 
             @Override
-            public Render createRenderFor(RenderManager manager) {
+            public EntityRenderer createRenderFor(EntityRendererManager manager) {
                 return new RenderEntityMannequin(manager);
             }
         });
-        RenderingRegistry.registerEntityRenderingHandler(EntityTippedArrow.class, new IRenderFactory() {
+        RenderingRegistry.registerEntityRenderingHandler(ArrowEntity.class, new IRenderFactory() {
 
             @Override
-            public Render createRenderFor(RenderManager manager) {
+            public EntityRenderer createRenderFor(EntityRendererManager manager) {
                 return new RenderTippedArrowSkinned(manager);
             }
         });
-        RenderingRegistry.registerEntityRenderingHandler(EntitySpectralArrow.class, new IRenderFactory() {
+        RenderingRegistry.registerEntityRenderingHandler(SpectralArrowEntity.class, new IRenderFactory() {
 
             @Override
-            public Render createRenderFor(RenderManager manager) {
+            public EntityRenderer createRenderFor(EntityRendererManager manager) {
                 return new RenderSpectralArrowSkinned(manager);
             }
         });
@@ -260,9 +260,9 @@ public class ClientProxy extends CommonProxy implements IBakedSkinReceiver {
                 error += "\t\tTexture Paint Type: " + getTexturePaintType().toString() + "\n";
                 error += "\t\tMultipass Skin Rendering: " + useMultipassSkinRendering() + "\n";
                 error += "\tRender Layers:";
-                for (RenderPlayer playerRender : Minecraft.getMinecraft().getRenderManager().getSkinMap().values()) {
+                for (PlayerRenderer playerRender : Minecraft.getMinecraft().getRenderManager().getSkinMap().values()) {
                     error += "\n\t\t Render Class: " + playerRender.getClass().getName();
-                    Object object = ReflectionHelper.getPrivateValue(RenderLivingBase.class, playerRender, "field_177097_h", "layerRenderers");
+                    Object object = ReflectionHelper.getPrivateValue(LivingRenderer.class, playerRender, "field_177097_h", "layerRenderers");
                     if (object != null) {
                         List<LayerRenderer<?>> layerRenderers = (List<LayerRenderer<?>>) object;
                         for (LayerRenderer<?> layerRenderer : layerRenderers) {
@@ -283,7 +283,7 @@ public class ClientProxy extends CommonProxy implements IBakedSkinReceiver {
     private void enableValentinesClouds() {
         ModLogger.log("Love is in the air!");
         try {
-            Object o = ReflectionHelper.getPrivateValue(RenderGlobal.class, null, "CLOUDS_TEXTURES", "field_110925_j");
+            Object o = ReflectionHelper.getPrivateValue(WorldRenderer.class, null, "CLOUDS_TEXTURES", "field_110925_j");
             Field f = ReflectionHelper.findField(ResourceLocation.class, "namespace", "field_110626_a");
             f.setAccessible(true);
             f.set(o, LibModInfo.ID.toLowerCase());
@@ -334,7 +334,7 @@ public class ClientProxy extends CommonProxy implements IBakedSkinReceiver {
 
     @Override
     public void receivedCommandFromSever(CommandType command) {
-        EntityPlayer player = Minecraft.getMinecraft().player;
+        PlayerEntity player = Minecraft.getMinecraft().player;
         switch (command) {
         case CLEAR_MODEL_CACHE:
             ClientSkinCache.INSTANCE.clearCache();
@@ -392,7 +392,7 @@ public class ClientProxy extends CommonProxy implements IBakedSkinReceiver {
             ArmourersWorkshop.getProxy().libraryManager.addFileToListType(new LibraryFile(fileName, filePath, skin.getSkinType()), LibraryFileType.LOCAL, null);
             break;
         case GLOBAL_UPLOAD:
-            GuiScreen screen = Minecraft.getMinecraft().currentScreen;
+            Screen screen = Minecraft.getMinecraft().currentScreen;
             if (screen instanceof GuiGlobalLibrary) {
                 ((GuiGlobalLibrary) screen).gotSkinFromServer(skin);
             }
@@ -455,7 +455,7 @@ public class ClientProxy extends CommonProxy implements IBakedSkinReceiver {
     private static class BlockColour implements IBlockColor {
 
         @Override
-        public int colorMultiplier(IBlockState state, IBlockAccess worldIn, BlockPos pos, int tintIndex) {
+        public int colorMultiplier(BlockState state, IBlockAccess worldIn, BlockPos pos, int tintIndex) {
             TileEntity tileEntity = worldIn.getTileEntity(pos);
             if (tileEntity != null && tileEntity instanceof IPantable) {
                 return ((IPantable) tileEntity).getColour(tintIndex);

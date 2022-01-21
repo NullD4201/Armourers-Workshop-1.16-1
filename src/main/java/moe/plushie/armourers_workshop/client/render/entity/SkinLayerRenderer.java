@@ -1,5 +1,6 @@
 package moe.plushie.armourers_workshop.client.render.entity;
 
+import net.minecraft.entity.LivingEntity;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.api.common.IExtraColours;
@@ -19,14 +20,13 @@ import moe.plushie.armourers_workshop.common.skin.data.Skin;
 import moe.plushie.armourers_workshop.common.skin.data.SkinDye;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.entity.RenderLivingBase;
+import net.minecraft.client.renderer.entity.LivingRenderer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public abstract class SkinLayerRenderer<E extends EntityLivingBase, R extends RenderLivingBase> implements LayerRenderer<E> {
+public abstract class SkinLayerRenderer<E extends LivingEntity, R extends LivingRenderer> implements LayerRenderer<E> {
     
     protected static final float SCALE = 0.0625F;
     protected final R renderer;
@@ -59,7 +59,7 @@ public abstract class SkinLayerRenderer<E extends EntityLivingBase, R extends Re
     
     protected abstract void setRotTranForPartType(E entitylivingbaseIn, ISkinType skinType, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale);
     
-    protected void renderSkinType(EntityLivingBase entity, ISkinType skinType, IEntitySkinCapability skinCapability, IWardrobeCap wardrobeCap) {
+    protected void renderSkinType(LivingEntity entity, ISkinType skinType, IEntitySkinCapability skinCapability, IWardrobeCap wardrobeCap) {
         double distance = entity.getDistance(Minecraft.getMinecraft().player);
         for (int i = 0; i < skinCapability.getSlotCountForSkinType(skinType); i++) {
             ISkinDescriptor skinDescriptor = skinCapability.getSkinDescriptor(skinType, i);

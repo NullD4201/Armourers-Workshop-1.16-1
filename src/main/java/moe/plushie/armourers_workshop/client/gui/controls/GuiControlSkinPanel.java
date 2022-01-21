@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.client.gui.AbstractGui;
 import org.lwjgl.opengl.GL11;
 
 import com.google.gson.JsonObject;
@@ -17,7 +18,6 @@ import moe.plushie.armourers_workshop.common.skin.data.SkinDescriptor;
 import moe.plushie.armourers_workshop.common.skin.data.SkinIdentifier;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.util.ResourceLocation;
@@ -199,7 +199,7 @@ public class GuiControlSkinPanel extends GuiButtonExt {
 
                 Minecraft.getMinecraft().renderEngine.bindTexture(skin.getSkinType().getIcon());
                 GlStateManager.color(1F, 1F, 1F, 1F);
-                Gui.drawScaledCustomSizeModalRect(x, y, 0, 0, 16, 16, (int) (iconSize / 4F), (int) (iconSize / 4F), 16, 16);
+                AbstractGui.drawScaledCustomSizeModalRect(x, y, 0, 0, 16, 16, (int) (iconSize / 4F), (int) (iconSize / 4F), 16, 16);
 
                 float scale = iconSize / 2;
                 GlStateManager.pushMatrix();
@@ -248,7 +248,7 @@ public class GuiControlSkinPanel extends GuiButtonExt {
                 int u = MathHelper.floor(frame / 9);
                 int v = frame - u * 9;
 
-                Gui.drawScaledCustomSizeModalRect(x + 8, y + 8, u * 28, v * 28, 27, 27, iconSize - 16, iconSize - 16, 256, 256);
+                AbstractGui.drawScaledCustomSizeModalRect(x + 8, y + 8, u * 28, v * 28, 27, 27, iconSize - 16, iconSize - 16, 256, 256);
             }
             ModRenderHelper.disableScissor();
         }

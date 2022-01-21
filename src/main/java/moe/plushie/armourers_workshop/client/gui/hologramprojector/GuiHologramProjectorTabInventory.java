@@ -2,10 +2,10 @@ package moe.plushie.armourers_workshop.client.gui.hologramprojector;
 
 import moe.plushie.armourers_workshop.client.gui.controls.GuiTabPanel;
 import moe.plushie.armourers_workshop.common.inventory.slot.SlotHidable;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.container.Slot;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -28,7 +28,7 @@ public class GuiHologramProjectorTabInventory extends GuiTabPanel {
     private static final int INV_MAN_TOP_PAD = 15;
     private static final int INV_MAN_LEFT_PAD = 26;
     
-    public GuiHologramProjectorTabInventory(int tabId, GuiScreen parent) {
+    public GuiHologramProjectorTabInventory(int tabId, Screen parent) {
         super(tabId, parent, true);
     }
     
@@ -36,7 +36,7 @@ public class GuiHologramProjectorTabInventory extends GuiTabPanel {
     public void initGui(int xPos, int yPos, int width, int height) {
         super.initGui(xPos, yPos, width, height);
         
-        GuiContainer guiCon = (GuiContainer) parent;
+        ContainerScreen guiCon = (ContainerScreen) parent;
         // Move player inventory slots.
         for (int x = 0; x < 9; x++) {
             Slot slot = guiCon.inventorySlots.inventorySlots.get(x);
@@ -66,7 +66,7 @@ public class GuiHologramProjectorTabInventory extends GuiTabPanel {
     
     @Override
     public void tabChanged(int tabIndex) {
-        GuiContainer guiCon = (GuiContainer) parent;
+        ContainerScreen guiCon = (ContainerScreen) parent;
         for (int i = 0; i < guiCon.inventorySlots.inventorySlots.size(); i++) {
             Slot slot = guiCon.inventorySlots.inventorySlots.get(i);
             if (slot instanceof SlotHidable) {

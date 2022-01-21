@@ -2,6 +2,8 @@ package moe.plushie.armourers_workshop.common.addons;
 
 import java.util.ArrayList;
 
+import net.minecraft.client.renderer.entity.LivingRenderer;
+import net.minecraft.entity.LivingEntity;
 import org.apache.logging.log4j.Level;
 import org.lwjgl.opengl.GL11;
 
@@ -27,13 +29,11 @@ import net.minecraft.client.model.ModelHumanoidHead;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.model.ModelSkeletonHead;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderLivingBase;
-import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
@@ -60,12 +60,12 @@ public class AddonHauntedAstolfoBeanPlushie extends ModAddon {
 
         @SideOnly(Side.CLIENT)
         @Override
-        public void addRenderLayer(RenderManager renderManager) {
-            Render<Entity> renderer = renderManager.getEntityClassRenderObject(getEntityClass());
-            if (renderer != null && renderer instanceof RenderLivingBase) {
-                SkinLayerRendererBeanPlushie rendererBeanPlushie = new SkinLayerRendererBeanPlushie(getEntityClass(), (RenderLivingBase) renderer);
+        public void addRenderLayer(EntityRendererManager renderManager) {
+            EntityRenderer<Entity> renderer = renderManager.getEntityClassRenderObject(getEntityClass());
+            if (renderer != null && renderer instanceof LivingRenderer) {
+                SkinLayerRendererBeanPlushie rendererBeanPlushie = new SkinLayerRendererBeanPlushie(getEntityClass(), (LivingRenderer) renderer);
                 if (rendererBeanPlushie != null) {
-                    ((RenderLivingBase) renderer).addLayer(rendererBeanPlushie);
+                    ((LivingRenderer) renderer).addLayer(rendererBeanPlushie);
                 }
             } else {
                 ModLogger.log(Level.WARN, "Failed to get renderer for " + ENTITY_CLASS_NAME);
@@ -73,9 +73,9 @@ public class AddonHauntedAstolfoBeanPlushie extends ModAddon {
         }
 
         @Override
-        public Class<? extends EntityLivingBase> getEntityClass() {
+        public Class<? extends LivingEntity> getEntityClass() {
             try {
-                return (Class<? extends EntityLivingBase>) Class.forName(ENTITY_CLASS_NAME);
+                return (Class<? extends LivingEntity>) Class.forName(ENTITY_CLASS_NAME);
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
@@ -93,7 +93,7 @@ public class AddonHauntedAstolfoBeanPlushie extends ModAddon {
         }
 
         @Override
-        public boolean canUseWandOfStyle(EntityPlayer user) {
+        public boolean canUseWandOfStyle(PlayerEntity user) {
             return true;
         }
     }
@@ -101,12 +101,12 @@ public class AddonHauntedAstolfoBeanPlushie extends ModAddon {
     @SideOnly(Side.CLIENT)
     public static class SkinLayerRendererBeanPlushie implements LayerRenderer {
 
-        private final Class<? extends EntityLivingBase> entityClass;
-        private final RenderLivingBase renderLivingBase;
+        private final Class<? extends LivingEntity> entityClass;
+        private final LivingRenderer renderLivingBase;
         private ModelRenderer head = null;
         private ModelRenderer headwear = null;
 
-        public SkinLayerRendererBeanPlushie(Class<? extends EntityLivingBase> entityClass, RenderLivingBase renderLivingBase) {
+        public SkinLayerRendererBeanPlushie(Class<? extends LivingEntity> entityClass, LivingRenderer renderLivingBase) {
             this.entityClass = entityClass;
             this.renderLivingBase = renderLivingBase;
             try {
@@ -151,7 +151,7 @@ public class AddonHauntedAstolfoBeanPlushie extends ModAddon {
         }
 
         @Override
-        public void doRenderLayer(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+        public void doRenderLayer(LivingEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
             EntitySkinCapability skinCapability = (EntitySkinCapability) EntitySkinCapability.get(entitylivingbaseIn);
             if (skinCapability == null) {
                 return;

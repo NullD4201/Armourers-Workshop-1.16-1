@@ -22,8 +22,7 @@ import moe.plushie.armourers_workshop.common.library.global.task.user.GlobalTask
 import moe.plushie.armourers_workshop.utils.ModLogger;
 import moe.plushie.armourers_workshop.utils.TranslateUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StringUtils;
 import net.minecraft.util.text.TextFormatting;
@@ -46,7 +45,7 @@ public class GuiGlobalLibraryPanelSkinEdit extends GuiPanel implements IDialogCa
     private Screen returnScreen;
     private boolean firstTick = false;
 
-    public GuiGlobalLibraryPanelSkinEdit(GuiScreen parent, int x, int y, int width, int height) {
+    public GuiGlobalLibraryPanelSkinEdit(net.minecraft.client.gui.screen.Screen parent, int x, int y, int width, int height) {
         super(parent, x, y, width, height);
         guiName = ((GuiGlobalLibrary) parent).getGuiName() + ".edit";
     }
@@ -145,7 +144,7 @@ public class GuiGlobalLibraryPanelSkinEdit extends GuiPanel implements IDialogCa
     }
 
     @Override
-    protected void actionPerformed(GuiButton button) {
+    protected void actionPerformed(Button button) {
         if (!visible | !enabled) {
             return;
         }

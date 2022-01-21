@@ -13,7 +13,7 @@ import moe.plushie.armourers_workshop.common.holiday.Holiday;
 import moe.plushie.armourers_workshop.common.holiday.ModHolidays;
 import moe.plushie.armourers_workshop.common.lib.LibModInfo;
 import moe.plushie.armourers_workshop.utils.ModLogger;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.common.config.Configuration;
 
 public class ConfigHandler {
@@ -97,7 +97,7 @@ public class ConfigHandler {
         }
     }
     
-    public static boolean canOpenWardrobe(EntityPlayer player) {
+    public static boolean canOpenWardrobe(PlayerEntity player) {
         if (!wardrobeAllowOpening) {
             return false;
         }

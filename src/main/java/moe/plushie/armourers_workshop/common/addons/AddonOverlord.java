@@ -3,6 +3,10 @@ package moe.plushie.armourers_workshop.common.addons;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.LivingRenderer;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import org.apache.logging.log4j.Level;
 
 import moe.plushie.armourers_workshop.api.common.skin.type.ISkinType;
@@ -12,14 +16,10 @@ import moe.plushie.armourers_workshop.common.skin.entity.SkinnableEntityRegisty;
 import moe.plushie.armourers_workshop.common.skin.entity.SkinnableEntity;
 import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
 import moe.plushie.armourers_workshop.utils.ModLogger;
-import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderBiped;
-import net.minecraft.client.renderer.entity.RenderLivingBase;
-import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.entity.BipedRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -51,16 +51,16 @@ public class AddonOverlord extends ModAddon {
 
         @SideOnly(Side.CLIENT)
         @Override
-        public void addRenderLayer(RenderManager renderManager) {
-            Render<Entity> renderer = renderManager.getEntityClassRenderObject(getEntityClass());
-            if (renderer != null && renderer instanceof RenderBiped) {
-                SkinLayerRendererBibed rendererBibed = new SkinLayerRendererBibed((RenderLivingBase) renderer);
+        public void addRenderLayer(EntityRendererManager renderManager) {
+            EntityRenderer<Entity> renderer = renderManager.getEntityClassRenderObject(getEntityClass());
+            if (renderer != null && renderer instanceof BipedRenderer) {
+                SkinLayerRendererBibed rendererBibed = new SkinLayerRendererBibed((LivingRenderer) renderer);
                 if (rendererBibed != null) {
-                    ((RenderBiped<?>) renderer).addLayer(rendererBibed);
+                    ((BipedRenderer<?>) renderer).addLayer(rendererBibed);
                 }
 
                 try {
-                    Object object = ReflectionHelper.getPrivateValue(RenderLivingBase.class, (RenderLivingBase) renderer, "field_177097_h", "layerRenderers");
+                    Object object = ReflectionHelper.getPrivateValue(LivingRenderer.class, (LivingRenderer) renderer, "field_177097_h", "layerRenderers");
                     if (object != null) {
                         List<LayerRenderer<?>> layerRenderers = (List<LayerRenderer<?>>) object;
                         // Looking for held item layer.
@@ -71,7 +71,7 @@ public class AddonOverlord extends ModAddon {
                                 ModLogger.log("Removing held item layer from " + renderer);
                                 layerRenderers.remove(i);
                                 ModLogger.log("Adding skinned held item layer to " + renderer);
-                                layerRenderers.add(new SkinLayerRendererHeldItem((RenderLivingBase) renderer, layerRenderer));
+                                layerRenderers.add(new SkinLayerRendererHeldItem((LivingRenderer) renderer, layerRenderer));
                                 break;
                             }
                         }
@@ -88,9 +88,9 @@ public class AddonOverlord extends ModAddon {
         }
 
         @Override
-        public Class<? extends EntityLivingBase> getEntityClass() {
+        public Class<? extends LivingEntity> getEntityClass() {
             try {
-                return (Class<? extends EntityLivingBase>) Class.forName(className);
+                return (Class<? extends LivingEntity>) Class.forName(className);
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
@@ -123,7 +123,7 @@ public class AddonOverlord extends ModAddon {
         }
 
         @Override
-        public boolean canUseWandOfStyle(EntityPlayer user) {
+        public boolean canUseWandOfStyle(PlayerEntity user) {
             return true;
         }
     }

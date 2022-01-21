@@ -11,8 +11,8 @@ import moe.plushie.armourers_workshop.common.lib.LibModInfo;
 import moe.plushie.armourers_workshop.common.skin.cache.CommonSkinCache;
 import moe.plushie.armourers_workshop.proxies.ClientProxy;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.entity.player.ClientPlayerEntity;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
@@ -33,7 +33,7 @@ public class DebugTextHandler {
             return;
         }
         if (event.getLeft() != null && event.getLeft().size() > 0) {
-            EntityPlayerSP localPlayer = Minecraft.getMinecraft().player;
+            ClientPlayerEntity localPlayer = Minecraft.getMinecraft().player;
 
             if (!event.getLeft().get(0).contains("1.12.2")) {
                 return;
@@ -43,7 +43,7 @@ public class DebugTextHandler {
             event.getLeft().add(TextFormatting.GOLD + "[" + LibModInfo.NAME + "]");
             event.getLeft().add("Skins Rendered: " + ModClientFMLEventHandler.skinRenderLastTick);
             event.getLeft().add("GPU Model Count: " + ClientSkinCache.INSTANCE.getModelCount());
-            if (GuiScreen.isCtrlKeyDown() != LibModInfo.DEVELOPMENT_VERSION) {
+            if (Screen.isCtrlKeyDown() != LibModInfo.DEVELOPMENT_VERSION) {
                 int size = ClientSkinCache.INSTANCE.getCacheSize();
                 CacheStats skinStats = ClientSkinCache.INSTANCE.getStats();
                 event.getLeft().add(String.format("Client Skin Cache: %d - HR: %.2f%%", size, skinStats.hitRate()));

@@ -11,14 +11,14 @@ import moe.plushie.armourers_workshop.common.skin.data.Skin;
 import moe.plushie.armourers_workshop.common.skin.data.SkinTexture;
 import moe.plushie.armourers_workshop.utils.BitwiseUtils;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.texture.AbstractTexture;
+import net.minecraft.client.renderer.texture.Texture;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class SkinModelTexture extends AbstractTexture {
+public class SkinModelTexture extends Texture {
     
     private final BufferedImage texture;
     

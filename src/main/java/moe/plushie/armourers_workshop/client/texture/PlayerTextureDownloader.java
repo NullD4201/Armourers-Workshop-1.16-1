@@ -18,13 +18,13 @@ import moe.plushie.armourers_workshop.proxies.CommonProxy;
 import moe.plushie.armourers_workshop.utils.ModLogger;
 import moe.plushie.armourers_workshop.utils.PlayerUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.client.renderer.ImageBufferDownload;
+import net.minecraft.client.entity.player.ClientPlayerEntity;
+import net.minecraft.client.renderer.DownloadImageBuffer;
 import net.minecraft.client.renderer.ThreadDownloadImageData;
 import net.minecraft.client.renderer.texture.ITextureObject;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.resources.DefaultPlayerSkin;
-import net.minecraft.client.resources.SkinManager.SkinAvailableCallback;
+import net.minecraft.client.resources.SkinManager.ISkinAvailableCallback;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StringUtils;
 import net.minecraftforge.fml.relauncher.Side;
@@ -49,7 +49,7 @@ public class PlayerTextureDownloader implements IGameProfileCallback {
         case NONE:
             return NO_TEXTURE;
         case USER:
-            EntityPlayerSP localPlayer = Minecraft.getMinecraft().player;
+            ClientPlayerEntity localPlayer = Minecraft.getMinecraft().player;
             GameProfile localProfile = localPlayer.getGameProfile();
             if (PlayerUtils.gameProfilesMatch(localProfile, textureData.getProfile())) {
                 EntityTextureInfo textureInfo = PlayerTextureHandler.INSTANCE.playerTextureMap.get(localProfile);
@@ -158,13 +158,13 @@ public class PlayerTextureDownloader implements IGameProfileCallback {
         TextureManager texturemanager = Minecraft.getMinecraft().getTextureManager();
         Object object = texturemanager.getTexture(resourceLocation);
         if (object == null) {
-            object = new ModThreadDownloadImageData((File)null, textureString, DefaultPlayerSkin.getDefaultSkinLegacy(), new ImageBufferDownload(), playerTexture);
+            object = new ModThreadDownloadImageData((File)null, textureString, DefaultPlayerSkin.getDefaultSkinLegacy(), new DownloadImageBuffer(), playerTexture);
             texturemanager.loadTexture(resourceLocation, (ITextureObject)object);
         }
         return (ThreadDownloadImageData)object;
     }
     
-    private static class DownloadWrapper implements SkinAvailableCallback {
+    private static class DownloadWrapper implements ISkinAvailableCallback {
         
         private final PlayerTexture playerTexture;
         

@@ -8,8 +8,8 @@ import moe.plushie.armourers_workshop.common.network.messages.client.MessageClie
 import moe.plushie.armourers_workshop.common.network.messages.server.MessageServerSyncWardrobeCap;
 import moe.plushie.armourers_workshop.common.skin.data.SkinDye;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -58,12 +58,12 @@ public class WardrobeCap implements IWardrobeCap {
     }
     
     protected IMessage getUpdateMessage() {
-        NBTTagCompound compound = (NBTTagCompound)WARDROBE_CAP.getStorage().writeNBT(WARDROBE_CAP, this, null);
+        CompoundNBT compound = (CompoundNBT)WARDROBE_CAP.getStorage().writeNBT(WARDROBE_CAP, this, null);
         return new MessageServerSyncWardrobeCap(entity.getEntityId(), compound);
     }
 
     @Override
-    public void syncToPlayer(EntityPlayerMP entityPlayer) {
+    public void syncToPlayer(ServerPlayerEntity entityPlayer) {
         PacketHandler.networkWrapper.sendTo(getUpdateMessage(), entityPlayer);
     }
 
@@ -74,7 +74,7 @@ public class WardrobeCap implements IWardrobeCap {
 
     @Override
     public void sendUpdateToServer() {
-        NBTTagCompound compound = (NBTTagCompound)WARDROBE_CAP.getStorage().writeNBT(WARDROBE_CAP, this, null);
+        CompoundNBT compound = (CompoundNBT)WARDROBE_CAP.getStorage().writeNBT(WARDROBE_CAP, this, null);
         PacketHandler.networkWrapper.sendToServer(new MessageClientUpdateWardrobeCap(entity.getEntityId(), compound));
     }
 

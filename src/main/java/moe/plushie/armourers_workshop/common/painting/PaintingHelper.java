@@ -8,7 +8,7 @@ import moe.plushie.armourers_workshop.api.common.painting.IPaintType;
 import moe.plushie.armourers_workshop.common.capability.wardrobe.WardrobeCap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.fml.relauncher.Side;
@@ -24,7 +24,7 @@ public final class PaintingHelper {
      * @return True if the stack has paint data otherwise false.
      */
     public static boolean getToolHasPaint(ItemStack stack) {
-        NBTTagCompound compound = stack.getTagCompound();
+        CompoundNBT compound = stack.getTagCompound();
         if (compound != null && compound.hasKey(TAG_TOOL_PAINT)) {
             return true;
         }
@@ -126,7 +126,7 @@ public final class PaintingHelper {
     }
     
     public static byte[] getToolPaintData(ItemStack stack) {
-        NBTTagCompound compound = stack.getTagCompound();
+        CompoundNBT compound = stack.getTagCompound();
         if (compound != null && compound.hasKey(TAG_TOOL_PAINT, NBT.TAG_BYTE_ARRAY)) {
             return compound.getByteArray(TAG_TOOL_PAINT);
         }
@@ -134,15 +134,15 @@ public final class PaintingHelper {
     }
     
     public static void setToolPaintData(ItemStack stack, byte[] paintData) {
-        NBTTagCompound compound = stack.getTagCompound();
+        CompoundNBT compound = stack.getTagCompound();
         if (compound == null) {
-            compound = new NBTTagCompound();
+            compound = new CompoundNBT();
         }
         compound.setByteArray(TAG_TOOL_PAINT, paintData);
         stack.setTagCompound(compound);
     }
     
-    public static void setPaintData(NBTTagCompound compound, byte[] paintData) {
+    public static void setPaintData(CompoundNBT compound, byte[] paintData) {
         compound.setByteArray(TAG_TOOL_PAINT, paintData);
     }
     

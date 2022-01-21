@@ -9,7 +9,7 @@ import moe.plushie.armourers_workshop.utils.ModLogger;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
@@ -41,7 +41,7 @@ public class CommandSetItemAsSkinnable extends ModCommand {
         if (args.length != 3) {
             throw new WrongUsageException(getUsage(sender), (Object) args);
         }
-        EntityPlayerMP player = getCommandSenderAsPlayer(sender);
+        ServerPlayerEntity player = getCommandSenderAsPlayer(sender);
         if (player == null) {
             return;
         }

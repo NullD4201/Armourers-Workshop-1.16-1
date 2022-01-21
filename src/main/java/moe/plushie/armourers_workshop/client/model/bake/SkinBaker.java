@@ -14,9 +14,9 @@ import moe.plushie.armourers_workshop.common.skin.data.SkinCubeData;
 import moe.plushie.armourers_workshop.common.skin.data.SkinPart;
 import moe.plushie.armourers_workshop.proxies.ClientProxy;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.Vec3i;
 
 public final class SkinBaker {
@@ -26,7 +26,7 @@ public final class SkinBaker {
     }
     
     public static boolean withinMaxRenderDistance(double x, double y, double z) {
-        EntityPlayerSP player = Minecraft.getMinecraft().player;
+        ClientPlayerEntity player = Minecraft.getMinecraft().player;
         if (player.getDistance(x, y, z) > ConfigHandlerClient.renderDistanceSkin) {
             return false;
         }
@@ -75,9 +75,9 @@ public final class SkinBaker {
     
     private static ArrayList<Vec3i> checkCubesAroundLocation(SkinCubeData cubeData, Vec3i cubeLocation, Rectangle3D partBounds, int[][][] cubeArray) {
         ArrayList<Vec3i> openList = new ArrayList<Vec3i>();
-        EnumFacing[] dirs = {EnumFacing.DOWN, EnumFacing.UP,
-                EnumFacing.SOUTH, EnumFacing.NORTH,
-                EnumFacing.WEST, EnumFacing.EAST };
+        Direction[] dirs = {Direction.DOWN, Direction.UP,
+                Direction.SOUTH, Direction.NORTH,
+                Direction.WEST, Direction.EAST };
         
         int index = getIndexForLocation(cubeLocation, partBounds, cubeArray);
         
@@ -88,7 +88,7 @@ public final class SkinBaker {
         }
         
         for (int i = 0; i < dirs.length; i++) {
-            EnumFacing dir = dirs[i];
+            Direction dir = dirs[i];
             int x = cubeLocation.getX() + dir.getXOffset();
             int y = cubeLocation.getY() + dir.getYOffset();
             int z = cubeLocation.getZ() + dir.getZOffset();

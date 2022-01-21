@@ -26,14 +26,14 @@ import moe.plushie.armourers_workshop.common.skin.data.SkinIdentifier;
 import moe.plushie.armourers_workshop.utils.ModLogger;
 import moe.plushie.armourers_workshop.utils.SkinIOUtils;
 import moe.plushie.armourers_workshop.utils.SkinNBTHelper;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.inventory.Container;
+import net.minecraft.block.BlockState;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -53,7 +53,7 @@ public class TileEntitySkinLibrary extends AbstractTileEntityInventory implement
     }
 
     public boolean isCreativeLibrary() {
-        IBlockState blockState = getWorld().getBlockState(getPos());
+        BlockState blockState = getWorld().getBlockState(getPos());
         if (blockState.getBlock() == ModBlocks.SKIN_LIBRARY) {
             return blockState.getValue(BlockSkinLibrary.STATE_TYPE) == EnumLibraryType.CREATIVE;
         }
@@ -69,7 +69,7 @@ public class TileEntitySkinLibrary extends AbstractTileEntityInventory implement
      * @param publicFiles If true save to the public file list or false for the
      *                    players private files.
      */
-    public void saveSkin(String fileName, String filePath, EntityPlayerMP player, boolean publicFiles) {
+    public void saveSkin(String fileName, String filePath, ServerPlayerEntity player, boolean publicFiles) {
         ItemStack stackInput = getStackInSlot(0);
         ItemStack stackOutput = getStackInSlot(1);
 
@@ -137,7 +137,7 @@ public class TileEntitySkinLibrary extends AbstractTileEntityInventory implement
      * @param filename The name of the file to load.
      * @param player   The player that pressed the load button.
      */
-    public void loadSkin(String fileName, String filePath, EntityPlayerMP player, boolean trackFile) {
+    public void loadSkin(String fileName, String filePath, ServerPlayerEntity player, boolean trackFile) {
         ItemStack stackInput = getStackInSlot(0);
         ItemStack stackOutput = getStackInSlot(1);
 
@@ -190,7 +190,7 @@ public class TileEntitySkinLibrary extends AbstractTileEntityInventory implement
         this.setInventorySlotContents(1, stackArmour);
     }
 
-    public void sendSkinToClient(String filename, String filePath, EntityPlayerMP player) {
+    public void sendSkinToClient(String filename, String filePath, ServerPlayerEntity player) {
         if (!ConfigHandler.allowDownloadingSkins) {
             return;
         }
@@ -234,7 +234,7 @@ public class TileEntitySkinLibrary extends AbstractTileEntityInventory implement
         this.setInventorySlotContents(1, stackInput);
     }
 
-    public void loadClientSkin(Skin skin, EntityPlayerMP player) {
+    public void loadClientSkin(Skin skin, ServerPlayerEntity player) {
         ItemStack stackInput = getStackInSlot(0);
         ItemStack stackOutput = getStackInSlot(1);
 
@@ -272,7 +272,7 @@ public class TileEntitySkinLibrary extends AbstractTileEntityInventory implement
     }
 
     @Override
-    public int[] getSlotsForFace(EnumFacing side) {
+    public int[] getSlotsForFace(Direction side) {
         int[] slots = new int[2];
         slots[0] = 0;
         slots[1] = 1;
@@ -280,7 +280,7 @@ public class TileEntitySkinLibrary extends AbstractTileEntityInventory implement
     }
 
     @Override
-    public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
+    public boolean canInsertItem(int index, ItemStack itemStackIn, Direction direction) {
         if (index != 0) {
             return false;
         }
@@ -294,18 +294,18 @@ public class TileEntitySkinLibrary extends AbstractTileEntityInventory implement
     }
 
     @Override
-    public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
+    public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
         return true;
     }
 
     @Override
-    public Container getServerGuiElement(EntityPlayer player, World world, BlockPos pos) {
+    public Container getServerGuiElement(PlayerEntity player, World world, BlockPos pos) {
         return new ContainerSkinLibrary(player.inventory, this);
     }
 
     @SideOnly(Side.CLIENT)
     @Override
-    public GuiScreen getClientGuiElement(EntityPlayer player, World world, BlockPos pos) {
+    public Screen getClientGuiElement(PlayerEntity player, World world, BlockPos pos) {
         return new GuiSkinLibrary(player.inventory, this);
     }
 }

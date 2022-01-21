@@ -6,9 +6,9 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelPlayer;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagFloat;
-import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.FloatNBT;
+import net.minecraft.nbt.ListNBT;
 import net.minecraftforge.common.util.Constants.NBT;
 
 public class BipedRotations {
@@ -112,16 +112,16 @@ public class BipedRotations {
         return new float[] { modelRenderer.rotateAngleX, modelRenderer.rotateAngleY, modelRenderer.rotateAngleZ };
     }
 
-    public void loadNBTData(NBTTagCompound compound) {
+    public void loadNBTData(CompoundNBT compound) {
         if (compound.hasKey(TAG_ROTATION_DATA, NBT.TAG_LIST)) {
-            NBTTagList list = compound.getTagList(TAG_ROTATION_DATA, NBT.TAG_FLOAT);
+            ListNBT list = compound.getTagList(TAG_ROTATION_DATA, NBT.TAG_FLOAT);
             int totalRotations = BipedPart.values().length * 3;
             if (list.tagCount() >= totalRotations) {
                 int counter = 0;
                 for (BipedPart bipedPart : BipedPart.values()) {
-                    NBTTagFloat rot1 = (NBTTagFloat) list.get(counter);
-                    NBTTagFloat rot2 = (NBTTagFloat) list.get(counter + 1);
-                    NBTTagFloat rot3 = (NBTTagFloat) list.get(counter + 2);
+                    FloatNBT rot1 = (FloatNBT) list.get(counter);
+                    FloatNBT rot2 = (FloatNBT) list.get(counter + 1);
+                    FloatNBT rot3 = (FloatNBT) list.get(counter + 2);
                     counter += 3;
                     setPartRotations(bipedPart, rot1.getFloat(), rot2.getFloat(), rot3.getFloat());
                 }
@@ -132,12 +132,12 @@ public class BipedRotations {
         }
     }
 
-    public NBTTagCompound saveNBTData(NBTTagCompound compound) {
-        NBTTagList list = new NBTTagList();
+    public CompoundNBT saveNBTData(CompoundNBT compound) {
+        ListNBT list = new ListNBT();
         for (BipedPart bipedPart : BipedPart.values()) {
             float[] rots = getPartRotations(bipedPart);
             for (int i = 0; i < rots.length; i++) {
-                list.appendTag(new NBTTagFloat(rots[i]));
+                list.appendTag(new FloatNBT(rots[i]));
             }
         }
         compound.setTag(TAG_ROTATION_DATA, list);
@@ -167,7 +167,7 @@ public class BipedRotations {
     
     public BipedRotations copy() {
         BipedRotations rotations = new BipedRotations();
-        rotations.loadNBTData(saveNBTData(new NBTTagCompound()));
+        rotations.loadNBTData(saveNBTData(new CompoundNBT()));
         return rotations;
     }
 

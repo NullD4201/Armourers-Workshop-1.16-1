@@ -29,9 +29,9 @@ import moe.plushie.armourers_workshop.common.tileentities.TileEntityGlobalSkinLi
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Slot;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.container.Slot;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -39,7 +39,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class GuiGlobalLibrary extends ModGuiContainer<ContainerGlobalSkinLibrary> {
 
     public final TileEntityGlobalSkinLibrary tileEntity;
-    public final EntityPlayer player;
+    public final PlayerEntity player;
     public ArrayList<GuiPanel> panelList;
     private int oldMouseX;
     private int oldMouseY;
@@ -69,7 +69,7 @@ public class GuiGlobalLibrary extends ModGuiContainer<ContainerGlobalSkinLibrary
         HOME, SEARCH, UPLOAD, SKIN_INFO, USER_SKINS, FAVOURITES, JOIN, SKIN_EDIT, INFO, MODERATION, PROFILE
     }
 
-    public GuiGlobalLibrary(TileEntityGlobalSkinLibrary tileEntity, InventoryPlayer inventoryPlayer) {
+    public GuiGlobalLibrary(TileEntityGlobalSkinLibrary tileEntity, PlayerInventory inventoryPlayer) {
         super(new ContainerGlobalSkinLibrary(inventoryPlayer, tileEntity));
         this.tileEntity = tileEntity;
         this.player = Minecraft.getMinecraft().player;
