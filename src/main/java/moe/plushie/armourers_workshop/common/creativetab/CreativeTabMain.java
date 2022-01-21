@@ -6,11 +6,12 @@ import java.util.Comparator;
 import moe.plushie.armourers_workshop.common.init.items.ItemMannequin;
 import moe.plushie.armourers_workshop.common.lib.LibModInfo;
 import net.minecraft.client.Minecraft;
-import net.minecraft.creativetab.CreativeTabs;
+//import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemGroup
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+//import net.minecraftforge.fml.relauncher.Side;
+//import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class CreativeTabMain extends CreativeTabs {
 
@@ -18,13 +19,13 @@ public class CreativeTabMain extends CreativeTabs {
         super(CreativeTabs.getNextID(), LibModInfo.ID + "_main");
     }
     
-    @SideOnly(Side.CLIENT)
+    //@SideOnly(Side.CLIENT)
     @Override
     public ItemStack createIcon() {
-        return ItemMannequin.create(Minecraft.getMinecraft().player, 1F);
+        return ItemMannequin.create(Minecraft.getInstance().player, 1F);
     }
     
-    @SideOnly(Side.CLIENT)
+    //@SideOnly(Side.CLIENT)
     @Override
     public void displayAllRelevantItems(NonNullList<ItemStack> itemStackList) {
         NonNullList<ItemStack> items = NonNullList.<ItemStack>create();

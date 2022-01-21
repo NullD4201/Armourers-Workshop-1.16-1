@@ -9,10 +9,10 @@ import moe.plushie.armourers_workshop.api.common.painting.IPaintTypeRegistry;
 import moe.plushie.armourers_workshop.api.common.skin.entity.ISkinnableEntityRegisty;
 import moe.plushie.armourers_workshop.api.common.skin.type.ISkinTypeRegistry;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
-import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.ModList;
 
 public final class ArmourersWorkshopApi {
 
@@ -35,7 +35,7 @@ public final class ArmourersWorkshopApi {
     }
 
     public static boolean isAvailable() {
-        return Loader.isModLoaded(LibApi.MOD_ID);
+        return ModList.get().isLoaded(LibApi.MOD_ID);
     }
 
     public static ISkinNBTUtils getSkinNBTUtils() {
@@ -55,14 +55,14 @@ public final class ArmourersWorkshopApi {
     }
 
     public static IEntitySkinCapability getEntitySkinCapability(Entity entity) {
-        return entity.getCapability(ENTITY_SKIN_CAP, null);
+        return (IEntitySkinCapability) entity.getCapability(ENTITY_SKIN_CAP, null);
     }
 
     public static IWardrobeCap getEntityWardrobeCapability(Entity entity) {
-        return entity.getCapability(ENTITY_WARDROBE_CAP, null);
+        return (IWardrobeCap) entity.getCapability(ENTITY_WARDROBE_CAP, null);
     }
 
-    public static IPlayerWardrobeCap getPlayerWardrobeCapability(EntityPlayer player) {
-        return player.getCapability(PLAYER_WARDROBE_CAP, null);
+    public static IPlayerWardrobeCap getPlayerWardrobeCapability(PlayerEntity player) {
+        return (IPlayerWardrobeCap) player.getCapability(PLAYER_WARDROBE_CAP, null);
     }
 }

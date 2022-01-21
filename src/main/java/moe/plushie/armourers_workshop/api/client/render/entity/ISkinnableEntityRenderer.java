@@ -1,8 +1,8 @@
 package moe.plushie.armourers_workshop.api.client.render.entity;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraft.entity.LivingEntity;
+//import net.minecraftforge.fml.relauncher.Side;
+//import net.minecraftforge.fml.relauncher.SideOnly;
 
 
 /**
@@ -13,8 +13,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  * @author RiskyKen
  *
  */
-@SideOnly(Side.CLIENT)
-public interface ISkinnableEntityRenderer<ENTITY extends EntityLivingBase> {
+//@SideOnly(Side.CLIENT)
+public interface ISkinnableEntityRenderer<ENTITY extends LivingEntity> {
 
     
     //public void render(ENTITY entity, RendererLivingEntity renderer, double x, double y, double z, IEntityEquipment entityEquipment);

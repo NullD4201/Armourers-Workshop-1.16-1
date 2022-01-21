@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import moe.plushie.armourers_workshop.api.common.skin.data.ISkinProperties;
 import moe.plushie.armourers_workshop.api.common.skin.data.ISkinProperty;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+//import net.minecraftforge.fml.relauncher.Side;
+//import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * 
@@ -33,10 +33,10 @@ public interface ISkinType {
      */
     public String getName();
     
-    @SideOnly(Side.CLIENT)
+    //@SideOnly(Side.CLIENT)
     public ResourceLocation getIcon();
     
-    @SideOnly(Side.CLIENT)
+    //@SideOnly(Side.CLIENT)
     public ResourceLocation getSlotIcon();
     
     /**
