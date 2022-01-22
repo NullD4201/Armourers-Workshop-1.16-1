@@ -17,11 +17,11 @@ import moe.plushie.armourers_workshop.common.library.global.task.GlobalTaskSkinS
 import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.resources.I18n;
+import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class GuiGlobalLibraryPanelSearchBox extends GuiPanel implements IDropDownListCallback {
 
     private static final String ARROW_UP = "\u2191";

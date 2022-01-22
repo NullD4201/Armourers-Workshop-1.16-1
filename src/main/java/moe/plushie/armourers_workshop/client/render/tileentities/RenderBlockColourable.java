@@ -1,6 +1,8 @@
 package moe.plushie.armourers_workshop.client.render.tileentities;
 
 import net.minecraft.util.Direction;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.api.common.painting.IPaintType;
@@ -24,10 +26,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class RenderBlockColourable extends TileEntityRenderer<TileEntityColourable> {
 
     public static final ResourceLocation MARKERS = new ResourceLocation(LibModInfo.ID.toLowerCase(), "textures/tile-entities/markers.png");

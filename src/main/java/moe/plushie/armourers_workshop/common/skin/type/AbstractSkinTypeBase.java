@@ -9,18 +9,18 @@ import moe.plushie.armourers_workshop.common.lib.LibModInfo;
 import moe.plushie.armourers_workshop.common.skin.data.SkinProperties;
 import net.minecraft.util.ResourceLocation;
 // TODO: 2022-01-22 side
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
 public abstract class AbstractSkinTypeBase implements ISkinType {
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public ResourceLocation getIcon() {
         return new ResourceLocation(LibModInfo.ID, "textures/items/skin/template-" + getName().toLowerCase() + ".png");
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public ResourceLocation getSlotIcon() {
         return new ResourceLocation(LibModInfo.ID, "textures/items/slot/skin-" + getName().toLowerCase() + ".png");

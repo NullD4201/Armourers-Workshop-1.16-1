@@ -17,10 +17,10 @@ import net.minecraft.client.renderer.texture.TextureUtil;
 // TODO: 2022-01-22 Resource Manager? Why too much
 import net.minecraft.client.resources.IResourceManager;
 // TODO: 2022-01-22 Holy frickin' sides
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class SkinModelTexture extends Texture {
     
     private final BufferedImage texture;

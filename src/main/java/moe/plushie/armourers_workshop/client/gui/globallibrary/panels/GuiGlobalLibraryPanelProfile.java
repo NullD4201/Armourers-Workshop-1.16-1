@@ -8,10 +8,10 @@ import moe.plushie.armourers_workshop.client.gui.controls.GuiScrollbar;
 import moe.plushie.armourers_workshop.client.gui.globallibrary.GuiGlobalLibrary;
 import moe.plushie.armourers_workshop.common.library.global.PlushieUser;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class GuiGlobalLibraryPanelProfile extends GuiPanel {
 
     private final String guiName;

@@ -17,14 +17,14 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class DebugTextHandler {
 
     @SubscribeEvent
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     public void onDebugText(RenderGameOverlayEvent.Text event) {
         if (!ConfigHandlerClient.showF3DebugInfo) {
             return;

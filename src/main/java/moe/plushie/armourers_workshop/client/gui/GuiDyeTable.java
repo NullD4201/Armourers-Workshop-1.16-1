@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraftforge.fml.LogicalSide;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.api.common.skin.data.ISkinDescriptor;
@@ -21,10 +22,9 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class GuiDyeTable extends ContainerScreen {
 
     private static final ResourceLocation texture = new ResourceLocation(LibGuiResources.GUI_DYE_TABLE);

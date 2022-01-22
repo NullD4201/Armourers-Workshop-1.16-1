@@ -3,6 +3,7 @@ package moe.plushie.armourers_workshop.client.render.entity;
 import java.util.concurrent.TimeUnit;
 
 import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraftforge.fml.LogicalSidedProvider;
 import org.lwjgl.opengl.GL11;
 
 import com.google.common.cache.CacheBuilder;
@@ -49,10 +50,9 @@ import net.minecraft.client.renderer.GlStateManager.CullFace;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class RenderEntityMannequin extends EntityRenderer<EntityMannequin> {
 
     private static LoadingCache<EntityMannequin, EntityTextureInfo> textureCache;

@@ -41,9 +41,9 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.DrawBlockHighlightEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.LogicalSidedProvider;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
 
 public class ItemBlendingTool extends AbstractModItem implements IConfigurableTool, IBlockPainter {
 
@@ -55,7 +55,7 @@ public class ItemBlendingTool extends AbstractModItem implements IConfigurableTo
     }
     
     @SubscribeEvent
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     public void onDrawBlockHighlightEvent(DrawBlockHighlightEvent event) {
         PlayerEntity player = event.getPlayer();
         World world = event.getPlayer().getEntityWorld();
@@ -231,7 +231,7 @@ public class ItemBlendingTool extends AbstractModItem implements IConfigurableTo
         }
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);

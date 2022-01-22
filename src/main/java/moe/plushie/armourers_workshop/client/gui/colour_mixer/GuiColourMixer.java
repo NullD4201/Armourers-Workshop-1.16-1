@@ -6,6 +6,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import net.minecraft.client.gui.widget.button.Button;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.api.common.painting.IPaintType;
@@ -41,10 +43,8 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StringUtils;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class GuiColourMixer extends ModGuiContainer<ContainerColourMixer> implements IHSBSliderCallback, IDropDownListCallback, IDialogCallback, IScreenSize {
 
     private TileEntityColourMixer tileEntityColourMixer;

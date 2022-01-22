@@ -1,11 +1,11 @@
 package moe.plushie.armourers_workshop.client.model;
 
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
 public interface ICustomModel {
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     public void registerModels();
 
 }

@@ -4,11 +4,11 @@ import moe.plushie.armourers_workshop.client.lib.LibGuiResources;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class GuiControlStarRating extends GuiButtonExt {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(LibGuiResources.CONTROL_RATING);

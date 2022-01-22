@@ -2,6 +2,7 @@ package moe.plushie.armourers_workshop.client.render.entity;
 
 import net.minecraft.client.renderer.entity.ArrowRenderer;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
+import net.minecraftforge.fml.LogicalSidedProvider;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.api.common.capability.IEntitySkinCapability;
@@ -18,10 +19,9 @@ import moe.plushie.armourers_workshop.common.skin.data.SkinPart;
 import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public abstract class RenderSkinnedArrow<T extends AbstractArrowEntity> extends ArrowRenderer<T> {
 
     private final SkinModelRenderHelper equipmentModelRenderer;

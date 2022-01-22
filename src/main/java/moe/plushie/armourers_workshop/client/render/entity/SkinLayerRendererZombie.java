@@ -1,16 +1,16 @@
 package moe.plushie.armourers_workshop.client.render.entity;
 
 import net.minecraft.client.renderer.entity.ZombieRenderer;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.api.common.skin.type.ISkinType;
 import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
 import net.minecraft.client.renderer.entity.model.ModelZombieVillager;
 import net.minecraft.entity.LivingEntity;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class SkinLayerRendererZombie extends SkinLayerRendererBibed {
     
     public SkinLayerRendererZombie(ZombieRenderer renderer) {

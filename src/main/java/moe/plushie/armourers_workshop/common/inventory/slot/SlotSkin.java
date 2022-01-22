@@ -8,8 +8,8 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
 public class SlotSkin extends SlotHidable {
 
@@ -37,7 +37,7 @@ public class SlotSkin extends SlotHidable {
         return false;
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public ResourceLocation getBackgroundLocation() {
         if (skinTypes != null) {
@@ -49,13 +49,13 @@ public class SlotSkin extends SlotHidable {
         return super.getBackgroundLocation();
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public TextureAtlasSprite getBackgroundSprite() {
         return new DummySprite("");
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     private class DummySprite extends TextureAtlasSprite {
 
         protected DummySprite(String spriteName) {

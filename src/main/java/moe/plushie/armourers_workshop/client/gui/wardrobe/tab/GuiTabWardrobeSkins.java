@@ -3,15 +3,15 @@ package moe.plushie.armourers_workshop.client.gui.wardrobe.tab;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.inventory.container.Slot;
+import net.minecraftforge.fml.LogicalSidedProvider;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.client.gui.controls.GuiTabPanel;
 import moe.plushie.armourers_workshop.client.gui.wardrobe.GuiWardrobe;
 import moe.plushie.armourers_workshop.common.inventory.ContainerSkinWardrobe;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class GuiTabWardrobeSkins extends GuiTabPanel {
 
     //private static final ResourceLocation TEXTURE = new ResourceLocation(LibGuiResources.WARDROBE);

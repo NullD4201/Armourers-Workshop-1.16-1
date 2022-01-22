@@ -21,11 +21,11 @@ import moe.plushie.armourers_workshop.common.library.global.task.GlobalTaskSkinS
 import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.button.Button;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class GuiGlobalLibraryPanelHome extends GuiPanel {
 
     private final GuiScrollbar scrollbar;

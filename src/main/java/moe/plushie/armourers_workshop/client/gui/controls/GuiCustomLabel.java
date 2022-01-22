@@ -13,10 +13,10 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.StringUtils;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class GuiCustomLabel extends AbstractGui {
 
     private final FontRenderer fontRenderer;

@@ -3,11 +3,11 @@ package moe.plushie.armourers_workshop.client.model.armourer;
 import net.minecraft.client.renderer.GLAllocation;
 import net.minecraft.client.renderer.entity.ArrowRenderer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.LogicalSidedProvider;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class ModelArrow {
     
     public static ModelArrow MODEL = new ModelArrow();

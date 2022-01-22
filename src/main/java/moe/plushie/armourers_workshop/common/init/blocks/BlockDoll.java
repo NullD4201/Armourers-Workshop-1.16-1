@@ -42,8 +42,8 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
 public class BlockDoll extends AbstractModBlockContainer {
 
@@ -106,7 +106,7 @@ public class BlockDoll extends AbstractModBlockContainer {
         }
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public void randomDisplayTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
         ParticleManager particleManager = Minecraft.getMinecraft().effectRenderer;
@@ -172,13 +172,13 @@ public class BlockDoll extends AbstractModBlockContainer {
         return stack;
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public boolean addDestroyEffects(World world, BlockPos pos, ParticleManager manager) {
         return true;
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public boolean addHitEffects(BlockState state, World worldObj, RayTraceResult target, ParticleManager manager) {
         return true;
@@ -213,7 +213,7 @@ public class BlockDoll extends AbstractModBlockContainer {
         return false;
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public void registerModels() {
         super.registerModels();

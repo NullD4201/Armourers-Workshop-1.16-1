@@ -24,8 +24,8 @@ import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
 public class TileEntityMannequin extends AbstractTileEntityInventory implements IGameProfileCallback, IGuiFactory {
     
@@ -120,7 +120,7 @@ public class TileEntityMannequin extends AbstractTileEntityInventory implements 
         return new ContainerMannequin(player.inventory, this);
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public Screen getClientGuiElement(PlayerEntity player, World world, BlockPos pos) {
         return new GuiMannequin(player.inventory, this);

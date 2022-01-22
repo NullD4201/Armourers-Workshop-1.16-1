@@ -7,6 +7,8 @@ import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.PlayerRenderer;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 import org.apache.logging.log4j.Level;
 
 import moe.plushie.armourers_workshop.api.common.skin.type.ISkinType;
@@ -19,8 +21,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.LivingRenderer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class SkinnableEntityPlayer extends SkinnableEntity {
 
@@ -29,7 +29,7 @@ public class SkinnableEntityPlayer extends SkinnableEntity {
         return PlayerEntity.class;
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public void addRenderLayer(EntityRendererManager renderManager) {
         ModLogger.log("Setting up player render layers.");

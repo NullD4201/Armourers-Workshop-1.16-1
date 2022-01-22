@@ -15,10 +15,10 @@ import com.google.gson.JsonObject;
 import moe.plushie.armourers_workshop.utils.ModLogger;
 import moe.plushie.armourers_workshop.utils.SerializeHelper;
 import moe.plushie.armourers_workshop.utils.UtilColour;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class PaletteManager {
 
     private static final String PALETTE_FILE_NAME = "palettes.json";

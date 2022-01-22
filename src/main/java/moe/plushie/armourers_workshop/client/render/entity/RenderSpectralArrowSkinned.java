@@ -3,10 +3,10 @@ package moe.plushie.armourers_workshop.client.render.entity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.entity.projectile.SpectralArrowEntity;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class RenderSpectralArrowSkinned extends RenderSkinnedArrow<SpectralArrowEntity> {
 
     public static final ResourceLocation RES_SPECTRAL_ARROW = new ResourceLocation("textures/entity/projectiles/spectral_arrow.png");

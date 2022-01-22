@@ -43,8 +43,8 @@ import net.minecraftforge.common.util.Constants.NBT;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.internal.FMLNetworkHandler;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
 public class EntityMannequin extends Entity implements IGameProfileCallback, IInventoryCallback {
 
@@ -238,7 +238,7 @@ public class EntityMannequin extends Entity implements IGameProfileCallback, IIn
         return getEntityBoundingBox();
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public AxisAlignedBB getRenderBoundingBox() {
         return getEntityBoundingBox();

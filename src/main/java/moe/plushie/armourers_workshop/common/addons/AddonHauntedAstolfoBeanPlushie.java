@@ -39,8 +39,8 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
 public class AddonHauntedAstolfoBeanPlushie extends ModAddon {
 
@@ -58,7 +58,7 @@ public class AddonHauntedAstolfoBeanPlushie extends ModAddon {
 
     public static class SkinnableEntityCustomEntity extends SkinnableEntity {
 
-        @SideOnly(Side.CLIENT)
+        @LogicalSidedProvider(LogicalSide.CLIENT)
         @Override
         public void addRenderLayer(EntityRendererManager renderManager) {
             EntityRenderer<Entity> renderer = renderManager.getEntityClassRenderObject(getEntityClass());
@@ -98,7 +98,7 @@ public class AddonHauntedAstolfoBeanPlushie extends ModAddon {
         }
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     public static class SkinLayerRendererBeanPlushie implements LayerRenderer {
 
         private final Class<? extends LivingEntity> entityClass;

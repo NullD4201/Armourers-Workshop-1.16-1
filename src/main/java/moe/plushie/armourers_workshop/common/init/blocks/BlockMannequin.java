@@ -52,8 +52,8 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 import net.minecraftforge.registries.IForgeRegistry;
 
 public class BlockMannequin extends AbstractModBlockContainer {
@@ -171,7 +171,7 @@ public class BlockMannequin extends AbstractModBlockContainer {
         worldIn.setBlockState(pos.offset(Direction.UP), state.withProperty(STATE_PART, EnumPartType.TOP));
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public void randomDisplayTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
         if (!isTopOfMannequin(worldIn, pos)) {
@@ -366,13 +366,13 @@ public class BlockMannequin extends AbstractModBlockContainer {
         return stack;
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public boolean addDestroyEffects(World world, BlockPos pos, ParticleManager manager) {
         return true;
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public boolean addHitEffects(BlockState state, World worldObj, RayTraceResult target, ParticleManager manager) {
         return true;
@@ -449,7 +449,7 @@ public class BlockMannequin extends AbstractModBlockContainer {
         return super.getTileEntity(blockAccess, pos, type);
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public void registerModels() {
         super.registerModels();

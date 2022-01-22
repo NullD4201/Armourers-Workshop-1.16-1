@@ -8,12 +8,12 @@ import moe.plushie.armourers_workshop.common.config.ConfigHandler;
 import moe.plushie.armourers_workshop.common.lib.LibModInfo;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraftforge.common.config.ConfigElement;
+import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.client.config.GuiConfig;
 import net.minecraftforge.fml.client.config.IConfigElement;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class ModConfigGui extends GuiConfig {
 
     public ModConfigGui(Screen parent) {

@@ -7,8 +7,8 @@ import moe.plushie.armourers_workshop.common.lib.LibModInfo;
 import moe.plushie.armourers_workshop.utils.TranslateUtils;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
 public class Holiday {
     
@@ -91,7 +91,7 @@ public class Holiday {
         return !getGiftSack().isEmpty();
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     public String getLocalizedName() {
         return TranslateUtils.translate("holiday." + LibModInfo.ID + ":" + name);
     }

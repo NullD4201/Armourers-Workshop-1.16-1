@@ -34,11 +34,11 @@ import moe.plushie.armourers_workshop.common.network.messages.server.MessageServ
 import moe.plushie.armourers_workshop.common.network.messages.server.MessageServerSyncWardrobeCap;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.datasync.DataSerializers;
+import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
-import net.minecraftforge.fml.relauncher.Side;
 
 public final class PacketHandler {
 
@@ -47,47 +47,47 @@ public final class PacketHandler {
 
     public static void init() {
         // Client messages.
-        registerMessage(MessageClientUpdateWardrobeCap.class, MessageClientUpdateWardrobeCap.class, Side.SERVER);
-        registerMessage(MessageClientUpdatePlayerWardrobeCap.class, MessageClientUpdatePlayerWardrobeCap.class, Side.SERVER);
+        registerMessage(MessageClientUpdateWardrobeCap.class, MessageClientUpdateWardrobeCap.class, LogicalSide.SERVER);
+        registerMessage(MessageClientUpdatePlayerWardrobeCap.class, MessageClientUpdatePlayerWardrobeCap.class, LogicalSide.SERVER);
 
-        registerMessage(MessageClientLoadArmour.class, MessageClientLoadArmour.class, Side.SERVER);
-        registerMessage(MessageClientKeyPress.class, MessageClientKeyPress.class, Side.SERVER);
-        registerMessage(MessageClientRequestSkinData.class, MessageClientRequestSkinData.class, Side.SERVER);
-        registerMessage(MessageClientSkinPart.class, MessageClientSkinPart.class, Side.SERVER);
-        registerMessage(MessageClientToolPaintBlock.class, MessageClientToolPaintBlock.class, Side.SERVER);
-        registerMessage(MessageClientRequestGameProfile.class, MessageClientRequestGameProfile.class, Side.SERVER);
+        registerMessage(MessageClientLoadArmour.class, MessageClientLoadArmour.class, LogicalSide.SERVER);
+        registerMessage(MessageClientKeyPress.class, MessageClientKeyPress.class, LogicalSide.SERVER);
+        registerMessage(MessageClientRequestSkinData.class, MessageClientRequestSkinData.class, LogicalSide.SERVER);
+        registerMessage(MessageClientSkinPart.class, MessageClientSkinPart.class, LogicalSide.SERVER);
+        registerMessage(MessageClientToolPaintBlock.class, MessageClientToolPaintBlock.class, LogicalSide.SERVER);
+        registerMessage(MessageClientRequestGameProfile.class, MessageClientRequestGameProfile.class, LogicalSide.SERVER);
 
         // Client GUI messages.
-        registerMessage(MessageClientGuiLoadSaveArmour.class, MessageClientGuiLoadSaveArmour.class, Side.SERVER);
-        registerMessage(MessageClientGuiColourUpdate.class, MessageClientGuiColourUpdate.class, Side.SERVER);
-        registerMessage(MessageClientGuiButton.class, MessageClientGuiButton.class, Side.SERVER);
-        registerMessage(MessageClientGuiSetSkin.class, MessageClientGuiSetSkin.class, Side.SERVER);
-        registerMessage(MessageClientGuiToolOptionUpdate.class, MessageClientGuiToolOptionUpdate.class, Side.SERVER);
-        registerMessage(MessageClientGuiSetArmourerSkinProps.class, MessageClientGuiSetArmourerSkinProps.class, Side.SERVER);
-        registerMessage(MessageClientGuiBipedRotations.class, MessageClientGuiBipedRotations.class, Side.SERVER);
-        registerMessage(MessageClientGuiSetArmourerSkinType.class, MessageClientGuiSetArmourerSkinType.class, Side.SERVER);
-        registerMessage(MessageClientGuiUpdateTileProperties.class, MessageClientGuiUpdateTileProperties.class, Side.SERVER);
-        registerMessage(MessageClientGuiAdminPanel.class, MessageClientGuiAdminPanel.class, Side.SERVER);
-        registerMessage(MessageClientGuiSkinLibraryCommand.class, MessageClientGuiSkinLibraryCommand.class, Side.SERVER);
-        registerMessage(MessageClientGuiArmourerBlockUtil.class, MessageClientGuiArmourerBlockUtil.class, Side.SERVER);
-        registerMessage(MessageClientGuiUpdateMannequin.Handler.class, MessageClientGuiUpdateMannequin.class, Side.SERVER);
+        registerMessage(MessageClientGuiLoadSaveArmour.class, MessageClientGuiLoadSaveArmour.class, LogicalSide.SERVER);
+        registerMessage(MessageClientGuiColourUpdate.class, MessageClientGuiColourUpdate.class, LogicalSide.SERVER);
+        registerMessage(MessageClientGuiButton.class, MessageClientGuiButton.class, LogicalSide.SERVER);
+        registerMessage(MessageClientGuiSetSkin.class, MessageClientGuiSetSkin.class, LogicalSide.SERVER);
+        registerMessage(MessageClientGuiToolOptionUpdate.class, MessageClientGuiToolOptionUpdate.class, LogicalSide.SERVER);
+        registerMessage(MessageClientGuiSetArmourerSkinProps.class, MessageClientGuiSetArmourerSkinProps.class, LogicalSide.SERVER);
+        registerMessage(MessageClientGuiBipedRotations.class, MessageClientGuiBipedRotations.class, LogicalSide.SERVER);
+        registerMessage(MessageClientGuiSetArmourerSkinType.class, MessageClientGuiSetArmourerSkinType.class, LogicalSide.SERVER);
+        registerMessage(MessageClientGuiUpdateTileProperties.class, MessageClientGuiUpdateTileProperties.class, LogicalSide.SERVER);
+        registerMessage(MessageClientGuiAdminPanel.class, MessageClientGuiAdminPanel.class, LogicalSide.SERVER);
+        registerMessage(MessageClientGuiSkinLibraryCommand.class, MessageClientGuiSkinLibraryCommand.class, LogicalSide.SERVER);
+        registerMessage(MessageClientGuiArmourerBlockUtil.class, MessageClientGuiArmourerBlockUtil.class, LogicalSide.SERVER);
+        registerMessage(MessageClientGuiUpdateMannequin.Handler.class, MessageClientGuiUpdateMannequin.class, LogicalSide.SERVER);
 
         // Server messages.
-        registerMessage(MessageServerSyncSkinCap.class, MessageServerSyncSkinCap.class, Side.CLIENT);
-        registerMessage(MessageServerSyncWardrobeCap.class, MessageServerSyncWardrobeCap.class, Side.CLIENT);
-        registerMessage(MessageServerSyncPlayerWardrobeCap.class, MessageServerSyncPlayerWardrobeCap.class, Side.CLIENT);
-        registerMessage(MessageServerLibraryFileList.class, MessageServerLibraryFileList.class, Side.CLIENT);
-        registerMessage(MessageServerSendSkinData.class, MessageServerSendSkinData.class, Side.CLIENT);
-        registerMessage(MessageServerClientCommand.class, MessageServerClientCommand.class, Side.CLIENT);
-        registerMessage(MessageServerLibrarySendSkin.class, MessageServerLibrarySendSkin.class, Side.CLIENT);
-        registerMessage(MessageServerSyncConfig.class, MessageServerSyncConfig.class, Side.CLIENT);
-        registerMessage(MessageServerGameProfile.class, MessageServerGameProfile.class, Side.CLIENT);
+        registerMessage(MessageServerSyncSkinCap.class, MessageServerSyncSkinCap.class, LogicalSide.CLIENT);
+        registerMessage(MessageServerSyncWardrobeCap.class, MessageServerSyncWardrobeCap.class, LogicalSide.CLIENT);
+        registerMessage(MessageServerSyncPlayerWardrobeCap.class, MessageServerSyncPlayerWardrobeCap.class, LogicalSide.CLIENT);
+        registerMessage(MessageServerLibraryFileList.class, MessageServerLibraryFileList.class, LogicalSide.CLIENT);
+        registerMessage(MessageServerSendSkinData.class, MessageServerSendSkinData.class, LogicalSide.CLIENT);
+        registerMessage(MessageServerClientCommand.class, MessageServerClientCommand.class, LogicalSide.CLIENT);
+        registerMessage(MessageServerLibrarySendSkin.class, MessageServerLibrarySendSkin.class, LogicalSide.CLIENT);
+        registerMessage(MessageServerSyncConfig.class, MessageServerSyncConfig.class, LogicalSide.CLIENT);
+        registerMessage(MessageServerGameProfile.class, MessageServerGameProfile.class, LogicalSide.CLIENT);
         
         DataSerializers.registerSerializer(EntityMannequin.BIPED_ROTATIONS_SERIALIZER);
         DataSerializers.registerSerializer(EntityMannequin.TEXTURE_DATA_SERIALIZER);
     }
 
-    private static <REQ extends IMessage, REPLY extends IMessage> void registerMessage(Class<? extends IMessageHandler<REQ, REPLY>> messageHandler, Class<REQ> requestMessageType, Side side) {
+    private static <REQ extends IMessage, REPLY extends IMessage> void registerMessage(Class<? extends IMessageHandler<REQ, REPLY>> messageHandler, Class<REQ> requestMessageType, LogicalSide side) {
         networkWrapper.registerMessage(messageHandler, requestMessageType, packetId, side);
         packetId++;
     }

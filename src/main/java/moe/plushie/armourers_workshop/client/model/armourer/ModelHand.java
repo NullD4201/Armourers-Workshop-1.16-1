@@ -1,15 +1,15 @@
 package moe.plushie.armourers_workshop.client.model.armourer;
 
+import net.minecraftforge.fml.LogicalSidedProvider;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.client.render.ModRenderHelper;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
 import net.minecraft.client.renderer.entity.model.AgeableModel;
 import net.minecraft.client.renderer.entity.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class ModelHand extends AgeableModel {
     
     public static final ModelHand MODEL = new ModelHand();

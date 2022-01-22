@@ -23,10 +23,10 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.config.GuiSlider;
 import net.minecraftforge.fml.client.config.GuiSlider.ISlider;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class GuiTabArmourerSkinSettings extends GuiTabPanel implements ISlider, IDropDownListCallback {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(LibGuiResources.GUI_ARMOURER);

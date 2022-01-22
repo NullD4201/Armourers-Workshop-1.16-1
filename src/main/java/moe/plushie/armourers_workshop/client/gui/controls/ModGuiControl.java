@@ -7,11 +7,11 @@ import moe.plushie.armourers_workshop.client.gui.controls.ModGuiControl.IScreenS
 import moe.plushie.armourers_workshop.common.data.type.Rectangle_I_2D;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.StringUtils;
+import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public abstract class ModGuiControl<CONTROL_TYPE, PARENT_TYPE extends IScreenSize> extends GuiButtonExt {
     
     private final PARENT_TYPE parent;

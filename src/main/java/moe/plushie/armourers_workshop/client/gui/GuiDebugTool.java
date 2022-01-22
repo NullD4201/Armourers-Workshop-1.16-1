@@ -5,10 +5,10 @@ import moe.plushie.armourers_workshop.client.gui.controls.GuiCheckBox;
 import moe.plushie.armourers_workshop.client.render.SkinItemRenderHelper;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class GuiDebugTool extends Screen {
     
     protected final int guiWidth;

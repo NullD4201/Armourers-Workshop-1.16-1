@@ -12,7 +12,7 @@ import net.minecraft.command.WrongUsageException;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.LogicalSide;
 
 public class CommandClearCache extends ModCommand {
 
@@ -43,7 +43,7 @@ public class CommandClearCache extends ModCommand {
             throw new WrongUsageException(getUsage(sender), (Object) args);
         }
 
-        Side side = Side.valueOf(args[getParentCount()].toUpperCase());
+        LogicalSide side = LogicalSide.valueOf(args[getParentCount()].toUpperCase());
 
         switch (side) {
         case CLIENT:

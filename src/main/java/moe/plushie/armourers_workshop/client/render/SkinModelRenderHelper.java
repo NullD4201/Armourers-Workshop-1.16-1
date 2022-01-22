@@ -33,9 +33,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.HandSide;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.LogicalSidedProvider;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
 
 /**
  * Helps render skins on the player and other entities.
@@ -45,7 +45,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  * @author RiskyKen
  *
  */
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public final class SkinModelRenderHelper {
 
     public static SkinModelRenderHelper INSTANCE;

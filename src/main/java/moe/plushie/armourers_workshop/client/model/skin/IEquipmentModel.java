@@ -6,10 +6,10 @@ import moe.plushie.armourers_workshop.client.render.SkinRenderData;
 import moe.plushie.armourers_workshop.common.skin.data.Skin;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.entity.Entity;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public interface IEquipmentModel {
     
     public void render(Entity entity, Skin skin, float limb1, float limb2, float limb3, float headY, float headX);

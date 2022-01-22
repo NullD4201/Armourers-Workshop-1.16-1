@@ -2,6 +2,7 @@ package moe.plushie.armourers_workshop.client.gui.controls;
 
 import java.awt.Color;
 
+import net.minecraftforge.fml.LogicalSide;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
@@ -13,10 +14,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.config.GuiSlider;
 import net.minecraftforge.fml.client.config.GuiUtils;
 import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class GuiHSBSlider extends GuiSlider {
 
     private static final ResourceLocation sliderTexture = new ResourceLocation(LibGuiResources.CONTROL_SLIDER_HUE);

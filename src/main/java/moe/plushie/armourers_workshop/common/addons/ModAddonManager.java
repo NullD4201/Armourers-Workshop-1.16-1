@@ -7,8 +7,8 @@ import moe.plushie.armourers_workshop.common.config.ConfigHandlerOverrides;
 import moe.plushie.armourers_workshop.utils.ModLogger;
 import net.minecraft.item.Item;
 // TODO: 2022-01-22 the SIDE thing 
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
 public final class ModAddonManager {
     
@@ -114,7 +114,7 @@ public final class ModAddonManager {
         buildOverridesList();
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     public static void initRenderers() {
         for (ModAddon modAddon : LOADED_ADDONS) {
             modAddon.initRenderers();

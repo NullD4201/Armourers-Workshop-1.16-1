@@ -39,12 +39,12 @@ import net.minecraftforge.client.event.RenderSpecificHandEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.FakePlayer;
 // TODO: 2022-01-22 EVENTHANDLER 
+import net.minecraftforge.fml.LogicalSidedProvider;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public final class ClientWardrobeHandler {
     
     public ClientWardrobeHandler() {

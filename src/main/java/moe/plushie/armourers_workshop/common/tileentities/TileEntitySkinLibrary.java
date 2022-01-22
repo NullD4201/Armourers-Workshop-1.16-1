@@ -36,8 +36,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
 public class TileEntitySkinLibrary extends AbstractTileEntityInventory implements ISidedInventory, IGuiFactory {
 
@@ -303,7 +303,7 @@ public class TileEntitySkinLibrary extends AbstractTileEntityInventory implement
         return new ContainerSkinLibrary(player.inventory, this);
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public Screen getClientGuiElement(PlayerEntity player, World world, BlockPos pos) {
         return new GuiSkinLibrary(player.inventory, this);

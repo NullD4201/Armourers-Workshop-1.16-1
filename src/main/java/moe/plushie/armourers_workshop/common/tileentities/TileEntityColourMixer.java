@@ -24,8 +24,8 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
 public class TileEntityColourMixer extends AbstractTileEntityInventory implements IPantable, IGuiFactory {
 
@@ -150,7 +150,7 @@ public class TileEntityColourMixer extends AbstractTileEntityInventory implement
         colourUpdate = true;
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     public boolean getHasItemUpdateAndReset() {
         if (itemUpdate) {
             itemUpdate = false;
@@ -208,7 +208,7 @@ public class TileEntityColourMixer extends AbstractTileEntityInventory implement
         return new ContainerColourMixer(player.inventory, this);
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public Screen getClientGuiElement(PlayerEntity player, World world, BlockPos pos) {
         return new GuiColourMixer(player.inventory, this);

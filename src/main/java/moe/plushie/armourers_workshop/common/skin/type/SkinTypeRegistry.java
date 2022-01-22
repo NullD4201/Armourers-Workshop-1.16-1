@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 import org.apache.logging.log4j.Level;
 
 import moe.plushie.armourers_workshop.api.common.skin.type.ISkinPartType;
@@ -24,8 +26,6 @@ import moe.plushie.armourers_workshop.common.skin.type.unknown.SkinUnknown;
 import moe.plushie.armourers_workshop.common.skin.type.wings.SkinWings;
 import moe.plushie.armourers_workshop.utils.ModLogger;
 import net.minecraft.client.resources.I18n;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public final class SkinTypeRegistry implements ISkinTypeRegistry {
 
@@ -248,13 +248,13 @@ public final class SkinTypeRegistry implements ISkinTypeRegistry {
         return skinTypeMap.size();
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     public String getLocalizedSkinTypeName(ISkinType skinType) {
         String localizedName = "skinType." + skinType.getRegistryName() + ".name";
         return I18n.format(localizedName);
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     public String getLocalizedSkinPartTypeName(ISkinPartType skinPartType) {
         String localizedName = "skinPartType." + skinPartType.getRegistryName() + ".name";
         return I18n.format(localizedName);

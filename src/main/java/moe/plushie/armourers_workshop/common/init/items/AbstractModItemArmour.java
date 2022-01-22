@@ -26,8 +26,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
 public class AbstractModItemArmour extends ArmorItem implements ISortOrder, ICustomModel {
 
@@ -51,7 +51,7 @@ public class AbstractModItemArmour extends ArmorItem implements ISortOrder, ICus
         return this;
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         String unlocalized = stack.getTranslationKey() + ".flavour";
@@ -94,7 +94,7 @@ public class AbstractModItemArmour extends ArmorItem implements ISortOrder, ICus
         }
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public BipedModel getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, BipedModel _default) {
         if (!SkinNBTHelper.stackHasSkinData(itemStack)) {
@@ -126,7 +126,7 @@ public class AbstractModItemArmour extends ArmorItem implements ISortOrder, ICus
         return sortPriority;
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public void registerModels() {
         ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(new ResourceLocation(LibModInfo.ID, getTranslationKey()), "inventory"));

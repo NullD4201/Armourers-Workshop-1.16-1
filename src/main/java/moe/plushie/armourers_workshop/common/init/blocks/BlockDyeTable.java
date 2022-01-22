@@ -23,8 +23,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
 public class BlockDyeTable extends AbstractModBlockContainer {
 
@@ -71,7 +71,7 @@ public class BlockDyeTable extends AbstractModBlockContainer {
         return getDefaultState().withProperty(STATE_FACING, enumfacing);
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public BlockRenderLayer getRenderLayer() {
         if (!ConfigHandlerClient.useClassicBlockModels) {
@@ -92,7 +92,7 @@ public class BlockDyeTable extends AbstractModBlockContainer {
         return new TileEntityDyeTable();
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public void registerModels() {
         if (!ConfigHandlerClient.useClassicBlockModels) {

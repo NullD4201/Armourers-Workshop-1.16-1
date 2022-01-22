@@ -16,8 +16,8 @@ import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
 public class TileEntityHologramProjector extends AbstractTileEntityInventory implements IGuiFactory {
 
@@ -150,7 +150,7 @@ public class TileEntityHologramProjector extends AbstractTileEntityInventory imp
         }
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public AxisAlignedBB getRenderBoundingBox() {
         AxisAlignedBB bb = new AxisAlignedBB(-2, -2, -2, 3, 3, 3);
@@ -199,7 +199,7 @@ public class TileEntityHologramProjector extends AbstractTileEntityInventory imp
         return new ContainerHologramProjector(player.inventory, this);
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public Screen getClientGuiElement(PlayerEntity player, World world, BlockPos pos) {
         return new GuiHologramProjector(player.inventory, this);

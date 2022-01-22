@@ -10,8 +10,8 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
 public class SlotMannequin extends SlotHidable {
 
@@ -100,7 +100,7 @@ public class SlotMannequin extends SlotHidable {
         return null;
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public ResourceLocation getBackgroundLocation() {
         ISkinType skinType = getSkinType();
@@ -110,7 +110,7 @@ public class SlotMannequin extends SlotHidable {
         return super.getBackgroundLocation();
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public TextureAtlasSprite getBackgroundSprite() {
         ISkinType skinType = getSkinType();
@@ -120,7 +120,7 @@ public class SlotMannequin extends SlotHidable {
         return super.getBackgroundSprite();
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     private class DummySprite extends TextureAtlasSprite {
 
         protected DummySprite(String spriteName) {

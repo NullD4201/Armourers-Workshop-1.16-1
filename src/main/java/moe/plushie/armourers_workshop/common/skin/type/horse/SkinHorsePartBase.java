@@ -5,8 +5,8 @@ import moe.plushie.armourers_workshop.api.common.skin.Rectangle3D;
 import moe.plushie.armourers_workshop.api.common.skin.data.ISkinProperties;
 import moe.plushie.armourers_workshop.api.common.skin.type.ISkinType;
 import moe.plushie.armourers_workshop.common.skin.type.AbstractSkinPartTypeBase;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
 public class SkinHorsePartBase extends AbstractSkinPartTypeBase {
 
@@ -22,7 +22,7 @@ public class SkinHorsePartBase extends AbstractSkinPartTypeBase {
         return "base";
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public void renderBuildingGuide(float scale, ISkinProperties skinProps, boolean showHelper) {
     }

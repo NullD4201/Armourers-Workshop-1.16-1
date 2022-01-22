@@ -1,10 +1,10 @@
 package moe.plushie.armourers_workshop.client.guidebook;
 
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public interface IBookPage {
 
     public void renderPage(FontRenderer fontRenderer, int mouseX, int mouseY, boolean turning, int pageNumber);

@@ -4,10 +4,10 @@ import java.io.File;
 
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class ConfigHandlerClient {
 
     public static final String CATEGORY_MISC = "misc";

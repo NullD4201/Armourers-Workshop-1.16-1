@@ -5,13 +5,13 @@ import moe.plushie.armourers_workshop.client.gui.controls.GuiTabPanel;
 import moe.plushie.armourers_workshop.common.data.type.Rectangle_I_2D;
 import moe.plushie.armourers_workshop.common.tileentities.TileEntityHologramProjector;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 import net.minecraftforge.fml.client.config.GuiSlider;
 import net.minecraftforge.fml.client.config.GuiSlider.ISlider;
 import net.minecraftforge.fml.client.config.GuiUtils;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class GuiHologramProjectorTabOffset extends GuiTabPanel implements ISlider {
     
     private final String inventoryName;

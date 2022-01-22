@@ -9,6 +9,7 @@ import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Slot;
+import net.minecraftforge.fml.LogicalSide;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.Level;
 import org.lwjgl.Sys;
@@ -62,10 +63,9 @@ import net.minecraft.util.ScreenShotHelper;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class GuiSkinLibrary extends ModGuiContainer<ContainerSkinLibrary> implements IDialogCallback {
 
     private static final ResourceLocation texture = new ResourceLocation(LibGuiResources.GUI_SKIN_LIBRARY);

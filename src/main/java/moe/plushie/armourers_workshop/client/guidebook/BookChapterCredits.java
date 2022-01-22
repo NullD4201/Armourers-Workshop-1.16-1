@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import net.minecraft.client.resources.I18n;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class BookChapterCredits extends BookChapterBase {
 
     public BookChapterCredits(IBook parentBook, String name) {

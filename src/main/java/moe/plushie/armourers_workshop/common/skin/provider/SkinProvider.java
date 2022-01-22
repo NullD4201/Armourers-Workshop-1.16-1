@@ -4,7 +4,7 @@ import moe.plushie.armourers_workshop.api.common.skin.data.ISkin;
 import moe.plushie.armourers_workshop.api.common.skin.data.ISkinDescriptor;
 import moe.plushie.armourers_workshop.api.common.skin.data.ISkinIdentifier;
 import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.LogicalSide;
 
 public class SkinProvider {
 
@@ -12,7 +12,7 @@ public class SkinProvider {
         return getSkin(skinDescriptor, FMLCommonHandler.instance().getSide());
     }
 
-    public static ISkinResult getSkin(ISkinDescriptor skinDescriptor, Side side) {
+    public static ISkinResult getSkin(ISkinDescriptor skinDescriptor, LogicalSide side) {
         switch (side) {
         case CLIENT:
             //return getSkinClient(skinDescriptor);

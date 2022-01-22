@@ -18,8 +18,8 @@ import net.minecraft.item.Item;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 import net.minecraftforge.registries.IForgeRegistry;
 
 public abstract class AbstractModBlock extends Block implements ISortOrder, ICustomItemBlock, ICustomModel, IPermissionHolder {
@@ -99,7 +99,7 @@ public abstract class AbstractModBlock extends Block implements ISortOrder, ICus
         registry.register(new ModItemBlock(this).setRegistryName(getRegistryName()));
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public void registerModels() {
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(new ResourceLocation(LibModInfo.ID, getTranslationKey()), "normal"));

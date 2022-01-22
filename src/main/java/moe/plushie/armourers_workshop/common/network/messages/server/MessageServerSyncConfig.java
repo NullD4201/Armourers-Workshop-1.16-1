@@ -7,11 +7,11 @@ import moe.plushie.armourers_workshop.common.addons.ModAddonManager;
 import moe.plushie.armourers_workshop.common.config.ConfigHandler;
 import moe.plushie.armourers_workshop.common.network.ByteBufHelper;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * Sent from the server to a client when they connect to sync configs.
@@ -118,7 +118,7 @@ public class MessageServerSyncConfig implements IMessage, IMessageHandler<Messag
         return null;
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     private void setConfigsOnClient(MessageServerSyncConfig message) {
         ConfigHandler.wardrobeAllowOpening = message.wardrobeAllowOpening;
         

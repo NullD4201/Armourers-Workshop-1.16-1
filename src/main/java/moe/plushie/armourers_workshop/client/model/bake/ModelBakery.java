@@ -9,6 +9,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicIntegerArray;
 
+import net.minecraftforge.fml.LogicalSide;
 import org.apache.logging.log4j.Level;
 
 import moe.plushie.armourers_workshop.api.common.painting.IPaintType;
@@ -30,10 +31,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Type;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public final class ModelBakery {
 
     public static final ModelBakery INSTANCE = new ModelBakery();
@@ -55,7 +55,7 @@ public final class ModelBakery {
 
     @SubscribeEvent
     public void onClientTick(TickEvent.ClientTickEvent event) {
-        if (event.side == Side.CLIENT & event.type == Type.CLIENT & event.phase == Phase.END) {
+        if (event.side == LogicalSide.CLIENT & event.type == Type.CLIENT & event.phase == Phase.END) {
             checkBakery();
         }
     }

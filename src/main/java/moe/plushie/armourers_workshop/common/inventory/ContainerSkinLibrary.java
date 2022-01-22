@@ -21,8 +21,8 @@ import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StringUtils;
 import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
 public class ContainerSkinLibrary extends ModTileContainer<TileEntitySkinLibrary> implements ISlotChanged {
 
@@ -64,13 +64,13 @@ public class ContainerSkinLibrary extends ModTileContainer<TileEntitySkinLibrary
     @Override
     public void onSlotChanged(int slotId) {
         if (!ArmourersWorkshop.isDedicated()) {
-            if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
+            if (FMLCommonHandler.instance().getEffectiveSide() == LogicalSide.CLIENT) {
                 updateSkinName(slotId);
             }
         }
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     public void updateSkinName(int slotId) {
         Minecraft mc = Minecraft.getMinecraft();
         Screen screen = mc.currentScreen;

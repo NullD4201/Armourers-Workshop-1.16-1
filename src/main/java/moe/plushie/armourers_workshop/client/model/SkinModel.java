@@ -7,10 +7,10 @@ import moe.plushie.armourers_workshop.client.model.bake.ColouredFace;
 import moe.plushie.armourers_workshop.client.render.DisplayList;
 import net.minecraft.util.math.MathHelper;
 // TODO: 2022-01-22 side 
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class SkinModel {
     
     public DisplayList[] displayList;

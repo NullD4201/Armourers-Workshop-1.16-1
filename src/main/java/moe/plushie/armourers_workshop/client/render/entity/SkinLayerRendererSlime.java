@@ -1,6 +1,8 @@
 package moe.plushie.armourers_workshop.client.render.entity;
 
 import net.minecraft.client.renderer.entity.BipedRenderer;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.api.client.render.entity.ISkinnableEntityRenderer;
@@ -16,10 +18,8 @@ import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.monster.SlimeEntity;
 import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class SkinLayerRendererSlime implements ISkinnableEntityRenderer<SlimeEntity> {
 
     //@Override

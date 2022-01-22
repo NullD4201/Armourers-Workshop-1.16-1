@@ -2,6 +2,7 @@ package moe.plushie.armourers_workshop.client.gui;
 
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraftforge.fml.LogicalSide;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.client.lib.LibGuiResources;
@@ -11,10 +12,9 @@ import moe.plushie.armourers_workshop.common.tileentities.TileEntitySkinningTabl
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class GuiSkinningTable extends ContainerScreen {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(LibGuiResources.GUI_SKINNING_TABLE);

@@ -23,8 +23,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants.NBT;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
 public class ItemMannequin extends AbstractModItem {
 
@@ -64,7 +64,7 @@ public class ItemMannequin extends AbstractModItem {
         return moddedUnlocalizedName;
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         if (stack.hasTagCompound()) {
@@ -169,7 +169,7 @@ public class ItemMannequin extends AbstractModItem {
         return ActionResultType.PASS;
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public void registerModels() {
         super.registerModels();

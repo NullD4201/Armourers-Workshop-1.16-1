@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 import moe.plushie.armourers_workshop.common.addons.ModAddonManager.ItemOverrideType;
 import moe.plushie.armourers_workshop.utils.ModLogger;
+import net.minecraftforge.fml.LogicalSidedProvider;
 import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
 
 
 public class ModAddon {
@@ -41,7 +41,7 @@ public class ModAddon {
     
     public void postInit() {}
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     public void initRenderers() {}
     
     public String getModId() {

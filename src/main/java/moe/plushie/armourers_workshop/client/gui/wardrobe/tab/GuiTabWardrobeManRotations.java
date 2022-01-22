@@ -23,10 +23,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
 import net.minecraftforge.fml.client.config.GuiSlider;
 import net.minecraftforge.fml.client.config.GuiSlider.ISlider;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class GuiTabWardrobeManRotations extends GuiTabPanel implements ISlider {
 
     private static final ResourceLocation TEXTURE_2 = new ResourceLocation(LibGuiResources.GUI_WARDROBE_2);

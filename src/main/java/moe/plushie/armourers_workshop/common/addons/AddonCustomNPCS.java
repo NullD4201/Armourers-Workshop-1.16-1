@@ -4,6 +4,8 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 import org.apache.logging.log4j.Level;
 
 import moe.plushie.armourers_workshop.ArmourersWorkshop;
@@ -43,8 +45,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class AddonCustomNPCS extends ModAddon {
 
@@ -143,7 +143,7 @@ public class AddonCustomNPCS extends ModAddon {
             }
         }
 
-        @SideOnly(Side.CLIENT)
+        @LogicalSidedProvider(LogicalSide.CLIENT)
         @SubscribeEvent
         public void onRenderLiving(RenderLivingEvent.Pre event) {
             if (!addedRender) {
@@ -155,7 +155,7 @@ public class AddonCustomNPCS extends ModAddon {
             }
         }
 
-        @SideOnly(Side.CLIENT)
+        @LogicalSidedProvider(LogicalSide.CLIENT)
         @Override
         public void addRenderLayer(EntityRendererManager renderManager) {
             EntityRenderer<Entity> renderer = renderManager.getEntityClassRenderObject(getEntityClass());
@@ -227,7 +227,7 @@ public class AddonCustomNPCS extends ModAddon {
         }
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     public static class SkinLayerRendererCustomNPC implements LayerRenderer {
 
         private final LivingRenderer renderLivingBase;

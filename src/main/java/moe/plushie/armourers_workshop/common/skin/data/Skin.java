@@ -3,6 +3,8 @@ package moe.plushie.armourers_workshop.common.skin.data;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.api.common.IRectangle3D;
@@ -17,8 +19,7 @@ import moe.plushie.armourers_workshop.common.skin.cubes.CubeRegistry;
 import moe.plushie.armourers_workshop.common.skin.cubes.ICube;
 import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
 // TODO: 2022-01-22 relauncher.Side
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+
 
 public class Skin implements ISkin {
 
@@ -31,10 +32,10 @@ public class Skin implements ISkin {
     public SkinIdentifier requestId;
     public int serverId = -1;
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     public SkinModelTexture skinModelTexture;
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     public int paintTextureId;
 
     private int[] averageR = new int[10];
@@ -47,7 +48,7 @@ public class Skin implements ISkin {
         this.averageB = b;
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     public Rectangle3D getSkinBounds() {
         int x = 0;
         int y = 0;
@@ -134,7 +135,7 @@ public class Skin implements ISkin {
         this.parts = skinParts;
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     public void cleanUpDisplayLists() {
         for (int i = 0; i < parts.size(); i++) {
             parts.get(i).getClientSkinPartData().cleanUpDisplayLists();
@@ -144,14 +145,14 @@ public class Skin implements ISkin {
         }
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     public void blindPaintTexture() {
         if (hasPaintData()) {
             GL11.glBindTexture(GL11.GL_TEXTURE_2D, paintTextureId);
         }
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     public int getModelCount() {
         int count = 0;
         for (int i = 0; i < parts.size(); i++) {

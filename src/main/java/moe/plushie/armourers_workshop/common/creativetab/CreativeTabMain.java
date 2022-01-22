@@ -12,8 +12,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 // TODO: 2022-01-22 I'll check about relauncher.Side -JeonDohyeon
-//import net.minecraftforge.fml.relauncher.Side;
-//import net.minecraftforge.fml.relauncher.SideOnly;
+
 
 public class CreativeTabMain extends CreativeTabs {
 

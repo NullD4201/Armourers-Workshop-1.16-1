@@ -1,10 +1,10 @@
 package moe.plushie.armourers_workshop.client.lib;
 
 import moe.plushie.armourers_workshop.common.lib.LibModInfo;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class LibGuiResources {
 
     private static final String PREFIX_TEXTURE = LibModInfo.ID + ":textures/gui/";

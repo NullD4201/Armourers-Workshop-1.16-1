@@ -14,8 +14,8 @@ import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants.NBT;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
 public class ItemBlockMannequin extends ModItemBlock {
     
@@ -31,7 +31,7 @@ public class ItemBlockMannequin extends ModItemBlock {
     public void getSubItems(ItemGroup tab, NonNullList<ItemStack> items) {
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         if (stack.hasTagCompound()) {

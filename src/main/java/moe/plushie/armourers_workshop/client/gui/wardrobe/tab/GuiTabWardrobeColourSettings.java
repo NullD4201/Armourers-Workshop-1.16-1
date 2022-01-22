@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraftforge.fml.LogicalSidedProvider;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.api.common.IExtraColours;
@@ -27,10 +28,9 @@ import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class GuiTabWardrobeColourSettings extends GuiTabPanel {
 
     private static final ResourceLocation TEXTURE_1 = new ResourceLocation(LibGuiResources.GUI_WARDROBE_1);

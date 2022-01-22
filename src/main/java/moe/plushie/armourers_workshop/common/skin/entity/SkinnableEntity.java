@@ -8,12 +8,12 @@ import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
 public abstract class SkinnableEntity implements ISkinnableEntity {
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public void addRenderLayer(EntityRendererManager renderManager) {
         EntityRenderer<LivingEntity> renderer = renderManager.getEntityClassRenderObject(getEntityClass());
@@ -25,7 +25,7 @@ public abstract class SkinnableEntity implements ISkinnableEntity {
         }
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     public LayerRenderer<? extends LivingEntity> getLayerRenderer(LivingRenderer renderLivingBase) {
         return new SkinLayerRendererDummy(renderLivingBase);
     }

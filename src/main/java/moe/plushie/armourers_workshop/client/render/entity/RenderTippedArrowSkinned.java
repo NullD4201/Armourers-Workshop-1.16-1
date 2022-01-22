@@ -3,10 +3,10 @@ package moe.plushie.armourers_workshop.client.render.entity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class RenderTippedArrowSkinned extends RenderSkinnedArrow<ArrowEntity> {
 
     public static final ResourceLocation RES_ARROW = new ResourceLocation("textures/entity/projectiles/arrow.png");

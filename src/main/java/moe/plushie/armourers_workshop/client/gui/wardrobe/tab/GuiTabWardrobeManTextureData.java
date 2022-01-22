@@ -20,10 +20,10 @@ import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.util.StringUtils;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class GuiTabWardrobeManTextureData extends GuiTabPanel implements IDropDownListCallback {
 
     private final EntityMannequin entityMannequin;

@@ -3,6 +3,7 @@ package moe.plushie.armourers_workshop.client.gui.armourer.tab;
 import java.util.ArrayList;
 
 import net.minecraft.client.gui.widget.button.Button;
+import net.minecraftforge.fml.LogicalSide;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.api.common.skin.type.ISkinType;
@@ -31,10 +32,9 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class GuiTabArmourerMain extends GuiTabPanel<GuiArmourer> implements IDropDownListCallback {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(LibGuiResources.GUI_ARMOURER);

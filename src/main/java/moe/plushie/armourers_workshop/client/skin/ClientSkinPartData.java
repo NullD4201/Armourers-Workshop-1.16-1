@@ -19,10 +19,10 @@ import moe.plushie.armourers_workshop.client.skin.ClientSkinPartData.ModelKey;
 import moe.plushie.armourers_workshop.common.skin.data.SkinDye;
 import net.minecraft.util.ResourceLocation;
 // TODO: 2022-01-22 side 
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class ClientSkinPartData implements RemovalListener<ModelKey, SkinModel> {
 
     /** Blank dye that is used if no dye is applied. */

@@ -6,8 +6,8 @@ import moe.plushie.armourers_workshop.api.common.IExtraColours.ExtraColourType;
 import moe.plushie.armourers_workshop.api.common.painting.IPaintType;
 import moe.plushie.armourers_workshop.common.lib.LibModInfo;
 import moe.plushie.armourers_workshop.utils.TranslateUtils;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
 public class PaintType implements IPaintType {
 
@@ -99,7 +99,7 @@ public class PaintType implements IPaintType {
         return unlocalizedText;
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public String getLocalizedName() {
         return TranslateUtils.translate(getUnlocalizedName());

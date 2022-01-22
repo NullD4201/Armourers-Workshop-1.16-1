@@ -7,6 +7,7 @@ import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
+import net.minecraftforge.fml.LogicalSidedProvider;
 import org.apache.logging.log4j.Level;
 
 import moe.plushie.armourers_workshop.ArmourersWorkshop;
@@ -48,8 +49,7 @@ import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.server.permission.DefaultPermissionLevel;
 
@@ -143,7 +143,7 @@ public class BlockSkinnable extends AbstractModBlockContainer {
     public void registerItemBlock(IForgeRegistry<Item> registry) {
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public void registerModels() {
         ModelLoader.setCustomStateMapper(this, new StateMap.Builder().ignore(STATE_FACING).build());
@@ -264,7 +264,7 @@ public class BlockSkinnable extends AbstractModBlockContainer {
         return true;
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     public boolean checkCameraCollide() {
         if (Minecraft.getMinecraft().player != null) {
             if (!Minecraft.getMinecraft().player.isRiding()) {

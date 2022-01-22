@@ -6,8 +6,8 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.util.Constants.NBT;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
 public abstract class ToolOption<T> {
     
@@ -45,16 +45,16 @@ public abstract class ToolOption<T> {
         return I18n.format(getUnlocalisedlabel());
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     public abstract int getDisplayWidth();
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     public abstract int getDisplayHeight();
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     public abstract Button getGuiControl(int id, int x, int y, CompoundNBT compound);
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     public abstract void writeGuiControlToNBT(Button button, CompoundNBT compound);
     
     public void writeToNBT(ItemStack stack, T value) {

@@ -12,8 +12,8 @@ import moe.plushie.armourers_workshop.common.skin.cubes.CubeRegistry;
 import moe.plushie.armourers_workshop.common.skin.cubes.ICube;
 import moe.plushie.armourers_workshop.common.skin.data.serialize.LegacyCubeHelper;
 // TODO: 2022-01-22 side 
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
 public class SkinCubeData {
     private byte[] cubeId;
@@ -25,15 +25,15 @@ public class SkinCubeData {
     private byte[][] cubeColourB;
     private byte[][] cubePaintType;
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     private BitSet[] faceFlags;
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     public void setFaceFlags(int index, BitSet faceFlags) {
         this.faceFlags[index] = faceFlags;
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     public BitSet getFaceFlags(int index) {
         return faceFlags[index];
     }

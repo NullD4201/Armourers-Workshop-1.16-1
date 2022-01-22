@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.nio.FloatBuffer;
 
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 
@@ -40,10 +42,8 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class RenderBlockMannequin extends TileEntityRenderer<TileEntityMannequin> {
     
     private static final ResourceLocation circle = new ResourceLocation(LibModInfo.ID.toLowerCase(), "textures/other/nanoha-circle.png");

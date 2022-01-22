@@ -35,8 +35,8 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
 public abstract class AbstractPaintingTool extends AbstractModItem implements IPaintingTool, IBlockPainter {
 
@@ -45,7 +45,7 @@ public abstract class AbstractPaintingTool extends AbstractModItem implements IP
         setCreativeTab(ArmourersWorkshop.TAB_PAINTING_TOOLS);
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public boolean hasEffect(ItemStack stack) {
         IPaintType paintType = PaintingHelper.getToolPaintType(stack);
@@ -141,7 +141,7 @@ public abstract class AbstractPaintingTool extends AbstractModItem implements IP
     public void playToolSound(PlayerEntity player, World world, BlockPos pos, ItemStack stack) {
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     protected void spawnPaintParticles (World world, BlockPos pos, Direction facing, int colour) {
         byte[] rtbt = PaintingHelper.intToBytes(colour);
         for (int i = 0; i < 3; i++) {
@@ -151,7 +151,7 @@ public abstract class AbstractPaintingTool extends AbstractModItem implements IP
         
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
@@ -166,7 +166,7 @@ public abstract class AbstractPaintingTool extends AbstractModItem implements IP
         tooltip.add(paintText);
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     protected void addOpenSettingsInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         tooltip.add(TranslateUtils.translate("item.armourers_workshop:rollover.openSettings"));
     }

@@ -3,12 +3,12 @@ package moe.plushie.armourers_workshop.client.model.armourer;
 import net.minecraft.client.renderer.entity.model.AgeableModel;
 import net.minecraft.client.renderer.entity.model.ModelRenderer;
 
+import net.minecraftforge.fml.LogicalSide;
 import org.lwjgl.opengl.GL11;
 
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class ModelHead extends AgeableModel {
     
     public static final ModelHead MODEL = new ModelHead();

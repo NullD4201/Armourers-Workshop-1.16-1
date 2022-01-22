@@ -1,6 +1,8 @@
 package moe.plushie.armourers_workshop.client.render.entity;
 
 import net.minecraft.entity.LivingEntity;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.api.common.IExtraColours;
@@ -22,10 +24,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.LivingRenderer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public abstract class SkinLayerRenderer<E extends LivingEntity, R extends LivingRenderer> implements LayerRenderer<E> {
     
     protected static final float SCALE = 0.0625F;

@@ -1,6 +1,7 @@
 package moe.plushie.armourers_workshop.client.gui.controls;
 
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraftforge.fml.LogicalSide;
 import org.lwjgl.input.Keyboard;
 
 import moe.plushie.armourers_workshop.client.render.ModRenderHelper;
@@ -9,10 +10,9 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.SharedConstants;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class GuiTextFieldCustom extends GuiButtonExt {
     private int cursorCounter;
     private boolean isFocused;

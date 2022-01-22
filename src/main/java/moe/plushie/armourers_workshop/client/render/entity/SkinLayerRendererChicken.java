@@ -5,10 +5,10 @@ import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.ChickenRenderer;
 import net.minecraft.entity.passive.ChickenEntity;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class SkinLayerRendererChicken extends SkinLayerRenderer<ChickenEntity, ChickenRenderer> {
     
     public SkinLayerRendererChicken(ChickenRenderer renderChicken) {

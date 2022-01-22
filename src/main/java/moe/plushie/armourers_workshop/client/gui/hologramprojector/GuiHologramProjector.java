@@ -1,5 +1,6 @@
 package moe.plushie.armourers_workshop.client.gui.hologramprojector;
 
+import net.minecraftforge.fml.LogicalSidedProvider;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.client.gui.GuiHelper;
@@ -11,10 +12,9 @@ import moe.plushie.armourers_workshop.common.inventory.ContainerHologramProjecto
 import moe.plushie.armourers_workshop.common.tileentities.TileEntityHologramProjector;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class GuiHologramProjector extends GuiTabbed<ContainerHologramProjector> {
 
     private static final ResourceLocation texture = new ResourceLocation(LibGuiResources.GUI_HOLOGRAM_PROJECTOR);

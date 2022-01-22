@@ -26,8 +26,8 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
 public class ItemDyeBottle extends AbstractModItem implements IPaintingTool {
 
@@ -109,7 +109,7 @@ public class ItemDyeBottle extends AbstractModItem implements IPaintingTool {
         return PaintingHelper.getToolPaintType(stack) ;
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public void registerModels() {
         ModelLoader.setCustomMeshDefinition(this, new ItemMeshDefinition() {

@@ -1,5 +1,6 @@
 package moe.plushie.armourers_workshop.client.guidebook;
 
+import net.minecraftforge.fml.LogicalSide;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.client.lib.LibGuiResources;
@@ -7,10 +8,9 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public abstract class BookPageBase implements IBookPage {
     
     protected static final ResourceLocation bookPageTexture = new ResourceLocation(LibGuiResources.GUI_GUIDE_BOOK_PAGES);

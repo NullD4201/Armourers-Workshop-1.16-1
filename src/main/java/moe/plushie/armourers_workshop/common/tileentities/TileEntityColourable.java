@@ -11,8 +11,8 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
 public class TileEntityColourable extends ModTileEntity implements IPantable {
     
@@ -104,13 +104,13 @@ public class TileEntityColourable extends ModTileEntity implements IPantable {
         return colour;
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public AxisAlignedBB getRenderBoundingBox() {
         return new AxisAlignedBB(getPos());
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public double getMaxRenderDistanceSquared() {
         return 2048;

@@ -11,10 +11,10 @@ import moe.plushie.armourers_workshop.common.library.global.task.GlobalTaskInfo.
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class GuiGlobalLibraryPanelInfo extends GuiPanel {
 
     private static final String URL_DISCORD = "https://discord.gg/5Z3KKvU";

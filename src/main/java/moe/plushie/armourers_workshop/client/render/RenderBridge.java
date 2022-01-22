@@ -1,13 +1,13 @@
 package moe.plushie.armourers_workshop.client.render;
 
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.VertexFormat;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class RenderBridge implements IRenderBuffer {
 
     public static IRenderBuffer INSTANCE;

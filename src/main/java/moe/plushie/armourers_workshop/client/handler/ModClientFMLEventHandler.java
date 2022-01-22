@@ -20,7 +20,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import net.minecraftforge.fml.common.gameevent.TickEvent.RenderTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Type;
-import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.LogicalSide;
 
 public class ModClientFMLEventHandler {
     
@@ -66,7 +66,7 @@ public class ModClientFMLEventHandler {
     
     @SubscribeEvent
     public void onPlayerTick(TickEvent.PlayerTickEvent event) {
-        if (event.side == Side.CLIENT) {
+        if (event.side == LogicalSide.CLIENT) {
             if (event.type == Type.PLAYER) {
                 if (event.phase == Phase.END) {
                     onPlayerTickEndEvent();

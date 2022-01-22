@@ -2,6 +2,7 @@ package moe.plushie.armourers_workshop.client.render.entity;
 
 import net.minecraft.client.renderer.entity.GhastRenderer;
 import net.minecraft.entity.monster.GhastEntity;
+import net.minecraftforge.fml.LogicalSide;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.api.common.capability.IEntitySkinCapability;
@@ -18,10 +19,9 @@ import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class SkinLayerRendererGhast extends SkinLayerRenderer<GhastEntity, GhastRenderer> {
 
     private ModelRenderer body = null;

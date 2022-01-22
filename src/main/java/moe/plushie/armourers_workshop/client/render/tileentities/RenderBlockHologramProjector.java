@@ -1,5 +1,6 @@
 package moe.plushie.armourers_workshop.client.render.tileentities;
 
+import net.minecraftforge.fml.LogicalSidedProvider;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.api.common.skin.type.ISkinType;
@@ -21,10 +22,9 @@ import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class RenderBlockHologramProjector extends TileEntityRenderer<TileEntityHologramProjector> {
 
     @Override

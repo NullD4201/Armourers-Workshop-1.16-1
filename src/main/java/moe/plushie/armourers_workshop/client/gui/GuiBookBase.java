@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.Button;
+import net.minecraftforge.fml.LogicalSidedProvider;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL14;
 
@@ -19,10 +20,9 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.shader.Framebuffer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public abstract class GuiBookBase extends Screen {
     
     protected static final ResourceLocation bookTexture = new ResourceLocation(LibGuiResources.GUI_GUIDE_BOOK);

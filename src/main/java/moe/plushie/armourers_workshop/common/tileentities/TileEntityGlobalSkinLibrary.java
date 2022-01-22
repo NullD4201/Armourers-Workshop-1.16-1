@@ -12,8 +12,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
 public class TileEntityGlobalSkinLibrary extends TileEntity implements IButtonPress, IGuiFactory {
 
@@ -27,7 +27,7 @@ public class TileEntityGlobalSkinLibrary extends TileEntity implements IButtonPr
         }
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public AxisAlignedBB getRenderBoundingBox() {
         return new AxisAlignedBB(getPos());
@@ -38,7 +38,7 @@ public class TileEntityGlobalSkinLibrary extends TileEntity implements IButtonPr
         return new ContainerGlobalSkinLibrary(player.inventory, this);
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public Screen getClientGuiElement(PlayerEntity player, World world, BlockPos pos) {
         return new GuiGlobalLibrary(this, player.inventory);

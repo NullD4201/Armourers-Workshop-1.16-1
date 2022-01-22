@@ -27,8 +27,8 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
 public class ItemPaintbrush extends AbstractPaintingTool implements IConfigurableTool {
     
@@ -79,7 +79,7 @@ public class ItemPaintbrush extends AbstractPaintingTool implements IConfigurabl
         toolOptionList.add(ToolOptions.FULL_BLOCK_MODE);
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public void registerModels() {
         ModelLoader.setCustomMeshDefinition(this, new ItemMeshDefinition() {

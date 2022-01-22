@@ -14,6 +14,7 @@ import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.LivingRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.SpectralArrowEntity;
+import net.minecraftforge.fml.LogicalSide;
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.Level;
 // TODO: 2022-01-22 Find why it's loaded here 
@@ -122,11 +123,10 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@Mod.EventBusSubscriber(modid = LibModInfo.ID, value = { Side.CLIENT })
-@SideOnly(Side.CLIENT)
+@Mod.EventBusSubscriber(modid = LibModInfo.ID, value = { LogicalSide.CLIENT })
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class ClientProxy extends CommonProxy implements IBakedSkinReceiver {
 
     public static ClientWardrobeHandler wardrobeHandler;

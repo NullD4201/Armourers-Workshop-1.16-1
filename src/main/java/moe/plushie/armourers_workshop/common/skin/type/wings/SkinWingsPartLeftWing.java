@@ -1,5 +1,7 @@
 package moe.plushie.armourers_workshop.common.skin.type.wings;
 
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.api.common.IPoint3D;
@@ -9,8 +11,6 @@ import moe.plushie.armourers_workshop.api.common.skin.data.ISkinProperties;
 import moe.plushie.armourers_workshop.api.common.skin.type.ISkinType;
 import moe.plushie.armourers_workshop.client.model.armourer.ModelChest;
 import moe.plushie.armourers_workshop.common.skin.type.AbstractSkinPartTypeBase;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class SkinWingsPartLeftWing extends AbstractSkinPartTypeBase {
 
@@ -26,7 +26,7 @@ public class SkinWingsPartLeftWing extends AbstractSkinPartTypeBase {
         return "leftWing";
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public void renderBuildingGuide(float scale, ISkinProperties skinProps, boolean showHelper) {
         GL11.glTranslated(0, this.buildingSpace.getY() * scale, 0);
@@ -42,7 +42,7 @@ public class SkinWingsPartLeftWing extends AbstractSkinPartTypeBase {
         GL11.glTranslated(0, -this.buildingSpace.getY() * scale, 0);
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public IPoint3D getItemRenderOffset() {
         return new Point3D(0, 0, 2);

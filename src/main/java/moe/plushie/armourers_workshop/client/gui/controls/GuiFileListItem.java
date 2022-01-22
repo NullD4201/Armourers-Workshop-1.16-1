@@ -1,6 +1,7 @@
 package moe.plushie.armourers_workshop.client.gui.controls;
 
 import net.minecraft.client.gui.AbstractGui;
+import net.minecraftforge.fml.LogicalSide;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.client.gui.skinlibrary.GuiSkinLibrary;
@@ -17,10 +18,9 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class GuiFileListItem extends AbstractGui implements IGuiListItem {
 
     private static final ResourceLocation texture = new ResourceLocation(LibGuiResources.CONTROL_LIST);

@@ -2,6 +2,7 @@ package moe.plushie.armourers_workshop.client.particles;
 
 import java.util.ArrayList;
 
+import net.minecraftforge.fml.LogicalSide;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.common.lib.LibModInfo;
@@ -19,11 +20,10 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@Mod.EventBusSubscriber(modid = LibModInfo.ID, value = { Side.CLIENT })
-@SideOnly(Side.CLIENT)
+@Mod.EventBusSubscriber(modid = LibModInfo.ID, value = { LogicalSide.CLIENT })
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class ModParticleManager {
 
     private static final ResourceLocation PARTICLES_TEXTURES = new ResourceLocation(LibModInfo.ID, "textures/particles/particles.png");

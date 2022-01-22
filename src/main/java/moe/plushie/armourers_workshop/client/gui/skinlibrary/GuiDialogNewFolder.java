@@ -7,11 +7,11 @@ import moe.plushie.armourers_workshop.client.gui.controls.IDialogCallback;
 import moe.plushie.armourers_workshop.utils.SkinIOUtils;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class GuiDialogNewFolder extends AbstractGuiDialog {
 
     private GuiLabeledTextField textFolderName;

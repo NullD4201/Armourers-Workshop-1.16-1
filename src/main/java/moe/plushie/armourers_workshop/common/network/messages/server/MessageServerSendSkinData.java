@@ -7,11 +7,11 @@ import moe.plushie.armourers_workshop.common.data.serialize.SkinIdentifierSerial
 import moe.plushie.armourers_workshop.common.network.ByteBufHelper;
 import moe.plushie.armourers_workshop.common.skin.data.Skin;
 import moe.plushie.armourers_workshop.common.skin.data.SkinIdentifier;
+import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
 /**
  * Sent from server to client. Contains skin model information.
@@ -54,7 +54,7 @@ public class MessageServerSendSkinData implements IMessage, IMessageHandler<Mess
         return null;
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     public void handleDownload(Thread downloadThread) {
         ModelBakery.INSTANCE.handleModelDownload(downloadThread);
     }
@@ -79,7 +79,7 @@ public class MessageServerSendSkinData implements IMessage, IMessageHandler<Mess
             buf.release();
         }
         
-        @SideOnly(Side.CLIENT)
+        @LogicalSidedProvider(LogicalSide.CLIENT)
         private void sendSkinForBaking(Skin skin, SkinIdentifier skinIdentifierRequested, SkinIdentifier skinIdentifierUpdated) {
             ModelBakery.INSTANCE.receivedUnbakedModel(skin, skinIdentifierRequested, skinIdentifierUpdated, ClientSkinCache.INSTANCE);
         }

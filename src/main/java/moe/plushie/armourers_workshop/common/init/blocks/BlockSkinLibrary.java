@@ -27,8 +27,8 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 import net.minecraftforge.registries.IForgeRegistry;
 
 public class BlockSkinLibrary extends AbstractModBlockContainer {
@@ -109,7 +109,7 @@ public class BlockSkinLibrary extends AbstractModBlockContainer {
         return 0;
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public BlockRenderLayer getRenderLayer() {
         if (!ConfigHandlerClient.useClassicBlockModels) {
@@ -134,7 +134,7 @@ public class BlockSkinLibrary extends AbstractModBlockContainer {
         registry.register(new ModItemBlockWithMetadata(this).setRegistryName(getRegistryName()).setHasSubtypes(true));
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public void registerModels() {
         if (!ConfigHandlerClient.useClassicBlockModels) {

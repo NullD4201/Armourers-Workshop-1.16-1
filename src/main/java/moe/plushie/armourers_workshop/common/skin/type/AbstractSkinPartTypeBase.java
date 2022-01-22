@@ -17,8 +17,8 @@ import moe.plushie.armourers_workshop.common.skin.cubes.CubeMarkerData;
 import moe.plushie.armourers_workshop.common.skin.data.SkinCubeData;
 import moe.plushie.armourers_workshop.common.skin.data.SkinPart;
 import moe.plushie.armourers_workshop.common.skin.data.SkinTexture;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
 public abstract class AbstractSkinPartTypeBase implements ISkinPartType {
 
@@ -66,13 +66,13 @@ public abstract class AbstractSkinPartTypeBase implements ISkinPartType {
         return false;
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public IPoint3D getItemRenderOffset() {
         return new Point3D(0, 0, 0);
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public IRectangle3D getItemRenderTextureBounds() {
         return null;

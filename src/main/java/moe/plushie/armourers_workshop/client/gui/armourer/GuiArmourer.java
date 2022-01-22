@@ -1,6 +1,7 @@
 package moe.plushie.armourers_workshop.client.gui.armourer;
 
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraftforge.fml.LogicalSidedProvider;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.api.common.skin.type.ISkinType;
@@ -24,10 +25,9 @@ import moe.plushie.armourers_workshop.common.skin.type.SkinTypeRegistry;
 import moe.plushie.armourers_workshop.common.tileentities.TileEntityArmourer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class GuiArmourer extends GuiTabbed<ContainerArmourer> implements IDialogCallback, IScreenSize {
 
     private static final ResourceLocation texture = new ResourceLocation(LibGuiResources.GUI_ARMOURER);

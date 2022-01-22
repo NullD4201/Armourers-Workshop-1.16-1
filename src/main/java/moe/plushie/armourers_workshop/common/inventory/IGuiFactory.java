@@ -5,13 +5,13 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
 public interface IGuiFactory {
     
     public Container getServerGuiElement(PlayerEntity player, World world, BlockPos pos);
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     public Screen getClientGuiElement(PlayerEntity player, World world, BlockPos pos);
 }

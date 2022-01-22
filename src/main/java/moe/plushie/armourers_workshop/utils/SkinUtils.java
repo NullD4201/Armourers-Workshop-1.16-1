@@ -17,9 +17,9 @@ import moe.plushie.armourers_workshop.common.skin.type.wings.SkinWings.MovementT
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public final class SkinUtils {
 
@@ -42,17 +42,17 @@ public final class SkinUtils {
     public static Skin getSkinDetectSide(ISkinIdentifier skinIdentifier, boolean serverSoftLoad, boolean clientRequestSkin) {
         if (skinIdentifier != null) {
             if (ArmourersWorkshop.isDedicated()) {
-                return getSkinForSide(skinIdentifier, Side.SERVER, serverSoftLoad, clientRequestSkin);
+                return getSkinForSide(skinIdentifier, LogicalSide.SERVER, serverSoftLoad, clientRequestSkin);
             } else {
-                Side side = FMLCommonHandler.instance().getEffectiveSide();
+                LogicalSide side = FMLCommonHandler.instance().getEffectiveSide();
                 return getSkinForSide(skinIdentifier, side, serverSoftLoad, clientRequestSkin);
             }
         }
         return null;
     }
 
-    public static Skin getSkinForSide(ISkinIdentifier skinIdentifier, Side side, boolean softLoad, boolean requestSkin) {
-        if (side == Side.CLIENT) {
+    public static Skin getSkinForSide(ISkinIdentifier skinIdentifier, LogicalSide side, boolean softLoad, boolean requestSkin) {
+        if (side == LogicalSide.CLIENT) {
             return getSkinOnClient(skinIdentifier, requestSkin);
         } else {
             return getSkinOnServer(skinIdentifier, softLoad);
@@ -67,7 +67,7 @@ public final class SkinUtils {
         }
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     private static Skin getSkinOnClient(ISkinIdentifier skinIdentifier, boolean requestSkin) {
         return ClientSkinCache.INSTANCE.getSkin(skinIdentifier, requestSkin);
     }

@@ -10,8 +10,8 @@ import net.minecraft.client.renderer.entity.LivingRenderer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.monster.GhastEntity;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
 public class SkinnableEntityGhast extends SkinnableEntity {
 
@@ -20,7 +20,7 @@ public class SkinnableEntityGhast extends SkinnableEntity {
         return GhastEntity.class;
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public LayerRenderer<? extends LivingEntity> getLayerRenderer(LivingRenderer renderLivingBase) {
         if (renderLivingBase instanceof GhastRenderer) {

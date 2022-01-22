@@ -1,5 +1,6 @@
 package moe.plushie.armourers_workshop.common.network.messages.server;
 
+import net.minecraftforge.fml.LogicalSidedProvider;
 import org.apache.logging.log4j.Level;
 
 import io.netty.buffer.ByteBuf;
@@ -15,8 +16,7 @@ import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
 
 /**
  * Send from the server to a client when a player walks into range or they edit
@@ -61,7 +61,7 @@ public class MessageServerSyncSkinCap implements IMessage, IMessageHandler<Messa
         return clientReady();
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     private boolean clientReady() {
         if (Minecraft.getMinecraft().world != null) {
             return Minecraft.getMinecraft().world.getEntityByID(entityId) != null;

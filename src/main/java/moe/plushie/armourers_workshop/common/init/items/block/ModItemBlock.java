@@ -11,8 +11,8 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
 public class ModItemBlock extends BlockItem implements ISortOrder {
 
@@ -39,7 +39,7 @@ public class ModItemBlock extends BlockItem implements ISortOrder {
         }
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         String unlocalized;

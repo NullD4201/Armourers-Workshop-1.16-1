@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.entity.BipedRenderer;
 import net.minecraft.client.renderer.entity.LivingRenderer;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraftforge.fml.LogicalSide;
 import org.apache.logging.log4j.Level;
 
 import moe.plushie.armourers_workshop.api.common.skin.type.ISkinType;
@@ -21,8 +22,7 @@ import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
 public class AddonCustomEntities extends ModAddon {
 
@@ -41,7 +41,7 @@ public class AddonCustomEntities extends ModAddon {
 
     public static class SkinnableEntityCustomEntity extends SkinnableEntity {
 
-        @SideOnly(Side.CLIENT)
+        @LogicalSidedProvider(LogicalSide.CLIENT)
         @Override
         public void addRenderLayer(EntityRendererManager renderManager) {
             EntityRenderer<Entity> renderer = renderManager.getEntityClassRenderObject(getEntityClass());

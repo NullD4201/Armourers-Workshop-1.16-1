@@ -27,10 +27,10 @@ import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.client.resources.SkinManager.ISkinAvailableCallback;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StringUtils;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class PlayerTextureDownloader implements IGameProfileCallback {
     
     private final HashMap<String, PlayerTexture> playerTextureMap;

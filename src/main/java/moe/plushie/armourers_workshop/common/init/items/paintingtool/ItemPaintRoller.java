@@ -29,8 +29,8 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
 public class ItemPaintRoller extends AbstractPaintingTool implements IConfigurableTool {
     
@@ -129,7 +129,7 @@ public class ItemPaintRoller extends AbstractPaintingTool implements IConfigurab
         }
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
@@ -144,7 +144,7 @@ public class ItemPaintRoller extends AbstractPaintingTool implements IConfigurab
         toolOptionList.add(ToolOptions.RADIUS);
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public void registerModels() {
         ModelLoader.setCustomMeshDefinition(this, new ItemMeshDefinition() {

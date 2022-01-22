@@ -10,8 +10,8 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
 public class TileEntityDyeTable extends AbstractTileEntityInventory implements IGuiFactory {
     
@@ -42,7 +42,7 @@ public class TileEntityDyeTable extends AbstractTileEntityInventory implements I
         return new ContainerDyeTable(player.inventory, this);
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public Screen getClientGuiElement(PlayerEntity player, World world, BlockPos pos) {
         return new GuiDyeTable(player.inventory, this);

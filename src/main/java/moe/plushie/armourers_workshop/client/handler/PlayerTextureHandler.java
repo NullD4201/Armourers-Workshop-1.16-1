@@ -30,11 +30,11 @@ import net.minecraft.profiler.Profiler;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
 /**
  * Handles replacing the players texture with the painted version.
@@ -42,7 +42,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  * @author RiskyKen
  *
  */
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class PlayerTextureHandler {
 
     public static PlayerTextureHandler INSTANCE;

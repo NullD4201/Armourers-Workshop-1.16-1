@@ -9,8 +9,8 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 // TODO: 2022-01-22 side
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
 public class CreativeTabPaintingTools extends ItemGroup {
     
@@ -18,13 +18,13 @@ public class CreativeTabPaintingTools extends ItemGroup {
         super(ItemGroup.getNextID(), LibModInfo.ID + "_painting_tools");
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public ItemStack createIcon() {
         return new ItemStack(ModBlocks.ARMOURER);
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public void displayAllRelevantItems(NonNullList<ItemStack> itemStackList) {
         NonNullList<ItemStack> items = NonNullList.<ItemStack>create();

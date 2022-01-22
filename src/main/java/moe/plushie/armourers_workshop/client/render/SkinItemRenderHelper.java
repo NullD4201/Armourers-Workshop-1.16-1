@@ -3,6 +3,7 @@ package moe.plushie.armourers_workshop.client.render;
 import java.util.ArrayList;
 
 import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraftforge.fml.LogicalSide;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.api.common.IPoint3D;
@@ -23,10 +24,9 @@ import moe.plushie.armourers_workshop.utils.SkinNBTHelper;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public final class SkinItemRenderHelper {
     
     public static boolean debugShowFullBounds;

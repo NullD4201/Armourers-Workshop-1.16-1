@@ -11,8 +11,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.util.Constants.NBT;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
 public final class PaintingHelper {
     
@@ -199,7 +199,7 @@ public final class PaintingHelper {
         return new Color(Color.HSBtoRGB(hsb[0], hsb[1], f / 255F));
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     public static IExtraColours getLocalPlayerExtraColours() {
         IWardrobeCap wardrobeCapability = WardrobeCap.get(Minecraft.getMinecraft().player);
         if (wardrobeCapability != null) {

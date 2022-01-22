@@ -22,10 +22,10 @@ import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StringUtils;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public final class GuiHelper {
 
     private static final ResourceLocation PLAYER_TEXTURE = new ResourceLocation(LibGuiResources.PLAYER_INVENTORY);

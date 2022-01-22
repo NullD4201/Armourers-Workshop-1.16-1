@@ -30,10 +30,10 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class ClientSkinCache implements RemovalListener<ISkinIdentifier, Skin>, IBakedSkinReceiver {
 
     public static ClientSkinCache INSTANCE;
@@ -202,7 +202,7 @@ public class ClientSkinCache implements RemovalListener<ISkinIdentifier, Skin>, 
 
     @SubscribeEvent
     public void onClientTick(TickEvent.ClientTickEvent event) {
-        if (event.side == Side.CLIENT & event.phase == Phase.END) {
+        if (event.side == LogicalSide.CLIENT & event.phase == Phase.END) {
             cleanupCheck();
         }
     }

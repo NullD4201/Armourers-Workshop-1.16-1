@@ -14,8 +14,8 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
 public class TileEntityAdvancedSkinBuilder extends AbstractTileEntityInventory implements IGuiFactory {
 
@@ -51,7 +51,7 @@ public class TileEntityAdvancedSkinBuilder extends AbstractTileEntityInventory i
         dirtySync();
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public AxisAlignedBB getRenderBoundingBox() {
         return INFINITE_EXTENT_AABB;
@@ -74,7 +74,7 @@ public class TileEntityAdvancedSkinBuilder extends AbstractTileEntityInventory i
         return new ContainerAdvancedSkinBuilder(player.inventory, this);
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public Screen getClientGuiElement(PlayerEntity player, World world, BlockPos pos) {
         return new GuiAdvancedSkinBuilder(player, this);

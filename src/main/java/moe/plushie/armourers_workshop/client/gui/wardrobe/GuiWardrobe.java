@@ -46,10 +46,10 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class GuiWardrobe extends GuiTabbed<ContainerSkinWardrobe> {
 
     private static final ResourceLocation TEXTURE_1 = new ResourceLocation(LibGuiResources.GUI_WARDROBE_1);

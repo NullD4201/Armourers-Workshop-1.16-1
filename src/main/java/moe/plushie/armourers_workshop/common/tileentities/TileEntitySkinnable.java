@@ -8,6 +8,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.util.Direction;
+import net.minecraftforge.fml.LogicalSidedProvider;
 import org.apache.logging.log4j.Level;
 
 import moe.plushie.armourers_workshop.api.common.skin.Rectangle3D;
@@ -38,8 +39,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.Constants.NBT;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
 
 public class TileEntitySkinnable extends ModTileEntity implements IGuiFactory {
 
@@ -62,7 +62,7 @@ public class TileEntitySkinnable extends ModTileEntity implements IGuiFactory {
     private boolean blockInventory;
     private BlockPos linkedBlock = null;
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     private AxisAlignedBB renderBounds;
     
     //Bounds
@@ -256,7 +256,7 @@ public class TileEntitySkinnable extends ModTileEntity implements IGuiFactory {
         }
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     private Skin getSkinClient(ISkinDescriptor skinPointer) {
         return ClientSkinCache.INSTANCE.getSkin(skinPointer);
     }
@@ -387,7 +387,7 @@ public class TileEntitySkinnable extends ModTileEntity implements IGuiFactory {
         }
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public AxisAlignedBB getRenderBoundingBox() {
         if (renderBounds == null) {
@@ -417,7 +417,7 @@ public class TileEntitySkinnable extends ModTileEntity implements IGuiFactory {
         return renderBounds;
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public double getMaxRenderDistanceSquared() {
         return ConfigHandlerClient.renderDistanceBlockSkin;
@@ -461,7 +461,7 @@ public class TileEntitySkinnable extends ModTileEntity implements IGuiFactory {
         return null;
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public Screen getClientGuiElement(PlayerEntity player, World world, BlockPos pos) {
         Skin skin = getSkin(getSkinPointer());

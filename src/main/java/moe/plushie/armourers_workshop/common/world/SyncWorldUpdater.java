@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 import moe.plushie.armourers_workshop.common.lib.LibModInfo;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-import net.minecraftforge.fml.relauncher.Side;
 
 @Mod.EventBusSubscriber(modid = LibModInfo.ID)
 public class SyncWorldUpdater {
@@ -19,7 +19,7 @@ public class SyncWorldUpdater {
 
     @SubscribeEvent
     public static void onWorldTick(TickEvent.WorldTickEvent event) {
-        if (event.side == Side.CLIENT) {
+        if (event.side == LogicalSide.CLIENT) {
             return;
         }
         World world = event.world;

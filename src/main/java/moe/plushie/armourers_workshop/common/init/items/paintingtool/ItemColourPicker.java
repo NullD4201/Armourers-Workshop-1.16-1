@@ -39,8 +39,8 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
 public class ItemColourPicker extends AbstractModItem implements IPaintingTool, IConfigurableTool {
     
@@ -50,7 +50,7 @@ public class ItemColourPicker extends AbstractModItem implements IPaintingTool, 
         setSortPriority(12);
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public boolean hasEffect(ItemStack stack) {
         IPaintType paintType = PaintingHelper.getToolPaintType(stack);
@@ -116,7 +116,7 @@ public class ItemColourPicker extends AbstractModItem implements IPaintingTool, 
         return ActionResultType.PASS;
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
@@ -174,7 +174,7 @@ public class ItemColourPicker extends AbstractModItem implements IPaintingTool, 
         return PaintingHelper.getToolPaintType(stack) ;
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public void registerModels() {
         ModelLoader.setCustomMeshDefinition(this, new ItemMeshDefinition() {

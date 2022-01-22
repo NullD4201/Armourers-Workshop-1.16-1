@@ -2,6 +2,7 @@ package moe.plushie.armourers_workshop.client.handler;
 
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraftforge.fml.LogicalSide;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.client.texture.PlayerTexture;
@@ -27,10 +28,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.event.DrawBlockHighlightEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class MannequinPlacementHandler {
 
     private final PlayerModel PlayerModelSmall = new PlayerModel(0F, true);

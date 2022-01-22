@@ -2,10 +2,10 @@ package moe.plushie.armourers_workshop.client.guidebook;
 
 import java.util.ArrayList;
 
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public abstract class BookBase implements IBook {
     
     private String name;

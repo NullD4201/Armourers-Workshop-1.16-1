@@ -2,6 +2,7 @@ package moe.plushie.armourers_workshop.common.skin.type.chest;
 
 import java.awt.Point;
 
+import net.minecraftforge.fml.LogicalSide;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.api.common.IPoint3D;
@@ -14,8 +15,7 @@ import moe.plushie.armourers_workshop.api.common.skin.type.ISkinType;
 import moe.plushie.armourers_workshop.client.model.armourer.ModelChest;
 import moe.plushie.armourers_workshop.common.skin.data.SkinProperties;
 import moe.plushie.armourers_workshop.common.skin.type.AbstractSkinPartTypeBase;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
 public class SkinChestPartLeftArm extends AbstractSkinPartTypeBase implements ISkinPartTypeTextured {
 
@@ -31,7 +31,7 @@ public class SkinChestPartLeftArm extends AbstractSkinPartTypeBase implements IS
         return "leftArm";
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public void renderBuildingGuide(float scale, ISkinProperties skinProps, boolean showHelper) {
         GL11.glTranslated(0, this.buildingSpace.getY() * scale, 0);
@@ -66,13 +66,13 @@ public class SkinChestPartLeftArm extends AbstractSkinPartTypeBase implements IS
         return new Point3D(4, 12, 4);
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public IPoint3D getItemRenderOffset() {
         return new Point3D(5, 2, 0);
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public IRectangle3D getItemRenderTextureBounds() {
         return new Rectangle3D(-8, 0, -2, 4, 12, 4);

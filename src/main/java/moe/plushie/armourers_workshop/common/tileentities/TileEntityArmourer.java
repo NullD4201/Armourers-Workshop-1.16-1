@@ -35,8 +35,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants.NBT;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
 public class TileEntityArmourer extends AbstractTileEntityInventory implements IGuiFactory {
     
@@ -62,7 +62,7 @@ public class TileEntityArmourer extends AbstractTileEntityInventory implements I
     private PlayerTexture texture = new PlayerTexture("", TextureType.USER);
     private PlayerTexture textureOld = new PlayerTexture("", TextureType.USER);
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     public SkinTexture skinTexture;
     
     public TileEntityArmourer() {
@@ -187,7 +187,7 @@ public class TileEntityArmourer extends AbstractTileEntityInventory implements I
         return direction;
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public AxisAlignedBB getRenderBoundingBox() {
         return AABB.offset(getPos());
@@ -354,7 +354,7 @@ public class TileEntityArmourer extends AbstractTileEntityInventory implements I
         return new ContainerArmourer(player.inventory, this);
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public Screen getClientGuiElement(PlayerEntity player, World world, BlockPos pos) {
         return new GuiArmourer(player.inventory, this);

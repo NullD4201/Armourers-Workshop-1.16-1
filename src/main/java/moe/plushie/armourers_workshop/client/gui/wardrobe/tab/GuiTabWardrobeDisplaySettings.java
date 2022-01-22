@@ -16,10 +16,10 @@ import moe.plushie.armourers_workshop.client.gui.style.GuiStyle;
 import moe.plushie.armourers_workshop.client.gui.wardrobe.GuiWardrobe;
 import moe.plushie.armourers_workshop.client.lib.LibGuiResources;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class GuiTabWardrobeDisplaySettings extends GuiTabPanel {
 
     private static final ResourceLocation GUI_JSON = new ResourceLocation(LibGuiResources.JSON_WARDROBE);

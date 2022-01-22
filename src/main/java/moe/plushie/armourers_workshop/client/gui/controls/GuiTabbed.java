@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import moe.plushie.armourers_workshop.common.inventory.ModContainer;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public abstract class GuiTabbed<CONTAINER_TYPE extends ModContainer> extends ModGuiContainer<CONTAINER_TYPE> {
     
     protected GuiTabController tabController;

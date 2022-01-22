@@ -1,6 +1,8 @@
 package moe.plushie.armourers_workshop.client.model.skin;
 
 import net.minecraft.entity.LivingEntity;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.api.common.IExtraColours;
@@ -17,10 +19,8 @@ import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.entity.model.PlayerModel;
 import net.minecraft.client.renderer.entity.model.ModelRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public abstract class ModelTypeHelper extends BipedModel implements IEquipmentModel {
 
     public Skin npcSkinData = null;

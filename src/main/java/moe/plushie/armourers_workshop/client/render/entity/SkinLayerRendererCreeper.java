@@ -5,10 +5,10 @@ import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.api.common.skin.type.ISkinType;
 import net.minecraft.entity.monster.CreeperEntity;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class SkinLayerRendererCreeper extends SkinLayerRenderer<CreeperEntity, CreeperRenderer> {
 
     public SkinLayerRendererCreeper(CreeperRenderer renderCreeper) {

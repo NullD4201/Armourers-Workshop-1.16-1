@@ -17,11 +17,11 @@ import moe.plushie.armourers_workshop.client.skin.SkinTextureKey;
 import moe.plushie.armourers_workshop.common.capability.wardrobe.ExtraColours;
 import moe.plushie.armourers_workshop.common.skin.data.Skin;
 import net.minecraft.client.Minecraft;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class ClientSkinPaintCache implements RemovalListener<SkinTextureKey, SkinModelTexture>, Runnable {
 
     public static ClientSkinPaintCache INSTANCE = new ClientSkinPaintCache();

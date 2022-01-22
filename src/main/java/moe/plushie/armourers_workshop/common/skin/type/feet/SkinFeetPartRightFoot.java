@@ -2,6 +2,8 @@ package moe.plushie.armourers_workshop.common.skin.type.feet;
 
 import java.awt.Point;
 
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 import org.lwjgl.opengl.GL11;
 
 import moe.plushie.armourers_workshop.api.common.IPoint3D;
@@ -14,8 +16,6 @@ import moe.plushie.armourers_workshop.api.common.skin.type.ISkinType;
 import moe.plushie.armourers_workshop.client.model.armourer.ModelLegs;
 import moe.plushie.armourers_workshop.common.skin.data.SkinProperties;
 import moe.plushie.armourers_workshop.common.skin.type.AbstractSkinPartTypeBase;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class SkinFeetPartRightFoot extends AbstractSkinPartTypeBase implements ISkinPartTypeTextured {
     
@@ -31,7 +31,7 @@ public class SkinFeetPartRightFoot extends AbstractSkinPartTypeBase implements I
         return "rightFoot";
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public void renderBuildingGuide(float scale, ISkinProperties skinProps, boolean showHelper) {
         GL11.glTranslated(0, this.buildingSpace.getY() * scale, 0);
@@ -66,13 +66,13 @@ public class SkinFeetPartRightFoot extends AbstractSkinPartTypeBase implements I
         return new Point3D(4, 12, 4);
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public IPoint3D getItemRenderOffset() {
         return new Point3D(-2, 12, 0);
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public IRectangle3D getItemRenderTextureBounds() {
         return new Rectangle3D(-4, 12, -2, 4, 12, 4);

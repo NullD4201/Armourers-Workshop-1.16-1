@@ -9,6 +9,8 @@ import net.minecraft.dispenser.IDispenseItemBehavior;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.*;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 import org.apache.commons.lang3.StringUtils;
 
 import moe.plushie.armourers_workshop.api.common.capability.IEntitySkinCapability;
@@ -43,8 +45,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemSkin extends AbstractModItem {
 
@@ -68,7 +68,7 @@ public class ItemSkin extends AbstractModItem {
         return super.getItemStackDisplayName(stack);
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     public static void addTooltipToSkinItem(ItemStack stack, PlayerEntity player, List tooltip, ITooltipFlag flagIn) {
         String cRed = TextFormatting.RED.toString();
 

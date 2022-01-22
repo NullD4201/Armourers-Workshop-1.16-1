@@ -16,9 +16,9 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants.NBT;
+import net.minecraftforge.fml.LogicalSidedProvider;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
 
 @Mod.EventBusSubscriber(modid = LibModInfo.ID)
 public class ItemGiftSack extends AbstractModItem {
@@ -44,7 +44,7 @@ public class ItemGiftSack extends AbstractModItem {
         }
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     public int colorMultiplier(ItemStack stack, int tintIndex) {
         if (tintIndex == 0) {
             if (stack.hasTagCompound() && stack.getTagCompound().hasKey(TAG_COLOUR_1, NBT.TAG_INT)) {

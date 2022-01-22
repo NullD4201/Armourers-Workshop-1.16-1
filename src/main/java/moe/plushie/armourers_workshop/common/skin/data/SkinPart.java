@@ -13,8 +13,8 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 // TODO: 2022-01-22 side
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
 public class SkinPart implements ISkinPart {
 
@@ -23,7 +23,7 @@ public class SkinPart implements ISkinPart {
     private SkinCubeData cubeData;
     private ArrayList<CubeMarkerData> markerBlocks;
     private ISkinPartType skinPart;
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     private ClientSkinPartData clientSkinPartData;
 
     public SkinPart(SkinCubeData cubeData, ISkinPartType skinPart, ArrayList<CubeMarkerData> markerBlocks) {
@@ -33,17 +33,17 @@ public class SkinPart implements ISkinPart {
         partBounds = setupPartBounds();
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     public void setClientSkinPartData(ClientSkinPartData clientSkinPartData) {
         this.clientSkinPartData = clientSkinPartData;
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     public ClientSkinPartData getClientSkinPartData() {
         return clientSkinPartData;
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     public int getModelCount() {
         return clientSkinPartData.getModelCount();
     }

@@ -12,10 +12,10 @@ import moe.plushie.armourers_workshop.common.data.type.BipedRotations;
 import moe.plushie.armourers_workshop.common.init.entities.EntityMannequin;
 import moe.plushie.armourers_workshop.common.network.PacketHandler;
 import moe.plushie.armourers_workshop.common.network.messages.client.MessageClientGuiUpdateMannequin;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class GuiTabWardrobeManExtras extends GuiTabPanel {
 
     private final EntityMannequin entityMannequin;

@@ -17,8 +17,8 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
 public class ItemSkinUnlock extends AbstractModItem {
 
@@ -47,7 +47,7 @@ public class ItemSkinUnlock extends AbstractModItem {
         }
     }
 
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public void registerModels() {
         for (int i = 0; i < VALID_SKINS.length; i++) {

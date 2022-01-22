@@ -9,10 +9,10 @@ import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraftforge.client.event.GuiScreenEvent.ActionPerformedEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public abstract class GuiTabPanel<T extends Screen> extends AbstractGui {
     
     private final int tabId;

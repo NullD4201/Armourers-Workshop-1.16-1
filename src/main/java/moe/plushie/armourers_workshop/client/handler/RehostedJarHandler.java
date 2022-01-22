@@ -5,6 +5,7 @@ import java.nio.charset.CharsetEncoder;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.fml.LogicalSide;
 import org.apache.commons.io.Charsets;
 
 import moe.plushie.armourers_workshop.common.lib.LibModInfo;
@@ -17,10 +18,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Type;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public final class RehostedJarHandler {
     
     private static final String STOP_MOD_REPOSTS_URL = "http://stopmodreposts.org/";
@@ -62,7 +62,7 @@ public final class RehostedJarHandler {
         if (LibModInfo.DEVELOPMENT_VERSION) {
             return;
         }
-        if (event.side != Side.CLIENT) {
+        if (event.side != LogicalSide.CLIENT) {
             return;
         }
         if (event.type != Type.PLAYER) {

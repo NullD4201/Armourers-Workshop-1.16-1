@@ -1,11 +1,11 @@
 package moe.plushie.armourers_workshop.client.gui.controls;
 
 import net.minecraft.client.Minecraft;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class GuiBookTextButton extends GuiButtonExt {
 
     public GuiBookTextButton(int id, int xPos, int yPos, int width, String displayString) {

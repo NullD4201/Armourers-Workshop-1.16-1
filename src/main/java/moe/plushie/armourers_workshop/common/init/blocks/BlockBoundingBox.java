@@ -41,8 +41,8 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.fml.LogicalSidedProvider;
 import net.minecraftforge.registries.IForgeRegistry;
 
 public class BlockBoundingBox extends AbstractModBlockContainer implements IPantableBlock {
@@ -98,13 +98,13 @@ public class BlockBoundingBox extends AbstractModBlockContainer implements IPant
         return true;
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public boolean addDestroyEffects(World world, BlockPos pos, ParticleManager manager) {
         return true;
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public boolean addHitEffects(BlockState state, World worldObj, RayTraceResult target, ParticleManager manager) {
         return true;
@@ -176,7 +176,7 @@ public class BlockBoundingBox extends AbstractModBlockContainer implements IPant
     @Override
     public void registerItemBlock(IForgeRegistry<Item> registry) {}
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     @Override
     public void registerModels() {}
     
@@ -212,7 +212,7 @@ public class BlockBoundingBox extends AbstractModBlockContainer implements IPant
         return 0x00FFFFFF;
     }
     
-    @SideOnly(Side.CLIENT)
+    @LogicalSidedProvider(LogicalSide.CLIENT)
     private int getColourRemote(IBlockReader world, BlockPos pos, Direction facing, TileEntityArmourer parent, Point texturePoint, int colour) {
         PlayerTexture playerTexture = ClientProxy.playerTextureDownloader.getPlayerTexture(parent.getTexture());
         BufferedImage playerSkin = TextureHelper.getBufferedImageSkin(playerTexture.getResourceLocation());

@@ -3,6 +3,7 @@ package moe.plushie.armourers_workshop.client.gui.globallibrary.panels;
 import java.io.ByteArrayOutputStream;
 
 import net.minecraft.client.gui.widget.button.Button;
+import net.minecraftforge.fml.LogicalSide;
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.Level;
 
@@ -35,10 +36,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StringUtils;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.client.config.GuiButtonExt;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.LogicalSidedProvider;
 
-@SideOnly(Side.CLIENT)
+@LogicalSidedProvider(LogicalSide.CLIENT)
 public class GuiGlobalLibraryPanelUpload extends GuiPanel {
 
     private static final ResourceLocation BUTTON_TEXTURES = new ResourceLocation(LibGuiResources.GUI_GLOBAL_LIBRARY);

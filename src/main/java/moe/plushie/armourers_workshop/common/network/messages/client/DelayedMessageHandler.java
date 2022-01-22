@@ -3,13 +3,13 @@ package moe.plushie.armourers_workshop.common.network.messages.client;
 import java.util.ArrayList;
 
 import moe.plushie.armourers_workshop.common.lib.LibModInfo;
+import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.ClientTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
-import net.minecraftforge.fml.relauncher.Side;
 
-@Mod.EventBusSubscriber(modid = LibModInfo.ID, value = { Side.CLIENT })
+@Mod.EventBusSubscriber(modid = LibModInfo.ID, value = { LogicalSide.CLIENT })
 public final class DelayedMessageHandler {
 
     private static final ArrayList<IDelayedMessage> DELAYED_MESSAGES = new ArrayList<IDelayedMessage>();
