@@ -1,3 +1,8 @@
+<!--
+This document is for the main website. If it changes, the site content changes.
+You can add notifications and documents to be showed publicly on the net.
+This document is under CC BY-NC-SA 3.0 lisence.
+-->
 # Armourer's Workshop 1.16.5 Port Project
 
 This is the project of porting [Armourer's Workshop by RiskyKen](https://github.com/RiskyKen/Armourers-Workshop)(*[Fork](https://github.com/JeonDohyeon/Armourers-Workshop)*) into **Minecraft 1.16.5**, the latest huge Minecraft version until 1.17.
@@ -6,7 +11,9 @@ Join our Discord server over [here](https://discord.gg/jZfacdAzT3)! You can get 
 
 ## Why 1.16.5?
 
-You can wonder why I decided to port this old code into 1.16.5, not 1.17/1.18 or 1.14~1.16.4. The answer's simple: **Most of the mods has ported to this wonderful and stable version of Minecraft**. Even the CustomNPC mod has ported into here, but I don't know where is it lol
+You can wonder why I decided to port this old code into 1.16.5, not 1.17/1.18 or 1.14~1.16.4.
+The answer's simple: **Most of the mods has ported to this wonderful and stable version of Minecraft**.
+Also, since 1.17 the code of building mods is completely different, so it's difficult to build.
 
 ## Features
 
@@ -23,9 +30,26 @@ There'll not be so many branches: There'll be **Experiment**, **Dangerous**, **P
 
 `main` will get updates when the latest successful build is successfully applied to server, with no conflicts.
 
+### Build
+
+When you're to build, you should use one of these:
+- [Dangerous(Alpha)](https://github.com/JeonDohyeon/Armourers-Workshop-1.16#Dangerous(Alpha)) for the latest successful build
+- [Preview(Beta)](https://github.com/JeonDohyeon/Armourers-Workshop-1.16#Preview(Beta)) for the latest working build
+- [main](https://github.com/JeonDohyeon/Armourers-Workshop-1.16#main) for the latest release
+
+When build, firstly clone the repo you're to build.
+And at where you're extracted the archive,
+- run `chmod +x gradlew` and `./gradlew build`(or just `sudo gradlew build`) on Linux,
+- or `.\gradlew.bat build` with admin console on Windows.
+
 ## Current Workflow
 
-TBD
+Currently we're working on updating the code into 1.16.5 Forge.
+
+Since the Forge Mod Loader(a.k.a. `FML`)'s API code has greatly changed, we have to resolve the dependencies from old to new.
+> In some parts, we should even **rewrite** the code since the old code is not supported after the migration.
+
+Also, the native **Minecraft**'s code was changed alot too, but they're easier than FML because the internal code of API has not changed that much.
 
 ## Contributing
 
@@ -37,9 +61,10 @@ You can contribute about the code with pull request.
 
 **Every pull request will be recorded to Actions > Build, even which you've forked.**
 
-Also, **the pull requests will be recorded to [project document](https://github.com/users/JeonDohyeon/projects/2)**, as `To-Do`(Issues), `In-Progress`(Pull Requests), `Review In Progress`(Review Required), `Reviewer Approved`(Review Done: Approved), `Done/Denied`(Merged/Denied).
+Also, **the pull requests will be recorded to [project document](https://github.com/users/JeonDohyeon/projects/2)**,
+as `To-Do`(Issues), `In-Progress`(Pull Requests), `Review In Progress`(Review Required), `Reviewer Approved`(Review Done: Approved), or `Done/Denied`(Merged/Denied).
 
-*Tip: If you created an PR to `main`, the PR will be declined. However, we'll merge the code into proper place with cloning and pushing.*
+*Tip: If you created an PR to `main`, the PR will be declined.*
 
 ### Contribute into Localizations
 
@@ -72,7 +97,7 @@ It has the JSON too, but only for the test.
 
 ![](https://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png)
 
-__[Armourer's Workshop by RiskyKen](https://github.com/RiskyKen/Armourers-Workshop)__ and the __Armourer's Workshop 1.16.5 Port Project__ is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License](https://creativecommons.org/licenses/by-nc-sa/3.0/).
+__[Armourer's Workshop by RiskyKen](https://github.com/RiskyKen/Armourers-Workshop)__, the __Armourer's Workshop 1.16.5 Port Project__, the `.armour` file format, and their logos are licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License](https://creativecommons.org/licenses/by-nc-sa/3.0/).
 
 ## Donate to RiskyKen, the Original Creator of Armourer's Workshop
 
