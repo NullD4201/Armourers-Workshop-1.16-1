@@ -11,4 +11,4 @@ It has the JSON too, but only for the test.
 
 *Tip: If the block changes, the mod will allow you to still choose the old ones. However, since it's not number-ordered since 1.13 the order of newly added ones will be different.*
 
-[Back to main](https://jeondohyeon.github.io/armourers-workshop-1.16)
+[Back to main](https://jeondohyeon.github.io/Armourers-Workshop-1.16)

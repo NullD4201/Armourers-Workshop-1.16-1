@@ -21,4 +21,4 @@ And at where you're extracted the archive,
 - run `chmod +x gradlew` and `./gradlew build`(or just `sudo gradlew build`) on Linux,
 - or `.\gradlew.bat build` with admin console on Windows.
 
-[Back to main](https://jeondohyeon.github.io/armourers-workshop-1.16)
+[Back to main](https://jeondohyeon.github.io/Armourers-Workshop-1.16)

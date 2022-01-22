@@ -7,4 +7,4 @@ Since the Forge Mod Loader(a.k.a. `FML`)'s API code has greatly changed, we have
 
 Also, the native **Minecraft**'s code was changed alot too, but they're easier than FML because the internal code of API has not changed that much.
 
-[Back to main](https://jeondohyeon.github.io/armourers-workshop-1.16)
+[Back to main](https://jeondohyeon.github.io/Armourers-Workshop-1.16)

@@ -27,4 +27,4 @@ You can write a wiki of AW, but it'll be approved when the API code is completed
 
 You can write a tip of creating armours, how to publish it, how to use the model in other 3D-supported programs, etc.
 
-[Back to main](https://jeondohyeon.github.io/armourers-workshop-1.16)
+[Back to main](https://jeondohyeon.github.io/Armourers-Workshop-1.16)
