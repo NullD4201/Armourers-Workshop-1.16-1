@@ -4,8 +4,8 @@
 
 There'll not be so many branches: There'll be **Experiment**, **Dangerous**, **Preview**, and **Release**.
 (`Experiment/Kotlin` and `test` are removed lately)
-
-**Using other coding language is unavaliable at this moment. If you want it, create your own fork. Updates on those will not be merged into here.**
+<br>
+**Using other coding language is unavailable at this moment. If you want it, create your own fork. <br> Updates on those will not be merged into here.**
 
 `main` will get updates when the latest successful build is successfully applied to server, with no conflicts.
 
@@ -16,7 +16,8 @@ When you're to build, you should use one of these:
 - [**Preview(Beta)**](https://github.com/JeonDohyeon/Armourers-Workshop-1.16#Preview(Beta)) for the latest working build
 - [**main**](https://github.com/JeonDohyeon/Armourers-Workshop-1.16#main) for the latest release
 
-When build, firstly clone the repo you're to build.
+When you're to build, firstly clone the repo you're to build.
+<br>
 And at where you're extracted the archive,
 - run `chmod +x gradlew` and `./gradlew build`(or just `sudo gradlew build`) on Linux,
 - or `.\gradlew.bat build` with admin console on Windows.

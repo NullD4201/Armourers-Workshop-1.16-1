@@ -15,8 +15,8 @@ Join our Discord server over [here](https://discord.gg/jZfacdAzT3)! You can get 
 
 ## Why 1.16.5?
 
-You can wonder why I decided to port this old code into 1.16.5, not 1.17/1.18 or 1.14~1.16.4.
-The answer's simple: **Most of the mods has ported to this wonderful and stable version of Minecraft**.
+You can wonder why I decided to port this old code into 1.16.5, not 1.17/1.18 or 1.14~1.16.4. <br>
+The answer's simple: **Most of the mods has ported to this wonderful and stable version of Minecraft**. <br>
 Also, since 1.17 the code of building mods is completely different, so it's difficult to build.
 
 ## Features
