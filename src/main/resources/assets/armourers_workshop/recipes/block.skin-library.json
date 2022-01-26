@@ -22,7 +22,7 @@
         }
     },
     "result": {
-        "item": "armourers_workshop:tile.skin-library",
+        "item": "armourers_workshop:block.skin-library",
         "data": 0
     }
 }

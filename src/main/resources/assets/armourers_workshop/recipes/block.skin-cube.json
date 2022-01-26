@@ -15,7 +15,7 @@
         }
     },
     "result": {
-        "item": "armourers_workshop:tile.skin-cube",
+        "item": "armourers_workshop:block.skin-cube",
         "count": 16
     }
 }

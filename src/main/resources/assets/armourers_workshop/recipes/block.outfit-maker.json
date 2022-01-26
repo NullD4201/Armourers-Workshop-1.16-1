@@ -19,7 +19,7 @@
     }
   },
   "result": {
-    "item": "armourers_workshop:tile.outfit-maker",
+    "item": "armourers_workshop:block.outfit-maker",
     "data": 0
   }
 }

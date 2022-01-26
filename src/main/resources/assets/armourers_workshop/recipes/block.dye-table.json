@@ -22,6 +22,6 @@
         }
     },
     "result": {
-        "item": "armourers_workshop:tile.dye-table"
+        "item": "armourers_workshop:block.dye-table"
     }
 }

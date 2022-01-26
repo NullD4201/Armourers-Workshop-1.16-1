@@ -27,6 +27,6 @@
         }
     },
     "result": {
-        "item": "armourers_workshop:tile.colour-mixer"
+        "item": "armourers_workshop:block.colour-mixer"
     }
 }

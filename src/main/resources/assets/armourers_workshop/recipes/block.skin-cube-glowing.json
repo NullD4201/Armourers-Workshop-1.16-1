@@ -2,7 +2,7 @@
     "type": "minecraft:crafting_shapeless",
     "ingredients": [
         {
-            "item": "armourers_workshop:tile.skin-cube"
+            "item": "armourers_workshop:block.skin-cube"
         },
         {
             "type": "forge:ore_dict",
@@ -10,6 +10,6 @@
         }
     ],
     "result": {
-        "item": "armourers_workshop:tile.skin-cube-glowing"
+        "item": "armourers_workshop:block.skin-cube-glowing"
     }
 }

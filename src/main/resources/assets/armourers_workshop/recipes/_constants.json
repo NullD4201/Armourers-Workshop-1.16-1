@@ -72,16 +72,16 @@
         "name": "SKINCUBE",
         "ingredient": [
             {
-                "item": "armourers_workshop:tile.skin-cube"
+                "item": "armourers_workshop:block.skin-cube"
             },
             {
-                "item": "armourers_workshop:tile.skin-cube-glass"
+                "item": "armourers_workshop:block.skin-cube-glass"
             },
             {
-                "item": "armourers_workshop:tile.skin-cube-glowing"
+                "item": "armourers_workshop:block.skin-cube-glowing"
             },
             {
-                "item": "armourers_workshop:tile.skin-cube-glass-glowing"
+                "item": "armourers_workshop:block.skin-cube-glass-glowing"
             }
         ]
     }
